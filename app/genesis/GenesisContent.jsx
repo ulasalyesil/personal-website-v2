@@ -4,12 +4,12 @@ export default function GenesisContent() {
   return (
     <div>
        <div>
-          <p className="text-neutral-900">
+          <p className="text-neutral-900 dark:text-neutral-100">
             <span className="text-neutral-500 text-xl">GENESIS</span> is an art
             project/sub-brand born from a collaboration between two leading
             festivals; Sonar and DGTL.
           </p>
-          <p className="text-neutral-900">
+          <p className="text-neutral-900 dark:text-neutral-100">
             As it&apos;s first project Genesis 1.0 is an audio-visual live show
             conceptualizing around the idea of digital revolution. We are going
             through a massive change. Every part of the world is digitalizing
@@ -18,13 +18,13 @@ export default function GenesisContent() {
             created by sonic data.
           </p>
           <h3 className="text-lg font-semibold text-neutral-500">/A\V/</h3>
-          <p className="text-neutral-900">
+          <p className="text-neutral-900 dark:text-neutral-100">
             Genesis tries to show the magnificent harmony between audio and
             visual through a meaningful concept. It will be performed only 7
             times.
           </p>
           <h3 className="text-lg font-semibold text-neutral-500">Why 7?</h3>
-          <p className="text-neutral-900">
+          <p className="text-neutral-900 dark:text-neutral-100">
             7 is a very important number in many different cultures and
             disciplines like{" "}
             <a

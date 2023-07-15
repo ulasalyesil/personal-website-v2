@@ -53,7 +53,7 @@ export default function Commodore() {
                 initial={initial}
                 animate={animate}
                 transition={transition}
-                className="text-2xl md:text-5xl text-neutral-900 font-semibold tracking-tighter w-full sticky"
+                className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full sticky"
               >
                 Commodore Z Glass
               </motion.h1>
@@ -74,7 +74,7 @@ export default function Commodore() {
               transition={transition}
             >
               {/* CommodoreContent */}
-              <div className="text-neutral-900 text-base flex flex-col gap-4">
+              <div className="text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4">
                 {CommodoreContent.paragraphs.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}

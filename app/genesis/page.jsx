@@ -45,7 +45,7 @@ export default function Page() {
                 initial={initial}
                 animate={animate}
                 transition={transition}
-                className="text-2xl md:text-5xl text-neutral-900 font-semibold tracking-tighter w-full"
+                className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full"
               >
                 Genesis: Digital Revolution
               </motion.h1>

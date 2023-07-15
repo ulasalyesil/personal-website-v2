@@ -25,7 +25,7 @@ const createAnimatedParagraph = (text, delay) => {
       initial={initial}
       animate={animate}
       transition={{ ...transition, delay: 0.4 + delay }}
-      className="text-neutral-900 text-sm md:text-base"
+      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-base"
     >
       {text}
     </motion.p>
@@ -132,7 +132,7 @@ export default function About() {
             stiffness: 25,
           }}
         >
-          <h1 className="text-neutral-500 text-2xl font-semibold">About Me</h1>
+          <h1 className="text-neutral-500 dark:text-neutral-300 text-2xl font-semibold">About Me</h1>
 
           <Button label={"See Resume"} target={'_blank'} type={"secondary"} href={'https://drive.google.com/file/d/1yuaGk_be2RIbmPJ_LUuM1MnecypJH_5J/view?usp=sharing'}/>
         </motion.div>

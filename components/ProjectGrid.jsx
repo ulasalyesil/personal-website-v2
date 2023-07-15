@@ -3,7 +3,6 @@
 import React from "react";
 import ProjectCard from "./ProjectCard.jsx";
 
-import arrowRight from '../public/icons/arrow-right.svg';
 import gacLogo from "../public/images/gacLogo.svg";
 import freyLogo from "../public/images/Frey_App_Icon.png";
 
@@ -17,13 +16,11 @@ export default function ProjectGrid() {
         <ProjectCard
           target={"https://frey.money"}
           title={"Frey Money"}
-          icon={arrowRight}
           img={freyLogo}
         />
         <ProjectCard
           target={"https://goodafternooncreative.com"}
           title={"Good Afternoon Creative"}
-          icon={arrowRight}
           img={gacLogo}
         />
       </div>
