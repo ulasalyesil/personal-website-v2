@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-function Button({ type, label, href }) {
+function Button({ type, label, href, target }) {
   const states = {
     primary:
       "h-8 flex items-center text-neutral-100 text-xs md:text-base bg-neutral-700 hover:bg-neutral-900 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-neutral-600 dark:hover:bg-neutral-500 dark:focus:ring-neutral-800 transition ease-in-out",
@@ -11,7 +11,7 @@ function Button({ type, label, href }) {
   };
 
   return (
-    <Link href={href}>
+    <Link href={href} target={target}>
       <button
         data-modal-hide="defaultModal"
         type="button"

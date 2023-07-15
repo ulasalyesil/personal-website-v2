@@ -10,6 +10,7 @@ import picture from "../../public/images/picture.jpeg";
 import Button from "@/components/ui/Button";
 import Header from "@/components/Header";
 
+
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -112,7 +113,12 @@ export default function About() {
               stiffness: 25,
             }}
           >
-            <Image src={picture} priority={true} className="w-full object-contain" alt="ulaş" />
+            <Image
+              src={picture}
+              priority={true}
+              className="w-full object-contain"
+              alt="ulaş"
+            />
           </motion.div>
         </div>
         <motion.div
@@ -127,14 +133,8 @@ export default function About() {
           }}
         >
           <h1 className="text-neutral-500 text-2xl font-semibold">About Me</h1>
-          {/* <a
-            href={cv}
-            download="Ulaş Alyeşil CV"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Button label={"Download Resume"} type={"secondary"} />
-          </a> */}
+
+          <Button label={"See Resume"} target={'_blank'} type={"secondary"} href={'https://drive.google.com/file/d/1yuaGk_be2RIbmPJ_LUuM1MnecypJH_5J/view?usp=sharing'}/>
         </motion.div>
         {content.map((item, index) => (
           <React.Fragment key={index}>

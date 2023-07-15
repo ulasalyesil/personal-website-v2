@@ -45,11 +45,6 @@ const Tabs = () => {
 
   const highlightStyles = {};
 
-  const [windowSize, setWindowSize] = useState([
-    window.innerWidth,
-    window.innerHeight,
-  ]);
-
   if (tabBoundingBox && wrapperBoundingBox) {
     highlightStyles.transitionDuration = isHoveredFromNull ? "0ms" : "150ms";
     highlightStyles.opacity = highlightedTab ? 1 : 0;
@@ -63,13 +58,11 @@ const Tabs = () => {
     <TabsNav ref={wrapperRef} onMouseLeave={resetHighlight}>
       <TabsHighlight ref={highlightRef} style={highlightStyles} />
       {tabsData.map((tab) => (
-        tab.hideOnMobile && window.innerWidth < 420 ? null : (
         <Link href={tab.value} key={tab.value}>
         <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
           {tab.title}
         </Tab>
         </Link>
-        )
       ))}
     </TabsNav>
   );
