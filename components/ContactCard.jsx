@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import TwitterIcon from '../public/icons/contactIcons/twitter';
 import PostsIcon from '../public/icons/contactIcons/posts';

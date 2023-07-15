@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import { TwitterLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 

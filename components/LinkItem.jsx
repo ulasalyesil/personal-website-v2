@@ -1,3 +1,5 @@
+'use client'
+
 export default function LinkItem({ target, title, image, description }) {
     return (
       <a

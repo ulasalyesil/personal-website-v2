@@ -1,3 +1,5 @@
+'use client'
+
 import arrowUpRight from "../public/icons/arrow-up-right.svg";
 import Link from "next/link";
 import Image from "next/image";
