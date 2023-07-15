@@ -21,6 +21,7 @@ function ProductCard({ target, icon, title, img }) {
         <Image
         src={icon}
         alt="icon"
+        priority={true}
         aria-label="hidden"
         className="hidden transition group-hover:block"
         width={'20'}
