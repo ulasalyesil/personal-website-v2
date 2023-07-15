@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Button from "./ui/Button";
 import ContactCard from "./ContactCard";
 import Header from "./Header";
+import DescriptionHeadingText from "./DescriptionHeadingText";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -38,7 +39,9 @@ export default function Hero() {
           <Header />
           {createAnimatedElement(
             <div className="flex flex-col">
-              <h1 className="text-neutral-900 text-xl font-semibold">Ulaş Alyeşil</h1>
+              <h1 className="text-neutral-900 text-xl font-semibold">
+                Ulaş Alyeşil
+              </h1>
               <p className="text-neutral-500">Product Designer</p>
               <a
                 className="flex gap-2 items-center py-2 px-2 mt-2 rounded-md hover:bg-neutral-300 text-neutral-500 hover:text-blue-500 hover:font-semibold transition ease-in-out"
@@ -58,8 +61,8 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                Hey there, I`&apos;m Ulaş, a designer of digital products, motion and
-                sound. I am currently designing experiences at{" "}
+                Hey there, I`&apos;m Ulaş, a designer of digital products,
+                motion and sound. I am currently designing experiences at{" "}
                 <a
                   className="font-semibold hover:text-[#FF6100] transition duration-200"
                   href="https://jotform.com"
@@ -67,27 +70,30 @@ export default function Hero() {
                   Jotform.
                 </a>
               </motion.p>
-              <p className="text-neutral-900">
-                I design interfaces to create memorable experiences for humans.
-              </p>
+              <DescriptionHeadingText />
             </div>,
             0.4
           )}
-          <motion.div 
-          className="flex gap-4 items-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 25, delay: 0.5 }}
+          <motion.div
+            className="flex gap-4 items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              type: "spring",
+              stiffness: 25,
+              delay: 0.5,
+            }}
           >
-          <motion.a
-            className="text-neutral-900 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc]"
-            href="https://frey.money"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Building ▲.
-          </motion.a>
-          {/* <a 
+            <motion.a
+              className="text-neutral-900 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc]"
+              href="https://frey.money"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Building ▲.
+            </motion.a>
+            {/* <a 
           href="https://mozari.framer.website/"
           target="_blank"
           rel="noopener noreferrer"
@@ -96,11 +102,16 @@ export default function Hero() {
             Running  ___agency
           </a> */}
           </motion.div>
-          <motion.div 
-          className="flex gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 25, delay: 0.55 }}
+          <motion.div
+            className="flex gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              type: "spring",
+              stiffness: 25,
+              delay: 0.55,
+            }}
           >
             <ContactCard
               icon={"twitter"}
@@ -126,8 +137,12 @@ export default function Hero() {
           </motion.div>
           {createAnimatedElement(
             <div className="flex gap-2">
-                <Button label={"See Works"} type={"primary"} href={'/works'} />
-                <Button label={"Talk to me"} type={"secondary"} href="mailto:hello@ulasalyesil.com" />
+              <Button label={"See Works"} type={"primary"} href={"/works"} />
+              <Button
+                label={"Talk to me"}
+                type={"secondary"}
+                href="mailto:hello@ulasalyesil.com"
+              />
             </div>,
             0.6
           )}
