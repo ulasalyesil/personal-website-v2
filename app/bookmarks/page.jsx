@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 
 // icons
 import { NotionLogoIcon } from "@radix-ui/react-icons";
-import Cosmos from "../../public/icons/contactIcons/cosmos";
+import Cosmos from "@/public/icons/contactIcons/cosmos";
 
 export default function Bookmarks() {
 
@@ -21,16 +21,23 @@ export default function Bookmarks() {
   return (
     <div className="flex flex-col mx-auto mt-16 sm:mt-32 px-4 max-w-[512px] gap-16">
       <motion.div
-      initial={animationConfig.initial}
-      animate={animationConfig.animate}
-      transition={animationConfig.transition}
-      ><Header /></motion.div>
+        initial={animationConfig.initial}
+        animate={animationConfig.animate}
+        transition={animationConfig.transition}
+      >
+        <Header />
+      </motion.div>
       <div className="flex flex-col gap-16">
         <ol>
           <motion.li
-          initial={animationConfig.initial}
-          animate={animationConfig.animate}
-          transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 25}}
+            initial={animationConfig.initial}
+            animate={animationConfig.animate}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 25,
+            }}
           >
             <LinkItem
               target={
@@ -42,16 +49,23 @@ export default function Bookmarks() {
             />
           </motion.li>
           <motion.li
-          initial={animationConfig.initial}
-          animate={animationConfig.animate}
-          transition={{ duration: 0.6, delay: 0.4, type: "spring", stiffness: 25}}
+            initial={animationConfig.initial}
+            animate={animationConfig.animate}
+            transition={{
+              duration: 0.6,
+              delay: 0.4,
+              type: "spring",
+              stiffness: 25,
+            }}
           >
             <LinkItem
               target={"https://www.cosmos.so/ulasalyesil/_objects"}
               title={"_objects | Cosmos"}
               description={"Collecting objects in Cosmos"}
               image={
+                <div className="w-8 flex items-center">
                   <Cosmos/>
+                </div>
               }
             />
           </motion.li>
