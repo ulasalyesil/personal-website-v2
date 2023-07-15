@@ -70,7 +70,7 @@ export default function Hero() {
                   Jotform.
                 </a>
               </motion.p>
-              <DescriptionHeadingText />
+              <DescriptionHeadingText text={"I design interfaces to create memorable feelings for humans."}/>
             </div>,
             0.4
           )}

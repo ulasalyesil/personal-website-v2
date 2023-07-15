@@ -23,13 +23,13 @@ export default function Works() {
       >
         <Header />
       </motion.div>
-      <motion.div
+      <div
         initial={animationConfig.initial}
         animate={animationConfig.animate}
         transition={{ duration: 0.6, type: "spring", stiffness: 25, delay: 0.4 }}
       >
         <Section sectionTitle={"Works"} projects={projectsData} />
-      </motion.div>
+      </div>
     </div>
   );
 }

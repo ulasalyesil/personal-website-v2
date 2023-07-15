@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useState, useEffect } from "react";
 
-export default function DescriptionHeadingText() {
-  const text = "I design interfaces to create memorable feelings for humans.";
-  const [displayedText, setDisplayedText] = React.useState("");
+export default function DescriptionHeadingText({ text }) {
+  const [displayedText, setDisplayedText] = useState("");
   const [i, setI] = useState(0);
 
   useEffect(() => {
@@ -22,7 +21,7 @@ export default function DescriptionHeadingText() {
     return () => {
       clearInterval(typingEffect);
     };
-  }, [i]);
+  });
 
   return (
     <div>
@@ -32,10 +31,10 @@ export default function DescriptionHeadingText() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 2 }}
       >
-        {displayedText ? displayedText : "I design interfaces to create memorable feelings for humans."}
+        {displayedText ? displayedText : text}
       </motion.span>
       <motion.span
-        className="ml-1 inline-flex h-[22px] w-[2px] animate-blink rounded-full bg-current align-sub opacity-75"
+        className="ml-1 inline-flex h-[22px] w-[2px] animate-blink rounded-full bg-neutral-200 align-sub opacity-75 animate-pulse"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 2 }}
