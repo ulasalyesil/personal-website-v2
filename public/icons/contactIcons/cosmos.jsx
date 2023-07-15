@@ -1,6 +1,6 @@
-import React from 'react'
 
-export default function Cosmos({ fill }) {
+
+export default function Cosmos() {
   return (
     <div className='w-6'>
       <svg class="css-12b4p3f" focusable="false" viewBox="0 0 39.336 44">

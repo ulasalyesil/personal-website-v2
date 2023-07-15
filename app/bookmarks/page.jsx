@@ -50,7 +50,9 @@ export default function Bookmarks() {
               target={"https://www.cosmos.so/ulasalyesil/_objects"}
               title={"_objects | Cosmos"}
               description={"Collecting objects in Cosmos"}
-              image={<Cosmos/>}
+              image={
+                  <Cosmos/>
+              }
             />
           </motion.li>
         </ol>
