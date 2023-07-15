@@ -44,7 +44,7 @@ export default function Hero() {
               </h1>
               <p className="text-neutral-500">Product Designer</p>
               <a
-                className="flex gap-2 items-center py-2 px-2 mt-2 rounded-md hover:bg-neutral-300 text-neutral-500 hover:text-blue-500 hover:font-semibold transition ease-in-out"
+                className="flex gap-2 items-center py-2 px-2 mt-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-500 hover:text-blue-500 hover:font-semibold transition ease-in-out"
                 href="mailto:hello@ulasalyesil.com"
               >
                 <div className="w-3 h-3 bg-lime-600 rounded-full"></div>

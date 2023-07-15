@@ -56,7 +56,7 @@ const Tabs = () => {
 
   return (
     <TabsNav ref={wrapperRef} onMouseLeave={resetHighlight}>
-      <TabsHighlight ref={highlightRef} style={highlightStyles} />
+      <TabsHighlight ref={highlightRef} style={highlightStyles} className="bg-neutral-200 dark:bg-neutral-800" />
       {tabsData.map((tab) => (
         <Link href={tab.value} key={tab.value}>
         <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
@@ -87,13 +87,11 @@ const Tab = styled.a`
 `;
 
 const TabsHighlight = styled.div`
-  background-color: rgba(229, 229, 229, 0.9);
   position: absolute;
   top: 12px;
   left: 0;
   border-radius: 6px;
-  box-shadow: 2px 2px 2px 0px rgba(255, 255, 255, 0.25) inset, 0px 4px 8px -4px rgba(10, 10, 10, 0.15);
-  height: 32px;
+  height: 2rem;
   transition: 0.15s ease-in-out;
   transition-property: width, transform, opacity;
 `;
