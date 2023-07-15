@@ -8,7 +8,7 @@ function ProductCard({ target, icon, title, img }) {
   return (
     <Link
       href={target}
-      className="group relative overflow-hidden w-full aspect-square bg-neutral-900 p-4 rounded-3xl text-left border cursor-pointer border-neutral-300 drop-shadow-md transition ease-out delay-50 md:hover:drop-shadow-xl md:hover:scale-105"
+      className="group relative overflow-hidden w-full aspect-square bg-neutral-900 p-4 rounded-3xl text-left cursor-pointer drop-shadow-md transition ease-out delay-50 md:hover:drop-shadow-xl md:hover:scale-105"
     >
       <Image
         src={img}
