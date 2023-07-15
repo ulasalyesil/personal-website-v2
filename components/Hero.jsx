@@ -38,7 +38,7 @@ export default function Hero() {
           <Header />
           {createAnimatedElement(
             <div className="flex flex-col">
-              <h1 className="text-neutral-900 text-xl">Ulaş Alyeşil</h1>
+              <h1 className="text-neutral-900 text-xl font-semibold">Ulaş Alyeşil</h1>
               <p className="text-neutral-500">Product Designer</p>
               <a
                 className="flex gap-2 items-center py-2 px-2 mt-2 rounded-md hover:bg-neutral-300 text-neutral-500 hover:text-blue-500 hover:font-semibold transition ease-in-out"
