@@ -112,7 +112,7 @@ export default function About() {
               stiffness: 25,
             }}
           >
-            <Image src={picture} className="w-full object-contain" alt="ulaş" />
+            <Image src={picture} priority={true} className="w-full object-contain" alt="ulaş" />
           </motion.div>
         </div>
         <motion.div

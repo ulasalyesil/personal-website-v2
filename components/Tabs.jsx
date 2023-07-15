@@ -1,6 +1,6 @@
 'use client'
-
 import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -44,6 +44,11 @@ const Tabs = () => {
   const resetHighlight = () => setHighlightedTab(null);
 
   const highlightStyles = {};
+
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
 
   if (tabBoundingBox && wrapperBoundingBox) {
     highlightStyles.transitionDuration = isHoveredFromNull ? "0ms" : "150ms";
