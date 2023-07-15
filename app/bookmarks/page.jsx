@@ -19,14 +19,7 @@ export default function Bookmarks() {
   };
 
   return (
-    <div className="flex flex-col mx-auto mt-16 sm:mt-32 px-4 max-w-[512px] gap-16">
-      <motion.div
-        initial={animationConfig.initial}
-        animate={animationConfig.animate}
-        transition={animationConfig.transition}
-      >
-        <Header />
-      </motion.div>
+    <div className="flex flex-col mx-aut px-2 max-w-[512px] gap-16 w-full">
       <div className="flex flex-col gap-16">
         <ol>
           <motion.li

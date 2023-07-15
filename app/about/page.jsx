@@ -93,15 +93,7 @@ const content = [
 export default function About() {
   return (
     <div className="w-screen h-screen">
-      <div className="flex flex-col mx-auto mt-12 sm:mt-36 px-4 md:px-auto w-full md:w-[512px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
-        <motion.div
-          className="flex w-full justify-between items-center pb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 25 }}
-        >
-          <Header />
-        </motion.div>
+      <div className="flex flex-col mx-auto px-4 md:px-auto w-full md:w-[512px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
         <div className="h-80 rounded-xl overflow-hidden flex flex-col justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

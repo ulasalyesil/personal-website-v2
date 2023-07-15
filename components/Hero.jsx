@@ -36,7 +36,6 @@ export default function Hero() {
     <motion.div className="w-full select-none">
       {createAnimatedElement(
         <div id="info" className="flex gap-6 flex-col">
-          <Header />
           {createAnimatedElement(
             <div className="flex flex-col">
               <h1 className="text-neutral-900 dark:text-neutral-100 text-xl font-semibold">
