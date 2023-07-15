@@ -5,8 +5,8 @@ import GoogleAnalytics from '@bradgarropy/next-google-analytics/';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Ulaş Alyeşil',
-  description: 'Product Designer.',
+  title: 'Ulaş Alyeşil | Product Designer',
+  description: 'Designing for memorable feelings.',
 }
 
 export default function RootLayout({ children }) {
