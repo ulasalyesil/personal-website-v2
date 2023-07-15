@@ -5,9 +5,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 // components
-import Button from "../ui/Button";
+import Button from "./ui/Button";
 import ContactCard from "./ContactCard";
-import Header from "../Header";
+import Header from "./Header";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },

@@ -1,9 +1,9 @@
 import React from "react";
-import TwitterIcon from '../../public/icons/contactIcons/twitter';
-import PostsIcon from '../../public/icons/contactIcons/posts';
-import LayersIcon from '../../public/icons/contactIcons/layers';
-import LinkedinIcon from '../../public/icons/contactIcons/linkedin';
-import BentoIcon from '../../public/icons/contactIcons/bento';
+import TwitterIcon from '../public/icons/contactIcons/twitter';
+import PostsIcon from '../public/icons/contactIcons/posts';
+import LayersIcon from '../public/icons/contactIcons/layers';
+import LinkedinIcon from '../public/icons/contactIcons/linkedin';
+import BentoIcon from '../public/icons/contactIcons/bento';
 
 export default function ContactCard({
   icon,

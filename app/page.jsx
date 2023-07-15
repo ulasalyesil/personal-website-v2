@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 
 
-import Hero from "../components/home/Hero";
-import ProjectGrid from "../components/home/ProjectGrid";
+import Hero from "../components/Hero";
+import ProjectGrid from "../components/ProjectGrid";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
 

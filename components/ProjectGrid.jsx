@@ -1,9 +1,9 @@
 import React from "react";
 import ProjectCard from "./ProjectCard.jsx";
 
-import arrowRight from '../../public/icons/arrow-right.svg';
-import gacLogo from "../../public/images/gacLogo.svg";
-import freyLogo from "../../public/images/Frey_App_Icon.png";
+import arrowRight from '../public/icons/arrow-right.svg';
+import gacLogo from "../public/images/gacLogo.svg";
+import freyLogo from "../public/images/Frey_App_Icon.png";
 
 export default function ProjectGrid() {
   return (
