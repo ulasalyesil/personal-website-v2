@@ -1,8 +1,10 @@
 'use client'
+import Link from "next/link";
+import TypingAnimatedText from "./TypingAnimatedText";
 
 export default function LinkItem({ target, title, image, description }) {
     return (
-      <a
+      <Link
         href={target}
         target="_blank"
         rel="noopener noreferrer"
@@ -15,14 +17,12 @@ export default function LinkItem({ target, title, image, description }) {
           {image}
         </div>
         <div id="content" className="py-3 w-full">
-          <h4 id="title" className="text-neutral-900 dark:text-neutral-100 font-semibold text-sm">
-            {title}
-          </h4>
+          <TypingAnimatedText text={title} className="text-neutral-900 dark:text-neutral-100 font-semibold text-sm"/>
           <p id="description" className="text-neutral-500 text-sm">
             {description}
           </p>
         </div>
-      </a>
+      </Link>
     );
   }
   

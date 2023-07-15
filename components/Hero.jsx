@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Button from "./ui/Button";
 import ContactCard from "./ContactCard";
 import Header from "./Header";
-import DescriptionHeadingText from "./DescriptionHeadingText";
+import TypingAnimatedText from "./TypingAnimatedText";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -70,7 +70,7 @@ export default function Hero() {
                   Jotform.
                 </a>
               </motion.p>
-              <DescriptionHeadingText
+              <TypingAnimatedText
                 text={
                   "I design interfaces to create memorable feelings for humans."
                 }

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useState, useEffect } from "react";
 
-export default function DescriptionHeadingText({ text }) {
+export default function TypingAnimatedText({ text }) {
   const [displayedText, setDisplayedText] = useState("");
   const [i, setI] = useState(0);
 
