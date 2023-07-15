@@ -17,6 +17,7 @@ export default function SectionItem({ date, projectTitle, role, target }) {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 2.5, type: "spring", damping: 50, stiffness: 100, delay: 1.0 }}
               className="text-neutral-500"
             >
@@ -34,6 +35,7 @@ export default function SectionItem({ date, projectTitle, role, target }) {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 3.5, delay: 1.0 }}
           id="date"
           className="text-neutral-500 text-align-right"

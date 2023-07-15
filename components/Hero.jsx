@@ -39,7 +39,7 @@ export default function Hero() {
           <Header />
           {createAnimatedElement(
             <div className="flex flex-col">
-              <h1 className="text-neutral-900 text-xl font-semibold">
+              <h1 className="text-neutral-900 dark:text-neutral-100 text-xl font-semibold">
                 Ulaş Alyeşil
               </h1>
               <p className="text-neutral-500">Product Designer</p>
@@ -56,7 +56,7 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex flex-col gap-2">
               <motion.p
-                className="text-neutral-900"
+                className="text-neutral-900 dark:text-neutral-100"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
@@ -70,7 +70,11 @@ export default function Hero() {
                   Jotform.
                 </a>
               </motion.p>
-              <DescriptionHeadingText text={"I design interfaces to create memorable feelings for humans."}/>
+              <DescriptionHeadingText
+                text={
+                  "I design interfaces to create memorable feelings for humans."
+                }
+              />
             </div>,
             0.4
           )}
@@ -86,21 +90,13 @@ export default function Hero() {
             }}
           >
             <motion.a
-              className="text-neutral-900 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc]"
+              className="text-neutral-900 dark:text-neutral-100 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc]"
               href="https://frey.money"
               target="_blank"
               rel="noopener noreferrer"
             >
               Building ▲.
             </motion.a>
-            {/* <a 
-          href="https://mozari.framer.website/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-neutral-900 font-semibold transition ease-in-out duration-150 hover:text-[#FF0000]"
-          >
-            Running  ___agency
-          </a> */}
           </motion.div>
           <motion.div
             className="flex gap-4"

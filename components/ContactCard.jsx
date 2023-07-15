@@ -1,6 +1,9 @@
 'use client'
 
 import React from "react";
+import Link from "next/link";
+
+
 import TwitterIcon from '../public/icons/contactIcons/twitter';
 import PostsIcon from '../public/icons/contactIcons/posts';
 import LayersIcon from '../public/icons/contactIcons/layers';
@@ -31,13 +34,13 @@ export default function ContactCard({
   };
 
   return (
-    <a
-      className={`border border-neutral-300 rounded-xl aspect-square p-4 flex items-center justify-center hover:bg-neutral-100 transition ease-in-out`}
+    <Link
+      className={`border border-neutral-300 dark:border-neutral-800 rounded-xl aspect-square p-4 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 transition ease-in-out`}
       href={target}
       rel="noreferrer"
       target="_blank"
     >
       {renderIcon()}
-    </a>
+    </Link>
   );
 }
