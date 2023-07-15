@@ -17,7 +17,7 @@ const animationConfig = {
 
 export default function Works() {
   return (
-    <div className="flex flex-col px-2 mt-12 rounded-xl sm:w-[512px] gap-16 mb-auto">
+    <div className="flex flex-col px-2 mt-4 rounded-xl sm:w-[512px] gap-16 mb-auto">
       <div
         initial={animationConfig.initial}
         animate={animationConfig.animate}

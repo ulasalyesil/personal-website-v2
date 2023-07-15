@@ -25,15 +25,7 @@ export default function Commodore() {
 
   return (
     <div className="flex flex-col gap-16 px-8 pb-8">
-      <div className="max-w-[512px] pt-36 w-full pt mx-auto">
-        <motion.div
-          className="flex items-center justify-between"
-          initial={initial}
-          animate={animate}
-          transition={transition}
-        >
-          <Header />
-        </motion.div>
+      <div className="max-w-[512px] w-full mx-auto">
       </div>
 
       <div className="flex flex-col gap-16 text-sm items-center">

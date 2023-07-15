@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Tabs from "./Tabs"
 
+
 export default function Header() {
   return (
     <div className="flex items-center justify-between w-full max-w-[512px] my-8 px-2">
