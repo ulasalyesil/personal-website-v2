@@ -29,6 +29,7 @@ export default function DescriptionHeadingText({ text }) {
         className="h-16 max-w-[32rem] leading-normal text-muted-foreground sm:text-base sm:leading-8 dark:text-neutral-100"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
+        viewport={{ once: true}}
         transition={{ duration: 2 }}
       >
         {displayedText ? displayedText : text}
@@ -37,6 +38,7 @@ export default function DescriptionHeadingText({ text }) {
         className="ml-1 inline-flex h-[22px] w-[2px] animate-blink rounded-full bg-neutral-200 align-sub opacity-75 animate-pulse"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
+        viewport={{ once: true}}
         transition={{ duration: 2 }}
       />
     </div>
