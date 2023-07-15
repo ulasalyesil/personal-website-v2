@@ -1,5 +1,7 @@
 'use client'
 
+import { motion } from "framer-motion";
+
 import SectionItem from "./SectionItem";
 
 function Section({
@@ -21,7 +23,14 @@ function Section({
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className={style}>{sectionTitle}</h3>
+      <motion.h3 
+      className={style}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring", stiffness: 25, delay: 0.8 }}
+      >
+        {sectionTitle}
+        </motion.h3>
       <ol>
       {sortedProjects.map(([key, project]) => {
         const { date, title, role, target } =projects[key];
