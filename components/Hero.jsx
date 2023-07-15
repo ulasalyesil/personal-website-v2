@@ -126,12 +126,8 @@ export default function Hero() {
           </motion.div>
           {createAnimatedElement(
             <div className="flex gap-2">
-              <Link href={"/works"}>
-                <Button label={"See Works"} type={"primary"} />
-              </Link>
-              <Link href="mailto:hello@ulasalyesil.com">
-                <Button label={"Talk to me"} type={"secondary"} />
-              </Link>
+                <Button label={"See Works"} type={"primary"} href={'/works'} />
+                <Button label={"Talk to me"} type={"secondary"} href="mailto:hello@ulasalyesil.com" />
             </div>,
             0.6
           )}

@@ -1,4 +1,8 @@
-function Button({ type, label, url, icon }) {
+'use client'
+
+import Link from "next/link";
+
+function Button({ type, label, href }) {
   const states = {
     primary:
       "h-8 flex items-center text-neutral-100 text-xs md:text-base bg-neutral-700 hover:bg-neutral-900 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-neutral-600 dark:hover:bg-neutral-500 dark:focus:ring-neutral-800 transition ease-in-out",
@@ -7,7 +11,7 @@ function Button({ type, label, url, icon }) {
   };
 
   return (
-    <a href={url}>
+    <Link href={href}>
       <button
         data-modal-hide="defaultModal"
         type="button"
@@ -15,7 +19,7 @@ function Button({ type, label, url, icon }) {
       >
         {label}
       </button>
-    </a>
+    </Link>
   );
 }
 
