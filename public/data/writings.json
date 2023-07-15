@@ -1,0 +1,12 @@
+{
+    "issue0001": {
+      "title": "Issue #0001",
+      "date": "April 24, 2023",
+      "target": "/issue0001"
+    },
+    "issue0002": {
+      "title": "Issue #0002",
+      "date": "Soon",
+      "target": "/issue0002"
+    }
+  }  
