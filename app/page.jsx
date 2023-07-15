@@ -1,13 +1,15 @@
 'use client'
 
+// packages
 import { motion } from "framer-motion";
 
-
+// components
 import Hero from "../components/Hero";
 import ProjectGrid from "../components/ProjectGrid";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
 
+// data
 import projectsData from "../public/data/projects.json";
 import writingsData from "../public/data/writings.json";
 
