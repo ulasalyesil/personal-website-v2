@@ -5,7 +5,6 @@ import Image from "next/image";
 
 function ProductCard({ target, icon, title, img }) {
 
-  console.log("renders")
   return (
     <Link
       href={target}
