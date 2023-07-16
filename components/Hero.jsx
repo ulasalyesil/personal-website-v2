@@ -41,13 +41,12 @@ export default function Hero() {
                 Ulaş Alyeşil
               </h1>
               <p className="text-neutral-500">Product Designer</p>
-              <a
-                className="flex gap-2 items-center py-2 px-2 mt-2 rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800 text-neutral-500 hover:text-blue-500 hover:font-semibold transition ease-in-out"
-                href="mailto:hello@ulasalyesil.com"
-              >
+              <div className="flex gap-2 items-center py-2 px-2 mt-2">
                 <div className="w-3 h-3 bg-lime-600 rounded-full"></div>
-                <span className="text-sm">Open for new opportunities</span>
-              </a>
+                <p className="text-sm text-neutral-500">
+                  Open for new opportunities
+                </p>
+              </div>
             </div>,
             0.2
           )}
@@ -59,8 +58,8 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                Hey there, I&apos;m Ulaş, a designer of digital products,
-                motion and sound. I am currently designing experiences at{" "}
+                Hey there, I&apos;m Ulaş, a designer of digital products, motion
+                and sound. I am currently designing experiences at{" "}
                 <a
                   className="font-semibold hover:text-[#FF6100] transition duration-200"
                   href="https://jotform.com"
@@ -88,61 +87,61 @@ export default function Hero() {
             }}
           >
             <motion.a
-              className="text-neutral-900 dark:text-neutral-100 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc]"
+              className="text-neutral-900 dark:text-neutral-100 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc] mb-2"
               href="https://frey.money"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Building ▲.
+              Building Frey ▲.
             </motion.a>
-          </motion.div>
-          <motion.div
-            className="flex gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              type: "spring",
-              stiffness: 25,
-              delay: 0.55,
-            }}
-          >
-            <ContactCard
-              icon={"twitter"}
-              iconBorder={"#a3a3a3"}
-              target={"https://twitter.com/ulasalyesil"}
-            />
-            <ContactCard
-              icon={"posts"}
-              iconBorder={"#a3a3a3"}
-              target={"https://posts.cv/ulasalyesil"}
-            />
-            <ContactCard
-              icon={"linkedin"}
-              iconBorder={"#a3a3a3"}
-              target={"https://www.linkedin.com/in/ulasalyesil"}
-            />
-            <ContactCard
-              icon={"layers"}
-              iconFill={"#a3a3a3"}
-              target={"https://layers.to/ulas"}
-            />
-            <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
           </motion.div>
           {createAnimatedElement(
             <div className="flex gap-2">
-              <Button label={"See Works"} type={"primary"} href={"/works"} />
               <Button
                 label={"Talk to me"}
-                type={"secondary"}
+                type={"primary"}
                 href="mailto:hello@ulasalyesil.com"
               />
+              <Button label={"See Works"} type={"secondary"} href={"/works"} />
             </div>,
             0.6
           )}
         </div>,
         0
       )}
+      <motion.div
+        className="flex gap-4 mt-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.6,
+          type: "spring",
+          stiffness: 25,
+          delay: 0.55,
+        }}
+      >
+        <ContactCard
+          icon={"twitter"}
+          iconBorder={"#a3a3a3"}
+          target={"https://twitter.com/ulasalyesil"}
+        />
+        <ContactCard
+          icon={"posts"}
+          iconBorder={"#a3a3a3"}
+          target={"https://posts.cv/ulasalyesil"}
+        />
+        <ContactCard
+          icon={"linkedin"}
+          iconBorder={"#a3a3a3"}
+          target={"https://www.linkedin.com/in/ulasalyesil"}
+        />
+        <ContactCard
+          icon={"layers"}
+          iconFill={"#a3a3a3"}
+          target={"https://layers.to/ulas"}
+        />
+        <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
+      </motion.div>
     </motion.div>
   );
 }
