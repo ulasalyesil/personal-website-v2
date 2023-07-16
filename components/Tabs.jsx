@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 
+
 const tabsData = [
   {
     title: "Home",
@@ -44,6 +45,9 @@ const Tabs = () => {
 
   const highlightStyles = {};
 
+  const isMobile = window.innerWidth <= 420;
+  console.log(window.innerWidth);
+
   if (tabBoundingBox && wrapperBoundingBox) {
     highlightStyles.transitionDuration = isHoveredFromNull ? "0ms" : "150ms";
     highlightStyles.opacity = highlightedTab ? 1 : 0;
@@ -52,6 +56,7 @@ const Tabs = () => {
       tabBoundingBox.left - wrapperBoundingBox.left
     }px)`;
   }
+  
 
   return (
     <TabsNav ref={wrapperRef} onMouseLeave={resetHighlight}>
@@ -61,7 +66,11 @@ const Tabs = () => {
         className="bg-neutral-200 dark:bg-neutral-800"
       />
       {tabsData.map((tab) => (
-        <Link href={tab.value} key={tab.value}>
+        <Link
+          href={tab.value}
+          key={tab.value}
+          className={isMobile && tab.hideOnMobile ? "hidden" : ""}
+        >
           <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
             {tab.title}
           </Tab>
