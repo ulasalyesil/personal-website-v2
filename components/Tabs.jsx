@@ -1,18 +1,17 @@
-'use client'
+"use client";
 import React from "react";
-import { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 
 const tabsData = [
   {
     title: "Home",
-    value: "/"
+    value: "/",
   },
   {
     title: "About",
     value: "/about",
-    hideOnMobile: true
+    hideOnMobile: true,
   },
   {
     title: "Works",
@@ -21,8 +20,8 @@ const tabsData = [
   {
     title: "Bookmarks",
     value: "/bookmarks",
-    hideOnMobile: true
-  }
+    hideOnMobile: true,
+  },
 ];
 
 const Tabs = () => {
@@ -56,12 +55,16 @@ const Tabs = () => {
 
   return (
     <TabsNav ref={wrapperRef} onMouseLeave={resetHighlight}>
-      <TabsHighlight ref={highlightRef} style={highlightStyles} className="bg-neutral-200 dark:bg-neutral-800" />
+      <TabsHighlight
+        ref={highlightRef}
+        style={highlightStyles}
+        className="bg-neutral-200 dark:bg-neutral-800"
+      />
       {tabsData.map((tab) => (
         <Link href={tab.value} key={tab.value}>
-        <Tab isSelected={highlightedTab === tab} onMouseOver={(ev) => repositionHighlight(ev, tab)}>
-          {tab.title}
-        </Tab>
+          <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
+            {tab.title}
+          </Tab>
         </Link>
       ))}
     </TabsNav>
@@ -75,6 +78,7 @@ const TabsNav = styled.div`
 const Tab = styled.a`
   padding: 16px 16px;
   font-size: ${14 / 16}rem;
+  font-weight: ${(props) => (props.isSelected ? "bold" : "normal")};
   text-align: center;
   color: hsl(0 0% 43.5%);
   display: inline-block;

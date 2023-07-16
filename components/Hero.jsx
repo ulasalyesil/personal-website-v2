@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 // components
 import Button from "./ui/Button";
 import ContactCard from "./ContactCard";
-import Header from "./Header";
 import TypingAnimatedText from "./TypingAnimatedText";
 
 const animationConfig = {
