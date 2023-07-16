@@ -59,7 +59,7 @@ const Tabs = () => {
       <TabsHighlight ref={highlightRef} style={highlightStyles} className="bg-neutral-200 dark:bg-neutral-800" />
       {tabsData.map((tab) => (
         <Link href={tab.value} key={tab.value}>
-        <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
+        <Tab isSelected={highlightedTab === tab} onMouseOver={(ev) => repositionHighlight(ev, tab)}>
           {tab.title}
         </Tab>
         </Link>
@@ -75,6 +75,7 @@ const TabsNav = styled.div`
 const Tab = styled.a`
   padding: 16px 16px;
   font-size: ${14 / 16}rem;
+  text-align: center;
   color: hsl(0 0% 43.5%);
   display: inline-block;
   position: relative;
