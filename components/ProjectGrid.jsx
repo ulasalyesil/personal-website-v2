@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import React from "react";
 import ProjectCard from "./ProjectCard.jsx";
 
-import gacLogo from "../public/images/gacLogo.svg";
-import freyLogo from "../public/images/Frey_App_Icon.png";
+import gacWeb from "../public/images/gacWeb.png";
+import frey from "../public/images/frey_overview.png";
 
 export default function ProjectGrid() {
   return (
@@ -16,12 +16,12 @@ export default function ProjectGrid() {
         <ProjectCard
           target={"https://frey.money"}
           title={"Frey Money"}
-          img={freyLogo}
+          img={frey}
         />
         <ProjectCard
           target={"https://goodafternooncreative.com"}
           title={"Good Afternoon Creative"}
-          img={gacLogo}
+          img={gacWeb}
         />
       </div>
     </div>
