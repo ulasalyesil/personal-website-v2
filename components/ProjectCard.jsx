@@ -28,7 +28,7 @@ function ProductCard({ target, icon, title, img }) {
         alt={title}
         className="absolute object-contain inset-0"
       />
-      <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-neutral-100 dark:from-neutral-900  group-hover:backdrop-blur-sm transition ease-in-out delay-50 overflow-hidden inset-0" />
+      <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
       <div className="flex justify-between items-end h-full relative overflow-hidden">
         <h3 className="font-semibold text-neutral-500 dark:text-neutral-100">
           {title}
