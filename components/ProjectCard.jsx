@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
-function ProductCard({ target, icon, title, img }) {
+export default function ProjectCard({ target, icon, title, img }) {
 
   return (
     <Link
@@ -33,5 +33,3 @@ function ProductCard({ target, icon, title, img }) {
     </Link>
   );
 }
-
-export default ProductCard;

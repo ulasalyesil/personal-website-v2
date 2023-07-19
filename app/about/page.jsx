@@ -25,7 +25,7 @@ const createAnimatedParagraph = (text, delay) => {
       initial={initial}
       animate={animate}
       transition={{ ...transition, delay: 0.4 + delay }}
-      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-base"
+      className="text-neutral-900 text-justify dark:text-neutral-100 text-sm md:text-base"
     >
       {text}
     </motion.p>

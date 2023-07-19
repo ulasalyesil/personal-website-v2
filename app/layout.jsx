@@ -20,9 +20,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className='flex flex-col m-auto items-center pt-12 sm:pt-32'>
           <Header />
-          <div className="bg-gradient-to-b from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-40 fixed top-0" />
+          <div className="bg-gradient-to-b from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-24 sm:h-40 fixed top-0" />
           {children}
-          <div className="bg-gradient-to-t from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-40 fixed bottom-0" />
+          <div className="bg-gradient-to-t from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-32 sm:h-40 fixed bottom-0" />
         </div>
       </body>
       <Analytics />

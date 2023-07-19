@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 
 const tabsData = [
@@ -12,7 +13,6 @@ const tabsData = [
   {
     title: "About",
     value: "/about",
-    hideOnMobile: true,
   },
   {
     title: "Works",
@@ -54,6 +54,27 @@ const Tabs = () => {
     }px)`;
   }
   
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      // Tarayıcının genişlik değerini al
+      const width = window.innerWidth;
+
+      // Eğer genişlik 768 pikselden küçükse, mobil cihazda olduğumuzu kabul edelim
+      const mobileThreshold = 768;
+      setIsMobile(width < mobileThreshold);
+    };
+
+    // İlk render'da ve pencere boyutu değiştiğinde işlevi çağır
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    // Komponent kaldırıldığında event listener'ı temizle
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   return (
     <TabsNav ref={wrapperRef} onMouseLeave={resetHighlight}>
@@ -63,10 +84,7 @@ const Tabs = () => {
         className="bg-neutral-200 dark:bg-neutral-800"
       />
       {tabsData.map((tab) => (
-        <Link
-          href={tab.value}
-          key={tab.value}
-        >
+        <Link className={tab.hideOnMobile && isMobile ? 'hidden' : ''} href={tab.value} key={tab.value}>
           <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
             {tab.title}
           </Tab>
