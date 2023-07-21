@@ -9,13 +9,14 @@ import {
   import { motion, animate, useScroll } from "framer-motion";
   import { useCallback, useEffect, useRef, useState } from "react";
 import "../styles/globals.css"
+import ProjectGrid from "./ProjectGrid";
   
   let tabs = [
-    { id: "world", label: "Music" },
-    { id: "ny", label: "Posters" },
-    { id: "business", label: "Photography" },
-    { id: "arts", label: "Artworks" },
-    { id: "science", label: "Videography" }
+    { id: "world", label: "Music", content: <ProjectGrid /> },
+    { id: "ny", label: "Posters", content: <ProjectGrid /> },
+    { id: "business", label: "Photography", content: <ProjectGrid /> },
+    { id: "arts", label: "Artworks", content: <ProjectGrid /> },
+    { id: "science", label: "Videography", content: <ProjectGrid /> },
   ];
   
   export default function PlaygroundTabs() {
@@ -127,17 +128,17 @@ import "../styles/globals.css"
         selectedKey={selectedKey}
         onSelectionChange={onSelectionChange}
       >
-        <div className="relative  bg-neutral-100 px-2 rounded-md">
+        <div className="relative  bg-neutral-100 dark:bg-neutral-950 px-2 rounded-md">
           <TabList ref={tabListRef} className="flex space-x-1" items={tabs}>
             {(tab) =>
               // prettier-ignore
-              <Tab className={({ isSelected }) =>`${isSelected ? "" : "cursor-pointer  data-[hovered]:text-neutral-900/70 data-[pressed]:text-neutral-900/60"} cursor-default px-3 py-1.5 text-md sm:text-sm text-neutral-900 transition outline-none touch-none`}>
+              <Tab className={({ isSelected }) =>`${isSelected ? "" : "cursor-pointer  data-[hovered]:text-neutral-900/70 dark:data-[hovered]:text-neutral-100/70 data-[pressed]:text-neutral-900/60"} cursor-default px-3 py-1.5 text-md sm:text-sm text-neutral-900 dark:text-neutral-100 transition outline-none touch-none`}>
                 {({ isSelected, isFocusVisible }) => <>
                   {tab.label}
                   {isFocusVisible && isSelected && (
                     // Focus ring.
                     <motion.span
-                      className="absolute inset-0 z-10 rounded-full ring-2 ring-neutral-900 ring-offset-2"
+                      className="absolute inset-0 z-10 rounded-full ring-2 ring-neutral-900 dark:ring-neutral-100 ring-offset-2"
                       style={{ x, width }}
                     />
                   )}
@@ -147,13 +148,13 @@ import "../styles/globals.css"
           </TabList>
           {/* Selection indicator. */}
           <motion.span
-          className="absolute inset-0 z-10 bg-white rounded-full mix-blend-difference"
+          className="absolute inset-0 z-10 bg-white/10 rounded-md mix-blend-difference"
           style={{ x, width }}
           />
         </div>
         <div
           ref={tabPanelsRef}
-          className="my-4 text-neutral-900 font-light text-base overflow-auto snap-x snap-mandatory no-scrollbar flex"
+          className="my-4 text-neutral-900 dark:text-neutral-100  font-light text-base overflow-auto snap-x snap-mandatory no-scrollbar flex"
         >
           <Collection items={tabs}>
             {(tab) => (
@@ -164,7 +165,7 @@ import "../styles/globals.css"
                 <h2 className="mb-2 font-bold">{tab.label} contents...</h2>
                 {/* prettier-ignore */}
                 
-              <p className="text-blue-500">This Should Change according to tab name</p>
+              <p className="text-blue-500">{tab.content}</p>
               </TabPanel>
             )}
           </Collection>

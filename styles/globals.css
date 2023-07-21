@@ -12,8 +12,8 @@ html {
 
 body {
   background-repeat: repeat;
-  background: linear-gradient(90deg, #fafafa calc(16px - 1px), transparent 1%) center,
-              linear-gradient(#fafafa calc(16px - 1px), transparent 1%) center,
+  background: linear-gradient(90deg, #fff calc(16px - 1px), #fff 1%) center,
+              linear-gradient(#fff calc(16px - 1px), #fff 1%) center,
               #262626;
   background-size: 16px 16px;
 }

@@ -40,15 +40,17 @@ function Page() {
       <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold">
         Latest Projects
       </h3>
-      <div className="flex  gap-4 w-full text-neutral-400 my-4">
-        <ProjectCard
+      <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
+        <HProjectCard
           target={"https://frey.money"}
           title={"Frey Money"}
+          description={"Frey is an open banking application founded by Ulaş Alyeşil & Can Bakal"}
           img={frey}
         />
-        <ProjectCard
+        <HProjectCard
           target={"https://goodafternooncreative.com"}
           title={"Good Afternoon Creative"}
+          description={"Good Afternoon Creative is a brand agency based in İstanbul"}
           img={gacWeb}
         />
       </div>
