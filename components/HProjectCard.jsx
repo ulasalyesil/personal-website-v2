@@ -15,7 +15,7 @@ function HProjectCard({ target, description, title, projectType,  img }) {
       <div className="absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-t rounded-lg from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
       <div className="h-full items-start gap-2 flex flex-col justify-center w-1/2">
         <h4 className="text-neutral-500 text-xs font-semibold uppercase">{projectType}</h4>
-        <h3 className="text-neutral-900 dark:-text-neutral-100 font-bold text-lg">{title}</h3>
+        <h3 className="text-neutral-900 dark:text-neutral-100 font-bold text-lg">{title}</h3>
         <p>{description}</p>
         <Button label={'Visit Website'} type={'secondary'} href={target}/>
       </div>
