@@ -43,12 +43,14 @@ function Page() {
       <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
         <HProjectCard
           target={"https://frey.money"}
+          projectType={"Product Design"}
           title={"Frey Money"}
           description={"Frey is an open banking application founded by Ulaş Alyeşil & Can Bakal"}
           img={frey}
         />
         <HProjectCard
           target={"https://goodafternooncreative.com"}
+          projectType={"Web Design and Development"}
           title={"Good Afternoon Creative"}
           description={"Good Afternoon Creative is a brand agency based in İstanbul"}
           img={gacWeb}
