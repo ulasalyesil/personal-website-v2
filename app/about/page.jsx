@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import picture from "../../public/images/picture.jpeg";
 import Button from "@/components/ui/Button";
-import Header from "@/components/Header";
+import ContactCard from "@/components/ContactCard";
 
 
 const animationConfig = {
@@ -124,15 +124,55 @@ export default function About() {
             stiffness: 25,
           }}
         >
-          <h1 className="text-neutral-500 dark:text-neutral-300 text-2xl font-semibold">About Me</h1>
+          <h1 className="text-neutral-500 dark:text-neutral-300 text-2xl font-semibold">
+            About Me
+          </h1>
 
-          <Button label={"See Resume"} target={'_blank'} type={"secondary"} href={'https://drive.google.com/file/d/1yuaGk_be2RIbmPJ_LUuM1MnecypJH_5J/view?usp=sharing'}/>
+          <Button
+            label={"See Resume"}
+            target={"_blank"}
+            type={"secondary"}
+            href={
+              "https://drive.google.com/file/d/1yuaGk_be2RIbmPJ_LUuM1MnecypJH_5J/view?usp=sharing"
+            }
+          />
         </motion.div>
         {content.map((item, index) => (
           <React.Fragment key={index}>
             {createAnimatedParagraph(item.text, item.delay)}
           </React.Fragment>
         ))}
+        <div className="flex flex-col gap-2 mt-4 py-4 border-t border-neutral-200 dark:border-neutral-800">
+          <h3 className="text-neutral-900 dark:text-neutral-100 text-md font-semibold">Reach Me</h3>
+          <motion.div
+            className="flex gap-4 mt-8"
+            initial={animationConfig.initial}
+            animate={animationConfig.animate}
+            transition={animationConfig.transition}
+          >
+            <ContactCard
+              icon={"twitter"}
+              iconBorder={"#a3a3a3"}
+              target={"https://twitter.com/ulasalyesil"}
+            />
+            <ContactCard
+              icon={"posts"}
+              iconBorder={"#a3a3a3"}
+              target={"https://posts.cv/ulasalyesil"}
+            />
+            <ContactCard
+              icon={"linkedin"}
+              iconBorder={"#a3a3a3"}
+              target={"https://www.linkedin.com/in/ulasalyesil"}
+            />
+            <ContactCard
+              icon={"layers"}
+              iconFill={"#a3a3a3"}
+              target={"https://layers.to/ulas"}
+            />
+            <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
+          </motion.div>
+        </div>
       </div>
       <Footer />
     </div>
