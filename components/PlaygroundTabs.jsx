@@ -1,3 +1,4 @@
+import "../styles/globals.css";
 import {
     Tabs,
     TabList,
@@ -8,15 +9,80 @@ import {
   import { useTransform } from "framer-motion";
   import { motion, animate, useScroll } from "framer-motion";
   import { useCallback, useEffect, useRef, useState } from "react";
-import "../styles/globals.css"
-import ProjectGrid from "./ProjectGrid";
+
+  // assets
+  import HProjectCard from "./HProjectCard";
+  import MusicPlayer from "./playground/musicPlayer";
+  import gacWeb from "../public/images/gacWeb.png"
   
   let tabs = [
-    { id: "world", label: "Music", content: <ProjectGrid /> },
-    { id: "ny", label: "Posters", content: <ProjectGrid /> },
-    { id: "business", label: "Photography", content: <ProjectGrid /> },
-    { id: "arts", label: "Artworks", content: <ProjectGrid /> },
-    { id: "science", label: "Videography", content: <ProjectGrid /> },
+    {
+      id: "world",
+      label: "Music",
+      content: (
+        <MusicPlayer src={'https://embed.music.apple.com/us/album/red-threads-lucid-ii-vision-extended-remix/1605961584?i=1605961840&amp;app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=dark'} />
+      ),
+    },
+    {
+      id: "ny",
+      label: "Posters",
+      content: (
+        <HProjectCard
+          target={"https://goodafternooncreative.com"}
+          projectType={"Web Design and Development"}
+          title={"Good Afternoon Creative"}
+          description={
+            "Good Afternoon Creative is a brand agency based in İstanbul"
+          }
+          img={gacWeb}
+        />
+      ),
+    },
+    {
+      id: "business",
+      label: "Photography",
+      content: (
+        <HProjectCard
+          target={"https://goodafternooncreative.com"}
+          projectType={"Web Design and Development"}
+          title={"Good Afternoon Creative"}
+          description={
+            "Good Afternoon Creative is a brand agency based in İstanbul"
+          }
+          img={gacWeb}
+        />
+      ),
+    },
+    {
+      id: "arts",
+      label: "Artworks",
+      content: (
+        <HProjectCard
+          target={"https://goodafternooncreative.com"}
+          projectType={"Web Design and Development"}
+          title={"Good Afternoon Creative"}
+          description={
+            "Good Afternoon Creative is a brand agency based in İstanbul"
+          }
+          img={gacWeb}
+        />
+      ),
+    },
+    {
+      id: "science",
+      label: "Videography",
+      content: (
+        <HProjectCard
+          target={"https://goodafternooncreative.com"}
+          projectType={"Web Design and Development"}
+          title={"Good Afternoon Creative"}
+          description={
+            "Good Afternoon Creative is a brand agency based in İstanbul"
+          }
+          img={gacWeb}
+        />
+      ),
+    },
   ];
   
   export default function PlaygroundTabs() {

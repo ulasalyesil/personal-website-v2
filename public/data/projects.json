@@ -28,5 +28,11 @@
         "role": "Founding Designer",
         "date": "March, 2023",
         "target": "https://frey.money"
+    },
+    "dezign-brief": {
+        "title": "Dezign Brief",
+        "role": "Product Design, Web Development",
+        "date": "July, 2023",
+        "target": "https://dezign-brief.vercel.app"
     }
 }
