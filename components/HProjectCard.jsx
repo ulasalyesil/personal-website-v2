@@ -14,12 +14,22 @@ function HProjectCard({ target, description, title, projectType,  img }) {
     >
       <div className="absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-t rounded-lg from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
       <div className="h-full items-start gap-2 flex flex-col justify-center w-1/2">
-        <h4 className="text-neutral-500 text-xs font-semibold uppercase">{projectType}</h4>
-        <h3 className="text-neutral-900 dark:text-neutral-100 font-bold text-lg">{title}</h3>
-        <p>{description}</p>
-        <Button label={'Visit Website'} type={'secondary'} href={target}/>
+        <h4 className="text-neutral-500 text-xs font-semibold uppercase hidden sm:block">
+          {projectType}
+        </h4>
+        <h3 className="text-neutral-900 dark:text-neutral-100 font-bold text-base sm:text-lg">
+          {title}
+        </h3>
+        <p className="text-xs sm:text-sm">{description}</p>
+        <div className="my-2">
+          <Button label={"Visit Website"} type={"secondary"} href={target} />
+        </div>
       </div>
-      <Image src={img} alt={title} className="absolute object-contain w-1/2 group-hover:scale-150 transition ease-in-out origin-top-left duration-300 -right-4"/>
+      <Image
+        src={img}
+        alt={title}
+        className="absolute object-contain w-1/2 group-hover:scale-150 transition duration-500 ease-out origin-top-left -right-4"
+      />
     </Link>
   );
 }
