@@ -19,7 +19,7 @@ function HProjectCard({ target, description, title, projectType,  img }) {
         </h3>
         <Link
           href={target}
-          className="p-2 z-20 bg-neutral-100/50 dark:bg-neutral-900/50 backdrop-blur-sm hidden transition ease-in-out delay-50 duration-500 group-hover:block hover:bg-neutral-100 dark:hover:bg-neutral-800 absolute top-4 right-4 rounded-full"
+          className="p-2 z-20 bg-neutral-100/50 dark:bg-neutral-900/50 backdrop-blur-sm hidden transition ease-in-out  group-hover:block hover:bg-neutral-100 dark:hover:bg-neutral-800 absolute top-4 right-4 rounded-full"
         >
           <ArrowTopRightIcon
             width={"20"}
