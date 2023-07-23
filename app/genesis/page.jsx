@@ -17,9 +17,6 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-16 px-8 pb-8">
-      <div className="max-w-[512px] w-full mx-auto">
-      </div>
-
       <div className="flex flex-col items-center gap-16 text-sm">
         <motion.div
           initial={initial}

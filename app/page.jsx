@@ -12,7 +12,7 @@ import PlaygroundTabs from "@/components/PlaygroundTabs";
 import Footer from "../components/Footer";
 
 // assets
-import gacWeb from "../public/images/gacWeb.png";
+import gacWeb from "../public/images/goodafternoon/gacWeb.png";
 import frey from "../public/images/frey_overview.png";
 
 // data
@@ -46,13 +46,15 @@ function Page() {
           projectType={"Product Design"}
           title={"Frey Money"}
           description={"Frey is an open banking application founded by Ulaş Alyeşil & Can Bakal"}
+          buttonLabel={'Visit Website'}
           img={frey}
         />
         <HProjectCard
-          target={"https://goodafternooncreative.com"}
+          target={"/good-afternoon-creative"}
           projectType={"Web Design and Development"}
           title={"Good Afternoon Creative"}
           description={"Good Afternoon Creative is a brand agency based in İstanbul"}
+          buttonLabel={'See Case Study'}
           img={gacWeb}
         />
       </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Button from "./ui/Button";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
-function HProjectCard({ target, description, title, projectType,  img }) {
+function HProjectCard({ target, description, title, projectType,  img, buttonLabel }) {
 
   return (
     <div className="relative group flex gap-4 h-56 overflow-hidden p-4 rounded-3xl bg-neutral-100 dark:bg-neutral-900  border border-neutral-200 dark:border-neutral-800 shadow-md transition ease-in-out delay-50 md:hover:shadow-xl md:hover:scale-105">
@@ -29,7 +29,7 @@ function HProjectCard({ target, description, title, projectType,  img }) {
         </Link>
         <p className="text-xs sm:text-sm">{description}</p>
         <div className="my-2">
-          <Button label={"Visit Website"} type={"secondary"} href={target} />
+          <Button label={buttonLabel} type={"secondary"} href={target} />
         </div>
       </div>
       <Image

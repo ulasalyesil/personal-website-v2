@@ -13,7 +13,7 @@ import {
   // assets
   import HProjectCard from "./HProjectCard";
   import MusicPlayer from "./playground/musicPlayer";
-  import gacWeb from "../public/images/gacWeb.png"
+  import gacWeb from "../public/images/goodafternoon/gacWeb.png"
   
   let tabs = [
     {

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Pill from "@/components/ui/Pill";
 import CommodoreContent from "./CommodoreContent.json";
 
@@ -25,9 +25,6 @@ export default function Commodore() {
 
   return (
     <div className="flex flex-col gap-16 px-8 pb-8">
-      <div className="max-w-[512px] w-full mx-auto">
-      </div>
-
       <div className="flex flex-col gap-16 text-sm items-center">
         <motion.div
           initial={initial}
@@ -129,6 +126,7 @@ export default function Commodore() {
           </motion.div>
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 }
