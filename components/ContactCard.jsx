@@ -9,6 +9,7 @@ import PostsIcon from '../public/icons/contactIcons/posts';
 import LayersIcon from '../public/icons/contactIcons/layers';
 import LinkedinIcon from '../public/icons/contactIcons/linkedin';
 import BentoIcon from '../public/icons/contactIcons/bento';
+import DribbbleIcon from "@/public/icons/contactIcons/dribbble";
 
 export default function ContactCard({
   icon,
@@ -28,6 +29,8 @@ export default function ContactCard({
         return <LinkedinIcon fill={iconFill} border={iconBorder} />;
       case "bento":
         return <BentoIcon />;
+        case "dribbble":
+          return <DribbbleIcon />;
       default:
         return null;
     }

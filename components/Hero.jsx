@@ -141,6 +141,11 @@ export default function Hero() {
           iconFill={"#a3a3a3"}
           target={"https://layers.to/ulas"}
         />
+        <ContactCard 
+          icon={"dribbble"}
+          iconBorder={"#a3a3a3"}
+          target={"https://dribbble.com/ulasalyesil"}
+        />
         <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
       </motion.div>
     </motion.div>
