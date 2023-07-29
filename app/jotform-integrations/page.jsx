@@ -27,12 +27,12 @@ export default function Page() {
   const { initial, animate, transition } = animationConfig;
 
   const styles = {
-    h2: "text-xl font-bold w-full mt-4 max-w-[512px]",
-    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 max-w-[512px]",
+    h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 w-full sm:w-full sm:max-w-[512px]",
+    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:w-full sm:max-w-[512px]",
   };
 
   return (
-    <div className="flex flex-col gap-16 px-8 py-8 items-center justify-center">
+    <div className="flex flex-col gap-16 px-4 sm:px-8 py-8 items-center justify-center">
       <motion.div
         initial={initial}
         animate={animate}
@@ -103,7 +103,7 @@ export default function Page() {
                 <Image
                   src={mapper}
                   alt="good afternoon"
-                  className="my-6 max-w-[512px]"
+                  className="my-6 w-full sm:max-w-[512px]"
                 />
                 <li className={styles.p}>
                   A user-friendly interface with clear instructions was
@@ -112,7 +112,7 @@ export default function Page() {
                 <Image
                   src={actions}
                   alt="good afternoon"
-                  className="my-6 max-w-[720px] shadow-xl rounded-xl"
+                  className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
                 />
                 <li className={styles.p}>
                   Users expressed interest in automated workflows that could
@@ -123,7 +123,7 @@ export default function Page() {
                 <Image
                   src={tables}
                   alt="good afternoon"
-                  className="my-6 max-w-[720px] shadow-xl rounded-xl"
+                  className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
                 />
               </ul>
 
@@ -202,7 +202,7 @@ export default function Page() {
               <Image
                 src={uxrSlide}
                 alt="good afternoon"
-                className="my-6 max-w-[720px] shadow-xl rounded-xl"
+                className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
               />
               <p className={styles.p}>
                 Our design process didn&apos;t end with the initial release. We
@@ -213,17 +213,17 @@ export default function Page() {
               <Image
                 src={createCustomer}
                 alt="good afternoon"
-                className="my-6 max-w-[720px] shadow-xl rounded-xl"
+                className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
               />
               <Image
                 src={createInvoice}
                 alt="good afternoon"
-                className="my-6 max-w-[720px] shadow-xl rounded-xl"
+                className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
               />
               <Image
                 src={actionList}
                 alt="good afternoon"
-                className="my-6 max-w-[720px] shadow-xl rounded-xl"
+                className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
               />
               <h2 className={styles.h2}>Conclusion</h2>
               <p className={styles.p}>
@@ -240,7 +240,7 @@ export default function Page() {
                 further solidifying Jotform&apos;s position as a user-centric
                 platform.
               </p>
-              <div className="flex justify-start w-full max-w-[512px] my-6 gap-4">
+              <div className="flex justify-start w-full w-full sm:max-w-[512px] my-6 gap-4">
                 <Button
                   label={"See the User Guide"}
                   href={

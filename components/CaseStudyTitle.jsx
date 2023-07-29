@@ -12,12 +12,12 @@ const animationConfig = {
 export default function CaseStudyTitle({ title, date, company, role }) {
   const { initial, animate, transition } = animationConfig;
   return (
-    <div className="flex flex-col gap-4 mb-10 max-w-[512px]">
+    <div className="flex flex-col gap-4 mb-10 w-full max-w-[512px]">
       <motion.h1
         initial={initial}
         animate={animate}
         transition={transition}
-        className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full sticky"
+        className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full"
       >
         {title}
       </motion.h1>
