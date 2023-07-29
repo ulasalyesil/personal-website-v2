@@ -1,6 +1,6 @@
 "use client";
 
-import gacWeb from "@/public/images/goodafternoon/gacWeb.png";
+
 import cover from "@/public/images/quickbooks/cover.png";
 import CaseStudyTitle from "@/components/CaseStudyTitle";
 import qbContent from "./qbContent.json";
@@ -224,7 +224,7 @@ export default function Page() {
           alt="Good Afternoon Creative landing page"
           className="mb-4"
         >
-          <Image src={gacWeb} className="w-full rounded-2xl" alt="logo" />
+          {/* <Image src={gacWeb} className="w-full rounded-2xl" alt="logo" /> */}
         </motion.div>
       </div>
       <Footer />
