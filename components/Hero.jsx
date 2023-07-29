@@ -126,11 +126,11 @@ export default function Hero() {
           iconFill={"#a3a3a3"}
           target={"https://twitter.com/ulasalyesil"}
         />
-        <ContactCard
+        {/* <ContactCard
           icon={"posts"}
           iconBorder={"#a3a3a3"}
           target={"https://posts.cv/ulasalyesil"}
-        />
+        /> */}
         <ContactCard
           icon={"linkedin"}
           iconFill={"#a3a3a3"}
