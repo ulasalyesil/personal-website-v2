@@ -4,8 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Footer from "@/components/Footer";
-import Pill from "@/components/ui/Pill";
 import CommodoreContent from "./CommodoreContent.json";
+import CaseStudyTitle from "@/components/CaseStudyTitle";
 
 // images
 import commodore1 from "../../public/images/commodoreImages/commodore1.jpg";
@@ -37,26 +37,7 @@ export default function Commodore() {
             animate={animate}
             transition={transition}
           >
-            <div className="flex flex-col gap-4 mb-10">
-              <motion.h1
-                initial={initial}
-                animate={animate}
-                transition={transition}
-                className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full sticky"
-              >
-                Commodore Z Glass
-              </motion.h1>
-              <motion.div
-                initial={initial}
-                animate={animate}
-                transition={transition}
-                className="flex gap-2"
-              >
-                <Pill label={"20.06.2022"} />
-                <Pill label={"Bahcesehir Uni"} />
-                <Pill label={"Designer"} />
-              </motion.div>
-            </div>
+            <CaseStudyTitle title={"Commodore Z Glass"} date={'June, 2022'} company={'Bahcesehir University'} role={'Designer'}/>
             <motion.div
               initial={initial}
               animate={animate}

@@ -2,10 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Header from "@/components/Header";
-import Pill from "@/components/ui/Pill";
 import GenesisContent from "./GenesisContent";
-
+import CaseStudyTitle from "@/components/CaseStudyTitle";
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -29,26 +27,7 @@ export default function Page() {
             animate={animate}
             transition={transition}
           >
-            <div className="flex flex-col gap-4 mb-10">
-              <motion.h1
-                initial={initial}
-                animate={animate}
-                transition={transition}
-                className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full"
-              >
-                Genesis: Digital Revolution
-              </motion.h1>
-              <motion.div
-                initial={initial}
-                animate={animate}
-                transition={transition}
-                className="flex gap-2"
-              >
-                <Pill label={"01.01.21"} />
-                <Pill label={"Bahcesehir Uni"} />
-                <Pill label={"Designer"} />
-              </motion.div>
-            </div>
+            <CaseStudyTitle title={"Genesis: Digital Revolution"} date={'January, 2021'} company={'Bahcesehir University'} role={'Designer'}/>
             <motion.div
               initial={initial}
               animate={animate}

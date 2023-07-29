@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 // components
 import Hero from "../components/Hero";
 import HProjectCard from "../components/HProjectCard";
-import ProjectCard from "@/components/ProjectCard";
 import Section from "../components/Section";
-import PlaygroundTabs from "@/components/PlaygroundTabs";
 import Footer from "../components/Footer";
+import PlaygroundTabs from "@/components/PlaygroundTabs";
 
 // assets
 import gacWeb from "../public/images/goodafternoon/gacWeb.png";
 import frey from "../public/images/frey_overview.png";
+import qb from "@/public/images/quickbooks/integrationsList.png";
 
 // data
 import projectsData from "../public/data/projects.json";
@@ -42,12 +42,12 @@ function Page() {
       </h3>
       <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
         <HProjectCard
-          target={"https://frey.money"}
+          target={"/jotform-integrations"}
           projectType={"Product Design"}
-          title={"Frey Money"}
-          description={"Frey is an open banking application founded by Ulaş Alyeşil & Can Bakal"}
-          buttonLabel={'Visit Website'}
-          img={frey}
+          title={"Jotform Integrations"}
+          description={"Designing the QuickBooks integration and re-imagining the integrations experience."}
+          buttonLabel={'See Case Study'}
+          img={qb}
         />
         <HProjectCard
           target={"/good-afternoon-creative"}

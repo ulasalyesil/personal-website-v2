@@ -1,14 +1,15 @@
 'use client'
 
+
 import gacWeb from "@/public/images/goodafternoon/gacWeb.png";
 import banner from "@/public/images/goodafternoon/banner.png";
-import Pill from "@/components/ui/Pill";
 import gacContent from "./gacContent.json";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import CaseStudyTitle from "@/components/CaseStudyTitle";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -33,26 +34,7 @@ export default function Page() {
             animate={animate}
             transition={transition}
           >
-            <div className="flex flex-col gap-4 mb-10">
-              <motion.h1
-                initial={initial}
-                animate={animate}
-                transition={transition}
-                className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full sticky"
-              >
-                Good Afternoon Creative
-              </motion.h1>
-              <motion.div
-                initial={initial}
-                animate={animate}
-                transition={transition}
-                className="flex gap-2"
-              >
-                <Pill label={"April, 2023"} />
-                <Pill label={"Freelance"} />
-                <Pill label={"Web Design and Development"} />
-              </motion.div>
-            </div>
+            <CaseStudyTitle title={"Good Afternoon Creative"} date={'April, 2023'} company={'Freelance'} role={'Web Design and Development'}/>
             <Image
               src={banner}
               alt="good afternoon"
