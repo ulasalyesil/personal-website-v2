@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import CaseStudyTitle from "@/components/CaseStudyTitle";
 import qbContent from "./qbContent.json";
 import Footer from "@/components/Footer";
@@ -81,9 +79,9 @@ export default function Page() {
                 As the sole designer on this project, I collaborated with the
                 Integrations and UXR teams. My main goal was to understand user
                 needs by participating in user interviews conducted by the UXR
-                team and overlook the whole design process. Based on the research findings and personas, I designed
-                user flows, journey maps, and new components that aligned with
-                our design system.
+                team and overlook the whole design process. Based on the
+                research findings and personas, I designed user flows, journey
+                maps, and new components that aligned with our design system.
               </p>
 
               <h2 className={styles.h2}>Understanding User Needs</h2>

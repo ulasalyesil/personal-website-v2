@@ -4,12 +4,13 @@ import React from "react";
 import Link from "next/link";
 
 
-import TwitterIcon from '../public/icons/contactIcons/twitter';
+
 import PostsIcon from '../public/icons/contactIcons/posts';
 import LayersIcon from '../public/icons/contactIcons/layers';
 import LinkedinIcon from '../public/icons/contactIcons/linkedin';
 import BentoIcon from '../public/icons/contactIcons/bento';
 import DribbbleIcon from "@/public/icons/contactIcons/dribbble";
+import XIcon from "../public/icons/contactIcons/x";
 
 export default function ContactCard({
   icon,
@@ -19,8 +20,8 @@ export default function ContactCard({
 }) {
   const renderIcon = () => {
     switch (icon) {
-      case "twitter":
-        return <TwitterIcon fill={iconFill} border={iconBorder} />;
+      case "x":
+        return <XIcon fill={iconFill} border={iconBorder} />;
       case "posts":
         return <PostsIcon fill={iconFill} border={iconBorder} />;
       case "layers":

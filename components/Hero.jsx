@@ -122,8 +122,8 @@ export default function Hero() {
         }}
       >
         <ContactCard
-          icon={"twitter"}
-          iconBorder={"#a3a3a3"}
+          icon={"x"}
+          iconFill={"#a3a3a3"}
           target={"https://twitter.com/ulasalyesil"}
         />
         <ContactCard
