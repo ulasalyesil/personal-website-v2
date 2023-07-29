@@ -240,7 +240,7 @@ export default function Page() {
                 further solidifying Jotform&apos;s position as a user-centric
                 platform.
               </p>
-              <div className="flex justify-start w-full w-full sm:max-w-[512px] my-6 gap-4">
+              <div className="flex justify-start w-full sm:max-w-[512px] my-6 gap-4">
                 <Button
                   label={"See the User Guide"}
                   href={
