@@ -133,7 +133,7 @@ export default function Hero() {
         />
         <ContactCard
           icon={"linkedin"}
-          iconBorder={"#a3a3a3"}
+          iconFill={"#a3a3a3"}
           target={"https://www.linkedin.com/in/ulasalyesil"}
         />
         <ContactCard
@@ -143,7 +143,7 @@ export default function Hero() {
         />
         <ContactCard 
           icon={"dribbble"}
-          iconBorder={"#a3a3a3"}
+          iconFill={"#a3a3a3"}
           target={"https://dribbble.com/ulasalyesil"}
         />
         <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />

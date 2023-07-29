@@ -31,7 +31,7 @@ export default function ContactCard({
       case "bento":
         return <BentoIcon />;
         case "dribbble":
-          return <DribbbleIcon />;
+          return <DribbbleIcon fill={iconFill}/>;
       default:
         return null;
     }
