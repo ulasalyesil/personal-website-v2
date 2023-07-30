@@ -249,21 +249,16 @@ export default function Page() {
                   target={"_blank"}
                   type={"primary"}
                 />
+                <Button
+                  label={"Go Home"}
+                  href={"/"}
+                  type={"secondary"}
+                />
               </div>
             </div>
           </motion.div>
         </motion.div>
       </motion.div>
-      <motion.div
-        initial={initial}
-        animate={animate}
-        transition={transition}
-        alt="Good Afternoon Creative landing page"
-        className="mb-4"
-      >
-        {/* <Image src={gacWeb} className="w-full rounded-2xl" alt="logo" /> */}
-      </motion.div>
-
       <Footer />
     </div>
   );
