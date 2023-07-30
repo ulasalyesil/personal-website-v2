@@ -1,7 +1,5 @@
 // next
 import { Inter } from "next/font/google";
-import Head from "next/head";
-
 // anayltics
 import GoogleAnalytics from "@bradgarropy/next-google-analytics/";
 import { Analytics } from "@vercel/analytics/react";
@@ -15,16 +13,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Ulaş Alyeşil | Product Designer",
-  description: "Designing for memorable feelings.", 
+  description: "Designing for memorable feelings.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:image" content="@public/images/preview.png"/>
-        <meta property="twitter:image" content="@public/images/preview.png"/>
-      </Head>
       <body className={inter.className}>
         <div className="flex flex-col m-auto items-center pt-12 sm:pt-32">
           <Header />
