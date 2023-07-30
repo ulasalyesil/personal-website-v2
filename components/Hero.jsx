@@ -1,13 +1,12 @@
 'use client'
 
 //packages
-import Link from "next/link";
 import { motion } from "framer-motion";
 
 // components
 import Button from "./ui/Button";
-import ContactCard from "./ContactCard";
 import TypingAnimatedText from "./TypingAnimatedText";
+import Contacts from "./Contacts";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -110,44 +109,7 @@ export default function Hero() {
         </div>,
         0
       )}
-      <motion.div
-        className="flex gap-4 mt-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          type: "spring",
-          stiffness: 25,
-          delay: 0.55,
-        }}
-      >
-        <ContactCard
-          icon={"x"}
-          iconFill={"#a3a3a3"}
-          target={"https://twitter.com/ulasalyesil"}
-        />
-        {/* <ContactCard
-          icon={"posts"}
-          iconBorder={"#a3a3a3"}
-          target={"https://posts.cv/ulasalyesil"}
-        /> */}
-        <ContactCard
-          icon={"linkedin"}
-          iconFill={"#a3a3a3"}
-          target={"https://www.linkedin.com/in/ulasalyesil"}
-        />
-        <ContactCard
-          icon={"layers"}
-          iconFill={"#a3a3a3"}
-          target={"https://layers.to/ulas"}
-        />
-        <ContactCard 
-          icon={"dribbble"}
-          iconFill={"#a3a3a3"}
-          target={"https://dribbble.com/ulasalyesil"}
-        />
-        <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
-      </motion.div>
+    <Contacts />
     </motion.div>
   );
 }

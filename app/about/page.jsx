@@ -1,15 +1,13 @@
-'use client'
+"use client";
 
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-
 import Footer from "@/components/Footer";
 import picture from "../../public/images/picture.jpeg";
 import Button from "@/components/ui/Button";
-import ContactCard from "@/components/ContactCard";
-
+import Contacts from "@/components/Contacts";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -34,58 +32,47 @@ const createAnimatedParagraph = (text, delay) => {
 
 const content = [
   {
-    text:
-      "*It’s all by design. The choices you make. So that makes everyone design at some point. For themselves. What differentiates a designer is that they design for humans. Not themselves. This is what I try to do, design interfaces to create memorable experiences for humans.",
+    text: "*It’s all by design. The choices you make. So that makes everyone design at some point. For themselves. What differentiates a designer is that they design for humans. Not themselves. This is what I try to do, design interfaces to create memorable experiences for humans.",
     delay: 0.6,
   },
   {
-    text:
-      "Hello, I’m Ulaş. Freshly graduated from Visual Communication Design of Bahcesehir University, based in Istanbul. I’m currently at Jotform as a Jr. Product Designer.",
+    text: "Hello, I’m Ulaş. Freshly graduated from Visual Communication Design of Bahcesehir University, based in Istanbul. I’m currently at Jotform as a Jr. Product Designer.",
     delay: 0.8,
   },
   {
-    text:
-      "My interest in design started some time ago, but I would like to talk about how I landed here first",
+    text: "My interest in design started some time ago, but I would like to talk about how I landed here first",
     delay: 1.0,
   },
   {
-    text:
-      "I was born in İstanbul, Turkey. I first met music, which is the biggest thing that led me to where I am today.",
+    text: "I was born in İstanbul, Turkey. I first met music, which is the biggest thing that led me to where I am today.",
     delay: 1.2,
   },
   {
-    text:
-      "Music showed me what I love; creating",
+    text: "Music showed me what I love; creating",
     delay: 1.4,
   },
   {
-    text:
-      "I played the guitar, drums for a long time. At some point, I discovered electronic music from god-like musicians; Daft Punk",
+    text: "I played the guitar, drums for a long time. At some point, I discovered electronic music from god-like musicians; Daft Punk",
     delay: 1.6,
   },
   {
-    text:
-      "Amazing visuals and cinematography of Daft Punk introduced me to visual arts.",
+    text: "Amazing visuals and cinematography of Daft Punk introduced me to visual arts.",
     delay: 1.8,
   },
   {
-    text:
-      "I got a camera in my hands, I shot cover videos, I tried making small films by capturing what’s happening around me. I was around 15-16, and I loved working with visuals. Merging music and visuals excited me. Everywhere I went, I had my camera with me.",
+    text: "I got a camera in my hands, I shot cover videos, I tried making small films by capturing what’s happening around me. I was around 15-16, and I loved working with visuals. Merging music and visuals excited me. Everywhere I went, I had my camera with me.",
     delay: 2.0,
   },
   {
-    text:
-      "After a couple of years, I started at Bahcesehir University, Visual Communication Design.",
+    text: "After a couple of years, I started at Bahcesehir University, Visual Communication Design.",
     delay: 2.2,
   },
   {
-    text:
-      "There, I tried many things until I found user experience and user interface design. Now my full focus is on creating products for humans to enjoy while fulfilling my soul.",
+    text: "There, I tried many things until I found user experience and user interface design. Now my full focus is on creating products for humans to enjoy while fulfilling my soul.",
     delay: 2.4,
   },
   {
-    text:
-      "I love technology, I love design, I love music, I love creating. I’m always looking to grow and learn.",
+    text: "I love technology, I love design, I love music, I love creating. I’m always looking to grow and learn.",
     delay: 2.6,
   },
 ];
@@ -142,37 +129,8 @@ export default function About() {
             {createAnimatedParagraph(item.text, item.delay)}
           </React.Fragment>
         ))}
-        <div className="flex flex-col gap-2 mt-4 py-4 border-t border-neutral-200 dark:border-neutral-800">
-          <h3 className="text-neutral-900 dark:text-neutral-100 text-md font-semibold">Reach Me</h3>
-          <motion.div
-            className="flex gap-4 mt-8"
-            initial={animationConfig.initial}
-            animate={animationConfig.animate}
-            transition={animationConfig.transition}
-          >
-            <ContactCard
-              icon={"twitter"}
-              iconBorder={"#a3a3a3"}
-              target={"https://twitter.com/ulasalyesil"}
-            />
-            <ContactCard
-              icon={"posts"}
-              iconBorder={"#a3a3a3"}
-              target={"https://posts.cv/ulasalyesil"}
-            />
-            <ContactCard
-              icon={"linkedin"}
-              iconBorder={"#a3a3a3"}
-              target={"https://www.linkedin.com/in/ulasalyesil"}
-            />
-            <ContactCard
-              icon={"layers"}
-              iconFill={"#a3a3a3"}
-              target={"https://layers.to/ulas"}
-            />
-            <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
-          </motion.div>
-        </div>
+        <h3 className="font-semibold mt-8 dark:text-neutral-100">Reach me</h3>
+        <Contacts />
       </div>
       <Footer />
     </div>
