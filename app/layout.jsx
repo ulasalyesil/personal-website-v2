@@ -1,5 +1,6 @@
 // next
 import { Inter } from "next/font/google";
+import Head from "next/head";
 
 // anayltics
 import GoogleAnalytics from "@bradgarropy/next-google-analytics/";
@@ -24,6 +25,35 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        {/* Open Graph / Facebook */}
+        {metadata.ogImage && (
+          <meta property="og:image" content={metadata.ogImage} />
+        )}
+        {metadata.ogImage && (
+          <meta property="og:image:type" content="image/jpeg" />
+        )}
+        {metadata.ogImage && (
+          <meta property="og:image:width" content="<your_image_width>" />
+        )}{" "}
+        {/* Replace with the actual width */}
+        {metadata.ogImage && (
+          <meta property="og:image:height" content="<your_image_height>" />
+        )}{" "}
+        {/* Replace with the actual height */}
+        {metadata.ogImageAlt && (
+          <meta property="og:image:alt" content={metadata.ogImageAlt} />
+        )}
+        {/* Twitter */}
+        {metadata.twitterImage && (
+          <meta name="twitter:image" content={metadata.twitterImage} />
+        )}
+        {metadata.twitterImageAlt && (
+          <meta name="twitter:image:alt" content={metadata.twitterImageAlt} />
+        )}
+      </Head>
       <body className={inter.className}>
         <div className="flex flex-col m-auto items-center pt-12 sm:pt-32">
           <Header />
