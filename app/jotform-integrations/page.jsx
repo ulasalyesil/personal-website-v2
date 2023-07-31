@@ -96,6 +96,11 @@ export default function Page() {
             extensive research.
           </p>
           <h2 className={styles.h2}>Understanding User Needs</h2>
+          <Image
+            src={uxrSlide}
+            alt="good afternoon"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
           <p className={styles.p}>
             To meet our users&apos; needs effectively, we conducted thorough
             user interviews and surveys. These activities yielded valuable
@@ -193,11 +198,6 @@ export default function Page() {
           </ul>
 
           <h2 className={styles.h2}>Continued Iteration and User Feedback</h2>
-          <Image
-            src={uxrSlide}
-            alt="good afternoon"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
-          />
           <p className={styles.p}>
             Our design process didn&apos;t end with the initial release. We
             actively sought and welcomed user feedback, iterating on the
