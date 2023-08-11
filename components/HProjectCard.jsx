@@ -33,7 +33,7 @@ function HProjectCard({
             className=" text-neutral-900 dark:text-neutral-100"
           />
         </div>
-        <p className="text-xs sm:text-sm">{description}</p>
+        <p className="text-xs text-neutral-500 sm:text-sm">{description}</p>
         <div className="my-2 hidden sm:block">
           <Button label={buttonLabel} type={"secondary"} href={target} />
         </div>

@@ -33,7 +33,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col gap-16 px-4 sm:px-8 py-8 items-center justify-center">
+    <div className="flex flex-col gap-16 sm:px-8 py-8 justify-center">
       <motion.div
         initial={initial}
         animate={animate}
@@ -57,7 +57,7 @@ export default function Page() {
           initial={initial}
           animate={animate}
           transition={transition}
-          className="flex flex-col gap-4 items-center"
+          className="flex flex-col gap-4 items-start"
         >
           <h2 className={styles.h2}>Introduction</h2>
           <p className={styles.p}>
@@ -112,7 +112,7 @@ export default function Page() {
             actions for Jotform and QuickBooks integration are: creating a
             customer record and generating an invoice.
           </p>
-          <ul className="list-disc list-inside mt-2 flex flex-col items-center">
+          <ul className="list-disc list-inside mt-2 flex flex-col items-start">
             <li className={styles.p}>
               Users wanted a seamless integration with QuickBooks to sync data
               effortlessly and reduce manual data entry.

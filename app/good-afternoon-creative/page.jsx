@@ -21,7 +21,6 @@ export default function Page() {
   const { initial, animate, transition } = animationConfig;
 
   return (
-    <div className="flex flex-col gap-16 px-8 py-8">
       <div className="flex flex-col gap-16 text-sm items-center">
         <motion.div
           initial={initial}
@@ -71,7 +70,6 @@ export default function Page() {
         >
           <Image src={gacWeb} className="w-full rounded-2xl" alt="logo" />
         </motion.div>
-      </div>
       <Footer />
     </div>
   );

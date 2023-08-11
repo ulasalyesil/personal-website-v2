@@ -21,7 +21,7 @@ import writingsData from "../public/data/writings.json";
 
 function Page() {
   return (
-    <div className="w-screen h-screen text-sm md:text-base">
+    <div className="text-sm md:text-base">
       <motion.div className="flex flex-col p-4 sm:m-auto rounded-xl sm:w-[512px] gap-16 mb-auto bg-neutral-100/20 dark:bg-neutral-950">
         <Hero />
         <motion.ol

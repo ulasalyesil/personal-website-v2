@@ -79,7 +79,7 @@ const content = [
 
 export default function About() {
   return (
-    <div className="w-screen h-screen">
+    <div>
       <div className="flex flex-col mx-auto px-4 md:px-auto w-full md:w-[512px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
         <div className="h-80 rounded-xl overflow-hidden flex flex-col justify-center">
           <motion.div
