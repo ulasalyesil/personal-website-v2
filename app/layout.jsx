@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex flex-col m-auto items-center pt-12 sm:pt-32">
+        <div className="flex flex-col m-6 items-center sm:pt-32">
           <Header />
           <div className="bg-gradient-to-b from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-24 sm:h-40 fixed top-0" />
           {children}
