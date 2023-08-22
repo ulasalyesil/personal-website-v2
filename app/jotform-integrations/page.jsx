@@ -33,7 +33,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col gap-16 sm:px-8 py-8 justify-center">
+    <div className="flex flex-col gap-16 sm:px-8 py-8 items-center justify-center">
       <motion.div
         initial={initial}
         animate={animate}
