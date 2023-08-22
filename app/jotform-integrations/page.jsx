@@ -57,7 +57,7 @@ export default function Page() {
           initial={initial}
           animate={animate}
           transition={transition}
-          className="flex flex-col gap-4 items-start"
+          className="flex flex-col gap-4 items-center"
         >
           <h2 className={styles.h2}>Introduction</h2>
           <p className={styles.p}>
