@@ -112,7 +112,7 @@ export default function Page() {
             actions for Jotform and QuickBooks integration are: creating a
             customer record and generating an invoice.
           </p>
-          <ul className="list-disc list-inside mt-2 flex flex-col items-start">
+          <ul className="list-disc list-inside mt-2 flex flex-col items-center">
             <li className={styles.p}>
               Users wanted a seamless integration with QuickBooks to sync data
               effortlessly and reduce manual data entry.
