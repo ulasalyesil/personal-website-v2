@@ -4,8 +4,8 @@ import ContactCard from '@/components/ContactCard';
 
 export default function NotFound() {
   return (
-    <div className="text-neutral-900 flex flex-col m-auto p-auto justify-center items-center h-screen gap-4">
-      <h1 className="text-2xl font-bold">Oops! You seem to be lost.</h1>
+    <div className="text-neutral-900 dark:text-neutral-100 flex flex-col m-auto p-auto justify-center items-center h-screen gap-4">
+      <h1 className="text-2xl font-bold max-w-[556px] text-center">We regret to inform that we decided to move on with other pages. We'll keep your candidate info and reach out if we see any fit.</h1>
       <div className='flex gap-4 items-center'>
         <p>Go</p>
           <Button href={'/'} label={"Home"} type={"primary"} />
@@ -13,9 +13,9 @@ export default function NotFound() {
       <p className='text-neutral-500'>or reach out at</p>
       <div className="flex gap-4">
             <ContactCard
-              icon={"twitter"}
-              iconBorder={"#a3a3a3"}
-              target={"https://twitter.com/ulasalyesil"}
+              icon={"x"}
+              iconFill={"#a3a3a3"}
+              target={"https://x.com/ulasalyesil"}
             />
             <ContactCard
               icon={"posts"}
