@@ -35,33 +35,36 @@ function Page() {
             stiffness: 25,
           }}
         >
-
           <div className="flex flex-col gap-2">
-      <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold">
-        Latest Projects
-      </h3>
-      <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
-        <HProjectCard
-          target={"/jotform-integrations"}
-          projectType={"Product Design"}
-          title={"Jotform Integrations"}
-          description={"Designing the QuickBooks integration and re-imagining the integrations experience."}
-          buttonLabel={'See Case Study'}
-          img={qb}
-        />
-        <HProjectCard
-          target={"/good-afternoon-creative"}
-          projectType={"Web Design and Development"}
-          title={"Good Afternoon Creative"}
-          description={"Good Afternoon Creative is a brand agency based in İstanbul"}
-          buttonLabel={'See Case Study'}
-          img={gacWeb}
-        />
-      </div>
-    </div>
+            <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold">
+              Latest Projects
+            </h3>
+            <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
+              <HProjectCard
+                target={"/jotform-integrations"}
+                projectType={"Product Design"}
+                title={"Jotform Integrations"}
+                description={
+                  "Designing the QuickBooks integration and re-imagining the integrations experience."
+                }
+                buttonLabel={"See Case Study"}
+                img={qb}
+              />
+              <HProjectCard
+                target={"/good-afternoon-creative"}
+                projectType={"Web Design and Development"}
+                title={"Good Afternoon Creative"}
+                description={
+                  "Good Afternoon Creative is a brand agency based in İstanbul"
+                }
+                buttonLabel={"See Case Study"}
+                img={gacWeb}
+              />
+            </div>
+          </div>
           <Section sectionTitle={"Projects"} projects={projectsData} />
           <Section sectionTitle={"Writings"} projects={writingsData} />
-          {/* <PlaygroundTabs /> */}
+          <PlaygroundTabs />
         </motion.ol>
       </motion.div>
       <Footer />
