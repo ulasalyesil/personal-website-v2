@@ -66,7 +66,7 @@ function Page() {
           </div>
           <Section sectionTitle={"Projects"} projects={projectsData} />
           <Section sectionTitle={"Writings"} projects={writingsData} />
-          <PlaygroundTabs />
+          {/* <PlaygroundTabs /> */}
         </motion.ol>
       </motion.div>
       <Footer />
