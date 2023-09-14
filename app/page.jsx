@@ -9,6 +9,7 @@ import HProjectCard from "../components/HProjectCard";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
 import PlaygroundTabs from "@/components/PlaygroundTabs";
+import Carousel from "@/components/Carousel";
 
 // assets
 import gacWeb from "../public/images/goodafternoon/gacWeb.png";
@@ -36,6 +37,7 @@ function Page() {
           }}
         >
           <div className="flex flex-col gap-2">
+            {/* <Carousel /> */}
             <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold">
               Latest Projects
             </h3>
