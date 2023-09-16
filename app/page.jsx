@@ -9,7 +9,6 @@ import HProjectCard from "../components/HProjectCard";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
 import PlaygroundTabs from "@/components/PlaygroundTabs";
-import Carousel from "@/components/Carousel";
 
 // assets
 import gacWeb from "../public/images/goodafternoon/gacWeb.png";
@@ -36,9 +35,8 @@ function Page() {
             stiffness: 25,
           }}
         >
-          <div className="flex flex-col gap-2">
-            {/* <Carousel /> */}
-            <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold">
+          <div className="flex flex-col gap-2 items-center">
+            <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold w-full">
               Latest Projects
             </h3>
             <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
@@ -68,7 +66,7 @@ function Page() {
           <Section sectionTitle={"Writings"} projects={writingsData} />
           {/* <PlaygroundTabs /> */}
         </motion.ol>
-      </motion.div>
+      </motion.div> 
       <Footer />
     </div>
   );

@@ -61,11 +61,11 @@ export default function Hero() {
                 and sound. I am currently at{" "}
                 <a
                   className="font-semibold hover:text-[#FF6100] transition duration-200"
-                  href="https://jotform.com"
+                  href="https://peaka.com"
                 >
-                  Jotform
+                  Peaka
                 </a>
-                {" "}working on form fields and design systems.
+                {" "}as a Product Designer.
               </motion.p>
               <TypingAnimatedText
                 text={

@@ -120,7 +120,7 @@ export default function About() {
             target={"_blank"}
             type={"secondary"}
             href={
-              "https://drive.google.com/file/d/1yuaGk_be2RIbmPJ_LUuM1MnecypJH_5J/view?usp=sharing"
+              "https://drive.google.com/file/d/1I7juvOpvtkp4Y9ZbbVneDIsW-XW-D_Jm/view?usp=drive_link"
             }
           />
         </motion.div>
