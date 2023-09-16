@@ -36,7 +36,7 @@ const content = [
     delay: 0.6,
   },
   {
-    text: "Hello, I’m Ulaş. Freshly graduated from Visual Communication Design of Bahcesehir University, based in Istanbul. I’m currently at Jotform as a Jr. Product Designer.",
+    text: "Hello, I’m Ulaş. Freshly graduated from Visual Communication Design of Bahcesehir University, based in Istanbul. After my graduation, I joined Jotform as a Jr. Product Designer. I spent an amazing year there and learnt many things, met lovely people, and made unforgettable memories. Now, I'm at Peaka as a Product Designer.",
     delay: 0.8,
   },
   {
