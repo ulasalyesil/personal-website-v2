@@ -23,7 +23,7 @@ const createAnimatedParagraph = (text, delay) => {
       initial={initial}
       animate={animate}
       transition={{ ...transition, delay: 0.4 + delay }}
-      className="text-neutral-900 text-justify dark:text-neutral-100 text-sm md:text-base"
+      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-base"
     >
       {text}
     </motion.p>
@@ -32,49 +32,21 @@ const createAnimatedParagraph = (text, delay) => {
 
 const content = [
   {
-    text: "*It’s all by design. The choices you make. So that makes everyone design at some point. For themselves. What differentiates a designer is that they design for humans. Not themselves. This is what I try to do, design interfaces to create memorable experiences for humans.",
+    text: "Hello, I'm Ulaş, a dedicated product designer from Istanbul, graduated with a degree in Visual Communication Design from Bahcesehir University. My design journey began at Jotform as a Jr. Product Designer, where I learned a lot, met inspiring people, and crafted memorable designs. Now, as a Product Designer at Peaka, I'm focused on creating intuitive interfaces that enhance human experiences.",
     delay: 0.6,
   },
   {
-    text: "Hello, I’m Ulaş. Freshly graduated from Visual Communication Design of Bahcesehir University, based in Istanbul. After my graduation, I joined Jotform as a Jr. Product Designer. I spent an amazing year there and learnt many things, met lovely people, and made unforgettable memories. Now, I'm at Peaka as a Product Designer.",
+    text: "My creative spark was ignited by music at a young age, as I explored the rhythmic realms through guitar and drums. The enchanting world of electronic music, especially the works of Daft Punk, drew me in further. Their incredible visuals introduced me to the fascinating world of visual arts, which led me to experiment with filmmaking and photography during my teenage years. Everywhere I went, my camera accompanied me, capturing the rhythm of life unfolding around me.",
     delay: 0.8,
   },
   {
-    text: "My interest in design started some time ago, but I would like to talk about how I landed here first",
+    text: "These adventures in music and visuals eventually steered me towards user experience and user interface design during my university years. Now, my heart and soul are devoted to crafting products that not only resonate with users but also fulfill my creative aspirations.",
     delay: 1.0,
   },
   {
-    text: "I was born in İstanbul, Turkey. I first met music, which is the biggest thing that led me to where I am today.",
+    text: "Beyond the design domain, you can catch me strumming a tune or exploring the latest in technology, always eager to learn and grow. I cherish the power of design as a medium for fostering memorable human interactions and am on a continual quest to blend aesthetics with functionality in every design I craft.",
     delay: 1.2,
-  },
-  {
-    text: "Music showed me what I love; creating",
-    delay: 1.4,
-  },
-  {
-    text: "I played the guitar, drums for a long time. At some point, I discovered electronic music from god-like musicians; Daft Punk",
-    delay: 1.6,
-  },
-  {
-    text: "Amazing visuals and cinematography of Daft Punk introduced me to visual arts.",
-    delay: 1.8,
-  },
-  {
-    text: "I got a camera in my hands, I shot cover videos, I tried making small films by capturing what’s happening around me. I was around 15-16, and I loved working with visuals. Merging music and visuals excited me. Everywhere I went, I had my camera with me.",
-    delay: 2.0,
-  },
-  {
-    text: "After a couple of years, I started at Bahcesehir University, Visual Communication Design.",
-    delay: 2.2,
-  },
-  {
-    text: "There, I tried many things until I found user experience and user interface design. Now my full focus is on creating products for humans to enjoy while fulfilling my soul.",
-    delay: 2.4,
-  },
-  {
-    text: "I love technology, I love design, I love music, I love creating. I’m always looking to grow and learn.",
-    delay: 2.6,
-  },
+  }
 ];
 
 export default function About() {
