@@ -64,8 +64,8 @@ export default function Hero() {
                   href="https://peaka.com"
                 >
                   Peaka
-                </a>
-                {" "}as a Product Designer.
+                </a>{" "}
+                as a Product Designer.
               </motion.p>
               <TypingAnimatedText
                 text={
@@ -109,7 +109,9 @@ export default function Hero() {
         </div>,
         0
       )}
-    <Contacts />
+      <div className="mt-8">
+        <Contacts />
+      </div>
     </motion.div>
   );
 }

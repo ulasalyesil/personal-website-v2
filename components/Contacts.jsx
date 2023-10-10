@@ -9,7 +9,7 @@ export default function Contacts() {
   };
   return (
     <motion.div
-      className="flex gap-4 mt-8 max-w-[512px] items-start w-full"
+      className="flex gap-4 max-w-[512px] items-start w-full"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{

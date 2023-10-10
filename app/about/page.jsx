@@ -4,9 +4,13 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+import otherData from "@/public/data/others.json";
+
 import Footer from "@/components/Footer";
 import picture from "../../public/images/picture.jpeg";
+import Section from "@/components/Section";
 import Button from "@/components/ui/Button";
+import MusicPlayer from "@/components/playground/musicPlayer";
 import Contacts from "@/components/Contacts";
 
 const animationConfig = {
@@ -101,8 +105,19 @@ export default function About() {
             {createAnimatedParagraph(item.text, item.delay)}
           </React.Fragment>
         ))}
-        <h3 className="font-semibold mt-8 dark:text-neutral-100">Reach me</h3>
-        <Contacts />
+        <div className="my-4 flex flex-col gap-2">
+          <Section sectionTitle={"Some Personal Work"} projects={otherData} />
+          <h3 className="font-semibold mt-8 dark:text-neutral-100">
+            Listen to my music
+          </h3>
+          <MusicPlayer
+            src={
+              "https://embed.music.apple.com/us/album/red-threads-lucid-ii-vision-extended-remix/1605961584?i=1605961840&amp;app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=dark"
+            }
+          />
+          <h3 className="font-semibold mt-8 dark:text-neutral-100">Reach me</h3>
+          <Contacts />
+        </div>
       </div>
       <Footer />
     </div>
