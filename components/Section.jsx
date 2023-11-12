@@ -9,7 +9,7 @@ function Section({
   projects
 }) {
   const style =
-    "text-neutral-400 px-1 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold";
+    "text-neutral-400 px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold";
 
     const sortedProjects = Object.entries(projects).sort(
       ([, projectA], [, projecctB]) => {
