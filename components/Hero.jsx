@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 //packages
 import { motion } from "framer-motion";
@@ -15,7 +15,6 @@ const animationConfig = {
 };
 
 export default function Hero() {
-
   const createAnimatedElement = (element, delay) => {
     const { initial, animate, transition } = animationConfig;
 
@@ -52,7 +51,7 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex flex-col gap-2">
               <motion.p
-                className="text-neutral-900 dark:text-neutral-100"
+                className="text-neutral-900 dark:text-neutral-100 text-3xl sm:text-4xl"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
@@ -67,34 +66,9 @@ export default function Hero() {
                 </a>{" "}
                 as a Product Designer.
               </motion.p>
-              <TypingAnimatedText
-                text={
-                  "I design interfaces to create memorable feelings for humans."
-                }
-              />
             </div>,
             0.4
           )}
-          <motion.div
-            className="flex gap-4 items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              type: "spring",
-              stiffness: 25,
-              delay: 0.5,
-            }}
-          >
-            <motion.a
-              className="text-neutral-900 dark:text-neutral-100 font-semibold transition ease-in-out duration-150 hover:text-[#017bfc] mb-2"
-              href="https://frey.money"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Building Frey ▲.
-            </motion.a>
-          </motion.div>
           {createAnimatedElement(
             <div className="flex gap-2">
               <Button

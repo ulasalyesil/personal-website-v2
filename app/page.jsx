@@ -22,7 +22,7 @@ import writingsData from "../public/data/writings.json";
 function Page() {
   return (
     <div className="text-sm md:text-base">
-      <motion.div className="flex flex-col p-4 sm:m-auto rounded-xl sm:w-[512px] gap-16 mb-auto bg-neutral-100/20 dark:bg-neutral-950">
+      <motion.div className="flex flex-col p-4 sm:m-auto rounded-xl sm:w-[1200px] gap-16 mb-auto bg-neutral-100/20 dark:bg-neutral-950">
         <Hero />
         <motion.ol
           className="flex flex-col gap-16 rounded-xl py-4 selection:bg-slate-100 selection:text-[#017BFC]"
@@ -39,7 +39,7 @@ function Page() {
             <h3 className="text-neutral-400 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold w-full">
               Latest Projects
             </h3>
-            <div className="flex flex-col gap-4 w-full text-neutral-400 my-4">
+            <div className="flex flex-col sm:flex-row gap-4 w-full text-neutral-400 my-4">
               <HProjectCard
                 target={"/jotform-integrations"}
                 projectType={"Product Design"}
