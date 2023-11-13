@@ -12,10 +12,10 @@ html {
 
 body {
   background-repeat: repeat;
-  background: linear-gradient(90deg, #fafafa calc(16px - 1px), transparent 1%) center,
-              linear-gradient(#fafafa calc(16px - 1px), transparent  1%) center,
+  background: linear-gradient(90deg, #fafafa calc(32px - 1px), transparent 1%) center,
+              linear-gradient(#fafafa calc(32px - 1px), transparent  1%) center,
               #262626;
-  background-size: 16px 16px;
+  background-size: 32px 32px;
 }
 
 @media (prefers-color-scheme: dark) {
