@@ -55,8 +55,13 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
+<<<<<<< HEAD
                 Hey there, I'm Ulaş, a designer of digital products 💻, motion
                 💫 and sound 🎵 specialising in SaaS. I am currently at{" "}
+=======
+                Hey there, I&apos;m Ulaş, a designer of digital products 💻, motion 💫
+                and sound 🎵 specialising in SaaS. I am currently at{" "}
+>>>>>>> c9823ce54cb8db7862b78d60bdbb42b025553222
                 <a
                   className="font-semibold hover:text-[#FF6100] transition duration-200"
                   href="https://peaka.com"
