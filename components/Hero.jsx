@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 
 // components
 import Button from "./ui/Button";
-import TypingAnimatedText from "./TypingAnimatedText";
 import Contacts from "./Contacts";
 
 const animationConfig = {
@@ -15,9 +14,9 @@ const animationConfig = {
 };
 
 export default function Hero() {
-  const createAnimatedElement = (element, delay) => {
-    const { initial, animate, transition } = animationConfig;
+  const { initial, animate, transition } = animationConfig;
 
+  const createAnimatedElement = (element, delay) => {
     return (
       <motion.div
         initial={initial}
@@ -56,8 +55,8 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                Hey there, I&apos;m Ulaş, a designer of digital products, motion
-                and sound specialising in SaaS. I am currently at{" "}
+                Hey there, I'm Ulaş, a designer of digital products 💻, motion
+                💫 and sound 🎵 specialising in SaaS. I am currently at{" "}
                 <a
                   className="font-semibold hover:text-[#FF6100] transition duration-200"
                   href="https://peaka.com"

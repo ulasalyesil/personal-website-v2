@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -11,7 +11,6 @@ import { NotionLogoIcon } from "@radix-ui/react-icons";
 import Cosmos from "@/public/icons/contactIcons/cosmos";
 
 export default function Bookmarks() {
-
   const animationConfig = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -57,7 +56,7 @@ export default function Bookmarks() {
               description={"Collecting objects in Cosmos"}
               image={
                 <div className="w-8 flex items-center">
-                  <Cosmos/>
+                  <Cosmos />
                 </div>
               }
             />
