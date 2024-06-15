@@ -51,9 +51,29 @@ export default function Bookmarks() {
             }}
           >
             <LinkItem
-              target={"https://www.cosmos.so/ulasalyesil/_objects"}
-              title={"_objects | Cosmos"}
+              target={"https://www.cosmos.so/ulasalyesil/objekte"}
+              title={"_objekte | Cosmos"}
               description={"Collecting objects in Cosmos"}
+              image={
+                <div className="w-8 flex items-center">
+                  <Cosmos />
+                </div>
+              }
+            />
+            <LinkItem
+              target={"https://www.cosmos.so/ulasalyesil/haus"}
+              title={"haus | Cosmos"}
+              description={"Collecting interior inspirations in Cosmos"}
+              image={
+                <div className="w-8 flex items-center">
+                  <Cosmos />
+                </div>
+              }
+            />
+            <LinkItem
+              target={"https://www.cosmos.so/ulasalyesil/haus"}
+              title={"grafik | Cosmos"}
+              description={"Collecting graphic design inspirations in Cosmos"}
               image={
                 <div className="w-8 flex items-center">
                   <Cosmos />
