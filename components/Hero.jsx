@@ -55,7 +55,7 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                Hey there, I'm Ulaş, a designer of digital products 💻, motion
+                Hey there, Iapos;m Ulaş, a designer of digital products 💻, motion
                 💫 and sound 🎵 specialising in SaaS. I am currently at{" "}
 
                 <a
