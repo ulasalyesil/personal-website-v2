@@ -59,7 +59,7 @@ export default function Hero() {
                 💫 and sound 🎵 specialising in SaaS. I am currently at{" "}
 
                 <a
-                  className="font-semibold hover:text-[#FF6100] transition duration-200"
+                  className="font-semibold hover:text-[#6466F0] transition duration-200"
                   href="https://peaka.com"
                 >
                   Peaka
