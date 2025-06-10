@@ -106,15 +106,6 @@ export default function About() {
           </React.Fragment>
         ))}
         <div className="my-4 flex flex-col gap-2">
-          <Section sectionTitle={"Some Personal Work"} projects={otherData} />
-          <h3 className="font-semibold mt-8 dark:text-neutral-100">
-            Listen to my music
-          </h3>
-          <MusicPlayer
-            src={
-              "https://embed.music.apple.com/us/album/red-threads-lucid-ii-vision-extended-remix/1605961584?i=1605961840&amp;app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=dark"
-            }
-          />
           <h3 className="font-semibold mt-8 dark:text-neutral-100">Reach me</h3>
           <Contacts />
         </div>
