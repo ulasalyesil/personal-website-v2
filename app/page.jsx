@@ -12,7 +12,6 @@ import frey from "../public/images/frey_overview.png";
 import qb from "@/public/images/quickbooks/integrationsList.png";
 
 import projectsData from "../public/data/projects.json";
-import writingsData from "../public/data/writings.json";
 
 const motionProps = {
   initial: { opacity: 0, y: 20 },
@@ -58,7 +57,6 @@ function Page() {
             </div>
           </div>
           <Section sectionTitle={"Projects"} projects={projectsData} />
-          <Section sectionTitle={"Writings"} projects={writingsData} />
         </motion.ol>
       </motion.div>
       <Footer />
