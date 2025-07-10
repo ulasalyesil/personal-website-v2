@@ -56,88 +56,79 @@ export default function Page() {
         >
           <h2 className={styles.h2}>Introduction</h2>
           <p className={styles.p}>
-            WiseCareAI was an AI-powered platform designed to help independent health insurance agents in the U.S. make better product recommendations. I joined as the founding designer and worked closely with the CEO and CPO to launch and scale the product.
+            WiseCareAI was an AI-powered platform for the U.S. health insurance market. I joined as the founding designer and worked across multiple products — from agent tools and enrollment flows to a public-facing website and design system.
           </p>
 
           <h2 className={styles.h2}>My Role</h2>
           <p className={styles.p}>
-            I led design across the board—from user research to UI/UX to visual identity. I also worked with developers to ensure pixel-perfect implementation and designed the marketing website. The project scope included enrollment tools, dashboards, forms, and internal systems.
+            I led end-to-end product design across 5+ tools: agent-facing apps, internal dashboards, and the marketing website. My responsibilities included UX strategy, UI design, prototyping, developer handoff, and system-wide consistency. I worked closely with the CEO, CPO, and engineers.
           </p>
 
-          <h2 className={styles.h2}>The Goal</h2>
-          <p className={styles.p}>
-            Help agents enroll clients into the best ACA or Medicare plan using a tool that simplifies plan comparison, automates workflows, and builds trust. We wanted to replace clunky legacy systems with a fast, modern, and intuitive platform powered by AI.
-          </p>
-
-          <h2 className={styles.h2}>Understanding the Agents</h2>
-          <p className={styles.p}>
-            Through interviews and field testing, we discovered how agents juggled multiple platforms, relied on personal notes, and often made decisions under pressure. They needed a clean, smart tool that could guide but not control their decisions.
-          </p>
-
-          <h2 className={styles.h2}>Product Structure</h2>
+          <h2 className={styles.h2}>Product Ecosystem</h2>
           <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
             <li className={styles.p}>
-              <strong>Enrollment Agent:</strong> A fast, AI-powered interface to input client details and view best-fit plans.
+              <strong>Enrollment Agent (ACA):</strong> A guided form tool for individual clients enrolling in Affordable Care Act plans.
             </li>
             <li className={styles.p}>
-              <strong>Customer Dashboard:</strong> A management system to track all clients, enrollments, and conversations.
+              <strong>Medicare Agent Tool:</strong> A quoting assistant designed for agents handling elderly clients over the phone.
             </li>
             <li className={styles.p}>
-              <strong>AI Needs Assessment:</strong> A guided form to capture client needs and automatically filter the best plans.
+              <strong>Internal Dashboard:</strong> A CRM for support staff to track enrollments and manage leads.
+            </li>
+            <li className={styles.p}>
+              <strong>Marketing Website:</strong> A responsive public site aimed at trust-building and lead conversion.
+            </li>
+            <li className={styles.p}>
+              <strong>Design System:</strong> Tokens, components, documentation, and handoff for scalability.
             </li>
           </ul>
 
           <Image
             src={dashboard}
-            alt="Dashboard view"
+            alt="Agent Dashboard"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>Challenges</h2>
           <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
             <li className={styles.p}>
-              Many agents had low digital literacy, so the interface needed to be very clear and familiar.
+              Designing for both low-tech agents and fast-paced workflows under pressure.
             </li>
             <li className={styles.p}>
-              Medicare and ACA plan data was dense and inconsistent, requiring careful UI design for filtering and comparison.
+              Navigating U.S. health policy complexities (ACA vs. Medicare).
             </li>
             <li className={styles.p}>
-              The tool had to perform well under pressure—most usage happened during live client calls.
+              Building a shared design system that worked across internal and external tools.
             </li>
           </ul>
 
           <Image
             src={formUI}
-            alt="Form UI"
+            alt="ACA Enrollment Flow"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
 
-          <h2 className={styles.h2}>AI-Powered Experience</h2>
+          <h2 className={styles.h2}>AI-Powered Tools</h2>
           <p className={styles.p}>
-            I worked with the engineering team to design an AI-powered plan search tool. The interface allows agents to type natural questions or client attributes and returns filtered plan options. It was designed with explainability in mind, showing why a plan is recommended.
+            In both the ACA and Medicare flows, I designed search and assessment tools powered by an AI backend. Agents could input free-form needs or use guided steps, and the system returned plan recommendations with transparent logic.
           </p>
 
           <Image
             src={aiSearch}
-            alt="AI search"
+            alt="AI Search Assistant"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
 
-          <h2 className={styles.h2}>Brand & Visual Design</h2>
-          <p className={styles.p}>
-            I designed the logo, color palette, typography system, and components. We aimed for a calm, clinical aesthetic with a modern edge to build trust with both agents and clients.
-          </p>
-
           <h2 className={styles.h2}>Impact</h2>
           <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
-            <li className={styles.p}>Agents reduced enrollment call time by ~25%</li>
-            <li className={styles.p}>Clients felt more confident about their plan choices</li>
-            <li className={styles.p}>Improved agent onboarding and retention</li>
+            <li className={styles.p}>25% faster enrollment times across agents</li>
+            <li className={styles.p}>Improved quote accuracy and user confidence</li>
+            <li className={styles.p}>Better onboarding and training outcomes for new hires</li>
           </ul>
 
           <h2 className={styles.h2}>Conclusion</h2>
           <p className={styles.p}>
-            WiseCareAI taught me the value of designing in complexity—from policy rules to emotional trust. As the sole designer, I had full ownership and visibility over the product lifecycle. While the product is currently paused, it remains one of the most complete and impactful design experiences in my career.
+            WiseCareAI gave me full-stack product design ownership in a complex and highly regulated domain. I designed for multiple personas, aligned with business goals, and helped shape a platform that blended logic, speed, and trust. While the product is paused, it remains one of my most complete design contributions to date.
           </p>
 
           <div className="flex justify-start w-full sm:max-w-[512px] my-6 gap-4">
