@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Ulaş Alyeşil | Product Designer",
-  description: "Designing for memorable feelings.",
+  description: "i design buttons and inputs and sometimes cards",
 };
 
 export default function RootLayout({ children }) {
