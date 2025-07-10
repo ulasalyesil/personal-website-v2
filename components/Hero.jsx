@@ -55,8 +55,8 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                Hey there, I&apos;m Ulaş, a designer of digital products 💻, motion
-                💫 and sound 🎵 specialising in SaaS. I am currently at{" "}
+                Hey there, I&apos;m Ulaş, a designer of digital products, motion
+                and sound specialising in SaaS. I am currently at{" "}
 
                 <a
                   className="font-semibold hover:text-[#0067E6] transition duration-200"
