@@ -7,7 +7,7 @@ import HProjectCard from "../components/HProjectCard";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
 
-import gacWeb from "../public/images/goodafternoon/gacWeb.png";
+import wisecareai from "../public/images/wisecare/form.png";
 import frey from "../public/images/frey_overview.png";
 import qb from "@/public/images/quickbooks/integrationsList.png";
 
@@ -35,6 +35,16 @@ function Page() {
             <div className="flex flex-col sm:flex-row gap-4 w-full text-neutral-400 my-4">
               {/* Cards */}
               <HProjectCard
+                target={"/wisecareai"}
+                projectType={"Product Design"}
+                title={"WiseCareAI"}
+                description={
+                  "An AI-powered platform helping US health insurance agents recommend the best ACA and Medicare plans faster and smarter."
+                }
+                buttonLabel={"See Case Study"}
+                img={wisecareai}
+              />
+              <HProjectCard
                 target={"/jotform-integrations"}
                 projectType={"Product Design"}
                 title={"Jotform Integrations"}
@@ -43,16 +53,6 @@ function Page() {
                 }
                 buttonLabel={"See Case Study"}
                 img={qb}
-              />
-              <HProjectCard
-                target={"/good-afternoon-creative"}
-                projectType={"Web Design and Development"}
-                title={"Good Afternoon Creative"}
-                description={
-                  "Good Afternoon Creative is a brand agency based in İstanbul"
-                }
-                buttonLabel={"See Case Study"}
-                img={gacWeb}
               />
             </div>
           </div>
