@@ -1,38 +1,45 @@
 {
     "jotform": {
-        "title": "Jotform | QuickBooks Integration",
-        "role": "Product Design",
-        "date": "July, 2023",
-        "target": "/jotform-integrations"
+      "title": "Jotform | QuickBooks Integration",
+      "role": "Product Design",
+      "date": "July, 2023",
+      "target": "/jotform-integrations"
     },
     "commodore": {
-        "title": "Commodore",
-        "role": "Product Design, Branding",
-        "date": "June, 2022",
-        "target": "/commodore"
+      "title": "Commodore",
+      "role": "Product Design, Branding",
+      "date": "June, 2022",
+      "target": "/commodore"
     },
     "genesis": {
-        "title": "Genesis: Digital Revolution",
-        "role": "Branding, Web Dev",
-        "date": "Feb, 2022",
-        "target": "/genesis"
+      "title": "Genesis: Digital Revolution",
+      "role": "Branding, Web Dev",
+      "date": "Feb, 2022",
+      "target": "/genesis"
     },
     "gac": {
-        "title": "Good Afternoon Creative",
-        "role": "Product Design, Web Dev",
-        "date": "May, 2023",
-        "target": "/good-afternoon-creative"
+      "title": "Good Afternoon Creative",
+      "role": "Product Design, Web Dev",
+      "date": "May, 2023",
+      "target": "/good-afternoon-creative"
     },
     "frey": {
-        "title": "Frey Money",
-        "role": "Founding Designer",
-        "date": "March, 2023",
-        "target": "https://frey.framer.website"
+      "title": "Frey Money",
+      "role": "Founding Designer",
+      "date": "March, 2023",
+      "target": "https://frey.framer.website"
     },
     "dezign-brief": {
-        "title": "Dezign Brief",
-        "role": "Product Design, Web Development",
-        "date": "July, 2023",
-        "target": "https://dezign-brief.vercel.app"
+      "title": "Dezign Brief",
+      "role": "Product Design, Web Development",
+      "date": "July, 2023",
+      "target": "https://dezign-brief.vercel.app"
+    },
+    "wisecare": {
+      "title": "WiseCareAI",
+      "role": "Founding Product Designer",
+      "date": "March, 2025",
+      "target": "/wisecareai"
     }
-}
+  }
+  
