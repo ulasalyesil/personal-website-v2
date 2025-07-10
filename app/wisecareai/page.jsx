@@ -8,11 +8,16 @@ import Button from "@/components/ui/Button";
 import Contacts from "@/components/Contacts";
 import Footer from "@/components/Footer";
 
-// Replace these with your actual images
-import wisecare_cover from "@/public/images/wisecare/cover.png";
-import dashboard from "@/public/images/wisecare/dashboard.png";
-import formUI from "@/public/images/wisecare/form.png";
-import aiSearch from "@/public/images/wisecare/aiSearch.png";
+// Updated image imports to match your files
+import aiFound from "@/public/images/wisecare/ai_found.png";
+import aiThinking from "@/public/images/wisecare/ai_thinking.png";
+import cover from "@/public/images/wisecare/cover.png";
+import form from "@/public/images/wisecare/form.png";
+import init from "@/public/images/wisecare/init.png";
+import web from "@/public/images/wisecare/marketing.png";
+import plans from "@/public/images/wisecare/plan_selection.png";
+import plans2 from "@/public/images/wisecare/plans.png";
+import wizard from "@/public/images/wisecare/wizard.png";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -43,11 +48,14 @@ export default function Page() {
           role={"Product Designer"}
           className="max-w-[512px]"
         />
+
+        {/* Cover / Hero */}
         <Image
-          src={wisecare_cover}
+          src={cover}
           alt="WiseCareAI cover"
           className="my-6 rounded-lg shadow-xl w-full"
         />
+
         <motion.article
           initial={initial}
           animate={animate}
@@ -83,9 +91,10 @@ export default function Page() {
             </li>
           </ul>
 
+          {/* Ecosystem overview diagram */}
           <Image
-            src={dashboard}
-            alt="Agent Dashboard"
+            src={init}
+            alt="Platform ecosystem overview"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
 
@@ -102,9 +111,40 @@ export default function Page() {
             </li>
           </ul>
 
+          {/* Step-by-step wizard flow */}
           <Image
-            src={formUI}
-            alt="ACA Enrollment Flow"
+            src={wizard}
+            alt="Step-by-step wizard flow"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
+
+          <h2 className={styles.h2}>ACA Enrollment Flow</h2>
+          <p className={styles.p}>
+            We implemented a step-by-step wizard for ACA enrollment, with real-time validation and contextual help at each stage.
+          </p>
+          <Image
+            src={form}
+            alt="ACA Enrollment Form UI"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
+
+          <h2 className={styles.h2}>Plan Comparison</h2>
+          <p className={styles.p}>
+            Agents and clients could compare multiple plans side-by-side, filtering by cost, coverage, and special eligibility.
+          </p>
+          <Image
+            src={plans2}
+            alt="Plan comparison UI"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
+
+          <h2 className={styles.h2}>Plan Selection Interaction</h2>
+          <p className={styles.p}>
+            The final selection screen highlights recommended plans with clear callouts based on client needs.
+          </p>
+          <Image
+            src={plans}
+            alt="Plan selection interface"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
 
@@ -112,10 +152,24 @@ export default function Page() {
           <p className={styles.p}>
             In both the ACA and Medicare flows, I designed search and assessment tools powered by an AI backend. Agents could input free-form needs or use guided steps, and the system returned plan recommendations with transparent logic.
           </p>
-
           <Image
-            src={aiSearch}
-            alt="AI Search Assistant"
+            src={aiThinking}
+            alt="AI search assistant interface"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
+          <Image
+            src={aiFound}
+            alt="AI recommendation results"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
+
+          <h2 className={styles.h2}>Marketing Website</h2>
+          <p className={styles.p}>
+            I designed and built a clean, responsive marketing site to explain our value proposition and convert new leads.
+          </p>
+          <Image
+            src={web}
+            alt="Marketing website screenshot"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
 
@@ -135,8 +189,10 @@ export default function Page() {
             <Button label={"Go Home"} href={"/"} type={"secondary"} />
           </div>
         </motion.article>
+
         <Contacts />
       </motion.div>
+
       <Footer />
     </div>
   );
