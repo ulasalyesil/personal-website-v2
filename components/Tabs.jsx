@@ -118,7 +118,7 @@ const TabsHighlight = styled.div`
   position: absolute;
   top: 12px;
   left: 0;
-  border-radius: 6px;
+  border-radius: 2px;
   height: 2rem;
   transition: 0.15s ease-in-out;
   transition-property: width, transform, opacity;

@@ -16,9 +16,9 @@ function HProjectCard({
   return (
     <Link
       href={target}
-      className="relative group flex gap-4 h-40 sm:h-56 w-full overflow-hidden p-4 rounded-3xl bg-neutral-100 dark:bg-neutral-900  border border-neutral-200 dark:border-neutral-800 shadow-md transition ease-in-out delay-50 md:hover:shadow-xl md:hover:scale-105"
+      className="relative group flex gap-4 h-40 sm:h-56 w-full overflow-hidden p-4 rounded-sm dark:bg-neutral-900  border border-neutral-200 dark:border-neutral-800  transition ease-in-out delay-50 md:hover:shadow-xl md:hover:scale-105"
     >
-      <div className="absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-t rounded-lg from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
+      <div className="absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-t from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
       <div className="h-full items-start gap-2 flex flex-col justify-center w-1/2">
         <h4 className="text-neutral-500 text-xs font-semibold uppercase hidden sm:block">
           {projectType}
@@ -41,7 +41,7 @@ function HProjectCard({
       <Image
         src={img}
         alt={title}
-        className="absolute object-contain w-1/2 group-hover:scale-150 transition duration-500 ease-out origin-top-left -right-4"
+        className="object-contain w-1/2 group-hover:scale-150 transition duration-500 ease-out origin-top-left -right-4"
       />
     </Link>
   );

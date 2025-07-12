@@ -10,14 +10,14 @@ export default function ProjectCard({ target, icon, title, img }) {
   return (
     <Link
       href={target}
-      className="group relative w-full aspect-square p-4 overflow-clip rounded-3xl text-left cursor-pointer bg-neutral-100 dark:bg-neutral-900  border border-neutral-200 dark:border-neutral-800 shadow-md transition ease-in-out delay-50 md:hover:shadow-xl md:hover:scale-105"
+      className="group relative w-full aspect-square p-4 overflow-clip text-left cursor-pointer bg-neutral-100 dark:bg-neutral-900  border border-neutral-200 dark:border-neutral-800 shadow-md transition ease-in-out delay-50 md:hover:shadow-xl md:hover:scale-105"
     >
       <Image
         src={img}
         alt={title}
         className="absolute object-cover inset-0"
       />
-      <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t rounded-lg from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
+      <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-neutral-100 dark:from-neutral-900  transition ease-in-out delay-50 overflow-hidden inset-0" />
       <div className="flex justify-between items-end h-full relative overflow-hidden">
         <h3 className="font-semibold text-neutral-500 dark:text-neutral-100">
           {title}
