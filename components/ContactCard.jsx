@@ -39,7 +39,7 @@ export default function ContactCard({
 
   return (
     <Link
-      className={`border border-neutral-300 dark:border-neutral-800 rounded-xl aspect-square p-4 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800/50 transition ease-in-out`}
+      className={`border border-neutral-300 dark:border-neutral-800 rounded-xs aspect-square p-4 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800/50 transition ease-in-out`}
       href={target}
       rel="noreferrer"
       target="_blank"

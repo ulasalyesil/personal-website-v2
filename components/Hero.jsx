@@ -50,7 +50,7 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex flex-col gap-2">
               <motion.p
-                className="text-neutral-900 dark:text-neutral-100 text-3xl sm:text-4xl font-mono"
+                className="text-neutral-900 dark:text-neutral-100 text-3xl w-2/3 sm:text-4xl font-mono"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
