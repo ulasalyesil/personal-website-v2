@@ -38,7 +38,7 @@ export default function Hero() {
                 ulaş alyeşil
               </h1>
               <p className="text-neutral-500">product designer</p>
-              <div className="flex gap-2 items-center py-2 px-2 mt-2">
+              <div className="flex gap-2 items-center py-2 mt-2">
                 <div className="w-3 h-3 bg-lime-600 rounded-full"></div>
                 <p className="text-sm text-neutral-500">
                   open for new opportunities
@@ -55,7 +55,7 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                product designer with a multidisciplinary edge. I build interfaces, shape experiences, and explore the overlap between utility and emotion. from health tech to generative art, I design with intention and code with curiosity.
+                product designer with a focus on clear interfaces, useful tools, and creative technology.
               </motion.p>
             </div>,
             0.4
