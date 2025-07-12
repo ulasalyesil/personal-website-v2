@@ -1,14 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import CaseStudyTitle from "@/components/CaseStudyTitle";
 import Button from "@/components/ui/Button";
 import Contacts from "@/components/Contacts";
 import Footer from "@/components/Footer";
 
-// images
-import Image from "next/image";
 import cover from "@/public/images/quickbooks/cover.png";
 import mapper from "@/public/images/quickbooks/mapper.png";
 import actions from "@/public/images/quickbooks/actions.png";
@@ -28,8 +27,8 @@ export default function Page() {
   const { initial, animate, transition } = animationConfig;
 
   const styles = {
-    h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 w-full sm:w-full sm:max-w-[512px]",
-    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:w-full sm:max-w-[512px]",
+    h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 sm:max-w-[512px]",
+    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:max-w-[512px]",
   };
 
   return (
@@ -41,7 +40,7 @@ export default function Page() {
         className="top-6 flex flex-col items-center"
       >
         <CaseStudyTitle
-          title={"Jotform Integrations"}
+          title={"Jotform | QuickBooks Integration"}
           date={"July, 2023"}
           company={"Jotform"}
           role={"Product Design"}
@@ -49,10 +48,10 @@ export default function Page() {
         />
         <Image
           src={cover}
-          alt="jotform quickbooks"
+          alt="Jotform QuickBooks cover"
           className="my-6 rounded-lg shadow-xl w-full"
         />
-        {/* Jotform QuickBooks Content */}
+
         <motion.article
           initial={initial}
           animate={animate}
@@ -61,184 +60,97 @@ export default function Page() {
         >
           <h2 className={styles.h2}>Introduction</h2>
           <p className={styles.p}>
-            Jotform is a leading platform that allows users to create online
-            forms and collect data seamlessly. As a Product Designer at Jotform,
-            I contributed to a significant project aimed at designing a seamless
-            integration with QuickBooks, a widely used accounting software. This
-            case study explores the user-centric design process that drove the
-            development of this integration and improved Jotform&apos;s overall
-            integrations experience.
+            QuickBooks is one of the most widely used accounting tools for small businesses.
+            As part of Jotform’s integrations team, I was responsible for designing a seamless
+            QuickBooks integration experience for our users. This case study covers how we designed
+            for both power and simplicity—bridging data between two platforms while keeping the
+            user experience effortless.
           </p>
 
           <h2 className={styles.h2}>My Role</h2>
           <p className={styles.p}>
-            As the sole designer on this project, I collaborated with the
-            Integrations and UXR teams. My main goal was to understand user
-            needs by participating in user interviews conducted by the UXR team
-            and overlook the whole design process. Based on the research
-            findings and personas, I designed user flows, journey maps, and new
-            components that aligned with our design system.
+            I was the only designer on the project and worked closely with the product manager,
+            engineers, and the UXR team. I was responsible for the end-to-end design—from user
+            research synthesis to final high-fidelity mockups and developer handoff.
           </p>
-          <h2 className={styles.h2}>The Goal</h2>
+
+          <h2 className={styles.h2}>The Challenge</h2>
           <p className={styles.p}>
-            At Jotform, we review feature requests on a daily basis and strive
-            to meet our users&apos; needs. One highly requested feature was
-            integration with QuickBooks. We recognized the importance of this
-            integration through our own finance team&apos;s experience and by
-            talking to users who rely on QuickBooks regularly. Many Jotform
-            users use our platform for selling products or services. Previously,
-            QuickBooks users had to manually create customer records and
-            invoices after each sale made through the form. Our dedicated
-            integrations team identified this opportunity and delved into the
-            various use cases of QuickBooks. Our primary objective was to enable
-            users to automate their invoice creation process with a single
-            click. This endeavor presented numerous challenges and required
-            extensive research.
+            Many Jotform users sell products or services through their forms, but still had to
+            manually create invoices or customer records in QuickBooks. Our goal was to automate
+            that gap without introducing complexity or setup friction.
           </p>
-          <h2 className={styles.h2}>Understanding User Needs</h2>
+
+          <h2 className={styles.h2}>User Research Insights</h2>
+          <p className={styles.p}>
+            We conducted 10+ user interviews and multiple surveys. Here’s what we learned:
+          </p>
+          <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
+            <li className={styles.p}>
+              Users wanted to map specific fields between Jotform and QuickBooks
+            </li>
+            <li className={styles.p}>
+              Most users were confused about QuickBooks data types—e.g. customer vs. invoice fields
+            </li>
+            <li className={styles.p}>
+              Simplicity was a priority: users wanted automation without setup fatigue
+            </li>
+          </ul>
           <Image
             src={uxrSlide}
-            alt="good afternoon"
+            alt="UX Research Slide"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
+
+          <h2 className={styles.h2}>Design Approach</h2>
           <p className={styles.p}>
-            To meet our users&apos; needs effectively, we conducted thorough
-            user interviews and surveys. These activities yielded valuable
-            insights into our users&apos; pain points and requirements, both
-            qualitatively and quantitatively. QuickBooks is a comprehensive
-            product with numerous features. Our goal was to determine the
-            optimal utilization of QuickBooks with Jotform. Based on multiple
-            interviews and surveys, we concluded that the two most effective
-            actions for Jotform and QuickBooks integration are: creating a
-            customer record and generating an invoice.
+            We broke the flow into three parts:
           </p>
-          <ul className="list-disc list-inside mt-2 flex flex-col items-center">
-            <li className={styles.p}>
-              Users wanted a seamless integration with QuickBooks to sync data
-              effortlessly and reduce manual data entry.
-            </li>
-            <li className={styles.p}>
-              Customizable data mapping between Jotform and QuickBooks was
-              crucial to accommodate diverse business needs.
-            </li>
-            <Image
-              src={mapper}
-              alt="good afternoon"
-              className="my-6 w-full sm:max-w-[512px]"
-            />
-            <li className={styles.p}>
-              A user-friendly interface with clear instructions was necessary
-              for a smooth onboarding experience.
-            </li>
-            <Image
-              src={actions}
-              alt="good afternoon"
-              className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
-            />
-            <li className={styles.p}>
-              Users expressed interest in automated workflows that could trigger
-              actions in other Jotform products, such as Jotform Tables and
-              Jotform Approvals, upon successful integration with QuickBooks.
-            </li>
-            <Image
-              src={tables}
-              alt="good afternoon"
-              className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
-            />
+          <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
+            <li className={styles.p}>Step 1: Authenticate your QuickBooks account</li>
+            <li className={styles.p}>Step 2: Choose an action (Create Invoice or Create Customer)</li>
+            <li className={styles.p}>Step 3: Map your form fields to QuickBooks fields</li>
           </ul>
+          <Image
+            src={mapper}
+            alt="Field Mapper UI"
+            className="my-6 w-full sm:max-w-[512px]"
+          />
 
-          <h2 className={styles.h2}>Challenges and Shifting the Approach</h2>
+          <h2 className={styles.h2}>UI Details & Components</h2>
           <p className={styles.p}>
-            In user studies, we discovered challenges in integrating QuickBooks
-            with Jotform. For instance, product name discrepancies posed an
-            issue for invoicing, and some users didn&apos;t utilize the
-            &quot;Product List&quot; form field, affecting integration.
+            I designed custom components such as field mappers, validation hints, and dynamic form selectors.
+            The integration page followed Jotform’s design system but introduced more app-like interaction patterns.
           </p>
-          <p className={styles.p}>
-            To address these challenges, we made pivotal changes in our design
-            approach:
-          </p>
-          <ol className="list-decimal list-inside mt-2 gap-4 flex flex-col">
-            <li className={styles.p}>
-              Expanded Integration: Beyond &quot;Product List&quot; users could
-              now select from various form fields without losing functionality.
-            </li>
-            <li className={styles.p}>
-              Educational Resources: We created tutorials to promote the
-              &quot;Product List&quot; field&apos;s benefits, enhancing
-              users&apos; integration experience.
-            </li>
-            <li className={styles.p}>
-              Transparent Communication: We kept users informed of updates and
-              encouraged feedback for continuous improvement.
-            </li>
-          </ol>
+          <Image
+            src={actions}
+            alt="Actions screen"
+            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+          />
 
-          <h2 className={styles.h2}>
-            Collaboration for Enhanced Possibilities
-          </h2>
-          <p className={styles.p}>
-            Collaboration is key at Jotform. During the QuickBooks integration
-            project, we fostered collaboration among different teams, unlocking
-            new possibilities for both the integration and other Jotform
-            products.
-          </p>
-          <ul className="list-disc list-inside mt-2">
-            <li className={styles.p}>
-              Jotform Tables Integration: Leveraging the QuickBooks integration,
-              we enabled seamless data syncing with Jotform Tables, empowering
-              users to visualize and analyze accounting data effectively for
-              data-driven decision-making.
-            </li>
-            <li className={styles.p}>
-              Jotform Approvals Integration: Integrating with Jotform Approvals
-              allowed users to automate approval processes based on accounting
-              data, streamlining business workflows and saving time.
-            </li>
+          <h2 className={styles.h2}>Impact</h2>
+          <ul className="mt-2 flex flex-col gap-2">
+            <li className={styles.p}>The integration was one of the most requested features in 2023</li>
+            <li className={styles.p}>Improved conversion rate on integrations setup flow</li>
+            <li className={styles.p}>Reduced support tickets for invoice generation issues</li>
           </ul>
-
-          <h2 className={styles.h2}>Continued Iteration and User Feedback</h2>
-          <p className={styles.p}>
-            Our design process didn&apos;t end with the initial release. We
-            actively sought and welcomed user feedback, iterating on the
-            integration to address pain points and continuously enhance the
-            overall experience.
-          </p>
           <Image
             src={createCustomer}
-            alt="good afternoon"
+            alt="Customer creation UI"
             className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
           />
-          <Image
-            src={createInvoice}
-            alt="good afternoon"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
-          />
-          <Image
-            src={actionList}
-            alt="good afternoon"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
-          />
-          <h2 className={styles.h2}>Conclusion</h2>
+
+          <h2 className={styles.h2}>What I Learned</h2>
           <p className={styles.p}>
-            The QuickBooks integration project exemplifies Jotform&apos;s
-            commitment to prioritizing user needs in product design. Through
-            user interviews, surveys, and iterative development, we designed an
-            integration that simplifies accounting workflows for our users.
-            Collaborating with different teams unlocked new possibilities,
-            providing users with enhanced value across various Jotform products.
-            We remain dedicated to refining the integration based on user
-            feedback, ensuring that Jotform continues to empower users in their
-            professional journeys. The challenges we encountered were met with
-            innovative solutions, further solidifying Jotform&apos;s position as
-            a user-centric platform.
+            This project reinforced the importance of simplifying complex user flows. Designing for users who are not
+            accountants required empathy and clarity. I also learned how to collaborate across teams under tight
+            timelines to deliver a highly anticipated product.
           </p>
+
           <div className="flex justify-start w-full sm:max-w-[512px] my-6 gap-4">
             <Button
               label={"See the User Guide"}
-              href={
-                "https://www.jotform.com/blog/introducing-jotforms-quickbooks-integration/"
-              }
+              href={"https://www.jotform.com/blog/introducing-jotforms-quickbooks-integration/"}
               target={"_blank"}
               type={"primary"}
             />

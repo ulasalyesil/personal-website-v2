@@ -35,13 +35,13 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex flex-col">
               <h1 className="text-neutral-900 dark:text-neutral-100 text-xl font-semibold">
-                Ulaş Alyeşil
+                ulaş alyeşil
               </h1>
-              <p className="text-neutral-500">Product Designer</p>
+              <p className="text-neutral-500">product designer</p>
               <div className="flex gap-2 items-center py-2 px-2 mt-2">
                 <div className="w-3 h-3 bg-lime-600 rounded-full"></div>
                 <p className="text-sm text-neutral-500">
-                  Open for new opportunities
+                  open for new opportunities
                 </p>
               </div>
             </div>,
@@ -50,21 +50,12 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex flex-col gap-2">
               <motion.p
-                className="text-neutral-900 dark:text-neutral-100 text-3xl sm:text-4xl"
+                className="text-neutral-900 dark:text-neutral-100 text-3xl sm:text-4xl font-mono"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                Hey there, I&apos;m Ulaş, a designer of digital products, motion
-                and sound specialising in SaaS. I am currently at{" "}
-
-                <a
-                  className="font-semibold hover:text-[#0067E6] transition duration-200"
-                  href="https://wisecare.ai"
-                >
-                  WiseCareAI
-                </a>{" "}
-                as a Product Designer.
+                product designer with a multidisciplinary edge. I build interfaces, shape experiences, and explore the overlap between utility and emotion. from health tech to generative art, I design with intention and code with curiosity.
               </motion.p>
             </div>,
             0.4

@@ -29,8 +29,8 @@ export default function Page() {
   const { initial, animate, transition } = animationConfig;
 
   const styles = {
-    h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 sm:max-w-[512px]",
-    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:max-w-[512px]",
+    h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 sm:max-w-[1200px]",
+    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:max-w-[1200px]",
   };
 
   return (
@@ -95,7 +95,7 @@ export default function Page() {
           <Image
             src={init}
             alt="Platform ecosystem overview"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>Challenges</h2>
@@ -115,7 +115,7 @@ export default function Page() {
           <Image
             src={wizard}
             alt="Step-by-step wizard flow"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>ACA Enrollment Flow</h2>
@@ -125,7 +125,7 @@ export default function Page() {
           <Image
             src={form}
             alt="ACA Enrollment Form UI"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>Plan Comparison</h2>
@@ -135,7 +135,7 @@ export default function Page() {
           <Image
             src={plans2}
             alt="Plan comparison UI"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>Plan Selection Interaction</h2>
@@ -145,7 +145,7 @@ export default function Page() {
           <Image
             src={plans}
             alt="Plan selection interface"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>AI-Powered Tools</h2>
@@ -155,12 +155,12 @@ export default function Page() {
           <Image
             src={aiThinking}
             alt="AI search assistant interface"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
           <Image
             src={aiFound}
             alt="AI recommendation results"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>Marketing Website</h2>
@@ -170,7 +170,7 @@ export default function Page() {
           <Image
             src={web}
             alt="Marketing website screenshot"
-            className="my-6 w-full sm:max-w-[720px] shadow-xl rounded-xl"
+            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
           <h2 className={styles.h2}>Impact</h2>
