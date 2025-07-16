@@ -6,7 +6,7 @@ import SectionItem from "./SectionItem";
 
 function Section({ sectionTitle, projects }) {
   const style =
-    "text-neutral-400 px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-semibold";
+    "text-neutral-400 font-mono px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800";
 
   const sortedProjects = Object.entries(projects).sort(
     ([, projectA], [, projecctB]) => {

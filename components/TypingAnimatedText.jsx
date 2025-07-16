@@ -26,7 +26,7 @@ export default function TypingAnimatedText({ text }) {
   return (
     <div>
       <motion.span
-        className="h-16 max-w-[32rem] leading-normal text-muted-foreground sm:text-base sm:leading-8 dark:text-neutral-100"
+        className="h-16 max-w-[32rem] leading-normal font-medium text-muted-foreground sm:text-base sm:leading-8 dark:text-neutral-100"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true}}

@@ -25,7 +25,7 @@ export default function SectionItem({ date, projectTitle, role, target }) {
                 stiffness: 100,
                 delay: 1.0,
               }}
-              className="text-neutral-500"
+              className="text-neutral-500 font-mono"
             >
               {role}
             </motion.p>
@@ -42,7 +42,7 @@ export default function SectionItem({ date, projectTitle, role, target }) {
           viewport={{ once: true }}
           transition={{ duration: 3.5, delay: 1.0 }}
           id="date"
-          className="text-neutral-500 text-align-right"
+          className="text-neutral-500 text-align-right font-mono"
         >
           {date}
         </motion.p>

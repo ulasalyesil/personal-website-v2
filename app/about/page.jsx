@@ -56,8 +56,8 @@ const content = [
 export default function About() {
   return (
     <div>
-      <div className="flex flex-col mx-auto px-4 md:px-auto w-full md:w-[512px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
-        <div className="h-80 rounded-xl overflow-hidden flex flex-col justify-center">
+      <div className="flex flex-col mx-auto px-4 md:px-auto w-full md:w-[1200px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
+        <div className="h-80 w-[512px] rounded-xl overflow-hidden flex flex-col justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function About() {
           </motion.div>
         </div>
         <motion.div
-          className="flex justify-between items-center my-6"
+          className="flex justify-between w-[512px] items-center my-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
