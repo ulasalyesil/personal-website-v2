@@ -27,7 +27,7 @@ const createAnimatedParagraph = (text, delay) => {
       initial={initial}
       animate={animate}
       transition={{ ...transition, delay: 0.4 + delay }}
-      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-base w-[720px]"
+      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-3xl"
     >
       {text}
     </motion.p>
@@ -58,7 +58,10 @@ export default function About() {
   return (
     <div>
       <div className="flex flex-col mx-auto px-4 md:px-auto w-full md:w-[1200px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
-        <div className="h-80 w-[512px] rounded-xl overflow-hidden flex flex-col justify-center">
+        <a 
+        target="blank_"
+        href="https://www.linkedin.com/in/ulasalyesil"
+        className="h-80 w-[512px] hover:scale-105 transition rounded-sm overflow-hidden flex flex-col justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,7 +79,7 @@ export default function About() {
               alt="ulaş"
             />
           </motion.div>
-        </div>
+        </a>
         <motion.div
           className="flex justify-between w-[512px] items-center my-6"
           initial={{ opacity: 0, y: 20 }}
@@ -88,9 +91,9 @@ export default function About() {
             stiffness: 25,
           }}
         >
-          <h1 className="text-neutral-500 dark:text-neutral-300 text-2xl font-semibold">
-            About Me
-          </h1>
+          <h2 className="text-neutral-500 dark:text-neutral-300 text-xl font-mono">
+            about me
+          </h2>
 
           <Button
             label={"See Resume"}

@@ -3,52 +3,56 @@
 import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
-    const updatePosition = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    // update position
+    const onMove = (e) => {
+      setPos({ x: e.clientX, y: e.clientY });
     };
 
-    const addHoverListeners = () => {
-      const hoverTargets = document.querySelectorAll(
-        "a, button, .hover-target"
-      );
+    // hover handlers
+    const onEnter = () => setIsHover(true);
+    const onLeave = () => setIsHover(false);
 
-      hoverTargets.forEach((el) => {
-        el.addEventListener("mouseenter", () => setHovering(true));
-        el.addEventListener("mouseleave", () => setHovering(false));
-      });
-    };
+    window.addEventListener("mousemove", onMove);
 
-    // Initial setup
-    document.addEventListener("mousemove", updatePosition);
-    addHoverListeners();
-
-    // Optional: Track DOM changes to update hover targets dynamically
-    const observer = new MutationObserver(addHoverListeners);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
+    // attach to links, buttons, or anything with .hover-target
+    const els = document.querySelectorAll("a, button, .hover-target");
+    els.forEach((el) => {
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mouseleave", onLeave);
     });
 
     return () => {
-      document.removeEventListener("mousemove", updatePosition);
-      observer.disconnect();
+      window.removeEventListener("mousemove", onMove);
+      els.forEach((el) => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+      });
     };
   }, []);
 
   return (
     <div
-      className={`fixed top-0 left-0 z-[9999] pointer-events-none transition-transform duration-150 ease-out ${
-        hovering ? "scale-[2]" : "scale-100"
-      }`}
       style={{
-        transform: `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        pointerEvents: "none",
+        zIndex: 9999,
+        width: 24,
+        height: 24,
+        borderRadius: "50%",
+        backgroundColor: "#FF5703",
+        mixBlendMode: "difference",
+        transform: `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%) scale(${
+          isHover ? 2 : 1
+        })`,
+        transition: "transform 0.15s ease-out",
+        isolation: "isolate",
       }}
-    >
-      <div className="w-4 h-4 rounded-full bg-[#FF5703] mix-blend-difference" />
-    </div>
+    />
   );
 }
