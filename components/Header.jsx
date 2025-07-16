@@ -13,7 +13,7 @@ export default function Header() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1.0 }}
-          className="w-[56px] h-14 bg-[#017bfc] transition ease-in-out hover:border-4 rounded-full"
+          className="w-[56px] h-14 bg-[#FF5701] transition ease-in-out hover:border-4 rounded-full"
         />
       </Link>
       <motion.div

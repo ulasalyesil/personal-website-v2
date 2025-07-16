@@ -9,19 +9,19 @@ import Contacts from "@/components/Contacts";
 import Footer from "@/components/Footer";
 
 // Updated image imports to match your files
-import aiFound from "@/public/images/wisecare/ai_found.png";
-import aiThinking from "@/public/images/wisecare/ai_thinking.png";
-import cover from "@/public/images/wisecare/cover.png";
-import form from "@/public/images/wisecare/form.png";
-import init from "@/public/images/wisecare/init.png";
-import web from "@/public/images/wisecare/marketing.png";
-import plans from "@/public/images/wisecare/plan_selection.png";
-import plans2 from "@/public/images/wisecare/plans.png";
-import wizard from "@/public/images/wisecare/wizard.png";
+import cover from "@/public/images/wisecare/cover.png";             // Hero cover (agent dashboard)
+import init from "@/public/images/wisecare/init.png";               // Ecosystem overview
+import wizard from "@/public/images/wisecare/wizard.png";           // Wizard flow
+import form from "@/public/images/wisecare/form.png";               // ACA enrollment form
+import plans2 from "@/public/images/wisecare/plans.png";            // Plan comparison
+import plans from "@/public/images/wisecare/plan_selection.png";    // Plan selection interface
+import aiThinking from "@/public/images/wisecare/ai_thinking.png";  // AI assistant search
+import aiFound from "@/public/images/wisecare/ai_found.png";        // AI recommendation results
+import web from "@/public/images/wisecare/marketing.png";          // Marketing website screenshot
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
+  animate:  { opacity: 1, y: 0 },
   transition: { duration: 0.6, type: "spring", stiffness: 25 },
 };
 
@@ -30,11 +30,11 @@ export default function Page() {
 
   const styles = {
     h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 sm:max-w-[1200px]",
-    p: "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:max-w-[1200px]",
+    p:  "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:max-w-[1200px]",
   };
 
   return (
-    <div className="flex flex-col gap-16 sm:px-8 py-8 items-center justify-center">
+    <div className="flex flex-col gap-16 sm:px-8 py-8 items-center justify-start">
       <motion.div
         initial={initial}
         animate={animate}
@@ -62,16 +62,19 @@ export default function Page() {
           transition={transition}
           className="flex flex-col gap-4 items-center"
         >
+          {/* Introduction */}
           <h2 className={styles.h2}>Introduction</h2>
           <p className={styles.p}>
             WiseCareAI was an AI-powered platform for the U.S. health insurance market. I joined as the founding designer and worked across multiple products — from agent tools and enrollment flows to a public-facing website and design system.
           </p>
 
+          {/* My Role */}
           <h2 className={styles.h2}>My Role</h2>
           <p className={styles.p}>
             I led end-to-end product design across 5+ tools: agent-facing apps, internal dashboards, and the marketing website. My responsibilities included UX strategy, UI design, prototyping, developer handoff, and system-wide consistency. I worked closely with the CEO, CPO, and engineers.
           </p>
 
+          {/* Product Ecosystem */}
           <h2 className={styles.h2}>Product Ecosystem</h2>
           <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
             <li className={styles.p}>
@@ -98,18 +101,22 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
-          <h2 className={styles.h2}>Challenges</h2>
-          <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
-            <li className={styles.p}>
-              Designing for both low-tech agents and fast-paced workflows under pressure.
-            </li>
-            <li className={styles.p}>
-              Navigating U.S. health policy complexities (ACA vs. Medicare).
-            </li>
-            <li className={styles.p}>
-              Building a shared design system that worked across internal and external tools.
-            </li>
-          </ul>
+{/* Challenges */}
+<h2 className={styles.h2}>Challenges</h2>
+{/* Card wrapper */}
+<div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-md w-full sm:max-w-[1200px]">
+  <ul className="list-disc list-inside flex flex-col gap-4">
+    <li className={styles.p}>
+      Designing for both low-tech agents and fast-paced workflows under pressure.
+    </li>
+    <li className={styles.p}>
+      Navigating U.S. health policy complexities (ACA vs. Medicare).
+    </li>
+    <li className={styles.p}>
+      Building a shared design system that worked across internal and external tools.
+    </li>
+  </ul>
+</div>
 
           {/* Step-by-step wizard flow */}
           <Image
@@ -118,6 +125,7 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
+          {/* ACA Enrollment Flow */}
           <h2 className={styles.h2}>ACA Enrollment Flow</h2>
           <p className={styles.p}>
             We implemented a step-by-step wizard for ACA enrollment, with real-time validation and contextual help at each stage.
@@ -128,6 +136,7 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
+          {/* Plan Comparison */}
           <h2 className={styles.h2}>Plan Comparison</h2>
           <p className={styles.p}>
             Agents and clients could compare multiple plans side-by-side, filtering by cost, coverage, and special eligibility.
@@ -138,6 +147,7 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
+          {/* Plan Selection Interaction */}
           <h2 className={styles.h2}>Plan Selection Interaction</h2>
           <p className={styles.p}>
             The final selection screen highlights recommended plans with clear callouts based on client needs.
@@ -148,6 +158,7 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
+          {/* AI-Powered Tools */}
           <h2 className={styles.h2}>AI-Powered Tools</h2>
           <p className={styles.p}>
             In both the ACA and Medicare flows, I designed search and assessment tools powered by an AI backend. Agents could input free-form needs or use guided steps, and the system returned plan recommendations with transparent logic.
@@ -163,6 +174,7 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
+          {/* Marketing Website */}
           <h2 className={styles.h2}>Marketing Website</h2>
           <p className={styles.p}>
             I designed and built a clean, responsive marketing site to explain our value proposition and convert new leads.
@@ -173,6 +185,7 @@ export default function Page() {
             className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
           />
 
+          {/* Impact */}
           <h2 className={styles.h2}>Impact</h2>
           <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
             <li className={styles.p}>25% faster enrollment times across agents</li>
@@ -180,6 +193,7 @@ export default function Page() {
             <li className={styles.p}>Better onboarding and training outcomes for new hires</li>
           </ul>
 
+          {/* Conclusion */}
           <h2 className={styles.h2}>Conclusion</h2>
           <p className={styles.p}>
             WiseCareAI gave me full-stack product design ownership in a complex and highly regulated domain. I designed for multiple personas, aligned with business goals, and helped shape a platform that blended logic, speed, and trust. While the product is paused, it remains one of my most complete design contributions to date.

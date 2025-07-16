@@ -39,7 +39,7 @@ export default function Hero() {
               </h1>
               <p className="text-neutral-500 font-mono">product designer</p>
               <div className="flex gap-2 items-center py-2 mt-2">
-                <div className="w-3 h-3 bg-lime-600 rounded-full"></div>
+                <div className="w-3 h-3 bg-[#FF5701] rounded-full"></div>
                 <a className="text-sm text-neutral-500 font-mono">
                   open for new opportunities
                 </a>

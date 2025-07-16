@@ -81,7 +81,7 @@ const Tabs = () => {
       <TabsHighlight
         ref={highlightRef}
         style={highlightStyles}
-        className="bg-neutral-200 dark:bg-neutral-800"
+        className="border border-[#FF5701] bg-neutral-200"
       />
       {tabsData.map((tab) => (
         <Link className={tab.hideOnMobile && isMobile ? 'hidden' : ''} href={tab.value} key={tab.value}>
@@ -110,7 +110,7 @@ const Tab = styled.a`
   transition: color 250ms;
 
   &:hover {
-    color: #017bfc;
+    color: #1d1d1d;
   }
 `;
 
@@ -118,7 +118,7 @@ const TabsHighlight = styled.div`
   position: absolute;
   top: 12px;
   left: 0;
-  border-radius: 2px;
+  border-radius: 99px;
   height: 2rem;
   transition: 0.15s ease-in-out;
   transition-property: width, transform, opacity;
