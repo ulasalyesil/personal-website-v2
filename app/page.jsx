@@ -7,7 +7,7 @@ import HProjectCard from "../components/HProjectCard";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
 
-import wisecareai from "../public/images/wisecare/form.png";
+import wisecareai from "../public/images/wisecare/plan_selection.png";
 import frey from "../public/images/frey_overview.png";
 import qb from "@/public/images/quickbooks/integrationsList.png";
 
