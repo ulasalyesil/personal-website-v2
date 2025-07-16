@@ -37,12 +37,12 @@ export default function Hero() {
               <h1 className="text-neutral-900 dark:text-neutral-100 text-xl font-semibold">
                 ulaş alyeşil
               </h1>
-              <p className="text-neutral-500">product designer</p>
+              <p className="text-neutral-500 font-mono">product designer</p>
               <div className="flex gap-2 items-center py-2 mt-2">
                 <div className="w-3 h-3 bg-lime-600 rounded-full"></div>
-                <p className="text-sm text-neutral-500">
+                <a className="text-sm text-neutral-500 font-mono">
                   open for new opportunities
-                </p>
+                </a>
               </div>
             </div>,
             0.2
