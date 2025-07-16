@@ -12,7 +12,7 @@ const animationConfig = {
 export default function CaseStudyTitle({ title, date, company, role }) {
   const { initial, animate, transition } = animationConfig;
   return (
-    <div className="flex flex-col gap-4 mb-10 w-full max-w-[512px]">
+    <div className="flex flex-col gap-4 mb-10 w-full">
       <motion.h1
         initial={initial}
         animate={animate}

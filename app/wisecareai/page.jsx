@@ -1,213 +1,90 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
+import CaseStudyLayout from '@/components/CaseStudyLayout';
+import cover from '@/public/images/wisecare/cover.png';
+import aiFound from '@/public/images/wisecare/ai_found.png';
+import aiThinking from '@/public/images/wisecare/ai_thinking.png';
+import form from '@/public/images/wisecare/form.png';
+import init from '@/public/images/wisecare/init.png';
+import marketing from '@/public/images/wisecare/marketing.png';
+import plans from '@/public/images/wisecare/plan_selection.png';
+import plans2 from '@/public/images/wisecare/plans.png';
+import wizard from '@/public/images/wisecare/wizard.png';
 
-import CaseStudyTitle from "@/components/CaseStudyTitle";
-import Button from "@/components/ui/Button";
-import Contacts from "@/components/Contacts";
-import Footer from "@/components/Footer";
-
-// Updated image imports to match your files
-import cover from "@/public/images/wisecare/cover.png";             // Hero cover (agent dashboard)
-import init from "@/public/images/wisecare/init.png";               // Ecosystem overview
-import wizard from "@/public/images/wisecare/wizard.png";           // Wizard flow
-import form from "@/public/images/wisecare/form.png";               // ACA enrollment form
-import plans2 from "@/public/images/wisecare/plans.png";            // Plan comparison
-import plans from "@/public/images/wisecare/plan_selection.png";    // Plan selection interface
-import aiThinking from "@/public/images/wisecare/ai_thinking.png";  // AI assistant search
-import aiFound from "@/public/images/wisecare/ai_found.png";        // AI recommendation results
-import web from "@/public/images/wisecare/marketing.png";          // Marketing website screenshot
-
-const animationConfig = {
-  initial: { opacity: 0, y: 20 },
-  animate:  { opacity: 1, y: 0 },
-  transition: { duration: 0.6, type: "spring", stiffness: 25 },
-};
-
-export default function Page() {
-  const { initial, animate, transition } = animationConfig;
-
-  const styles = {
-    h2: "text-xl dark:text-neutral-100 font-bold w-full mt-4 sm:max-w-[1200px]",
-    p:  "text-neutral-900 dark:text-neutral-100 text-base flex flex-col gap-4 sm:max-w-[1200px]",
-  };
-
+export default function WiseCareAICase() {
   return (
-    <div className="flex flex-col gap-16 sm:px-8 py-8 items-center justify-start">
-      <motion.div
-        initial={initial}
-        animate={animate}
-        transition={transition}
-        className="top-6 flex flex-col items-center"
-      >
-        <CaseStudyTitle
-          title={"WiseCareAI Platform"}
-          date={"May, 2024 — March, 2025"}
-          company={"WiseCareAI"}
-          role={"Product Designer"}
-          className="max-w-[512px]"
-        />
-
-        {/* Cover / Hero */}
-        <Image
-          src={cover}
-          alt="WiseCareAI cover"
-          className="my-6 rounded-lg shadow-xl w-full"
-        />
-
-        <motion.article
-          initial={initial}
-          animate={animate}
-          transition={transition}
-          className="flex flex-col gap-4 items-center"
-        >
-          {/* Introduction */}
-          <h2 className={styles.h2}>Introduction</h2>
-          <p className={styles.p}>
-            WiseCareAI was an AI-powered platform for the U.S. health insurance market. I joined as the founding designer and worked across multiple products — from agent tools and enrollment flows to a public-facing website and design system.
-          </p>
-
-          {/* My Role */}
-          <h2 className={styles.h2}>My Role</h2>
-          <p className={styles.p}>
-            I led end-to-end product design across 5+ tools: agent-facing apps, internal dashboards, and the marketing website. My responsibilities included UX strategy, UI design, prototyping, developer handoff, and system-wide consistency. I worked closely with the CEO, CPO, and engineers.
-          </p>
-
-          {/* Product Ecosystem */}
-          <h2 className={styles.h2}>Product Ecosystem</h2>
-          <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
-            <li className={styles.p}>
-              <strong>Enrollment Agent (ACA):</strong> A guided form tool for individual clients enrolling in Affordable Care Act plans.
-            </li>
-            <li className={styles.p}>
-              <strong>Medicare Agent Tool:</strong> A quoting assistant designed for agents handling elderly clients over the phone.
-            </li>
-            <li className={styles.p}>
-              <strong>Internal Dashboard:</strong> A CRM for support staff to track enrollments and manage leads.
-            </li>
-            <li className={styles.p}>
-              <strong>Marketing Website:</strong> A responsive public site aimed at trust-building and lead conversion.
-            </li>
-            <li className={styles.p}>
-              <strong>Design System:</strong> Tokens, components, documentation, and handoff for scalability.
-            </li>
-          </ul>
-
-          {/* Ecosystem overview diagram */}
-          <Image
-            src={init}
-            alt="Platform ecosystem overview"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-{/* Challenges */}
-<h2 className={styles.h2}>Challenges</h2>
-{/* Card wrapper */}
-<div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-md w-full sm:max-w-[1200px]">
-  <ul className="list-disc list-inside flex flex-col gap-4">
-    <li className={styles.p}>
-      Designing for both low-tech agents and fast-paced workflows under pressure.
-    </li>
-    <li className={styles.p}>
-      Navigating U.S. health policy complexities (ACA vs. Medicare).
-    </li>
-    <li className={styles.p}>
-      Building a shared design system that worked across internal and external tools.
-    </li>
-  </ul>
-</div>
-
-          {/* Step-by-step wizard flow */}
-          <Image
-            src={wizard}
-            alt="Step-by-step wizard flow"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-          {/* ACA Enrollment Flow */}
-          <h2 className={styles.h2}>ACA Enrollment Flow</h2>
-          <p className={styles.p}>
-            We implemented a step-by-step wizard for ACA enrollment, with real-time validation and contextual help at each stage.
-          </p>
-          <Image
-            src={form}
-            alt="ACA Enrollment Form UI"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-          {/* Plan Comparison */}
-          <h2 className={styles.h2}>Plan Comparison</h2>
-          <p className={styles.p}>
-            Agents and clients could compare multiple plans side-by-side, filtering by cost, coverage, and special eligibility.
-          </p>
-          <Image
-            src={plans2}
-            alt="Plan comparison UI"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-          {/* Plan Selection Interaction */}
-          <h2 className={styles.h2}>Plan Selection Interaction</h2>
-          <p className={styles.p}>
-            The final selection screen highlights recommended plans with clear callouts based on client needs.
-          </p>
-          <Image
-            src={plans}
-            alt="Plan selection interface"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-          {/* AI-Powered Tools */}
-          <h2 className={styles.h2}>AI-Powered Tools</h2>
-          <p className={styles.p}>
-            In both the ACA and Medicare flows, I designed search and assessment tools powered by an AI backend. Agents could input free-form needs or use guided steps, and the system returned plan recommendations with transparent logic.
-          </p>
-          <Image
-            src={aiThinking}
-            alt="AI search assistant interface"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-          <Image
-            src={aiFound}
-            alt="AI recommendation results"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-          {/* Marketing Website */}
-          <h2 className={styles.h2}>Marketing Website</h2>
-          <p className={styles.p}>
-            I designed and built a clean, responsive marketing site to explain our value proposition and convert new leads.
-          </p>
-          <Image
-            src={web}
-            alt="Marketing website screenshot"
-            className="my-6 w-full sm:max-w-[1200px] shadow-xl rounded-xl"
-          />
-
-          {/* Impact */}
-          <h2 className={styles.h2}>Impact</h2>
-          <ul className="list-disc list-inside mt-2 flex flex-col gap-2">
-            <li className={styles.p}>25% faster enrollment times across agents</li>
-            <li className={styles.p}>Improved quote accuracy and user confidence</li>
-            <li className={styles.p}>Better onboarding and training outcomes for new hires</li>
-          </ul>
-
-          {/* Conclusion */}
-          <h2 className={styles.h2}>Conclusion</h2>
-          <p className={styles.p}>
-            WiseCareAI gave me full-stack product design ownership in a complex and highly regulated domain. I designed for multiple personas, aligned with business goals, and helped shape a platform that blended logic, speed, and trust. While the product is paused, it remains one of my most complete design contributions to date.
-          </p>
-
-          <div className="flex justify-start w-full sm:max-w-[512px] my-6 gap-4">
-            <Button label={"Go Home"} href={"/"} type={"secondary"} />
-          </div>
-        </motion.article>
-
-        <Contacts />
-      </motion.div>
-
-      <Footer />
-    </div>
+    <CaseStudyLayout
+      title="WiseCareAI"
+      date="2024 — 2025"
+      company="WiseCareAI"
+      role="Product Designer"
+      websiteUrl="/wisecareai"
+      contentBlocks={[
+        {
+          type: 'text',
+          text: 'WiseCareAI was an AI-powered platform for the U.S. health insurance market. I joined as the founding designer and worked across multiple products — from agent tools and enrollment flows to a public-facing website and a unified design system.'
+        },
+        { type: 'image', src: cover, alt: 'WiseCareAI homepage cover' },
+        {
+          type: 'text',
+          text: 'I led end-to-end product design across 5+ tools: agent-facing apps, internal dashboards, and the marketing website. My responsibilities included UX strategy, UI design, prototyping, developer handoff, and system-wide consistency. I worked closely with the CEO, CPO, and engineers.'
+        },
+        { type: 'text', text: 'Product Ecosystem:' },
+        { type: 'text', text: '• Enrollment Agent (ACA): A guided form tool for individual clients enrolling in Affordable Care Act plans.' },
+        { type: 'text', text: '• Medicare Agent Tool: A quoting assistant designed for agents handling elderly clients over the phone.' },
+        { type: 'text', text: '• Internal Dashboard: A CRM for support staff to track enrollments and manage leads.' },
+        { type: 'text', text: '• Marketing Website: A responsive public site aimed at trust-building and lead conversion.' },
+        { type: 'text', text: '• Design System: Tokens, components, documentation, and handoff for scalability.' },
+        { type: 'text', text: 'Challenges:' },
+        { type: 'text', text: '• Designing for both low-tech agents and fast-paced workflows under pressure.' },
+        { type: 'text', text: '• Navigating U.S. health policy complexities (ACA vs. Medicare).' },
+        { type: 'text', text: '• Building a shared design system that worked across internal and external tools.' },
+        {
+          type: 'text',
+          text: 'We implemented a step-by-step wizard for ACA enrollment, with real-time validation and contextual help at each stage.'
+        },
+        { type: 'image', src: init, alt: 'ACA enrollment wizard screen' },
+        {
+          type: 'text',
+          text: 'Agents and clients could compare multiple plans side-by-side, filtering by cost, coverage, and special eligibility.'
+        },
+        {
+          type: 'gallery',
+          items: [
+            { src: plans, alt: 'Plan comparison step 1' },
+            { src: plans2, alt: 'Plan comparison step 2' }
+          ]
+        },
+        {
+          type: 'text',
+          text: 'The final selection screen highlights recommended plans with clear callouts based on client needs.'
+        },
+        { type: 'image', src: wizard, alt: 'Plan selection wizard overview' },
+        {
+          type: 'text',
+          text: 'In both the ACA and Medicare flows, I designed search and assessment tools powered by an AI backend. Agents could input free-form needs or use guided steps, and the system returned plan recommendations with transparent logic.'
+        },
+        {
+          type: 'gallery',
+          items: [
+            { src: aiFound, alt: 'AI Found screen' },
+            { src: aiThinking, alt: 'AI Thinking screen' }
+          ]
+        },
+        {
+          type: 'text',
+          text: 'I designed and built a clean, responsive marketing site to explain our value proposition and convert new leads.'
+        },
+        { type: 'image', src: marketing, alt: 'Marketing landing page' },
+        { type: 'text', text: 'Impact:' },
+        { type: 'text', text: '• 25% faster enrollment times across agents' },
+        { type: 'text', text: '• Improved quote accuracy and user confidence' },
+        { type: 'text', text: '• Better onboarding and training outcomes for new hires' },
+        {
+          type: 'text',
+          text: 'WiseCareAI gave me full-stack product design ownership in a complex and highly regulated domain. I designed for multiple personas, aligned with business goals, and helped shape a platform that blended logic, speed, and trust. While the product is paused, it remains one of my most complete design contributions to date.'
+        }
+      ]}
+    />
   );
 }
