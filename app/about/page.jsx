@@ -27,7 +27,7 @@ const createAnimatedParagraph = (text, delay) => {
       initial={initial}
       animate={animate}
       transition={{ ...transition, delay: 0.4 + delay }}
-      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-base"
+      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-base w-[720px]"
     >
       {text}
     </motion.p>
@@ -36,22 +36,23 @@ const createAnimatedParagraph = (text, delay) => {
 
 const content = [
   {
-    text: "Hello, I'm Ulaş, a dedicated product designer from Istanbul, graduated with a degree in Visual Communication Design from Bahcesehir University. My design journey began at Jotform as a Jr. Product Designer, where I learned a lot, met inspiring people, and crafted memorable designs. Now, as a Product Designer at Peaka, I'm focused on creating intuitive interfaces that enhance human experiences.",
+    text: "Hey, I’m Ulaş — a designer working across product, visual systems, and interactive experiences. I split my time between Berlin and Istanbul, collaborating on early-stage products and self-initiated creative work.",
     delay: 0.6,
   },
   {
-    text: "My creative spark was ignited by music at a young age, as I explored the rhythmic realms through guitar and drums. The enchanting world of electronic music, especially the works of Daft Punk, drew me in further. Their incredible visuals introduced me to the fascinating world of visual arts, which led me to experiment with filmmaking and photography during my teenage years. Everywhere I went, my camera accompanied me, capturing the rhythm of life unfolding around me.",
+    text: "Most recently, I was the founding designer at a health tech startup in the US, where I helped take the product from zero to launch — shaping the design system, product UX, and brand identity. Now, I’m freelancing while rebuilding my portfolio and exploring new full-time opportunities.",
     delay: 0.8,
   },
   {
-    text: "These adventures in music and visuals eventually steered me towards user experience and user interface design during my university years. Now, my heart and soul are devoted to crafting products that not only resonate with users but also fulfill my creative aspirations.",
+    text: "I’m interested in the overlap between design, code, and culture. Outside of product work, I produce music, experiment with generative visuals, and build interactive prototypes — often as a way to think through emotion, structure, and rhythm.",
     delay: 1.0,
   },
   {
-    text: "Beyond the design domain, you can catch me strumming a tune or exploring the latest in technology, always eager to learn and grow. I cherish the power of design as a medium for fostering memorable human interactions and am on a continual quest to blend aesthetics with functionality in every design I craft.",
+    text: "I care about clarity, intention, and craft — and I’m drawn to ideas that challenge conventional patterns. Whether it’s a tool, a system, or a story, I try to build things that feel both thoughtful and alive.",
     delay: 1.2,
-  }
+  },
 ];
+
 
 export default function About() {
   return (
@@ -96,7 +97,7 @@ export default function About() {
             target={"_blank"}
             type={"secondary"}
             href={
-              "https://drive.google.com/file/d/1I7juvOpvtkp4Y9ZbbVneDIsW-XW-D_Jm/view?usp=drive_link"
+              "https://drive.google.com/file/d/1e-gnjC4ZW6X3jsW_MZ45JaVRhC7rUONy/view?usp=sharing"
             }
           />
         </motion.div>
