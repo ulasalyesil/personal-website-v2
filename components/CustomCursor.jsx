@@ -48,7 +48,7 @@ export default function CustomCursor() {
         transform: `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`,
       }}
     >
-      <div className="w-4 h-4 rounded-full bg-orange-500 mix-blend-difference" />
+      <div className="w-4 h-4 rounded-full bg-[#FF5703] mix-blend-difference" />
     </div>
   );
 }
