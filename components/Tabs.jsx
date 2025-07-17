@@ -1,127 +1,110 @@
+// components/Tabs.jsx
 "use client";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-
 
 const tabsData = [
-  {
-    title: "Home",
-    value: "/",
-  },
-  {
-    title: "About",
-    value: "/about",
-  },
-  {
-    title: "Works",
-    value: "/works",
-  },
-  {
-    title: "Bookmarks",
-    value: "/bookmarks",
-    hideOnMobile: true,
-  },
+  { title: "Home",      value: "/"        },
+  { title: "About",     value: "/about"   },
+  { title: "Works",     value: "/works"   },
+  { title: "Bookmarks", value: "/bookmarks", hideOnMobile: true },
 ];
 
-const Tabs = () => {
-  const [tabBoundingBox, setTabBoundingBox] = React.useState(null);
-  const [wrapperBoundingBox, setWrapperBoundingBox] = React.useState(null);
-  const [highlightedTab, setHighlightedTab] = React.useState(null);
-  const [isHoveredFromNull, setIsHoveredFromNull] = React.useState(true);
-
-  const highlightRef = React.useRef(null);
-  const wrapperRef = React.useRef(null);
-
-  const repositionHighlight = (e, tab) => {
-    setTabBoundingBox(e.target.getBoundingClientRect());
-    setWrapperBoundingBox(wrapperRef.current.getBoundingClientRect());
-    setIsHoveredFromNull(!highlightedTab);
-    setHighlightedTab(tab);
-  };
-
-  const resetHighlight = () => setHighlightedTab(null);
-
-  const highlightStyles = {};
-
-  if (tabBoundingBox && wrapperBoundingBox) {
-    highlightStyles.transitionDuration = isHoveredFromNull ? "0ms" : "150ms";
-    highlightStyles.opacity = highlightedTab ? 1 : 0;
-    highlightStyles.width = `${tabBoundingBox.width}px`;
-    highlightStyles.transform = `translate(${
-      tabBoundingBox.left - wrapperBoundingBox.left
-    }px)`;
-  }
-  
+export default function Tabs() {
+  const [tabBox, setTabBox] = useState(null);
+  const [wrapBox, setWrapBox] = useState(null);
+  const [highlighted, setHighlighted] = useState(null);
+  const [cameFromNull, setCameFromNull] = useState(true);
+  const wrapperRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkIsMobile = () => {
-      // Tarayıcının genişlik değerini al
-      const width = window.innerWidth;
-
-      // Eğer genişlik 768 pikselden küçükse, mobil cihazda olduğumuzu kabul edelim
-      const mobileThreshold = 768;
-      setIsMobile(width < mobileThreshold);
-    };
-
-    // İlk render'da ve pencere boyutu değiştiğinde işlevi çağır
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-
-    // Komponent kaldırıldığında event listener'ı temizle
-    return () => {
-      window.removeEventListener('resize', checkIsMobile);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  return (
-    <TabsNav ref={wrapperRef} onMouseLeave={resetHighlight}>
-      <TabsHighlight
-        ref={highlightRef}
-        style={highlightStyles}
-        className="border border-[#FF5701] bg-neutral-200"
-      />
-      {tabsData.map((tab) => (
-        <Link className={tab.hideOnMobile && isMobile ? 'hidden' : ''} href={tab.value} key={tab.value}>
-          <Tab onMouseOver={(ev) => repositionHighlight(ev, tab)}>
-            {tab.title}
-          </Tab>
-        </Link>
-      ))}
-    </TabsNav>
-  );
-};
+  const repositionHighlight = (e, tab) => {
+    setTabBox(e.target.getBoundingClientRect());
+    setWrapBox(wrapperRef.current.getBoundingClientRect());
+    setCameFromNull(!highlighted);
+    setHighlighted(tab);
+  };
+  const resetHighlight = () => setHighlighted(null);
 
-const TabsNav = styled.div`
+  let highlightStyles = { opacity: 0 };
+  if (tabBox && wrapBox) {
+    highlightStyles = {
+      transitionDuration: cameFromNull ? "0ms" : "150ms",
+      opacity: highlighted ? 1 : 0,
+      width: `${tabBox.width}px`,
+      transform: `translateX(${tabBox.left - wrapBox.left}px)`,
+    };
+  }
+
+  return (
+    <Nav ref={wrapperRef} onMouseLeave={resetHighlight}>
+      <Highlight style={highlightStyles} />
+
+      {tabsData.map((tab) => {
+        if (tab.hideOnMobile && isMobile) return null;
+        return (
+          <Link
+            key={tab.value}
+            href={tab.value}
+            legacyBehavior
+            passHref
+          >
+            <Tab
+              onMouseOver={(e) => repositionHighlight(e, tab)}
+              isSelected={highlighted?.value === tab.value}
+            >
+              {tab.title}
+            </Tab>
+          </Link>
+        );
+      })}
+    </Nav>
+  );
+}
+
+const Nav = styled.nav`
   position: relative;
+  display: inline-flex;
+  gap: 1rem;
 `;
 
 const Tab = styled.a`
-  padding: 16px 16px;
-  font-size: ${14 / 16}rem;
-  font-weight: ${(props) => (props.isSelected ? "bold" : "normal")};
-  text-align: center;
-  color: hsl(0 0% 43.5%);
-  display: inline-block;
   position: relative;
-  cursor: pointer;
+  z-index: 1;              /* sit above the highlight */
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: hsl(0 0% 43.5%);
+  text-decoration: none;
   transition: color 250ms;
+  cursor: pointer;
+
+  ${(p) =>
+    p.isSelected &&
+    `
+    color: #1d1d1d;
+  `}
 
   &:hover {
     color: #1d1d1d;
   }
 `;
 
-const TabsHighlight = styled.div`
+const Highlight = styled.div`
   position: absolute;
-  top: 12px;
-  left: 0;
-  border-radius: 99px;
+  top: 0.5rem;
   height: 2rem;
-  transition: 0.15s ease-in-out;
-  transition-property: width, transform, opacity;
+  border-radius: 999px;
+  background-color: #f5f5f5;
+  border: 1px solid #ff5701;
+  z-index: 0;              /* sit behind the tabs */
+  transition: width 150ms ease, transform 150ms ease, opacity 150ms ease;
 `;
-
-export default Tabs;
