@@ -27,7 +27,7 @@ const createAnimatedParagraph = (text, delay) => {
       initial={initial}
       animate={animate}
       transition={{ ...transition, delay: 0.4 + delay }}
-      className="text-neutral-900 dark:text-neutral-100 text-sm md:text-3xl"
+      className="text-neutral-900 dark:text-neutral-100 text-2xl md:text-3xl"
     >
       {text}
     </motion.p>
@@ -56,32 +56,11 @@ const content = [
 
 export default function About() {
   return (
-    <div>
-      <div className="flex flex-col mx-auto px-4 md:px-auto w-full md:w-[1200px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
-        <a 
-        target="blank_"
-        href="https://www.linkedin.com/in/ulasalyesil"
-        className="h-80 w-[512px] hover:scale-105 transition rounded-sm overflow-hidden flex flex-col justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.4,
-              duration: 0.6,
-              type: "spring",
-              stiffness: 25,
-            }}
-          >
-            <Image
-              src={picture}
-              priority={true}
-              className="w-full object-contain"
-              alt="ulaş"
-            />
-          </motion.div>
-        </a>
+    <div className="w-full">
+      <div className="flex flex-col mx-auto sm:px-4 md:px-auto w-full md:w-[1200px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
+        
         <motion.div
-          className="flex justify-between w-[512px] items-center my-6"
+          className="flex justify-between w-full items-center my-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -109,6 +88,28 @@ export default function About() {
             {createAnimatedParagraph(item.text, item.delay)}
           </React.Fragment>
         ))}
+        <a 
+        target="blank_"
+        href="https://www.linkedin.com/in/ulasalyesil"
+        className="h-80 w-full sm:w-[512px] hover:scale-105 transition rounded-sm overflow-hidden flex flex-col justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.4,
+              duration: 0.6,
+              type: "spring",
+              stiffness: 25,
+            }}
+          >
+            <Image
+              src={picture}
+              priority={true}
+              className="w-full object-contain"
+              alt="ulaş"
+            />
+          </motion.div>
+        </a>
         <div className="my-4 flex flex-col gap-2">
           <h3 className="font-semibold mt-8 dark:text-neutral-100">Reach me</h3>
           <Contacts />
