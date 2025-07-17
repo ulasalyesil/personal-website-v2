@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 // styles
 import "../styles/globals.css";
+
 // component
 import Header from "@/components/Header";
 import CustomCursor from "@/components/CustomCursor";
