@@ -47,7 +47,7 @@ function Page() {
               <HProjectCard
                 target={"/jotform-integrations"}
                 projectType={"Product Design"}
-                title={"Jotform Integrations"}
+                title={"Jotform"}
                 description={
                   "Designing the QuickBooks integration and re-imagining the integrations experience."
                 }
