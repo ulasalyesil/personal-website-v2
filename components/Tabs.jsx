@@ -103,8 +103,7 @@ const Highlight = styled.div`
   top: 0.5rem;
   height: 2rem;
   border-radius: 999px;
-  background-color: #f5f5f5;
-  border: 1px solid #ff5701;
+  background-color: #ff5701;
   z-index: 0;              /* sit behind the tabs */
   transition: width 150ms ease, transform 150ms ease, opacity 150ms ease;
 `;
