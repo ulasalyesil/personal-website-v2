@@ -20,9 +20,6 @@ function HProjectCard({
     >
       <div className="absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-t transition ease-in-out delay-50 overflow-hidden inset-0" />
       <div className="h-full items-start gap-2 flex flex-col justify-center w-1/2">
-        <h4 className="text-neutral-500 text-xs font-semibold uppercase hidden sm:block">
-          {projectType}
-        </h4>
         <h3 className="text-neutral-900 dark:text-neutral-100 font-bold text-sm sm:text-lg">
           {title}
         </h3>

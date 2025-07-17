@@ -25,7 +25,7 @@ export default function CaseStudyTitle({ title, date, company, role }) {
         initial={initial}
         animate={animate}
         transition={transition}
-        className="flex gap-2"
+        className="flex flex-col sm:flex-row gap-2"
       >
         <Pill label={date} />
         <Pill label={company} />

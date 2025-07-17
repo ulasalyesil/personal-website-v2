@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export default function Header() {
   return (
-    <div className="flex items-center justify-start w-full max-w-[1200px] my-8 px-2 gap-16">
+    <div className="flex items-center justify-between sm:justify-start w-full max-w-[1200px] my-8 sm:px-2 sm:gap-16">
       <Link href={"/"}>
         <motion.div
           initial={{ opacity: 0 }}

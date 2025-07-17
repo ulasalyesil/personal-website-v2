@@ -18,7 +18,7 @@ export default function LinkItem({ target, title, image, description }) {
         </div>
         <div id="content" className="py-3 w-full">
           <TypingAnimatedText text={title} className="text-neutral-900 dark:text-neutral-100 font-semibold text-sm"/>
-          <p id="description" className="text-neutral-500 text-sm">
+          <p id="description" className="text-neutral-500 text-sm font-mono">
             {description}
           </p>
         </div>

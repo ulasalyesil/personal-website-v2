@@ -35,6 +35,9 @@ export default function WiseCareAICase() {
         { type: 'text', text: '• Internal Dashboard: A CRM for support staff to track enrollments and manage leads.' },
         { type: 'text', text: '• Marketing Website: A responsive public site aimed at trust-building and lead conversion.' },
         { type: 'text', text: '• Design System: Tokens, components, documentation, and handoff for scalability.' },
+        {
+          type: 'image', src: form, alt: 'Test Image'
+        },
         { type: 'text', text: 'Challenges:' },
         { type: 'text', text: '• Designing for both low-tech agents and fast-paced workflows under pressure.' },
         { type: 'text', text: '• Navigating U.S. health policy complexities (ACA vs. Medicare).' },

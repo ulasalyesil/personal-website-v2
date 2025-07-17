@@ -10,7 +10,7 @@ export default function FullSpectrumInsightsCase() {
       title="Full Spectrum Insights"
       date="June, 2025"
       company="Full Spectrum Insights"
-      role="Web Design & Development"
+      role="Web Design, Framer Dev"
       websiteUrl="https://fullspectruminsights.com"
       contentBlocks={[
         {
