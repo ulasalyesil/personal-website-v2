@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
-import SectionItem from "./SectionItem";
+import SectionItem from './SectionItem';
 
 function Section({ sectionTitle, projects }) {
   const style =

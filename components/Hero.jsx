@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 //packages
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 // components
-import Button from "./ui/Button";
-import Contacts from "./Contacts";
+import Button from './ui/Button';
+import Contacts from './Contacts';
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },

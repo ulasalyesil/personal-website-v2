@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import Button from "./ui/Button";
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import Link from 'next/link';
+import Image from 'next/image';
+import Button from './ui/Button';
+import { ArrowTopRightIcon } from '@radix-ui/react-icons';
 
 function HProjectCard({
   target,

@@ -1,6 +1,6 @@
-'use client'
-import Link from "next/link";
-import TypingAnimatedText from "./TypingAnimatedText";
+'use client';
+import Link from 'next/link';
+import TypingAnimatedText from './TypingAnimatedText';
 
 export default function LinkItem({ target, title, image, description }) {
     return (

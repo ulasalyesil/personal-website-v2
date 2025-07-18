@@ -1,8 +1,7 @@
-// components/Tabs.jsx
-"use client";
-import React, { useEffect, useState, useRef } from "react";
-import Link from "next/link";
-import styled from "styled-components";
+'use client';
+import React, { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
 
 const tabsData = [
   { title: "Home",      value: "/"        },

@@ -1,8 +1,7 @@
-'use client'
+'use client';
 
-import React from "react";
-import { LinkedInLogoIcon } from "@radix-ui/react-icons";
-import XIcon from "../public/icons/contactIcons/x";
+import React from 'react';
+import { LinkedInLogoIcon, XIcon } from '@radix-ui/react-icons';
 
 export default function Footer() {
   return (

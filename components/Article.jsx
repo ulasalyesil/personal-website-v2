@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import Pill from "./ui/Pill";
+import React from 'react';
+import Pill from './ui/Pill';
 
 export default function Article({ articleData }) {
   const { title, tags, content } = articleData;

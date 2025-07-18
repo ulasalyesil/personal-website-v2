@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 
 
 
@@ -9,8 +9,8 @@ import PostsIcon from '../public/icons/contactIcons/posts';
 import LayersIcon from '../public/icons/contactIcons/layers';
 import LinkedinIcon from '../public/icons/contactIcons/linkedin';
 import BentoIcon from '../public/icons/contactIcons/bento';
-import DribbbleIcon from "@/public/icons/contactIcons/dribbble";
-import XIcon from "../public/icons/contactIcons/x";
+import DribbbleIcon from '@/public/icons/contactIcons/dribbble';
+import XIcon from '../public/icons/contactIcons/x';
 
 export default function ContactCard({
   icon,

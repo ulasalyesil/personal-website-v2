@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
-import TypingAnimatedText from "./TypingAnimatedText";
+import { ArrowTopRightIcon } from '@radix-ui/react-icons';
+import TypingAnimatedText from './TypingAnimatedText';
 
 export default function SectionItem({ date, projectTitle, role, target }) {
   return (

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { ArrowTopRightIcon } from '@radix-ui/react-icons';
 
 export default function ProjectCard({ target, icon, title, img }) {
 

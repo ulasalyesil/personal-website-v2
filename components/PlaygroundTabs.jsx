@@ -1,19 +1,20 @@
-import "../styles/globals.css";
+'use client';
+import '../styles/globals.css';
 import {
     Tabs,
     TabList,
     Tab,
     TabPanel,
     Collection
-  } from "react-aria-components";
-  import { useTransform } from "framer-motion";
-  import { motion, animate, useScroll } from "framer-motion";
-  import { useCallback, useEffect, useRef, useState } from "react";
+  } from 'react-aria-components';
+  import { useTransform } from 'framer-motion';
+  import { motion, animate, useScroll } from 'framer-motion';
+  import { useCallback, useEffect, useRef, useState } from 'react';
 
   // assets
-  import HProjectCard from "./HProjectCard";
-  import MusicPlayer from "./playground/musicPlayer";
-  import gacWeb from "../public/images/goodafternoon/gacWeb.png"
+  import HProjectCard from './HProjectCard';
+  import MusicPlayer from './playground/musicPlayer';
+  import gacWeb from '../public/images/goodafternoon/gacWeb.png'
   
   let tabs = [
     {

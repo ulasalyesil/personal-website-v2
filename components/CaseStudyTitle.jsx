@@ -1,7 +1,8 @@
-import React from "react";
-import { motion } from "framer-motion";
+'use client';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-import Pill from "./ui/Pill";
+import Pill from './ui/Pill';
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },

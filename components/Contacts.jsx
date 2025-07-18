@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import ContactCard from "./ContactCard";
+'use client';
+import { motion } from 'framer-motion';
+import ContactCard from './ContactCard';
 
 export default function Contacts() {
   const animationConfig = {
