@@ -1,5 +1,4 @@
 // next
-import { Inter } from "next/font/google";
 // anayltics
 import GoogleAnalytics from "@bradgarropy/next-google-analytics/";
 import { Analytics } from "@vercel/analytics/react";
@@ -11,7 +10,6 @@ import "../styles/globals.css";
 import Header from "@/components/Header";
 import CustomCursor from "@/components/CustomCursor";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Ulaş Alyeşil | Product Designer",
@@ -21,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <CustomCursor />
         <div className="flex flex-col sm:p-6 p-4 items-center pt-12 sm:pt-32">
           <Header />
