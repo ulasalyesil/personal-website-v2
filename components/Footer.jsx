@@ -10,9 +10,7 @@ export default function Footer() {
       <div className="text-neutral-500 flex  gap-2">
         <p>reach me at</p>
         <a href="https://twitter.com/ulasalyesil" target="_blank">
-          {/* change to next <Image/> */}
-          {/* <TwitterLogoIcon width={"24"} height={"24"} /> */}
-          <XIcon  fill={'#000'}/>
+          <XIcon fill={'#000'} />
         </a>
         <p>or</p>
         <a href="https://linkedin.com/in/ulasalyesil" target="_blank">

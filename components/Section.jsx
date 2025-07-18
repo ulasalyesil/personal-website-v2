@@ -9,9 +9,9 @@ function Section({ sectionTitle, projects }) {
     "text-neutral-400 font-mono text-xs sm:text-sm sm:px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800";
 
   const sortedProjects = Object.entries(projects).sort(
-    ([, projectA], [, projecctB]) => {
+    ([, projectA], [, projectB]) => {
       const dateA = new Date(projectA.date);
-      const dateB = new Date(projecctB.date);
+      const dateB = new Date(projectB.date);
       return dateB - dateA;
     }
   );
