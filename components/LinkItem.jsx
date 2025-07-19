@@ -9,7 +9,7 @@ export default function LinkItem({ target, title, image, description }) {
         target="_blank"
         rel="noopener noreferrer"
         className="pr-3 flex gap-4 items-center rounded-lg hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition duration-300"
-      >
+        >
         <div
           id="image"
           className="aspect-square p-1 m-3 bg-neutral-100/50 dark:bg-neutral-300 border border-neutral-300/50 h-12 w-12 flex items-center justify-center rounded-md"

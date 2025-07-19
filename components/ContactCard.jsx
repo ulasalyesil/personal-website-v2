@@ -43,7 +43,7 @@ export default function ContactCard({
       href={target}
       rel="noreferrer"
       target="_blank"
-    >
+      >
       {renderIcon()}
     </Link>
   );

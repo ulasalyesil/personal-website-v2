@@ -11,7 +11,7 @@ export default function ProjectCard({ target, icon, title, img }) {
     <Link
       href={target}
       className="group relative w-full aspect-square p-4 overflow-clip text-left cursor-pointer bg-neutral-100 dark:bg-neutral-900  border border-neutral-200 dark:border-neutral-800 shadow-md transition ease-in-out delay-50 md:hover:shadow-xl md:hover:scale-105"
-    >
+      >
       <Image
         src={img}
         alt={title}

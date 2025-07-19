@@ -13,7 +13,7 @@ function Button({ type, label, href, target }) {
   };
 
   return (
-    <Link href={href} target={target}>
+    <Link href={href} target={target} >
       <button
         data-modal-hide="defaultModal"
         type="button"

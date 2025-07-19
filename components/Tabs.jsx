@@ -54,7 +54,6 @@ export default function Tabs() {
           <Link
             key={tab.value}
             href={tab.value}
-            legacyBehavior
             passHref
           >
             <Tab

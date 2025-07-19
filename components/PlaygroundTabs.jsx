@@ -203,10 +203,10 @@ import {
                   {tab.label}
                   {isFocusVisible && isSelected && (
                     // Focus ring.
-                    <motion.span
+                    (<motion.span
                       className="absolute inset-0 z-10 rounded-full ring-2 ring-neutral-900 dark:ring-neutral-100 ring-offset-2"
                       style={{ x, width }}
-                    />
+                    />)
                   )}
                 </>}
               </Tab>
