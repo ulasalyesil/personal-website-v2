@@ -1,15 +1,14 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-
 
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import TypingAnimatedText from "./TypingAnimatedText";
 
 export default function SectionItem({ date, projectTitle, role, target }) {
   return (
-    <Link href={target} className="text-sm md:text-base" >
+    <Link href={target} className="text-sm md:text-base">
       <div className="flex gap-6 cursor-pointer justify-between items-center sm:px-3 py-2 rounded-lg hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 group transition ease-in-out duration-300">
         <div className="flex gap-2 items-start">
           <div className="flex flex-col">
@@ -25,7 +24,7 @@ export default function SectionItem({ date, projectTitle, role, target }) {
                 stiffness: 100,
                 delay: 1.0,
               }}
-              className="text-neutral-500 text-xs font-mono"
+              className="text-neutral-500 text-sm font-mono"
             >
               {role}
             </motion.p>

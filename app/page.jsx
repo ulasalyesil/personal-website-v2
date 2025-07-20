@@ -29,7 +29,7 @@ function Page() {
           {...motionProps}
         >
           <div className="flex flex-col gap-2 items-center">
-            <h3 className="text-neutral-400 px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-mono font-medium w-full">
+            <h3 className="text-neutral-400 px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-mono font-bold w-full">
               Latest Projects
             </h3>
             <div className="flex flex-col sm:flex-row gap-4 w-full text-neutral-400 my-4">

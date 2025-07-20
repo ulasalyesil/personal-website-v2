@@ -55,7 +55,8 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.2 }}
               >
-                product designer with a focus on clear interfaces, useful tools, and creative technology.
+                product designer with a focus on clear interfaces, useful tools,
+                and creative technology.
               </motion.p>
             </div>,
             0.4
@@ -63,7 +64,7 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex gap-2">
               <Button
-                label={"Talk to me"}
+                label={"Contact me"}
                 type={"primary"}
                 href="mailto:hello@ulasalyesil.com"
               />

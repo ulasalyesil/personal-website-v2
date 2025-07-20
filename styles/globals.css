@@ -16,21 +16,26 @@ pre {
 }
 
 body {
-  background-repeat: repeat;
-  background: linear-gradient(90deg, #fafafa calc(32px - 1px), transparent 1%) center,
-              linear-gradient(#fafafa calc(32px - 1px), transparent  1%) center,
-              #262626;
-  background-size: 32px 32px;
-}
-
-* {
-  cursor: none !important;
+  background-color: #ffffff;
+  /* Base background */
+  background-image:
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: #111;
+    background-color: #111111;
+    /* Set dark base background */
+    background-image:
+      linear-gradient(to right, #1e1e1e 1px, transparent 1px),
+      linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
+    background-size: 48px 48px;
   }
+}
+* {
+  cursor: none !important;
 }
 
 .no-scrollbar::-webkit-scrollbar {
