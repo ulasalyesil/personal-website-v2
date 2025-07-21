@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -8,10 +9,11 @@ import otherData from "@/public/data/others.json";
 
 import Footer from "@/components/Footer";
 import picture from "../../public/images/picture.jpeg";
-import Section from "@/components/Section";
+
 import Button from "@/components/ui/Button";
-import MusicPlayer from "@/components/playground/musicPlayer";
 import Contacts from "@/components/Contacts";
+// Import the external TimeZoneCard component
+import TimeZoneCard from "@/components/TimeZoneCard";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
@@ -19,28 +21,76 @@ const animationConfig = {
   transition: { duration: 0.6, type: "spring", stiffness: 25 },
 };
 
-const HoverableWord = ({ word, children, showImage, onHover, onLeave }) => (
-  <span
-    className="hover-target relative cursor-pointer transition-colors duration-200 hover:text-[#FF6100]"
-    onMouseEnter={onHover}
+// Profile Image Component
+const ProfileImage = () => (
+  <div className="w-48 h-48 mix-blend-difference rounded-md overflow-hidden">
+    <Image
+      src={picture}
+      alt="Ulaş"
+      className="w-full h-full object-cover"
+      width={192}
+      height={192}
+    />
+  </div>
+);
+
+// Generic Hoverable Word Component with link support
+const HoverableWord = ({ word, contentType, onHover, onLeave, link }) => (
+  <Link
+    href={link}
+    target="_blank"
+    className="relative inline-block cursor-pointer group"
+    onMouseEnter={() => onHover(contentType)}
     onMouseLeave={onLeave}
   >
-    {word}
-  </span>
+    {/* Background DIV for hover state */}
+    <div className="absolute inset-0 bg-[#FF5701] rounded-md scale-x-110 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+    {/* Word content with padding */}
+    <span className="relative z-10">{word}</span>
+  </Link>
 );
+
+// Define hover content mapping now using external TimeZoneCard and links
+const hoverContent = {
+  Ulaş: {
+    component: ProfileImage,
+    type: "profile",
+    link: "https://www.linkedin.com/in/ulasalyesil",
+  },
+  Berlin: {
+    component: () => <TimeZoneCard city="berlin" />,
+    type: "timezone",
+    link: "https://en.wikipedia.org/wiki/Berlin",
+  },
+  Istanbul: {
+    component: () => <TimeZoneCard city="istanbul" />,
+    type: "timezone",
+    link: "https://en.wikipedia.org/wiki/Istanbul",
+  },
+};
 
 const createAnimatedParagraph = (text, delay, onWordHover, onWordLeave) => {
   const { initial, animate, transition } = animationConfig;
 
-  // Replace "Ulaş" with the hoverable component
+  // Process text to find and replace hoverable words
   const processText = (text) => {
-    const parts = text.split(/(Ulaş)/g);
+    const words = Object.keys(hoverContent);
+    const pattern = new RegExp(`(${words.join("|")})`, "gi");
+    const parts = text.split(pattern);
+
     return parts.map((part, index) => {
-      if (part === "Ulaş") {
+      const matchedWord = words.find(
+        (word) => part.toLowerCase() === word.toLowerCase()
+      );
+
+      if (matchedWord) {
+        const { link } = hoverContent[matchedWord];
         return (
           <HoverableWord
             key={index}
             word={part}
+            contentType={matchedWord}
+            link={link}
             onHover={onWordHover}
             onLeave={onWordLeave}
           />
@@ -82,16 +132,24 @@ const content = [
 ];
 
 export default function About() {
-  const [showImage, setShowImage] = useState(false);
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [showContent, setShowContent] = useState(false);
+  const [activeContentType, setActiveContentType] = useState(null);
 
-  const handleWordHover = (e) => {
-    setShowImage(true);
-    // We'll position it using CSS instead of calculating coordinates
+  const handleWordHover = (contentType) => {
+    setShowContent(true);
+    setActiveContentType(contentType);
   };
 
   const handleWordLeave = () => {
-    setShowImage(false);
+    setShowContent(false);
+    setActiveContentType(null);
+  };
+
+  // Render the appropriate content based on the active type
+  const renderHoverContent = () => {
+    if (!activeContentType || !hoverContent[activeContentType]) return null;
+    const ContentComponent = hoverContent[activeContentType].component;
+    return <ContentComponent />;
   };
 
   return (
@@ -134,9 +192,9 @@ export default function About() {
             </React.Fragment>
           ))}
 
-          {/* Hover Image Popup */}
+          {/* Hover Content Popup */}
           <AnimatePresence>
-            {showImage && (
+            {showContent && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -144,22 +202,16 @@ export default function About() {
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 className="absolute pointer-events-none z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
               >
-                <div className="w-48 h-48 rounded-lg overflow-hidden shadow-2xl border border-neutral-200 dark:border-neutral-700">
-                  <Image
-                    src={picture}
-                    alt="Ulaş"
-                    className="w-full h-full object-cover"
-                    width={192}
-                    height={192}
-                  />
-                </div>
+                {renderHoverContent()}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
         <div className="my-4 flex flex-col gap-2">
-          <h3 className="font-semibold mt-8 dark:text-neutral-100">Reach me</h3>
+          <h3 className="font-semibold font-mono text-neutral-500 mt-8 dark:text-neutral-100">
+            Reach me
+          </h3>
           <Contacts />
         </div>
       </div>
