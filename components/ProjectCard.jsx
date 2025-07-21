@@ -6,7 +6,7 @@ export default function ProjectCard({ title, description, img, target }) {
   return (
     <Link
       href={target}
-      className="group w-full flex flex-col gap-2 p-4 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 rounded-md transition ease-in-out duration-300 hover:shadow-xl hover:scale-[1.02]"
+      className="group w-full flex flex-col gap-2 p-4 bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-md transition ease-in-out duration-300 hover:shadow-xl hover:scale-[1.02]"
     >
       <div className="h-56 sm:h-[368px] overflow-hidden p-4 bg-neutral-100 dark:bg-neutral-900 rounded-md">
         <Image

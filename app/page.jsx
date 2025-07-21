@@ -32,7 +32,7 @@ function Page() {
           className="flex flex-col gap-16 rounded-xl py-4 selection:bg-slate-100 selection:text-[#017BFC]"
           {...motionProps}
         >
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-4 items-center">
             <h3 className="text-neutral-400 px-4 pb-2 border-b border-neutral-300 dark:border-neutral-800 font-mono font-bold w-full gap-4">
               Latest Projects
             </h3>
