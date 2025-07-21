@@ -1,15 +1,15 @@
 `use client`;
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Button from '@/components/ui/Button';
-import Footer from '@/components/Footer';
-import CaseStudyTitle from '@/components/CaseStudyTitle';
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Button from "@/components/ui/Button";
+import Footer from "@/components/Footer";
+import CaseStudyTitle from "@/components/CaseStudyTitle";
 
 const animationConfig = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, type: 'spring', stiffness: 25 },
+  transition: { duration: 0.6, type: "spring", stiffness: 25 },
 };
 
 export default function CaseStudyLayout({
@@ -32,14 +32,14 @@ export default function CaseStudyLayout({
         initial={initial}
         animate={animate}
         transition={transition}
-        className="mt-12 space-y-6 text-sm text-neutral-700 dark:text-neutral-300 font-mono leading-relaxed"
+        className="mt-12 space-y-6 text-base text-neutral-700 dark:text-neutral-300 font-mono leading-relaxed"
       >
         {contentBlocks.map((block, index) => {
-          if (block.type === 'text') {
+          if (block.type === "text") {
             return <p key={index}>{block.text}</p>;
           }
 
-          if (block.type === 'image') {
+          if (block.type === "image") {
             return (
               <motion.div
                 key={index}
@@ -57,7 +57,7 @@ export default function CaseStudyLayout({
             );
           }
 
-          if (block.type === 'gallery') {
+          if (block.type === "gallery") {
             return (
               <div key={index} className="grid grid-cols-2 gap-4 mt-8">
                 {block.items.map((img, idx) => (
@@ -78,7 +78,7 @@ export default function CaseStudyLayout({
         {/* Optional Website Link */}
         {websiteUrl && (
           <div className="text-sm font-mono mt-6">
-            Website:{' '}
+            Website:{" "}
             <a
               href={websiteUrl}
               target="_blank"
@@ -93,7 +93,12 @@ export default function CaseStudyLayout({
 
       {/* Optional Call-to-Action Button */}
       {websiteUrl && (
-        <motion.div initial={initial} animate={animate} transition={transition} className="mt-12">
+        <motion.div
+          initial={initial}
+          animate={animate}
+          transition={transition}
+          className="mt-12"
+        >
           <Button label="Visit Website" href={websiteUrl} type="primary" />
         </motion.div>
       )}
