@@ -16,7 +16,7 @@ pre {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   /* Base background */
   background-image:
     linear-gradient(to right, #f0f0f0 1px, transparent 1px),
