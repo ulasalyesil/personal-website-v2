@@ -23,7 +23,7 @@ export default function CaseStudyLayout({
   const { initial, animate, transition } = animationConfig;
 
   return (
-    <div className=" sm:px-6 md:px-10 max-w-5xl mx-auto">
+    <div className="sm:px-6 md:px-10 max-w-5xl mx-auto">
       {/* Title Section */}
       <CaseStudyTitle title={title} date={date} company={company} role={role} />
 

@@ -70,7 +70,7 @@ function Page() {
               <ProjectCard
                 title={"Full Spectrum Insights"}
                 description={
-                  "Redesigning a Full Spectrum Insights's website to clearly communicate their expertise and value to industry clients."
+                  "Redesigned and built Full Spectrum Insights's website to clearly communicate their expertise and value to industry clients."
                 }
                 img={fsiCover}
                 target={"/full-spectrum-insights"}
