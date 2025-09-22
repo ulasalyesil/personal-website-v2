@@ -21,7 +21,7 @@ export default function ProjectCard({ title, description, img, target }) {
       <p className="font-mono text-neutral-500 dark:text-neutral-400">
         {description}
       </p>
-      <div className="gap-2 p-2 z-20 bg-neutral-100/50 dark:bg-neutral-900/50 backdrop-blur-sm hidden transition ease-in-out group-hover:block hover:bg-neutral-100 dark:hover:bg-neutral-800 absolute top-4 right-4 rounded-full">
+      <div className="gap-2 p-2 z-20 bg-neutral-100/50 dark:bg-neutral-900/50 backdrop-blur-sm hidden transition ease-in-out group-hover:block hover:bg-neutral-100 dark:hover:bg-neutral-800 absolute top-6 right-6 rounded-full">
         <ArrowTopRightIcon
           width={"20"}
           height={"20"}
