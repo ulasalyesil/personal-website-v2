@@ -1,8 +1,8 @@
 import ProjectCard from "./ProjectCard";
 
-import wisecareai from "../public/images/wisecare/plan_selection.png";
+import wisecareai from "../public/images/wisecare/wisecare_cover.png";
 import fsiCover from "@/public/images/fsi/fsi_cover.png";
-import qb from "@/public/images/quickbooks/integrationsList.png";
+import qb from "@/public/images/quickbooks/qb_cover.png";
 import gacWeb2 from "@/public/images/goodafternoon/gacWeb2.png";
 
 export default function SelectedProjects() {
