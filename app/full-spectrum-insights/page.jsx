@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import CaseStudyLayout from '@/components/CaseStudyLayout';
-import fsiCover from '@/public/images/fsi/fsi_cover.png';
-import fsiWeb from '@/public/images/fsi/fsi_web.png';
+import CaseStudyLayout from "@/components/CaseStudyLayout";
+import fsiCover from "@/public/images/fsi/fsi_cover.png";
+import fsiWeb from "@/public/images/fsi/fsi_web.png";
 
 export default function FullSpectrumInsightsCase() {
   return (
@@ -14,26 +14,38 @@ export default function FullSpectrumInsightsCase() {
       websiteUrl="https://fullspectruminsights.com"
       contentBlocks={[
         {
-          type: 'text',
-          text: 'Full Spectrum Insights is a boutique consultancy working at the intersection of data, behavior, and technology.',
+          type: "text",
+          text: "FSI is a consultancy pivoting toward AI-assisted insight workflows. The goal was to make AI tangible without hype: clear problems, concrete demos, measured outcomes.",
         },
         {
-          type: 'image',
+          type: "image",
           src: fsiCover,
-          alt: 'Full Spectrum Insights homepage cover',
+          alt: "Full Spectrum Insights homepage cover",
         },
         {
-          type: 'text',
-          text: 'I led the end-to-end design and development of their website, defining the information hierarchy, designing the UI, and implementing a responsive, performance-focused build using Next.js.',
+          type: "text",
+          text: "I led end-to-end design and development of the site. Defined information architecture, wrote the narrative, designed the UI, and implemented a responsive, performance-focused build using Next.js.",
         },
         {
-          type: 'image',
+          type: "text",
+          text: "AI positioning. We framed AI as draft-first assistance, not magic. Outputs appear as editable drafts with rationale and a clear path to commit or revert.",
+        },
+        {
+          type: "text",
+          text: "Interaction principles applied. Keep stable anchors while the canvas streams results. Show compact reasoning in plain language with optional detail. Enable fast correction that preserves state.",
+        },
+        {
+          type: "text",
+          text: "Patterns codified for reuse. Preview then commit. Rationale card with expandable trace. Low to high agency toggle between guided inputs and free-form intent. Anchor layout that keeps header, navigation, and progress fixed while results update.",
+        },
+        {
+          type: "image",
           src: fsiWeb,
-          alt: 'Full Spectrum Insights full-page screenshot',
+          alt: "Full Spectrum Insights full-page screenshot",
         },
         {
-          type: 'text',
-          text: 'The result is a clean, credible web presence that communicates FSI’s unique value proposition and sets a solid foundation for future content and storytelling.',
+          type: "text",
+          text: "Outcome. A credible AI-forward presence with a modular component system and an interaction playbook FSI can extend into productized demos and client work.",
         },
       ]}
     />
