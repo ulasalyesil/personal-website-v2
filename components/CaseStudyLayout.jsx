@@ -51,7 +51,7 @@ export default function CaseStudyLayout({
                 <Image
                   src={block.src}
                   alt={block.alt || `${title} image ${index + 1}`}
-                  className="w-full rounded-lg shadow"
+                  className="w-full rounded-lg"
                 />
               </motion.div>
             );
