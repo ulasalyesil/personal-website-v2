@@ -15,7 +15,7 @@ export default function SelectedProjects() {
         <ProjectCard
           title={"WiseCareAI"}
           description={
-            "An AI-powered platform helping US health insurance agents recommend the best ACA and Medicare plans faster and smarter."
+            "A generative AI platform that creates dynamic health insurance enrollment experiences, adapting forms and recommendations in real-time. "
           }
           img={wisecareai}
           target={"/wisecareai"}
@@ -23,7 +23,7 @@ export default function SelectedProjects() {
         <ProjectCard
           title={"Full Spectrum Insights"}
           description={
-            "Redesigned and built Full Spectrum Insights's website to clearly communicate their expertise and value to industry clients."
+            "A consultancy website showcasing AI-assisted business insights through practical demos and clear outcomes. "
           }
           img={fsiCover}
           target={"/full-spectrum-insights"}
@@ -33,7 +33,7 @@ export default function SelectedProjects() {
         <ProjectCard
           title={"Jotform"}
           description={
-            "Designing the QuickBooks integration and re-imagining the integrations experience."
+            "Designing a seamless QuickBooks integration that automates invoice and customer creation from form submissions, eliminating manual data entry for small businesses. "
           }
           img={qb}
           target={"jotform-integrations"}
@@ -41,7 +41,7 @@ export default function SelectedProjects() {
         <ProjectCard
           title={"Good Afternoon Creative"}
           description={
-            "Building a branded portfolio site for a Istanbul-based creative duo to showcase selected work and studio capabilities."
+            "Building a branded portfolio site for an Istanbul-based creative agency to showcase their work and establish a strong online presence in the competitive design market. "
           }
           img={gacWeb2}
           target={"good-afternoon-creative"}
