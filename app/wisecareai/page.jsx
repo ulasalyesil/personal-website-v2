@@ -22,35 +22,39 @@ export default function WiseCareAICase() {
       contentBlocks={[
         {
           type: "text",
-          text: "WiseCareAI explored a generative interface for the U.S. health insurance market. Instead of fixed screens, an AI agent assembled tasks, forms, and explanations on the fly. My job: design the human↔agent interaction so a dynamic UI still feels stable, legible, and trustworthy.",
+          text: "WiseCareAI is a health-insurance platform for the U.S. market. My work was end-to-end product design: research, IA, flows, interaction design, and a shared design system across agent tools, internal ops, and the public site. Generative UI/AI was integrated to augment core workflows—not define them.",
         },
         { type: "image", src: cover, alt: "WiseCareAI overview cover" },
+
+        { type: "text", text: "Product scope:" },
         {
           type: "text",
-          text: "What made it different:",
-        },
-        {
-          type: "text",
-          text: "Generative UI — steps, fields, and summaries adapted to the case context.\nDual-agency — agents could drive via free-form intent or guided flows.\nExplainability — every recommendation shipped with compact reasoning and source references.\nCorrection loops — fast ways to fix AI mistakes without losing progress.",
+          text: "ACA Enrollment (Agent): guided quoting/enrollment with dynamic form blocks.\nMedicare Quoting (Phone): quick compare with rationale for seniors.\nInternal Ops (CRM): timeline/status insights from notes and events.\nMarketing Site: clear story and trust signals in a regulated domain.\nDesign System: tokens, components, patterns (including generative states).",
         },
 
-        { type: "text", text: "Scope and modules:" },
+        { type: "text", text: "Responsibilities:" },
         {
           type: "text",
-          text: "ACA Enrollment (Agent): intent-in → dynamic form blocks → policy suggestions.\nMedicare Quoting (Phone): low-UI, high-voice notes → quick compare with rationale.\nInternal Ops (CRM): status insights generated from case timelines and notes.\nMarketing Site: clear narrative for a regulated, trust-sensitive domain.\nDesign System: tokens, components, patterns for generative states.",
+          text: "User interviews and task flows (agents, support, end clients).\nInformation architecture and navigation across tools.\nWireframes → hi-fi UI → prototypes; dev handoff.\nDesign system definition and maintenance.\nAI feature integration: prompts/guardrails/UX for explainability and edits.",
         },
 
         { type: "image", src: form, alt: "Dynamic form block example" },
 
-        { type: "text", text: "AI UX challenges:" },
+        { type: "text", text: "Where AI/Generative fits (as augmentation):" },
         {
           type: "text",
-          text: "Stability vs. plasticity: how to keep anchors while UI morphs.\nTrust without overload: show “why” in one glance, expand on demand.\nPreview vs. commit: safe sandboxes before actions that affect coverage.\nRecovery from wrong answers: quick edits that teach the model and keep flow.\nPolicy complexity: ACA vs. Medicare rules without exposing raw regulation-speak.",
+          text: "Adaptive steps/fields when case context changes.\nFree-form intent or guided inputs—both converge to the same editable draft.\nRationale overlays: why a plan is suggested (cost, coverage fit, eligibility).\nRecovery loops: quick fixes to model mistakes without losing progress.",
+        },
+
+        { type: "text", text: "Key design challenges:" },
+        {
+          type: "text",
+          text: "Stability vs plasticity: keep anchors while the work area adapts.\nTrust without overload: show a one-glance rationale; expand for trace.\nPreview vs commit: drafts first; explicit, reversible writes.\nPolicy complexity: ACA/Medicare rules without exposing regulation-speak.",
         },
 
         {
           type: "text",
-          text: "Pattern: Anchor Layout. Navigation, case header, and progress stayed fixed; only a work area mutated. This lowered disorientation while allowing the agent to reshape steps.",
+          text: "Pattern: Anchor Layout — persistent navigation/header/progress; only the canvas mutates. Reduces disorientation while supporting flexible steps.",
         },
         {
           type: "image",
@@ -60,7 +64,7 @@ export default function WiseCareAICase() {
 
         {
           type: "text",
-          text: "Pattern: Preview → Refine → Commit. The agent produced drafts (plans, forms, messages). Agents edited inline chips (filters, constraints) before any system write.",
+          text: "Pattern: Preview → Refine → Commit — AI creates drafts (plans/forms/messages). Agents adjust inline chips (filters/constraints) before any system write.",
         },
         {
           type: "gallery",
@@ -72,13 +76,13 @@ export default function WiseCareAICase() {
 
         {
           type: "text",
-          text: "Explainability surface: each recommendation carried a compact rationale (cost, coverage fit, eligibility) with a tap-to-expand trace to sources and constraints.",
+          text: "Explainability surface: compact rationale (cost, fit, eligibility) with tap-to-expand trace to sources and constraints.",
         },
         { type: "image", src: wizard, alt: "Explainable selection wizard" },
 
         {
           type: "text",
-          text: "Agent interaction modes: free-form need statements or guided inputs. Both routes converged to the same editable draft so users could switch modes without penalty.",
+          text: "Interaction modes: free-form need statements or guided steps. Users can switch modes any time; both routes land on the same draft.",
         },
         {
           type: "gallery",
@@ -90,37 +94,30 @@ export default function WiseCareAICase() {
 
         {
           type: "text",
-          text: "System behavior design (with engineering): prompt scaffolds, guardrails for eligibility, deterministic UI anchors, streaming “thinking” feedback, and error classes mapped to recovery UI.",
+          text: "System behavior (with engineering): prompt scaffolds, eligibility guardrails, deterministic anchors, streaming feedback, error classes mapped to recovery UI.",
         },
 
+        { type: "text", text: "Patterns distilled:" },
         {
           type: "text",
-          text: "Design patterns distilled from the work:",
-        },
-        {
-          type: "text",
-          text: "Correction Loop: inline edits that update the draft and the model’s current context.\nAnchor Layout: persistent header, navigation, and progress; only the canvas is generative.\nPreview-First: AI outputs enter as drafts; commit is explicit and reversible.\nRationale Card: concise why-this pick with expandable trace.\nLow to High Agency Toggle: switch between guided steps and free-form intent.\nMemory Notes: lightweight case notes the agent can reference, always visible.",
+          text: "Correction Loop — inline edits update the draft and current context.\nAnchor Layout — stable shell; generative canvas.\nPreview-First — drafts by default; explicit commit.\nRationale Card — concise “why”, expandable trace.\nLow↔High Agency Toggle — guided steps or free-form intent.\nMemory Notes — lightweight notes the agent and system can reference.",
         },
 
         { type: "text", text: "Impact (early signals):" },
         {
           type: "text",
-          text: "Approximately 25% faster enrollment time in agent tests.\nFewer back-and-forths due to visible rationale and editable constraints.\nLower error recovery cost by treating AI output as drafts instead of decisions.",
+          text: "≈25% faster enrollment time in agent tests.\nFewer back-and-forths due to visible rationale and editable constraints.\nLower recovery cost by treating AI output as drafts, not decisions.",
         },
 
         {
           type: "text",
-          text: "Marketing site: simple, credible story for a sensitive category; aligned visuals with the product’s explainability stance.",
+          text: "Marketing: straightforward, credible narrative; visuals aligned with product explainability and regulation sensitivity.",
         },
         { type: "image", src: marketing, alt: "Public marketing site" },
 
         {
           type: "text",
-          text: "My role: define the AI interaction model, design the pattern system for generative screens, prototype flows end-to-end, and collaborate on prompt and guardrail design with engineers and leadership.",
-        },
-        {
-          type: "text",
-          text: "Outcome: a coherent pattern language for a generative insurance workflow that balances speed with control and keeps trust intact.",
+          text: "Outcome: a coherent multi-tool product with a design system that embeds generative capabilities where they help most, while keeping control, speed, and trust.",
         },
       ]}
     />

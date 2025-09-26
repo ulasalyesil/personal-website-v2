@@ -15,7 +15,7 @@ export default function SelectedProjects() {
         <ProjectCard
           title={"WiseCareAI"}
           description={
-            "A generative AI platform that creates dynamic health insurance enrollment experiences, adapting forms and recommendations in real-time. "
+            "Health insurance platform combining product design with generative AI to adapt forms and recommendations in real time."
           }
           img={wisecareai}
           target={"/wisecareai"}
