@@ -1,8 +1,6 @@
-// components/Tabs.jsx
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import styled from "styled-components";
 
 const tabsData = [
   { title: "Home",      value: "/"        },
@@ -45,64 +43,39 @@ export default function Tabs() {
   }
 
   return (
-    <Nav ref={wrapperRef} onMouseLeave={resetHighlight}>
-      <Highlight style={highlightStyles} />
+    <nav
+      ref={wrapperRef}
+      onMouseLeave={resetHighlight}
+      className="relative inline-flex gap-4"
+    >
+      <div
+        className="absolute top-2 h-8 rounded-full bg-[#ff5701] z-0 transition-[width,transform,opacity] ease-out"
+        style={highlightStyles}
+      />
 
       {tabsData.map((tab) => {
         if (tab.hideOnMobile && isMobile) return null;
+        const isSelected = highlighted?.value === tab.value;
+        
         return (
           <Link
             key={tab.value}
             href={tab.value}
             passHref
+            legacyBehavior
           >
-            <Tab
+            <a
               onMouseOver={(e) => repositionHighlight(e, tab)}
-              isSelected={highlighted?.value === tab.value}
+              className={`
+                relative z-10 inline-block px-4 py-3 text-sm no-underline transition-colors duration-250 cursor-pointer
+                ${isSelected ? 'text-[#1d1d1d]' : 'text-[hsl(0_0%_43.5%)] hover:text-[#1d1d1d]'}
+              `}
             >
               {tab.title}
-            </Tab>
+            </a>
           </Link>
         );
       })}
-    </Nav>
+    </nav>
   );
 }
-
-const Nav = styled.nav`
-  position: relative;
-  display: inline-flex;
-  gap: 1rem;
-`;
-
-const Tab = styled.a`
-  position: relative;
-  z-index: 1;              /* sit above the highlight */
-  display: inline-block;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  color: hsl(0 0% 43.5%);
-  text-decoration: none;
-  transition: color 250ms;
-  cursor: pointer;
-
-  ${(p) =>
-    p.isSelected &&
-    `
-    color: #1d1d1d;
-  `}
-
-  &:hover {
-    color: #1d1d1d;
-  }
-`;
-
-const Highlight = styled.div`
-  position: absolute;
-  top: 0.5rem;
-  height: 2rem;
-  border-radius: 999px;
-  background-color: #ff5701;
-  z-index: 0;              /* sit behind the tabs */
-  transition: width 150ms ease, transform 150ms ease, opacity 150ms ease;
-`;

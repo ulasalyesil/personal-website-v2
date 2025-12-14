@@ -20,24 +20,21 @@ export default function CustomCursor() {
       }
     };
 
-    const onEnter = () => setIsHover(true);
-    const onLeave = () => setIsHover(false);
+    // Use event delegation for hover detection
+    const onMouseOver = (e) => {
+      if (e.target.closest("a, button, .hover-target")) {
+        setIsHover(true);
+      } else {
+        setIsHover(false);
+      }
+    };
 
     window.addEventListener("mousemove", onMove);
-
-    // attach to links, buttons, or anything with .hover-target
-    const els = document.querySelectorAll("a, button, .hover-target");
-    els.forEach((el) => {
-      el.addEventListener("mouseenter", onEnter);
-      el.addEventListener("mouseleave", onLeave);
-    });
+    window.addEventListener("mouseover", onMouseOver);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
-      els.forEach((el) => {
-        el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mouseleave", onLeave);
-      });
+      window.removeEventListener("mouseover", onMouseOver);
     };
   }, []);
 
