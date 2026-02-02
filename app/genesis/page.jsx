@@ -3,18 +3,18 @@
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import img1 from '@/public/images/genesis/1.jpg';
 import img2 from '@/public/images/genesis/2.jpg';
-import img3 from '@/public/images/genesis/3.png';
+import img3 from '@/public/images/genesis/3.webp';
 import img4 from '@/public/images/genesis/4.jpg';
-import img5 from '@/public/images/genesis/5.png';
+import img5 from '@/public/images/genesis/5.webp';
 import img6 from '@/public/images/genesis/6.jpg';
 import img7 from '@/public/images/genesis/7.jpg';
-import img8 from '@/public/images/genesis/8.png';
+import img8 from '@/public/images/genesis/8.webp';
 import img9 from '@/public/images/genesis/9.jpg';
 import img10 from '@/public/images/genesis/10.jpg';
 import img11 from '@/public/images/genesis/11.jpg';
-import img12 from '@/public/images/genesis/12.png';
+import img12 from '@/public/images/genesis/12.webp';
 import img13 from '@/public/images/genesis/13.jpg';
-import img14 from '@/public/images/genesis/14.png';
+import img14 from '@/public/images/genesis/14.webp';
 
 export default function GenesisCase() {
   return (

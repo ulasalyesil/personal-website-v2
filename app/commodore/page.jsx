@@ -3,7 +3,7 @@
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import CommodoreContent from './CommodoreContent.json';
 
-import commodoreLanding from '@/public/images/commodoreImages/commodoreLanding.png';
+import commodoreLanding from '@/public/images/commodoreImages/commodoreLanding.webp';
 import commodore1 from '@/public/images/commodoreImages/commodore1.jpg';
 import commodore2 from '@/public/images/commodoreImages/commodore2.jpg';
 import commodore3 from '@/public/images/commodoreImages/commodore3.jpg';

@@ -1,15 +1,15 @@
 "use client";
 
 import CaseStudyLayout from "@/components/CaseStudyLayout";
-import cover from "@/public/images/wisecare/cover.png";
-import aiFound from "@/public/images/wisecare/ai_found.png";
-import aiThinking from "@/public/images/wisecare/ai_thinking.png";
-import form from "@/public/images/wisecare/form.png";
-import init from "@/public/images/wisecare/init.png";
-import marketing from "@/public/images/wisecare/marketing.png";
-import plans from "@/public/images/wisecare/plan_selection.png";
-import plans2 from "@/public/images/wisecare/plans.png";
-import wizard from "@/public/images/wisecare/wizard.png";
+import cover from "@/public/images/wisecare/cover.webp";
+import aiFound from "@/public/images/wisecare/ai_found.webp";
+import aiThinking from "@/public/images/wisecare/ai_thinking.webp";
+import form from "@/public/images/wisecare/form.webp";
+import init from "@/public/images/wisecare/init.webp";
+import marketing from "@/public/images/wisecare/marketing.webp";
+import plans from "@/public/images/wisecare/plan_selection.webp";
+import plans2 from "@/public/images/wisecare/plans.webp";
+import wizard from "@/public/images/wisecare/wizard.webp";
 
 export default function WiseCareAICase() {
   return (

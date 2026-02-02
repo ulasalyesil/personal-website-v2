@@ -1,8 +1,8 @@
 "use client";
 
 import CaseStudyLayout from "@/components/CaseStudyLayout";
-import fsiCover from "@/public/images/fsi/fsi_cover.png";
-import fsiWeb from "@/public/images/fsi/fsi_web.png";
+import fsiCover from "@/public/images/fsi/fsi_cover.webp";
+import fsiWeb from "@/public/images/fsi/fsi_web.webp";
 
 export default function FullSpectrumInsightsCase() {
   return (

@@ -1,11 +1,11 @@
 'use client';
 
 import CaseStudyLayout from '@/components/CaseStudyLayout';
-import cover from '@/public/images/quickbooks/cover.png';
+import cover from '@/public/images/quickbooks/cover.webp';
 import uxrSlide from '@/public/images/quickbooks/slide.jpg';
-import mapper from '@/public/images/quickbooks/mapper.png';
-import actions from '@/public/images/quickbooks/actions.png';
-import createCustomer from '@/public/images/quickbooks/createCustomer.png';
+import mapper from '@/public/images/quickbooks/mapper.webp';
+import actions from '@/public/images/quickbooks/actions.webp';
+import createCustomer from '@/public/images/quickbooks/createCustomer.webp';
 
 export default function QuickBooksIntegrationCase() {
   return (

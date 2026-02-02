@@ -1,9 +1,9 @@
 import ProjectCard from "./ProjectCard";
 
-import wisecareai from "../public/images/wisecare/wisecare_cover.png";
-import fsiCover from "@/public/images/fsi/fsi_cover.png";
-import qb from "@/public/images/quickbooks/qb_cover.png";
-import gacWeb2 from "@/public/images/goodafternoon/gacWeb2.png";
+import wisecareai from "../public/images/wisecare/wisecare_cover.webp";
+import fsiCover from "@/public/images/fsi/fsi_cover.webp";
+import qb from "@/public/images/quickbooks/qb_cover.webp";
+import gacWeb2 from "@/public/images/goodafternoon/gacWeb2.webp";
 
 export default function SelectedProjects() {
   return (
