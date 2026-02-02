@@ -32,13 +32,14 @@ export default function Tabs() {
   };
   const resetHighlight = () => setHighlighted(null);
 
-  let highlightStyles = { opacity: 0 };
+  let highlightStyles = { opacity: 0, scale: 0.95 };
   if (tabBox && wrapBox) {
     highlightStyles = {
-      transitionDuration: cameFromNull ? "0ms" : "150ms",
+      transitionDuration: cameFromNull ? "0ms" : "200ms",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
       opacity: highlighted ? 1 : 0,
       width: `${tabBox.width}px`,
-      transform: `translateX(${tabBox.left - wrapBox.left}px)`,
+      transform: `translateX(${tabBox.left - wrapBox.left}px) scale(${highlighted ? 1 : 0.95})`,
     };
   }
 
@@ -46,12 +47,13 @@ export default function Tabs() {
     <nav
       ref={wrapperRef}
       onMouseLeave={resetHighlight}
-      className="relative inline-flex gap-4"
+      className="relative inline-flex gap-1 p-1 rounded-full bg-neutral-100 dark:bg-neutral-800/50"
       role="navigation"
       aria-label="Main navigation"
     >
+      {/* Animated highlight pill */}
       <div
-        className="absolute top-2 h-8 rounded-full bg-brand z-0 transition-[width,transform,opacity] ease-out"
+        className="absolute top-1 h-[calc(100%-8px)] rounded-full bg-white dark:bg-neutral-700 shadow-sm z-0 transition-[width,transform,opacity] pointer-events-none"
         style={highlightStyles}
       />
 
@@ -63,14 +65,21 @@ export default function Tabs() {
           <Link
             key={tab.value}
             href={tab.value}
-            onMouseOver={(e) => repositionHighlight(e, tab)}
-            aria-current={isSelected ? "page" : undefined}
-            className={`
-              relative z-10 inline-block px-4 py-3 text-sm no-underline transition-colors duration-250 cursor-pointer
-              ${isSelected ? 'text-[#1d1d1d]' : 'text-[hsl(0_0%_43.5%)] hover:text-[#1d1d1d]'}
-            `}
+            passHref
+            legacyBehavior
           >
-            {tab.title}
+            <a
+              onMouseOver={(e) => repositionHighlight(e, tab)}
+              aria-current={isSelected ? "page" : undefined}
+              className={`
+                relative z-10 inline-block px-4 py-2 text-sm font-medium rounded-full no-underline transition-colors duration-200 cursor-pointer
+                ${isSelected 
+                  ? 'text-neutral-900 dark:text-neutral-100' 
+                  : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200'}
+              `}
+            >
+              {tab.title}
+            </a>
           </Link>
         );
       })}
