@@ -9,19 +9,17 @@ export default function TypingAnimatedText({ text }) {
   const [i, setI] = useState(0);
 
   useEffect(() => {
+    if (i >= text.length) return;
+
     const typingEffect = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prevState) => prevState + text.charAt(i));
-        setI(i + 1);
-      } else {
-        clearInterval(typingEffect);
-      }
+      setDisplayedText((prevState) => prevState + text.charAt(i));
+      setI((prevI) => prevI + 1);
     }, 50);
 
     return () => {
       clearInterval(typingEffect);
     };
-  });
+  }, [i, text]);
 
   return (
     <div>

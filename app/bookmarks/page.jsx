@@ -18,7 +18,7 @@ export default function Bookmarks() {
   };
 
   return (
-    <div className="flex flex-col mx-aut px-2 max-w-[1200px] gap-16 w-full">
+    <div className="flex flex-col mx-auto px-2 max-w-[1200px] gap-16 w-full">
       <div className="flex flex-col gap-16">
         <ol>
           <motion.li

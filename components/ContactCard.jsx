@@ -10,6 +10,15 @@ import BentoIcon from "../public/icons/contactIcons/bento";
 import DribbbleIcon from "@/public/icons/contactIcons/dribbble";
 import XIcon from "../public/icons/contactIcons/x";
 
+const iconLabels = {
+  x: "X (Twitter)",
+  posts: "Posts",
+  layers: "Layers",
+  linkedin: "LinkedIn",
+  bento: "Bento",
+  dribbble: "Dribbble",
+};
+
 export default function ContactCard({ icon, iconFill, iconBorder, target }) {
   const renderIcon = () => {
     switch (icon) {
@@ -34,8 +43,9 @@ export default function ContactCard({ icon, iconFill, iconBorder, target }) {
     <Link
       className={`border border-neutral-300 bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800 rounded-sm aspect-square p-4 flex items-center justify-center hover:bg-[#FF5701]  transition ease-in-out`}
       href={target}
-      rel="noreferrer"
+      rel="noopener noreferrer"
       target="_blank"
+      aria-label={`Visit ${iconLabels[icon] || icon} profile`}
     >
       {renderIcon()}
     </Link>
