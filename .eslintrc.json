@@ -1,8 +1,19 @@
 {
   "root": true,
-  "extends": ["next", "next/core-web-vitals"],
+  "extends": [
+    "next",
+    "next/core-web-vitals"
+  ],
   "rules": {
-    // add any project-specific overrides here. E.g.:
-    // "@typescript-eslint/explicit-module-boundary-types": "off"
+    "no-unused-vars": "warn",
+    "no-console": "warn",
+    "react/self-closing-comp": "error",
+    "react/jsx-curly-brace-presence": [
+      "error",
+      {
+        "props": "never",
+        "children": "never"
+      }
+    ]
   }
 }
