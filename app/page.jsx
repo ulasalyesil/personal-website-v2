@@ -6,14 +6,12 @@ import Hero from "../components/Hero";
 import SelectedProjects from "@/components/SelectedProjects";
 import Section from "../components/Section";
 import Footer from "../components/Footer";
+import { fadeInUp, withDelay } from "@/lib/animations";
 
 import projectsData from "../public/data/projects.json";
 
-const motionProps = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay: 0.8, duration: 0.6, type: "spring", stiffness: 25 },
-};
+const motionProps = withDelay(fadeInUp, 0.8);
+
 
 function Page() {
   return (

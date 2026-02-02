@@ -1,45 +1,40 @@
 import { motion } from "framer-motion";
 import ContactCard from "./ContactCard";
+import { fadeInUp, withDelay } from "@/lib/animations";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 export default function Contacts() {
-  const animationConfig = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, type: "spring", stiffness: 25 },
-  };
+  const animation = withDelay(fadeInUp, 0.8);
+  
   return (
     <motion.div
       className="flex gap-4 max-w-[512px] items-start w-full"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.6,
-        type: "spring",
-        stiffness: 25,
-        delay: 0.8,
-      }}
+      initial={animation.initial}
+      animate={animation.animate}
+      transition={animation.transition}
     >
       <ContactCard
         icon={"x"}
         iconFill={"#a3a3a3"}
-        target={"https://twitter.com/ulasalyesil"}
+        target={SOCIAL_LINKS.twitter}
       />
       <ContactCard
         icon={"linkedin"}
         iconFill={"#a3a3a3"}
-        target={"https://www.linkedin.com/in/ulasalyesil"}
+        target={SOCIAL_LINKS.linkedin}
       />
       <ContactCard
         icon={"layers"}
         iconFill={"#a3a3a3"}
-        target={"https://layers.to/ulas"}
+        target={SOCIAL_LINKS.layers}
       />
       <ContactCard
         icon={"dribbble"}
         iconFill={"#a3a3a3"}
-        target={"https://dribbble.com/ulasalyesil"}
+        target={SOCIAL_LINKS.dribbble}
       />
-      <ContactCard icon={"bento"} target={"https://bento.me/ulas"} />
+      <ContactCard icon={"bento"} target={SOCIAL_LINKS.bento} />
     </motion.div>
   );
 }
+

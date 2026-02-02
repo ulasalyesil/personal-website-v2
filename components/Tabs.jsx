@@ -63,22 +63,18 @@ export default function Tabs() {
           <Link
             key={tab.value}
             href={tab.value}
-            passHref
-            legacyBehavior
+            onMouseOver={(e) => repositionHighlight(e, tab)}
+            aria-current={isSelected ? "page" : undefined}
+            className={`
+              relative z-10 inline-block px-4 py-3 text-sm no-underline transition-colors duration-250 cursor-pointer
+              ${isSelected ? 'text-[#1d1d1d]' : 'text-[hsl(0_0%_43.5%)] hover:text-[#1d1d1d]'}
+            `}
           >
-            <a
-              onMouseOver={(e) => repositionHighlight(e, tab)}
-              aria-current={isSelected ? "page" : undefined}
-              className={`
-                relative z-10 inline-block px-4 py-3 text-sm no-underline transition-colors duration-250 cursor-pointer
-                ${isSelected ? 'text-[#1d1d1d]' : 'text-[hsl(0_0%_43.5%)] hover:text-[#1d1d1d]'}
-              `}
-            >
-              {tab.title}
-            </a>
+            {tab.title}
           </Link>
         );
       })}
     </nav>
   );
 }
+
