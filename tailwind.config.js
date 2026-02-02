@@ -9,6 +9,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        brand: {
+          DEFAULT: '#FF5701',
+          hover: '#e64e00',
+          selection: '#FF6100',
+        },
+      },
       fontFamily: {
         sans: ['"Geist Variable"', ...defaultTheme.fontFamily.sans],
         mono: ['"Geist Mono Variable"', ...defaultTheme.fontFamily.mono],

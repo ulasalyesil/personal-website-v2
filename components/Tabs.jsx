@@ -47,9 +47,11 @@ export default function Tabs() {
       ref={wrapperRef}
       onMouseLeave={resetHighlight}
       className="relative inline-flex gap-4"
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div
-        className="absolute top-2 h-8 rounded-full bg-[#ff5701] z-0 transition-[width,transform,opacity] ease-out"
+        className="absolute top-2 h-8 rounded-full bg-brand z-0 transition-[width,transform,opacity] ease-out"
         style={highlightStyles}
       />
 
@@ -66,6 +68,7 @@ export default function Tabs() {
           >
             <a
               onMouseOver={(e) => repositionHighlight(e, tab)}
+              aria-current={isSelected ? "page" : undefined}
               className={`
                 relative z-10 inline-block px-4 py-3 text-sm no-underline transition-colors duration-250 cursor-pointer
                 ${isSelected ? 'text-[#1d1d1d]' : 'text-[hsl(0_0%_43.5%)] hover:text-[#1d1d1d]'}

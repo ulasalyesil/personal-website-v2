@@ -44,7 +44,7 @@ const HoverableWord = ({ word, contentType, onHover, onLeave, link }) => (
     onMouseLeave={onLeave}
   >
     {/* Background DIV for hover state */}
-    <div className="absolute inset-0 bg-[#FF5701] rounded-md scale-x-110 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+    <div className="absolute inset-0 bg-brand rounded-md scale-x-110 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
     {/* Word content with padding */}
     <span className="relative z-10">{word}</span>
   </Link>
@@ -154,7 +154,7 @@ export default function About() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col mx-auto sm:px-4 md:px-auto w-full md:w-[1200px] gap-4 text-sm md:text-base selection:bg-[#FF6100]">
+      <div className="flex flex-col mx-auto sm:px-4 md:px-auto w-full md:w-[1200px] gap-4 text-sm md:text-base selection:bg-brand-selection">
         <motion.div
           className="flex justify-between w-full items-center my-6"
           initial={{ opacity: 0, y: 20 }}

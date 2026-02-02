@@ -50,7 +50,7 @@ export default function CustomCursor() {
         width: 24,
         height: 24,
         borderRadius: "50%",
-        backgroundColor: "#FF5703",
+        backgroundColor: "var(--color-brand)",
         mixBlendMode: "difference",
         // Center the cursor and handle scaling
         transform: `translate(-50%, -50%) scale(${isHover ? 2 : 1})`,

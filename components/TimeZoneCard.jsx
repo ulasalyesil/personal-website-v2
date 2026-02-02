@@ -107,7 +107,7 @@ export default function TimeZoneCard({ city = "berlin" }) {
             background: "linear-gradient(to bottom, #171717, transparent)",
           }}
         >
-          <div className="absolute bottom-full left-1/2 w-2 h-2 bg-[#FF5701] rounded-full transform -translate-x-1/2" />
+          <div className="absolute bottom-full left-1/2 w-2 h-2 bg-brand rounded-full transform -translate-x-1/2" />
         </div>
       </div>
     </div>

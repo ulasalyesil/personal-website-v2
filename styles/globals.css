@@ -2,6 +2,12 @@
 @import '@fontsource-variable/geist/index.css';
 @import '@fontsource-variable/geist-mono/index.css';
 
+:root {
+  --color-brand: #FF5701;
+  --color-brand-hover: #e64e00;
+  --color-brand-selection: #FF6100;
+}
+
 html {
   font-family: "Geist Variable", sans-serif;
   font-size: 16px;
