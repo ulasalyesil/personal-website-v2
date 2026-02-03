@@ -14,26 +14,26 @@ export default function Contacts() {
       transition={animation.transition}
     >
       <ContactCard
-        icon={"x"}
-        iconFill={"#a3a3a3"}
+        icon="x"
+        iconFill="#a3a3a3"
         target={SOCIAL_LINKS.twitter}
       />
       <ContactCard
-        icon={"linkedin"}
-        iconFill={"#a3a3a3"}
+        icon="linkedin"
+        iconFill="#a3a3a3"
         target={SOCIAL_LINKS.linkedin}
       />
       <ContactCard
-        icon={"layers"}
-        iconFill={"#a3a3a3"}
+        icon="layers"
+        iconFill="#a3a3a3"
         target={SOCIAL_LINKS.layers}
       />
       <ContactCard
-        icon={"dribbble"}
-        iconFill={"#a3a3a3"}
+        icon="dribbble"
+        iconFill="#a3a3a3"
         target={SOCIAL_LINKS.dribbble}
       />
-      <ContactCard icon={"bento"} target={SOCIAL_LINKS.bento} />
+      <ContactCard icon="bento" target={SOCIAL_LINKS.bento} />
     </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.error("Route error:", error);
   }, [error]);
 

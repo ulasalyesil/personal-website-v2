@@ -34,7 +34,7 @@ function Section({ sectionTitle, projects }) {
         {sectionTitle}
       </motion.h3>
       <ol>
-        {sortedProjects.map(([key, project]) => {
+        {sortedProjects.map(([key]) => {
           const { date, title, role, target } = projects[key];
           return (
             <SectionItem

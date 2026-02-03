@@ -30,8 +30,8 @@ export default function SectionItem({ date, projectTitle, role, target }) {
             </motion.p>
           </div>
           <ArrowTopRightIcon
-            width={"20"}
-            height={"20"}
+            width="20"
+            height="20"
             className="hidden transition ease-in-out duration-300 group-hover:block text-neutral-500 dark:text-neutral-100"
           />
         </div>

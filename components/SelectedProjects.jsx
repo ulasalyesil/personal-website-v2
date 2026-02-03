@@ -13,38 +13,30 @@ export default function SelectedProjects() {
       </h3>
       <div className="flex flex-col sm:flex-row gap-4">
         <ProjectCard
-          title={"WiseCareAI"}
-          description={
-            "Health insurance platform combining product design with generative AI to adapt forms and recommendations in real time."
-          }
+          title="WiseCareAI"
+          description="Health insurance platform combining product design with generative AI to adapt forms and recommendations in real time."
           img={wisecareai}
-          target={"/wisecareai"}
+          target="/wisecareai"
         />
         <ProjectCard
-          title={"Full Spectrum Insights"}
-          description={
-            "A consultancy website showcasing AI-assisted business insights through practical demos and clear outcomes. "
-          }
+          title="Full Spectrum Insights"
+          description="A consultancy website showcasing AI-assisted business insights through practical demos and clear outcomes. "
           img={fsiCover}
-          target={"/full-spectrum-insights"}
+          target="/full-spectrum-insights"
         />
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         <ProjectCard
-          title={"Jotform"}
-          description={
-            "Designing a seamless QuickBooks integration that automates invoice and customer creation from form submissions, eliminating manual data entry for small businesses. "
-          }
+          title="Jotform"
+          description="Designing a seamless QuickBooks integration that automates invoice and customer creation from form submissions, eliminating manual data entry for small businesses. "
           img={qb}
-          target={"jotform-integrations"}
+          target="jotform-integrations"
         />
         <ProjectCard
-          title={"Good Afternoon Creative"}
-          description={
-            "Building a branded portfolio site for an Istanbul-based creative agency to showcase their work and establish a strong online presence in the competitive design market. "
-          }
+          title="Good Afternoon Creative"
+          description="Building a branded portfolio site for an Istanbul-based creative agency to showcase their work and establish a strong online presence in the competitive design market. "
           img={gacWeb2}
-          target={"good-afternoon-creative"}
+          target="good-afternoon-creative"
         />
       </div>
     </div>

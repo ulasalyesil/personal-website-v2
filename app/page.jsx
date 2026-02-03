@@ -23,7 +23,7 @@ function Page() {
           {...motionProps}
         >
           <SelectedProjects />
-          <Section sectionTitle={"Projects"} projects={projectsData} />
+          <Section sectionTitle="Projects" projects={projectsData} />
         </motion.ol>
       </motion.div>
       <Footer />

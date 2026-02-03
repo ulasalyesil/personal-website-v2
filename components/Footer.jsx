@@ -11,11 +11,11 @@ export default function Footer() {
       <div className="text-neutral-500 flex  gap-2">
         <p>reach me at</p>
         <a href={SOCIAL_LINKS.twitter} target="_blank" rel="noopener noreferrer">
-          <XIcon fill={'#000'}/>
+          <XIcon fill="#000" />
         </a>
         <p>or</p>
         <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
-          <LinkedInLogoIcon width={"24"} height={"24"} />
+          <LinkedInLogoIcon width="24" height="24" />
         </a>
       </div>
       <p className="text-neutral-500">

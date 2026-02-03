@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-import otherData from "@/public/data/others.json";
+// otherData import removed - not currently used
 
 import Footer from "@/components/Footer";
 import picture from "../../public/images/picture.jpeg";
@@ -171,12 +171,10 @@ export default function About() {
           </h2>
 
           <Button
-            label={"See Resume"}
-            target={"_blank"}
-            type={"secondary"}
-            href={
-              "https://drive.google.com/file/d/1e-gnjC4ZW6X3jsW_MZ45JaVRhC7rUONy/view?usp=sharing"
-            }
+            label="See Resume"
+            target="_blank"
+            type="secondary"
+            href="https://drive.google.com/file/d/1e-gnjC4ZW6X3jsW_MZ45JaVRhC7rUONy/view?usp=sharing"
           />
         </motion.div>
 

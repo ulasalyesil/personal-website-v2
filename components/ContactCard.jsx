@@ -41,7 +41,7 @@ export default function ContactCard({ icon, iconFill, iconBorder, target }) {
 
   return (
     <Link
-      className={`border border-neutral-300 bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800 rounded-sm aspect-square p-4 flex items-center justify-center hover:bg-brand  transition ease-in-out`}
+      className="border border-neutral-300 bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800 rounded-sm aspect-square p-4 flex items-center justify-center hover:bg-brand  transition ease-in-out"
       href={target}
       rel="noopener noreferrer"
       target="_blank"

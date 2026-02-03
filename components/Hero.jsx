@@ -35,7 +35,7 @@ export default function Hero() {
               </h1>
               <p className="text-neutral-500 font-mono">product designer</p>
               <div className="flex gap-2 items-center py-2 mt-2">
-                <div className="w-3 h-3 bg-brand rounded-full"></div>
+                <div className="w-3 h-3 bg-brand rounded-full" />
                 <a className="text-sm text-neutral-500 font-mono">
                   open for new opportunities
                 </a>
@@ -63,11 +63,11 @@ export default function Hero() {
           {createAnimatedElement(
             <div className="flex gap-2">
               <Button
-                label={"Contact me"}
-                type={"primary"}
+                label="Contact me"
+                type="primary"
                 href="mailto:hello@ulasalyesil.com"
               />
-              <Button label={"See Works"} type={"secondary"} href={"/works"} />
+              <Button label="See Works" type="secondary" href="/works" />
             </div>,
             0.6
           )}

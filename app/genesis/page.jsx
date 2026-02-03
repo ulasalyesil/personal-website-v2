@@ -13,8 +13,7 @@ import img9 from '@/public/images/genesis/9.jpg';
 import img10 from '@/public/images/genesis/10.jpg';
 import img11 from '@/public/images/genesis/11.jpg';
 import img12 from '@/public/images/genesis/12.webp';
-import img13 from '@/public/images/genesis/13.jpg';
-import img14 from '@/public/images/genesis/14.webp';
+// img13 and img14 exist but are not currently used in the gallery
 
 export default function GenesisCase() {
   return (

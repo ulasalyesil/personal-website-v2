@@ -1,10 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import LinkItem from "@/components/LinkItem";
-import Header from "@/components/Header";
 
 // icons
 import { NotionLogoIcon } from "@radix-ui/react-icons";
@@ -32,12 +30,10 @@ export default function Bookmarks() {
             }}
           >
             <LinkItem
-              target={
-                "https://ulasalyesil.notion.site/Design-Resources-33f5823050a34db0946a836c603b6544?pvs=4"
-              }
-              title={"Design Resources | Notion"}
-              description={"Collecting anything related to design here"}
-              image={<NotionLogoIcon width={"24"} height={"24"} />}
+              target="https://ulasalyesil.notion.site/Design-Resources-33f5823050a34db0946a836c603b6544?pvs=4"
+              title="Design Resources | Notion"
+              description="Collecting anything related to design here"
+              image={<NotionLogoIcon width="24" height="24" />}
             />
           </motion.li>
           <motion.li
@@ -51,9 +47,9 @@ export default function Bookmarks() {
             }}
           >
             <LinkItem
-              target={"https://www.cosmos.so/ulasalyesil/objekte"}
-              title={"_objekte | Cosmos"}
-              description={"Collecting objects in Cosmos"}
+              target="https://www.cosmos.so/ulasalyesil/objekte"
+              title="_objekte | Cosmos"
+              description="Collecting objects in Cosmos"
               image={
                 <div className="w-8 flex items-center">
                   <Cosmos />
@@ -61,9 +57,9 @@ export default function Bookmarks() {
               }
             />
             <LinkItem
-              target={"https://www.cosmos.so/ulasalyesil/haus"}
-              title={"haus | Cosmos"}
-              description={"Collecting interior inspirations in Cosmos"}
+              target="https://www.cosmos.so/ulasalyesil/haus"
+              title="haus | Cosmos"
+              description="Collecting interior inspirations in Cosmos"
               image={
                 <div className="w-8 flex items-center">
                   <Cosmos />
@@ -71,9 +67,9 @@ export default function Bookmarks() {
               }
             />
             <LinkItem
-              target={"https://www.cosmos.so/ulasalyesil/haus"}
-              title={"grafik | Cosmos"}
-              description={"Collecting graphic design inspirations in Cosmos"}
+              target="https://www.cosmos.so/ulasalyesil/haus"
+              title="grafik | Cosmos"
+              description="Collecting graphic design inspirations in Cosmos"
               image={
                 <div className="w-8 flex items-center">
                   <Cosmos />
