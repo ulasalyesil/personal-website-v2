@@ -1,119 +1,227 @@
 # Tasks Todo
 
-## Phase 1: Critical Fixes ✅ COMPLETE
+## Previous Work (Completed)
 
-- [x] Pull latest from origin/main (fast-forward merge)
-- [x] Run npm install, verify build
-- [x] Fix memory leak in `TypingAnimatedText.jsx` (added dependency array)
-- [x] Fix typo in `app/bookmarks/page.jsx` (`mx-aut` → `mx-auto`)
-- [x] Add ARIA labels to `ContactCard.jsx` (icon-only links)
-- [x] Add `rel="noopener"` to external links in ContactCard
+<details>
+<summary>Phase 1–3, 5: Click to expand</summary>
 
-## Phase 2: Error Handling ✅ COMPLETE
+### Phase 1: Critical Fixes ✅
+- [x] Fix memory leak in TypingAnimatedText.jsx
+- [x] Fix typo in bookmarks/page.jsx
+- [x] Add ARIA labels to ContactCard.jsx
+- [x] Add rel="noopener" to external links in ContactCard
 
-- [x] Create `components/ErrorBoundary.jsx`
-- [x] Create `app/error.jsx` (Next.js route-level error)
-- [x] Move GA ID to `.env.local`
-- [x] Create `.env.example`
-- [x] Integrate ErrorBoundary in `app/layout.jsx`
-- [x] Fix typo in layout.jsx comment (`anayltics` → `analytics`)
+### Phase 2: Error Handling ✅
+- [x] Create ErrorBoundary.jsx
+- [x] Create app/error.jsx
+- [x] Move GA ID to .env.local
+- [x] Integrate ErrorBoundary in layout.jsx
 
-## Phase 3: Image Optimization ✅ COMPLETE
+### Phase 3: Image Optimization ✅
+- [x] Convert 27 PNGs to WebP (29MB → 10MB, 66% reduction)
 
-- [x] Audit image sizes (was 29MB)
-- [x] Convert 27 large PNGs to WebP
-- [x] Resize oversized images (gacWeb: 3978x7966 → 2000px width)
-- [x] Optimize picture.jpeg (1.2MB → 717KB)
-- [x] Update all code imports to use .webp
-- [x] Remove original PNG files
-- [x] **Result: 29MB → 10MB (66% reduction!)**
+### Phase 5: Tooling ✅
+- [x] ESLint config, Prettier, dead code removal
 
-## Phase 4: Code Quality (Next)
-
-- [ ] Centralize brand colors in `tailwind.config.js`
-- [ ] Create `lib/constants.js` for social links
-- [ ] Create `lib/animations.js` for shared animation config
-- [ ] Add ARIA attributes to Tabs component
-
-## Phase 5: Tooling ✅ COMPLETE
-
-- [x] Strengthen ESLint config
-- [x] Add Prettier config
-- [x] Clean dead code (Experience.jsx)
-
-
-## Phase 6: Dependencies
-
-- [ ] Update safe dependencies (framer-motion, luxon, etc.)
-- [ ] Plan Next.js 16 migration
+</details>
 
 ---
 
-## Review Notes
+## Code Review — Implementation Plan
 
-### Phase 1 Review (Completed)
+Eight independent tasks. Any task can be worked on in isolation without
+affecting the others. Shared files are noted where they exist — the changes
+target different sections of those files so they won't conflict.
 
-**Changes Made:**
-1. `components/TypingAnimatedText.jsx` - Fixed critical memory leak by adding `[i, text]` dependency array to useEffect
-2. `app/bookmarks/page.jsx` - Fixed typo `mx-aut` → `mx-auto`
-3. `components/ContactCard.jsx` - Added ARIA labels for accessibility, added `noopener` to rel attribute
+---
 
-**Verification:**
-- ✅ Build passes
-- ✅ All 16 pages generate successfully
-- ✅ No ESLint errors
+### Task 1: Critical Runtime Fixes
+**Priority:** Critical
+**Files:** `CaseStudyLayout.jsx`, `app/layout.jsx`
+**Estimated scope:** 3 line changes
 
-### Phase 2 Review (Completed)
+- [ ] `CaseStudyLayout.jsx:1` — Fix backtick `` `use client` `` → `"use client"`.
+      This is a **broken directive** — the component runs as a server component
+      but uses Framer Motion, which likely causes runtime errors on every case
+      study page.
+- [ ] `app/layout.jsx:31-32` — Move `<Analytics />` and `<GoogleAnalytics>`
+      from between `</body>` and `</html>` to inside `<body>`. Currently invalid
+      HTML.
+- [ ] `app/layout.jsx:26,28` — Fix broken dark mode gradient classes.
+      `dark:neutral-950/0` is missing the `to-` prefix. Should be
+      `dark:to-neutral-950/0`. The bottom gradient overlay likely doesn't
+      render in dark mode.
 
-**Changes Made:**
-1. `components/ErrorBoundary.jsx` - NEW FILE: Class component with error catching and fallback UI
-2. `app/error.jsx` - NEW FILE: Next.js route-level error page with reset functionality
-3. `app/layout.jsx` - Wrapped children with ErrorBoundary, moved GA ID to env var, fixed typo
-4. `.env.local` - NEW FILE: Contains NEXT_PUBLIC_GA_ID
-5. `.env.example` - NEW FILE: Template for environment variables
+---
 
-**Verification:**
-- ✅ Build passes
-- ✅ All 16 pages generate successfully
-- ✅ ErrorBoundary imported and integrated
-- ✅ GA ID now uses environment variable
+### Task 2: Dark Mode Component Fixes
+**Priority:** High
+**Files:** `Footer.jsx`, `TimeZoneCard.jsx`
+**Estimated scope:** ~10 lines changed
 
-### Phase 3 Review (Completed)
+- [ ] `Footer.jsx:14` — `<XIcon fill="#000" />` hardcodes black. Invisible on
+      dark backgrounds. Use `currentColor` or a dark-mode-aware value.
+- [ ] `TimeZoneCard.jsx:65` — `theme('colors-neutral-400')` inside an inline
+      `style` attribute. The `theme()` function only works in PostCSS-processed
+      CSS, not in JS. Replace with the actual hex value (`#a3a3a3`).
+- [ ] `TimeZoneCard.jsx:108` — Time marker gradient uses hardcoded `#171717`,
+      invisible in dark mode. Needs a conditional or CSS variable approach.
 
-**Changes Made:**
-1. Converted 27 PNG images to WebP format
-2. Resized gacWeb from 3978x7966 to 2000px width (2.3MB → 617KB)
-3. Optimized picture.jpeg (1.2MB → 717KB)
-4. Updated imports in 7 files to use .webp:
-   - `components/SelectedProjects.jsx`
-   - `app/wisecareai/page.jsx`
-   - `app/good-afternoon-creative/page.jsx`
-   - `app/full-spectrum-insights/page.jsx`
-   - `app/commodore/page.jsx`
-   - `app/jotform-integrations/page.jsx`
-   - `app/genesis/page.jsx`
-5. Removed 27 original PNG files
+---
 
-**Image Size Reduction:**
-| Before | After | Reduction |
-|--------|-------|-----------|
-| 29MB | 10MB | 66% |
+### Task 3: Navigation & Routing
+**Priority:** High
+**Files:** `Tabs.jsx`
+**Estimated scope:** ~15 lines changed
 
-**Verification:**
-- ✅ Build passes
-- ✅ All 16 pages generate successfully
-- ✅ All images load correctly
+- [ ] Add `usePathname()` from `next/navigation` to determine the real active
+      route.
+- [ ] Separate **hover highlight** (visual feedback, current behavior) from
+      **active route indicator** (semantic, for accessibility).
+- [ ] Move `aria-current="page"` from hover-based `isSelected` to
+      pathname-based comparison. Currently screen readers announce whichever
+      tab is hovered as the "current page."
+- [ ] Optional: visually distinguish the active-route tab (e.g., bolder text)
+      vs. the hover highlight pill.
 
-### Phase 5 Review (Completed)
+---
 
-**Changes Made:**
-1. `.eslintrc.json` - Added rules: `no-unused-vars`, `no-console`, `react/self-closing-comp`, `react/jsx-curly-brace-presence`
-2. `.prettierrc` - NEW FILE: Standard Prettier config
-3. `package.json` - Added prettier devDependency and format scripts
-4. `components/Experience.jsx` - DELETED: Unused component
-5. `app/page.jsx` - Removed dead import and commented usage
+### Task 4: Responsive Layout Fixes
+**Priority:** High
+**Files:** `app/page.jsx`, `app/about/page.jsx`, `components/SelectedProjects.jsx`
+**Estimated scope:** ~5 lines changed
 
-**Verification:**
-- ✅ Dev server running
-- ✅ All routes compiling
-- ✅ Dead code removed
+- [ ] `app/page.jsx:19` — Replace `sm:w-[1200px]` with `w-full max-w-[1200px]`.
+      Current code jumps from mobile width to fixed 1200px at the 640px
+      breakpoint, causing horizontal overflow on tablets/small laptops.
+- [ ] `app/about/page.jsx:157` — Remove `md:px-auto`. `px-auto` is not a valid
+      Tailwind utility (padding doesn't accept `auto`). This is a no-op.
+- [ ] `SelectedProjects.jsx:33,39` — Normalize relative `target` paths to
+      include leading `/`. Currently `"jotform-integrations"` and
+      `"good-afternoon-creative"` lack `/` while siblings use `/wisecareai`.
+      Would break if the component were rendered on a nested route.
+
+---
+
+### Task 5: Accessibility Pass
+**Priority:** Medium
+**Files:** `globals.css`, `app/layout.jsx`, `Hero.jsx`, `Button.jsx`, `app/about/page.jsx`
+**Shared files:** `layout.jsx` (also in Task 1 — different section), `about/page.jsx` (also in Task 4/8 — different section)
+**Estimated scope:** ~30 lines changed
+
+- [ ] `globals.css:50-52` — Scope `* { cursor: none !important }` to pointer
+      devices only: wrap in `@media (pointer: fine)`. Currently hides cursor
+      for ALL users including those with accessibility needs.
+- [ ] `globals.css` — Add `*:focus-visible` outline styles. Currently no visible
+      focus indicator on keyboard navigation. With cursor hidden, keyboard users
+      are completely lost.
+- [ ] `app/layout.jsx` — Add a skip-to-content link (`<a href="#main">`) as the
+      first child of `<body>`, visually hidden until focused.
+- [ ] `Hero.jsx:39` — `<a>` without `href` wrapping "open for new
+      opportunities". Not a valid link, not keyboard-focusable. Change to
+      `<span>` or `<p>`.
+- [ ] `Button.jsx:16` — Add `rel="noopener noreferrer"` when `target` prop is
+      `"_blank"`. Currently no rel attribute on external links.
+- [ ] `about/page.jsx:39-50` — `HoverableWord` renders `<Link>` with
+      `target="_blank"` but no `rel` attribute. Add `rel="noopener noreferrer"`.
+- [ ] (Informational) Color contrast: `text-neutral-500` (#737373) on #f5f5f5
+      is ~3.5:1, below WCAG AA (4.5:1). Consider `text-neutral-600` (#525252)
+      for body text. This is widespread — affects Footer, SectionItem dates,
+      roles, Hero subtitle. Flag for design decision rather than blind fix.
+
+---
+
+### Task 6: TypingAnimatedText Rewrite
+**Priority:** Medium
+**Files:** `components/TypingAnimatedText.jsx`
+**Estimated scope:** ~20 lines changed
+
+- [ ] Rewrite interval logic using `useRef` for the character index instead of
+      state-driven `[i, text]` dependency. Current approach creates/destroys an
+      interval on every single character — works but wastes lifecycle effort.
+- [ ] Fix the text fallback logic. Line 33: `{displayedText ? displayedText : text}`
+      shows full text only *before* typing starts (when `displayedText` is `""`).
+      Once a single character is typed, it shows partial text forever if the
+      component unmounts mid-animation. Should show full text after animation
+      completes OR when not in viewport.
+- [ ] Consider using IntersectionObserver (or Framer Motion's `whileInView`) to
+      only start the typing animation when the element scrolls into view,
+      rather than immediately on mount. Currently 8+ items on the works page
+      all type simultaneously.
+
+---
+
+### Task 7: Code Cleanup & Housekeeping
+**Priority:** Low
+**Files:** Various (see list below)
+**Shared files:** `CaseStudyLayout.jsx` (also in Task 1 — different line), `about/page.jsx` (also in Tasks 4/5/8)
+**Estimated scope:** File deletions + ~20 lines changed
+
+- [ ] Delete unused components:
+      - `components/Article.jsx` — not imported anywhere
+      - `components/LayersImage.jsx` — not imported anywhere
+      - `app/genesis/GenesisContent.jsx` — not imported by genesis/page.jsx
+- [ ] Verify `components/HProjectCard.jsx` usage — appears unused. Delete if
+      confirmed.
+- [ ] Remove `react-aria-components` from `package.json` — listed as dependency
+      but never imported.
+- [ ] `Section.jsx:12` — Fix typo `projecctB` → `projectB`.
+- [ ] `app/not-found.jsx` — Replace hardcoded social URLs with `SOCIAL_LINKS`
+      from `lib/constants.js`. Also note: hardcoded URLs use `x.com` while
+      constants use `twitter.com` — unify.
+- [ ] Deduplicate animation configs:
+      - `about/page.jsx:18-22` — import `fadeInUp` from `lib/animations.js`
+        instead of redefining
+      - `CaseStudyLayout.jsx:9-13` — same
+- [ ] Normalize import paths to consistently use `@/` alias (currently mixed
+      with `../` relative paths in the same files, e.g., `ContactCard.jsx`).
+- [ ] `globals.css:5-15` — Remove duplicate `:root` block; `@theme` already
+      registers CSS variables in Tailwind v4.
+- [ ] Review Phase 4 checklist items — `lib/constants.js` and
+      `lib/animations.js` already exist. Mark as done. ARIA for Tabs is
+      covered in Task 3.
+
+---
+
+### Task 8: About Page Touch Support
+**Priority:** Low
+**Files:** `app/about/page.jsx`
+**Shared files:** Also touched by Tasks 4, 5, 7 — all target different sections
+**Estimated scope:** ~25 lines changed
+
+- [ ] The hover-to-reveal interaction (profile image, timezone cards) has no
+      touch/mobile fallback. On touch devices, these interactive words look
+      like regular links and the content popup never appears.
+- [ ] Options to evaluate:
+      1. **Tap-to-toggle**: First tap shows content, second tap follows link
+      2. **Always visible on mobile**: Show timezone/profile below the text on
+         small screens (no hover needed)
+      3. **Long-press to preview**: Show content on long-press, normal tap
+         follows link
+- [ ] Whichever approach: ensure the timezone card's fixed `w-3xs` (256px)
+      doesn't overflow on small viewports.
+- [ ] The `pointer-events-none` on the popup (line 201) prevents interaction
+      with the timezone card. Consider if that's intentional.
+
+---
+
+## File Dependency Map
+
+Shows which tasks touch each file. If working on two tasks that share a file,
+do them sequentially to avoid merge conflicts.
+
+| File | Tasks |
+|------|-------|
+| `app/layout.jsx` | 1, 5 |
+| `app/about/page.jsx` | 4, 5, 7, 8 |
+| `CaseStudyLayout.jsx` | 1, 7 |
+| All other files | Single task each |
+
+---
+
+## Recommended Order (if doing sequentially)
+
+1 → 2 → 4 → 3 → 5 → 6 → 7 → 8
+
+Critical fixes first, then dark mode and layout (user-facing), then
+accessibility and component improvements, then housekeeping.
