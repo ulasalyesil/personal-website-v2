@@ -1,35 +1,28 @@
-// next
-// analytics
 import GoogleAnalytics from "@bradgarropy/next-google-analytics/";
 import { Analytics } from "@vercel/analytics/react";
-
-// styles
 import "../styles/globals.css";
-
-// components
-import Header from "@/components/Header";
-import CustomCursor from "@/components/CustomCursor";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 export const metadata = {
   title: "Ulaş Alyeşil | Product Designer",
-  description: "i design buttons and inputs and sometimes cards",
+  description: "Product designer focused on clear interfaces, useful tools, and creative technology.",
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <CustomCursor />
-        <div className="flex flex-col sm:p-6 p-4 items-center pt-12 sm:pt-32">
-          <Header />
-          <div className="bg-gradient-to-b from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-24 sm:h-40 fixed top-0 pointer-events-none" />
-          <ErrorBoundary>{children}</ErrorBoundary>
-          <div className="bg-gradient-to-t from-neutral-100 dark:from-neutral-950 to-neutral-100/0 dark:neutral-950/0 w-screen h-32 sm:h-40 fixed bottom-0 pointer-events-none" />
-        </div>
+      <body className="bg-surface-0 text-text-primary antialiased">
+        <ErrorBoundary>{children}</ErrorBoundary>
+        <Analytics />
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_ID} />
       </body>
-      <Analytics />
-      <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_ID} />
     </html>
   );
 }

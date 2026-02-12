@@ -1,5 +1,3 @@
-"use client";
-
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import fsiWeb from "@/public/images/fsi/fsi_web.webp";
@@ -7,6 +5,7 @@ import fsiWeb from "@/public/images/fsi/fsi_web.webp";
 export default function FullSpectrumInsightsCase() {
   return (
     <CaseStudyLayout
+      slug="full-spectrum-insights"
       title="Full Spectrum Insights"
       date="June, 2025"
       company="Full Spectrum Insights"

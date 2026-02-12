@@ -1,14 +1,11 @@
-"use client";
-
-import React from "react";
 import Link from "next/link";
 
-import PostsIcon from "../public/icons/contactIcons/posts";
-import LayersIcon from "../public/icons/contactIcons/layers";
-import LinkedinIcon from "../public/icons/contactIcons/linkedin";
-import BentoIcon from "../public/icons/contactIcons/bento";
+import PostsIcon from "@/public/icons/contactIcons/posts";
+import LayersIcon from "@/public/icons/contactIcons/layers";
+import LinkedinIcon from "@/public/icons/contactIcons/linkedin";
+import BentoIcon from "@/public/icons/contactIcons/bento";
 import DribbbleIcon from "@/public/icons/contactIcons/dribbble";
-import XIcon from "../public/icons/contactIcons/x";
+import XIcon from "@/public/icons/contactIcons/x";
 
 const iconLabels = {
   x: "X (Twitter)",
@@ -41,7 +38,7 @@ export default function ContactCard({ icon, iconFill, iconBorder, target }) {
 
   return (
     <Link
-      className="border border-neutral-300 bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800 rounded-sm aspect-square p-4 flex items-center justify-center hover:bg-brand  transition ease-in-out"
+      className="border border-border-default bg-surface-1 rounded-sm aspect-square p-4 flex items-center justify-center hover:bg-brand transition-colors duration-150"
       href={target}
       rel="noopener noreferrer"
       target="_blank"

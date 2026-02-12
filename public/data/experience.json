@@ -1,0 +1,55 @@
+{
+  "roles": [
+    {
+      "company": "WiseCareAI",
+      "title": "Product Designer",
+      "start": "2024-05",
+      "end": "2025-08",
+      "url": "https://www.wisecare.ai",
+      "highlights": [
+        "Led end-to-end product design with founders and engineers from concept to launch",
+        "Defined and executed complete brand identity including website for user acquisition",
+        "Designed and launched sub-products to improve onboarding and retention"
+      ],
+      "stack": ["Next.js", "Figma", "Framer Motion", "Design Systems"]
+    },
+    {
+      "company": "Peaka",
+      "title": "Product Designer",
+      "start": "2023-09",
+      "end": "2024-10",
+      "url": "https://peaka.com",
+      "highlights": [
+        "Redesigned core workflows, improving usability and efficiency",
+        "Led UX research initiatives, directly informing design enhancements",
+        "Implemented scalable design system with PMs and engineers"
+      ],
+      "stack": ["Figma", "Design Systems", "UX Research"]
+    },
+    {
+      "company": "Jotform",
+      "title": "Product Designer",
+      "start": "2022-10",
+      "end": "2023-09",
+      "url": "https://jotform.com",
+      "highlights": [
+        "Conducted research and usability testing to identify pain points",
+        "Designed responsive, accessible interfaces used by global user base",
+        "Improved dev collaboration, streamlining handoff and release speed"
+      ],
+      "stack": ["Figma", "Accessibility", "User Research"]
+    },
+    {
+      "company": "Westerops",
+      "title": "UX & UI Design Intern",
+      "start": "2022-03",
+      "end": "2022-06",
+      "url": "https://www.westerops.com/",
+      "highlights": [
+        "Supported senior designers on UX research and product development",
+        "Built interactive prototypes with engineers for client presentations"
+      ],
+      "stack": ["UX Research", "Prototyping", "Collaboration"]
+    }
+  ]
+}

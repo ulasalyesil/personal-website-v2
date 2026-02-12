@@ -1,5 +1,3 @@
-"use client";
-
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import banner from "@/public/images/goodafternoon/banner.webp";
 import gacWeb from "@/public/images/goodafternoon/gacWeb.webp";
@@ -8,6 +6,7 @@ import gacContent from "./gacContent.json";
 export default function Page() {
   return (
     <CaseStudyLayout
+      slug="good-afternoon-creative"
       title="Good Afternoon Creative"
       date="April, 2023"
       company="Good Afternoon Creative"

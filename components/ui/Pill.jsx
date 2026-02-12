@@ -1,7 +1,7 @@
-export default function Pill({label}) {
+export default function Pill({ label }) {
   return (
-    <div className="flex sm:w-fit items-center justify-center text-xs text-neutral-500 font-mono font-medium rounded-full px-3 h-8 border border-neutral-300 dark:border-neutral-800">
-      <p>{label}</p>
-    </div>
+    <span className="inline-flex items-center px-3 h-7 text-xs font-mono tabular-nums text-text-tertiary border border-border-default rounded-full">
+      {label}
+    </span>
   );
 }

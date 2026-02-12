@@ -1,5 +1,3 @@
-'use client';
-
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import cover from '@/public/images/quickbooks/cover.webp';
 import uxrSlide from '@/public/images/quickbooks/slide.jpg';
@@ -10,6 +8,7 @@ import createCustomer from '@/public/images/quickbooks/createCustomer.webp';
 export default function QuickBooksIntegrationCase() {
   return (
     <CaseStudyLayout
+      slug="jotform-integrations"
       title="Jotform | QuickBooks Integration"
       date="July, 2023"
       company="Jotform"

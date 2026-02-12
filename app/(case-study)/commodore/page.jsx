@@ -1,5 +1,3 @@
-'use client';
-
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import CommodoreContent from './CommodoreContent.json';
 
@@ -12,6 +10,7 @@ import commodore4 from '@/public/images/commodoreImages/commodore4.jpg';
 export default function CommodoreCase() {
   return (
     <CaseStudyLayout
+      slug="commodore"
       title="Commodore Z Glass"
       date="June, 2022"
       company="Bahcesehir University"

@@ -1,36 +1,16 @@
-import React from "react";
-import { motion } from "framer-motion";
-
 import Pill from "./ui/Pill";
 
-const animationConfig = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, type: "spring", stiffness: 25 },
-};
-
 export default function CaseStudyTitle({ title, date, company, role }) {
-  const { initial, animate, transition } = animationConfig;
   return (
-    <div className="flex flex-col gap-4 mb-10 w-full">
-      <motion.h1
-        initial={initial}
-        animate={animate}
-        transition={transition}
-        className="text-2xl md:text-5xl text-neutral-900 dark:text-neutral-100 font-semibold tracking-tighter w-full"
-      >
+    <header className="mb-10">
+      <h1 className="text-3xl md:text-5xl font-semibold text-text-primary tracking-tight text-balance">
         {title}
-      </motion.h1>
-      <motion.div
-        initial={initial}
-        animate={animate}
-        transition={transition}
-        className="flex flex-col sm:flex-row gap-2"
-      >
+      </h1>
+      <div className="flex flex-wrap gap-2 mt-4">
         <Pill label={date} />
         <Pill label={company} />
         <Pill label={role} />
-      </motion.div>
-    </div>
+      </div>
+    </header>
   );
 }

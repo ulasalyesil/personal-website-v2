@@ -1,21 +1,48 @@
-@import 'tailwindcss';
-@import '@fontsource-variable/geist/index.css';
-@import '@fontsource-variable/geist-mono/index.css';
+@import "tailwindcss";
+@import "@fontsource-variable/geist/index.css";
+@import "@fontsource-variable/geist-mono/index.css";
+@import "tw-animate-css";
 
+/* Light mode (default) */
 @theme {
-  --color-brand: #FF5701;
+  --color-brand: #ff5701;
   --color-brand-hover: #e64e00;
-  --color-brand-selection: #FF6100;
+
+  --color-surface-0: #ffffff;
+  --color-surface-1: #f5f5f5;
+  --color-surface-2: #e5e5e5;
+  --color-surface-3: #d4d4d4;
+
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
+  --color-text-tertiary: #737373;
+
+  --color-border-subtle: #e5e5e5;
+  --color-border-default: #d4d4d4;
 }
 
-:root {
-  --color-brand: #FF5701;
-  --color-brand-hover: #e64e00;
-  --color-brand-selection: #FF6100;
-}
+/* Dark mode override */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-brand: #ff5701;
+    --color-brand-hover: #e64e00;
 
+    --color-surface-0: #0a0a0a;
+    --color-surface-1: #111111;
+    --color-surface-2: #1a1a1a;
+    --color-surface-3: #242424;
+
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #a3a3a3;
+    --color-text-tertiary: #737373;
+
+    --color-border-subtle: #1f1f1f;
+    --color-border-default: #2a2a2a;
+  }
+}
 
 html {
+  color-scheme: light dark;
   font-family: "Geist Variable", sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -29,26 +56,8 @@ pre {
 }
 
 body {
-  background-color: #f5f5f5;
-  /* Base background */
-  background-image:
-    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
-    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #111111;
-    /* Set dark base background */
-    background-image:
-      linear-gradient(to right, #1e1e1e 1px, transparent 1px),
-      linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-}
-* {
-  cursor: none !important;
+  background-color: var(--color-surface-0);
+  color: var(--color-text-primary);
 }
 
 .no-scrollbar::-webkit-scrollbar {

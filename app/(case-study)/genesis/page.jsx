@@ -1,5 +1,3 @@
-'use client';
-
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import img1 from '@/public/images/genesis/1.jpg';
 import img2 from '@/public/images/genesis/2.jpg';
@@ -18,6 +16,7 @@ import img12 from '@/public/images/genesis/12.webp';
 export default function GenesisCase() {
   return (
     <CaseStudyLayout
+      slug="genesis"
       title="Genesis: Digital Revolution"
       date="January, 2021"
       company="Bahcesehir University"

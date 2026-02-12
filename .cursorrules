@@ -1,0 +1,12 @@
+{
+  "style": {
+    "language": "javascript",
+    "framework": "nextjs",
+    "ui": "tailwind",
+    "animation": "framer-motion"
+  },
+  "conventions": {
+    "componentsDir": "components",
+    "dataDir": "public/data"
+  }
+}

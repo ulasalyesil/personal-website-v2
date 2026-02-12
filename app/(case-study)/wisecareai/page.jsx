@@ -1,5 +1,3 @@
-"use client";
-
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import cover from "@/public/images/wisecare/cover.webp";
 import aiFound from "@/public/images/wisecare/ai_found.webp";
@@ -14,6 +12,7 @@ import wizard from "@/public/images/wisecare/wizard.webp";
 export default function WiseCareAICase() {
   return (
     <CaseStudyLayout
+      slug="wisecareai"
       title="WiseCareAI"
       date="2024 — 2025"
       company="WiseCareAI"
