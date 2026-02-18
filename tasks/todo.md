@@ -28,19 +28,18 @@
 - [x] Remove original PNG files
 - [x] **Result: 29MB → 10MB (66% reduction!)**
 
-## Phase 4: Code Quality (Next)
+## Phase 4: Code Quality (Partially Done)
 
-- [ ] Centralize brand colors in `tailwind.config.js`
-- [ ] Create `lib/constants.js` for social links
-- [ ] Create `lib/animations.js` for shared animation config
-- [ ] Add ARIA attributes to Tabs component
+- [x] Create `lib/constants.js` for social links
+- [x] Create `lib/animations.js` for shared animation config
+- [x] Add ARIA attributes to Tabs component
+- [ ] Centralize brand colors fully (still duplicated in globals.css `@theme` + `:root` + tailwind.config.js)
 
 ## Phase 5: Tooling ✅ COMPLETE
 
 - [x] Strengthen ESLint config
 - [x] Add Prettier config
 - [x] Clean dead code (Experience.jsx)
-
 
 ## Phase 6: Dependencies
 
@@ -49,7 +48,185 @@
 
 ---
 
-## Review Notes
+## Comprehensive Review (February 2026)
+
+### A. Code Quality Issues
+
+**HIGH PRIORITY**
+
+1. **Typo in Section.jsx:12** — `projecctB` should be `projectB`
+   ```js
+   ([, projectA], [, projecctB]) => {
+   ```
+
+2. **CaseStudyLayout.jsx:1** — Uses backtick instead of quotes for `"use client"`
+   ```js
+   `use client`;  // should be "use client"
+   ```
+
+3. **Duplicate brand color definitions** — Colors defined in THREE places:
+   - `styles/globals.css` `@theme` block (lines 5-9)
+   - `styles/globals.css` `:root` block (lines 11-15) — redundant with @theme
+   - `tailwind.config.js` (lines 12-17)
+   Single source of truth needed.
+
+4. **`not-found.jsx` hardcodes social links** — Uses raw URLs instead of `SOCIAL_LINKS` from `lib/constants.js`, and includes `posts.cv` link not used elsewhere.
+
+5. **`not-found.jsx` uses different X URL** — `https://x.com/ulasalyesil` vs `https://twitter.com/ulasalyesil` everywhere else.
+
+6. **SelectedProjects.jsx:33** — Missing leading `/` on Jotform target:
+   ```jsx
+   target="jotform-integrations"  // should be "/jotform-integrations"
+   ```
+
+7. **Unused component: `LayersImage.jsx`** — Has a generic alt text `"Picture of the author"` and uses deprecated `layout='responsive'` prop. Not imported anywhere.
+
+8. **Unused component: `HProjectCard.jsx`** — Not imported by any page. Dead code.
+
+9. **Unused component: `Article.jsx`** — Not imported by any page. Dead code.
+
+10. **Unused data file: `public/data/layersURLs.json`** — Not imported anywhere.
+
+**MEDIUM PRIORITY**
+
+11. **`app/page.jsx` is client component unnecessarily** — `"use client"` at top, but could be server component if framer-motion was isolated to child components. This forces the entire homepage to be client-rendered.
+
+12. **Inconsistent import paths** — Mix of `../components/` and `@/components/`:
+    - `app/page.jsx:6` uses `@/components/SelectedProjects` but line 8 uses `../components/Section`
+
+13. **Tabs.jsx uses deprecated Next.js Link API** — `passHref` and `legacyBehavior` props are unnecessary in Next.js 13+. Uses nested `<a>` inside `<Link>`.
+
+14. **`CaseStudyTitle.jsx` and `CaseStudyLayout.jsx` both define local `animationConfig`** — Should use `fadeInUp` from `lib/animations.js` instead of duplicating.
+
+15. **Section.jsx:19** — Contains a TODO comment: `// https://www.joshuawootonn.com/vercel-tabs-component check this out`
+
+16. **Date format inconsistency in `others.json`** — `"February 2021"` (no comma) vs all other dates like `"August, 2021"` (with comma).
+
+17. **`app/about/page.jsx:8`** — Orphan comment `// otherData import removed - not currently used`.
+
+18. **Genesis case study** — `GenesisContent.jsx` is dead code. Content is now inline in `page.jsx`, but the old component file still exists.
+
+### B. Design & UI Issues
+
+**HIGH PRIORITY**
+
+1. **Footer `pb-80` (320px bottom padding)** — `components/Footer.jsx:10` creates enormous empty space. Should be `pb-16` or `pb-24`.
+
+2. **Custom cursor breaks mobile/touch** — `globals.css:51` sets `* { cursor: none !important; }` globally. No cursor visible on mobile/tablet. Should scope to pointer devices only:
+   ```css
+   @media (hover: hover) { * { cursor: none; } }
+   ```
+
+3. **Inconsistent container breakpoints** — Home page uses `sm:w-[1200px]`, About page uses `md:w-[1200px]`. Different breakpoints trigger the max-width.
+
+4. **SelectedProjects inconsistent breakpoints** — First row uses `sm:flex-row` (line 14), second row uses `md:flex-row` (line 28). Cards wrap at different screen widths.
+
+5. **Gallery not responsive** — `CaseStudyLayout.jsx:62` uses `grid-cols-2` with no mobile fallback (`grid-cols-1`). On narrow screens, gallery images are squeezed.
+
+**MEDIUM PRIORITY**
+
+6. **Button `h-8` (32px) too small for mobile touch targets** — Recommended 44px minimum. Consider `h-10` or `h-11`.
+
+7. **Button component has duplicate styles** — `primary` and `primaryLong` differ only by `w-full`. Use a `fullWidth` prop instead.
+
+8. **Hero heading hierarchy** — Two `<h1>` elements: name (`text-xl`) and tagline (`text-4xl`). Should use `<h1>` for name and `<h2>` or `<p>` for tagline.
+
+9. **Footer hardcoded color** — `hover:text-[#017bfc]` at line 24 instead of using a design token.
+
+10. **Page selection color** — `app/page.jsx:22` uses `selection:text-[#017BFC]` (hardcoded blue) while brand color is orange.
+
+11. **`layout.jsx` gradient overlay** — Uses `w-screen` which can cause horizontal overflow. Should use `w-full`.
+
+12. **`layout.jsx:31-33`** — `<Analytics />` and `<GoogleAnalytics>` are placed after `</body>` but inside `</html>`. They should be inside `<body>`.
+
+### C. Navigation & Information Architecture
+
+**Route Map:**
+| Route | In Nav? | In Projects List? |
+|-------|---------|-------------------|
+| `/` | Yes (Home) | — |
+| `/about` | Yes | — |
+| `/works` | Yes | — |
+| `/bookmarks` | Yes (hidden mobile) | — |
+| `/wisecareai` | No | Yes (case study) |
+| `/full-spectrum-insights` | No | Yes (case study) |
+| `/jotform-integrations` | No | Yes (projects) |
+| `/good-afternoon-creative` | No | Yes (projects) |
+| `/commodore` | No | Yes (projects) |
+| `/genesis` | No | Yes (projects) |
+
+**Issues:**
+
+1. **No back navigation on case studies** — Case study pages have no "Back to Works" or breadcrumb. Only the header nav pill. User must use browser back or nav.
+
+2. **Bookmarks hidden on mobile** — `Tabs.jsx:9` hides Bookmarks tab on mobile (`hideOnMobile: true`). Mobile users cannot discover this page unless they know the URL.
+
+3. **No sitemap.xml** — Missing `app/sitemap.js` for SEO.
+
+4. **No robots.txt** — Missing `app/robots.js` or `public/robots.txt`.
+
+5. **Minimal root metadata** — `layout.jsx` only has `title` and `description`. Missing: `keywords`, `authors`, `openGraph` config, `twitter` card config. (OG and Twitter images exist as static files but aren't wired up in metadata.)
+
+6. **Case study pages have no per-page metadata** — All pages inherit generic "Ulaş Alyeşil | Product Designer". Each case study should export its own metadata.
+
+7. **External project links open inline** — "Frey Money" and "Dezign Brief" in `projects.json` point to external URLs but `SectionItem.jsx` doesn't set `target="_blank"`. These navigate away from the portfolio.
+
+### D. Content Quality
+
+1. **FSI date says "June, 2025"** — This is reasonable (current: Feb 2026), but verify.
+
+2. **`gacContent.json` has typo** — "their focused to create" should be "they focused on creating".
+
+3. **`GenesisContent.jsx`** — Dead component with older-style content. Should be deleted since `page.jsx` has cleaner inline content.
+
+4. **Footer inconsistency** — "reach me at" section shows only X + LinkedIn, while Contacts component on home/about shows 5 platforms.
+
+### E. Performance Notes
+
+1. **All pages are client components** — Every page uses `"use client"`, preventing server-rendering. Static pages like Bookmarks could be server components.
+
+2. **Framer Motion bundle** — Every page imports framer-motion. Consider dynamic imports or lighter animation for simple fade-ins.
+
+3. **No loading.jsx states** — No route-level loading UI during navigation.
+
+4. **`react-aria-components` is installed but unused** — Listed in `package.json` but not imported anywhere. Dead dependency.
+
+---
+
+## Recommended Next Steps (Priority Order)
+
+### Quick Wins (< 30 min each)
+- [ ] Fix `projecctB` typo in Section.jsx
+- [ ] Fix backtick in CaseStudyLayout.jsx
+- [ ] Fix missing `/` in SelectedProjects target
+- [ ] Delete dead components: LayersImage, HProjectCard, Article, GenesisContent
+- [ ] Delete unused data file: layersURLs.json
+- [ ] Remove `react-aria-components` from dependencies
+- [ ] Fix footer bottom padding (pb-80 → pb-24)
+- [ ] Scope custom cursor to pointer devices only
+- [ ] Fix analytics placement in layout.jsx (move inside body)
+- [ ] Use `SOCIAL_LINKS` in not-found.jsx
+- [ ] Fix inconsistent X/Twitter URL
+
+### Medium Effort (1-2 hours each)
+- [ ] Add per-page metadata to all case study pages
+- [ ] Add sitemap.js and robots.js
+- [ ] Standardize container breakpoints (sm vs md)
+- [ ] Make gallery responsive (grid-cols-1 on mobile)
+- [ ] Remove duplicate brand color definitions
+- [ ] Update Tabs.jsx to modern Next.js Link API
+- [ ] Add back-navigation to case study pages
+- [ ] Handle external project links (open in new tab)
+
+### Larger Tasks
+- [ ] Convert Bookmarks page to server component
+- [ ] Add loading.jsx states for route transitions
+- [ ] Review and consolidate animation configs (use lib/animations everywhere)
+- [ ] Evaluate framer-motion bundle impact
+
+---
+
+## Previous Review Notes
 
 ### Phase 1 Review (Completed)
 
