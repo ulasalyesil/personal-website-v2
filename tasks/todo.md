@@ -74,9 +74,10 @@
 
 5. **`not-found.jsx` uses different X URL** — `https://x.com/ulasalyesil` vs `https://twitter.com/ulasalyesil` everywhere else.
 
-6. **SelectedProjects.jsx:33** — Missing leading `/` on Jotform target:
+6. **SelectedProjects.jsx:33 and :39** — Missing leading `/` on two targets:
    ```jsx
-   target="jotform-integrations"  // should be "/jotform-integrations"
+   target="jotform-integrations"        // line 33, should be "/jotform-integrations"
+   target="good-afternoon-creative"     // line 39, should be "/good-afternoon-creative"
    ```
 
 7. **Unused component: `LayersImage.jsx`** — Has a generic alt text `"Picture of the author"` and uses deprecated `layout='responsive'` prop. Not imported anywhere.
