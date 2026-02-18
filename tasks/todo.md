@@ -106,6 +106,22 @@
 
 18. **Genesis case study** — `GenesisContent.jsx` is dead code. Content is now inline in `page.jsx`, but the old component file still exists.
 
+19. **`TypingAnimatedText.jsx` ignores className prop** — Component doesn't accept `className` but callers pass it (e.g. `LinkItem.jsx`). Styles silently dropped.
+
+20. **`TypingAnimatedText.jsx:27` uses undefined Tailwind class** — `text-muted-foreground` doesn't exist in tailwind config. No styling applied.
+
+21. **`Section.jsx:36` — `<ol>` with no `<li>` wrappers** — SectionItem rendered directly inside `<ol>` without `<li>`. Breaks semantic HTML and screen reader list interpretation.
+
+22. **`bookmarks/page.jsx:21`** — Same `<ol>` without `<li>` issue. LinkItem not wrapped.
+
+23. **`about/page.jsx` HoverableWord lacks keyboard support** — `onMouseEnter/Leave` handlers but no `onFocus/onBlur`. Keyboard users can't trigger hover content.
+
+24. **Missing skip-to-content link** — `layout.jsx` has no skip navigation link for keyboard users.
+
+25. **`HProjectCard.jsx:37-41` — Image missing `width`/`height` or `fill` prop** — Next.js Image requires explicit dimensions. Currently relying on CSS sizing only.
+
+26. **`ProjectCard.jsx:12-16` — Same Image dimension issue** — No explicit `width`/`height` or `fill` prop.
+
 ### B. Design & UI Issues
 
 **HIGH PRIORITY**
@@ -207,9 +223,13 @@
 - [ ] Fix analytics placement in layout.jsx (move inside body)
 - [ ] Use `SOCIAL_LINKS` in not-found.jsx
 - [ ] Fix inconsistent X/Twitter URL
+- [ ] Add `className` prop to TypingAnimatedText.jsx
+- [ ] Replace `text-muted-foreground` with `text-neutral-500` in TypingAnimatedText
+- [ ] Wrap SectionItem in `<li>` inside Section.jsx `<ol>`
+- [ ] Wrap LinkItem in `<li>` inside bookmarks/page.jsx `<ol>`
 
 ### Medium Effort (1-2 hours each)
-- [ ] Add per-page metadata to all case study pages
+- [ ] Add per-page metadata to all case study pages (all 6 missing)
 - [ ] Add sitemap.js and robots.js
 - [ ] Standardize container breakpoints (sm vs md)
 - [ ] Make gallery responsive (grid-cols-1 on mobile)
@@ -217,6 +237,9 @@
 - [ ] Update Tabs.jsx to modern Next.js Link API
 - [ ] Add back-navigation to case study pages
 - [ ] Handle external project links (open in new tab)
+- [ ] Add keyboard support (onFocus/onBlur) to About page HoverableWord
+- [ ] Add skip-to-content link in layout.jsx
+- [ ] Fix Image components (add fill prop or explicit dimensions)
 
 ### Larger Tasks
 - [ ] Convert Bookmarks page to server component
