@@ -1,32 +1,29 @@
 # Tasks Todo
 
-## Phase 1: Critical Fixes ✅ COMPLETE
+## Previous Work (Completed)
 
-- [x] Pull latest from origin/main (fast-forward merge)
-- [x] Run npm install, verify build
-- [x] Fix memory leak in `TypingAnimatedText.jsx` (added dependency array)
-- [x] Fix typo in `app/bookmarks/page.jsx` (`mx-aut` → `mx-auto`)
-- [x] Add ARIA labels to `ContactCard.jsx` (icon-only links)
-- [x] Add `rel="noopener"` to external links in ContactCard
+<details>
+<summary>Phase 1–3, 5: Click to expand</summary>
 
-## Phase 2: Error Handling ✅ COMPLETE
+### Phase 1: Critical Fixes ✅
+- [x] Fix memory leak in TypingAnimatedText.jsx
+- [x] Fix typo in bookmarks/page.jsx
+- [x] Add ARIA labels to ContactCard.jsx
+- [x] Add rel="noopener" to external links in ContactCard
 
-- [x] Create `components/ErrorBoundary.jsx`
-- [x] Create `app/error.jsx` (Next.js route-level error)
-- [x] Move GA ID to `.env.local`
-- [x] Create `.env.example`
-- [x] Integrate ErrorBoundary in `app/layout.jsx`
-- [x] Fix typo in layout.jsx comment (`anayltics` → `analytics`)
+### Phase 2: Error Handling ✅
+- [x] Create ErrorBoundary.jsx
+- [x] Create app/error.jsx
+- [x] Move GA ID to .env.local
+- [x] Integrate ErrorBoundary in layout.jsx
 
-## Phase 3: Image Optimization ✅ COMPLETE
+### Phase 3: Image Optimization ✅
+- [x] Convert 27 PNGs to WebP (29MB → 10MB, 66% reduction)
 
-- [x] Audit image sizes (was 29MB)
-- [x] Convert 27 large PNGs to WebP
-- [x] Resize oversized images (gacWeb: 3978x7966 → 2000px width)
-- [x] Optimize picture.jpeg (1.2MB → 717KB)
-- [x] Update all code imports to use .webp
-- [x] Remove original PNG files
-- [x] **Result: 29MB → 10MB (66% reduction!)**
+### Phase 5: Tooling ✅
+- [x] ESLint config, Prettier, dead code removal
+
+</details>
 
 ## Phase 4: Code Quality (Partially Done)
 
@@ -35,12 +32,6 @@
 - [x] Add ARIA attributes to Tabs component
 - [ ] Centralize brand colors fully (still duplicated in globals.css `@theme` + `:root` + tailwind.config.js)
 
-## Phase 5: Tooling ✅ COMPLETE
-
-- [x] Strengthen ESLint config
-- [x] Add Prettier config
-- [x] Clean dead code (Experience.jsx)
-
 ## Phase 6: Dependencies
 
 - [ ] Update safe dependencies (framer-motion, luxon, etc.)
@@ -48,273 +39,248 @@
 
 ---
 
-## Comprehensive Review (February 2026)
-
-### A. Code Quality Issues
-
-**HIGH PRIORITY**
-
-1. **Typo in Section.jsx:12** — `projecctB` should be `projectB`
-   ```js
-   ([, projectA], [, projecctB]) => {
-   ```
-
-2. **CaseStudyLayout.jsx:1** — Uses backtick instead of quotes for `"use client"`
-   ```js
-   `use client`;  // should be "use client"
-   ```
-
-3. **Duplicate brand color definitions** — Colors defined in THREE places:
-   - `styles/globals.css` `@theme` block (lines 5-9)
-   - `styles/globals.css` `:root` block (lines 11-15) — redundant with @theme
-   - `tailwind.config.js` (lines 12-17)
-   Single source of truth needed.
-
-4. **`not-found.jsx` hardcodes social links** — Uses raw URLs instead of `SOCIAL_LINKS` from `lib/constants.js`, and includes `posts.cv` link not used elsewhere.
-
-5. **`not-found.jsx` uses different X URL** — `https://x.com/ulasalyesil` vs `https://twitter.com/ulasalyesil` everywhere else.
-
-6. **SelectedProjects.jsx:33 and :39** — Missing leading `/` on two targets:
-   ```jsx
-   target="jotform-integrations"        // line 33, should be "/jotform-integrations"
-   target="good-afternoon-creative"     // line 39, should be "/good-afternoon-creative"
-   ```
-
-7. **Unused component: `LayersImage.jsx`** — Has a generic alt text `"Picture of the author"` and uses deprecated `layout='responsive'` prop. Not imported anywhere.
-
-8. **Unused component: `HProjectCard.jsx`** — Not imported by any page. Dead code.
-
-9. **Unused component: `Article.jsx`** — Not imported by any page. Dead code.
-
-10. **Unused data file: `public/data/layersURLs.json`** — Not imported anywhere.
-
-**MEDIUM PRIORITY**
-
-11. **`app/page.jsx` is client component unnecessarily** — `"use client"` at top, but could be server component if framer-motion was isolated to child components. This forces the entire homepage to be client-rendered.
-
-12. **Inconsistent import paths** — Mix of `../components/` and `@/components/`:
-    - `app/page.jsx:6` uses `@/components/SelectedProjects` but line 8 uses `../components/Section`
-
-13. **Tabs.jsx uses deprecated Next.js Link API** — `passHref` and `legacyBehavior` props are unnecessary in Next.js 13+. Uses nested `<a>` inside `<Link>`.
-
-14. **`CaseStudyTitle.jsx` and `CaseStudyLayout.jsx` both define local `animationConfig`** — Should use `fadeInUp` from `lib/animations.js` instead of duplicating.
-
-15. **Section.jsx:19** — Contains a TODO comment: `// https://www.joshuawootonn.com/vercel-tabs-component check this out`
-
-16. **Date format inconsistency in `others.json`** — `"February 2021"` (no comma) vs all other dates like `"August, 2021"` (with comma).
-
-17. **`app/about/page.jsx:8`** — Orphan comment `// otherData import removed - not currently used`.
-
-18. **Genesis case study** — `GenesisContent.jsx` is dead code. Content is now inline in `page.jsx`, but the old component file still exists.
-
-19. **`TypingAnimatedText.jsx` ignores className prop** — Component doesn't accept `className` but callers pass it (e.g. `LinkItem.jsx`). Styles silently dropped.
-
-20. **`TypingAnimatedText.jsx:27` uses undefined Tailwind class** — `text-muted-foreground` doesn't exist in tailwind config. No styling applied.
-
-21. **`Section.jsx:36` — `<ol>` with no `<li>` wrappers** — SectionItem rendered directly inside `<ol>` without `<li>`. Breaks semantic HTML and screen reader list interpretation.
-
-22. **`bookmarks/page.jsx:21`** — Same `<ol>` without `<li>` issue. LinkItem not wrapped.
-
-23. **`about/page.jsx` HoverableWord lacks keyboard support** — `onMouseEnter/Leave` handlers but no `onFocus/onBlur`. Keyboard users can't trigger hover content.
-
-24. **Missing skip-to-content link** — `layout.jsx` has no skip navigation link for keyboard users.
-
-25. **`HProjectCard.jsx:37-41` — Image missing `width`/`height` or `fill` prop** — Next.js Image requires explicit dimensions. Currently relying on CSS sizing only.
-
-26. **`ProjectCard.jsx:12-16` — Same Image dimension issue** — No explicit `width`/`height` or `fill` prop.
-
-### B. Design & UI Issues
-
-**HIGH PRIORITY**
-
-1. **Footer `pb-80` (320px bottom padding)** — `components/Footer.jsx:10` creates enormous empty space. Should be `pb-16` or `pb-24`.
-
-2. **Custom cursor breaks mobile/touch** — `globals.css:51` sets `* { cursor: none !important; }` globally. No cursor visible on mobile/tablet. Should scope to pointer devices only:
-   ```css
-   @media (hover: hover) { * { cursor: none; } }
-   ```
-
-3. **Inconsistent container breakpoints** — Home page uses `sm:w-[1200px]`, About page uses `md:w-[1200px]`. Different breakpoints trigger the max-width.
-
-4. **SelectedProjects inconsistent breakpoints** — First row uses `sm:flex-row` (line 14), second row uses `md:flex-row` (line 28). Cards wrap at different screen widths.
-
-5. **Gallery not responsive** — `CaseStudyLayout.jsx:62` uses `grid-cols-2` with no mobile fallback (`grid-cols-1`). On narrow screens, gallery images are squeezed.
-
-**MEDIUM PRIORITY**
-
-6. **Button `h-8` (32px) too small for mobile touch targets** — Recommended 44px minimum. Consider `h-10` or `h-11`.
-
-7. **Button component has duplicate styles** — `primary` and `primaryLong` differ only by `w-full`. Use a `fullWidth` prop instead.
-
-8. **Hero heading hierarchy** — Two `<h1>` elements: name (`text-xl`) and tagline (`text-4xl`). Should use `<h1>` for name and `<h2>` or `<p>` for tagline.
-
-9. **Footer hardcoded color** — `hover:text-[#017bfc]` at line 24 instead of using a design token.
-
-10. **Page selection color** — `app/page.jsx:22` uses `selection:text-[#017BFC]` (hardcoded blue) while brand color is orange.
-
-11. **`layout.jsx` gradient overlay** — Uses `w-screen` which can cause horizontal overflow. Should use `w-full`.
-
-12. **`layout.jsx:31-33`** — `<Analytics />` and `<GoogleAnalytics>` are placed after `</body>` but inside `</html>`. They should be inside `<body>`.
-
-### C. Navigation & Information Architecture
-
-**Route Map:**
-| Route | In Nav? | In Projects List? |
-|-------|---------|-------------------|
-| `/` | Yes (Home) | — |
-| `/about` | Yes | — |
-| `/works` | Yes | — |
-| `/bookmarks` | Yes (hidden mobile) | — |
-| `/wisecareai` | No | Yes (case study) |
-| `/full-spectrum-insights` | No | Yes (case study) |
-| `/jotform-integrations` | No | Yes (projects) |
-| `/good-afternoon-creative` | No | Yes (projects) |
-| `/commodore` | No | Yes (projects) |
-| `/genesis` | No | Yes (projects) |
-
-**Issues:**
-
-1. **No back navigation on case studies** — Case study pages have no "Back to Works" or breadcrumb. Only the header nav pill. User must use browser back or nav.
-
-2. **Bookmarks hidden on mobile** — `Tabs.jsx:9` hides Bookmarks tab on mobile (`hideOnMobile: true`). Mobile users cannot discover this page unless they know the URL.
-
-3. **No sitemap.xml** — Missing `app/sitemap.js` for SEO.
-
-4. **No robots.txt** — Missing `app/robots.js` or `public/robots.txt`.
-
-5. **Minimal root metadata** — `layout.jsx` only has `title` and `description`. Missing: `keywords`, `authors`, `openGraph` config, `twitter` card config. (OG and Twitter images exist as static files but aren't wired up in metadata.)
-
-6. **Case study pages have no per-page metadata** — All pages inherit generic "Ulaş Alyeşil | Product Designer". Each case study should export its own metadata.
-
-7. **External project links open inline** — "Frey Money" and "Dezign Brief" in `projects.json` point to external URLs but `SectionItem.jsx` doesn't set `target="_blank"`. These navigate away from the portfolio.
-
-### D. Content Quality
-
-1. **FSI date says "June, 2025"** — This is reasonable (current: Feb 2026), but verify.
-
-2. **`gacContent.json` has typo** — "their focused to create" should be "they focused on creating".
-
-3. **`GenesisContent.jsx`** — Dead component with older-style content. Should be deleted since `page.jsx` has cleaner inline content.
-
-4. **Footer inconsistency** — "reach me at" section shows only X + LinkedIn, while Contacts component on home/about shows 5 platforms.
-
-### E. Performance Notes
-
-1. **All pages are client components** — Every page uses `"use client"`, preventing server-rendering. Static pages like Bookmarks could be server components.
-
-2. **Framer Motion bundle** — Every page imports framer-motion. Consider dynamic imports or lighter animation for simple fade-ins.
-
-3. **No loading.jsx states** — No route-level loading UI during navigation.
-
-4. **`react-aria-components` is installed but unused** — Listed in `package.json` but not imported anywhere. Dead dependency.
+## Code Review — Implementation Plan
+
+Eight independent tasks. Any task can be worked on in isolation without
+affecting the others. Shared files are noted where they exist — the changes
+target different sections of those files so they won't conflict.
 
 ---
 
-## Recommended Next Steps (Priority Order)
+### Task 1: Critical Runtime Fixes
+**Priority:** Critical
+**Files:** `CaseStudyLayout.jsx`, `app/layout.jsx`
+**Estimated scope:** 3 line changes
 
-### Quick Wins (< 30 min each)
-- [ ] Fix `projecctB` typo in Section.jsx
-- [ ] Fix backtick in CaseStudyLayout.jsx
-- [ ] Fix missing `/` in SelectedProjects target
-- [ ] Delete dead components: LayersImage, HProjectCard, Article, GenesisContent
-- [ ] Delete unused data file: layersURLs.json
-- [ ] Remove `react-aria-components` from dependencies
-- [ ] Fix footer bottom padding (pb-80 → pb-24)
-- [ ] Scope custom cursor to pointer devices only
-- [ ] Fix analytics placement in layout.jsx (move inside body)
-- [ ] Use `SOCIAL_LINKS` in not-found.jsx
-- [ ] Fix inconsistent X/Twitter URL
-- [ ] Add `className` prop to TypingAnimatedText.jsx
-- [ ] Replace `text-muted-foreground` with `text-neutral-500` in TypingAnimatedText
-- [ ] Wrap SectionItem in `<li>` inside Section.jsx `<ol>`
-- [ ] Wrap LinkItem in `<li>` inside bookmarks/page.jsx `<ol>`
-
-### Medium Effort (1-2 hours each)
-- [ ] Add per-page metadata to all case study pages (all 6 missing)
-- [ ] Add sitemap.js and robots.js
-- [ ] Standardize container breakpoints (sm vs md)
-- [ ] Make gallery responsive (grid-cols-1 on mobile)
-- [ ] Remove duplicate brand color definitions
-- [ ] Update Tabs.jsx to modern Next.js Link API
-- [ ] Add back-navigation to case study pages
-- [ ] Handle external project links (open in new tab)
-- [ ] Add keyboard support (onFocus/onBlur) to About page HoverableWord
-- [ ] Add skip-to-content link in layout.jsx
-- [ ] Fix Image components (add fill prop or explicit dimensions)
-
-### Larger Tasks
-- [ ] Convert Bookmarks page to server component
-- [ ] Add loading.jsx states for route transitions
-- [ ] Review and consolidate animation configs (use lib/animations everywhere)
-- [ ] Evaluate framer-motion bundle impact
+- [ ] `CaseStudyLayout.jsx:1` — Fix backtick `` `use client` `` → `"use client"`.
+      This is a **broken directive** — the component runs as a server component
+      but uses Framer Motion, which likely causes runtime errors on every case
+      study page.
+- [ ] `app/layout.jsx:31-32` — Move `<Analytics />` and `<GoogleAnalytics>`
+      from between `</body>` and `</html>` to inside `<body>`. Currently invalid
+      HTML.
+- [ ] `app/layout.jsx:26,28` — Fix broken dark mode gradient classes.
+      `dark:neutral-950/0` is missing the `to-` prefix. Should be
+      `dark:to-neutral-950/0`. The bottom gradient overlay likely doesn't
+      render in dark mode.
 
 ---
 
-## Previous Review Notes
+### Task 2: Dark Mode Component Fixes
+**Priority:** High
+**Files:** `Footer.jsx`, `TimeZoneCard.jsx`
+**Estimated scope:** ~10 lines changed
 
-### Phase 1 Review (Completed)
+- [ ] `Footer.jsx:14` — `<XIcon fill="#000" />` hardcodes black. Invisible on
+      dark backgrounds. Use `currentColor` or a dark-mode-aware value.
+- [ ] `TimeZoneCard.jsx:65` — `theme('colors-neutral-400')` inside an inline
+      `style` attribute. The `theme()` function only works in PostCSS-processed
+      CSS, not in JS. Replace with the actual hex value (`#a3a3a3`).
+- [ ] `TimeZoneCard.jsx:108` — Time marker gradient uses hardcoded `#171717`,
+      invisible in dark mode. Needs a conditional or CSS variable approach.
 
-**Changes Made:**
-1. `components/TypingAnimatedText.jsx` - Fixed critical memory leak by adding `[i, text]` dependency array to useEffect
-2. `app/bookmarks/page.jsx` - Fixed typo `mx-aut` → `mx-auto`
-3. `components/ContactCard.jsx` - Added ARIA labels for accessibility, added `noopener` to rel attribute
+---
 
-**Verification:**
-- ✅ Build passes
-- ✅ All 16 pages generate successfully
-- ✅ No ESLint errors
+### Task 3: Navigation & Routing
+**Priority:** High
+**Files:** `Tabs.jsx`
+**Estimated scope:** ~15 lines changed
 
-### Phase 2 Review (Completed)
+- [ ] Add `usePathname()` from `next/navigation` to determine the real active
+      route.
+- [ ] Separate **hover highlight** (visual feedback, current behavior) from
+      **active route indicator** (semantic, for accessibility).
+- [ ] Move `aria-current="page"` from hover-based `isSelected` to
+      pathname-based comparison. Currently screen readers announce whichever
+      tab is hovered as the "current page."
+- [ ] Update to modern Next.js Link API — remove `passHref`, `legacyBehavior`,
+      and nested `<a>` tag. These are deprecated in Next.js 13+.
+- [ ] Optional: visually distinguish the active-route tab (e.g., bolder text)
+      vs. the hover highlight pill.
 
-**Changes Made:**
-1. `components/ErrorBoundary.jsx` - NEW FILE: Class component with error catching and fallback UI
-2. `app/error.jsx` - NEW FILE: Next.js route-level error page with reset functionality
-3. `app/layout.jsx` - Wrapped children with ErrorBoundary, moved GA ID to env var, fixed typo
-4. `.env.local` - NEW FILE: Contains NEXT_PUBLIC_GA_ID
-5. `.env.example` - NEW FILE: Template for environment variables
+---
 
-**Verification:**
-- ✅ Build passes
-- ✅ All 16 pages generate successfully
-- ✅ ErrorBoundary imported and integrated
-- ✅ GA ID now uses environment variable
+### Task 4: Responsive Layout Fixes
+**Priority:** High
+**Files:** `app/page.jsx`, `app/about/page.jsx`, `components/SelectedProjects.jsx`, `CaseStudyLayout.jsx`
+**Estimated scope:** ~10 lines changed
 
-### Phase 3 Review (Completed)
+- [ ] `app/page.jsx:19` — Replace `sm:w-[1200px]` with `w-full max-w-[1200px]`.
+      Current code jumps from mobile width to fixed 1200px at the 640px
+      breakpoint, causing horizontal overflow on tablets/small laptops.
+- [ ] `app/about/page.jsx:157` — Remove `md:px-auto`. `px-auto` is not a valid
+      Tailwind utility (padding doesn't accept `auto`). This is a no-op.
+- [ ] `SelectedProjects.jsx:33,39` — Normalize relative `target` paths to
+      include leading `/`. Currently `"jotform-integrations"` and
+      `"good-afternoon-creative"` lack `/` while siblings use `/wisecareai`.
+- [ ] `SelectedProjects.jsx:14,28` — Inconsistent breakpoints: first row uses
+      `sm:flex-row`, second uses `md:flex-row`. Cards wrap at different widths.
+- [ ] `CaseStudyLayout.jsx:62` — Gallery uses `grid-cols-2` with no mobile
+      fallback. Add `grid-cols-1 sm:grid-cols-2` so images aren't squeezed
+      on narrow screens.
+- [ ] `layout.jsx:26,28` — Gradient overlay uses `w-screen` which can cause
+      horizontal overflow. Consider `w-full`.
 
-**Changes Made:**
-1. Converted 27 PNG images to WebP format
-2. Resized gacWeb from 3978x7966 to 2000px width (2.3MB → 617KB)
-3. Optimized picture.jpeg (1.2MB → 717KB)
-4. Updated imports in 7 files to use .webp:
-   - `components/SelectedProjects.jsx`
-   - `app/wisecareai/page.jsx`
-   - `app/good-afternoon-creative/page.jsx`
-   - `app/full-spectrum-insights/page.jsx`
-   - `app/commodore/page.jsx`
-   - `app/jotform-integrations/page.jsx`
-   - `app/genesis/page.jsx`
-5. Removed 27 original PNG files
+---
 
-**Image Size Reduction:**
-| Before | After | Reduction |
-|--------|-------|-----------|
-| 29MB | 10MB | 66% |
+### Task 5: Accessibility Pass
+**Priority:** Medium
+**Files:** `globals.css`, `app/layout.jsx`, `Hero.jsx`, `Button.jsx`, `app/about/page.jsx`, `Section.jsx`, `app/bookmarks/page.jsx`
+**Shared files:** `layout.jsx` (also in Task 1 — different section), `about/page.jsx` (also in Task 4/8 — different section)
+**Estimated scope:** ~35 lines changed
 
-**Verification:**
-- ✅ Build passes
-- ✅ All 16 pages generate successfully
-- ✅ All images load correctly
+- [ ] `globals.css:50-52` — Scope `* { cursor: none !important }` to pointer
+      devices only: wrap in `@media (pointer: fine)`. Currently hides cursor
+      for ALL users including those with accessibility needs.
+- [ ] `globals.css` — Add `*:focus-visible` outline styles. Currently no visible
+      focus indicator on keyboard navigation. With cursor hidden, keyboard users
+      are completely lost.
+- [ ] `app/layout.jsx` — Add a skip-to-content link (`<a href="#main">`) as the
+      first child of `<body>`, visually hidden until focused.
+- [ ] `Hero.jsx:39` — `<a>` without `href` wrapping "open for new
+      opportunities". Not a valid link, not keyboard-focusable. Change to
+      `<span>` or `<p>`.
+- [ ] `Hero.jsx` — Two `<h1>` elements (name + tagline). Should use `<h1>` for
+      name and `<h2>` or `<p>` for tagline.
+- [ ] `Button.jsx:16` — Add `rel="noopener noreferrer"` when `target` prop is
+      `"_blank"`. Currently no rel attribute on external links.
+- [ ] `about/page.jsx:39-50` — `HoverableWord` renders `<Link>` with
+      `target="_blank"` but no `rel` attribute. Add `rel="noopener noreferrer"`.
+- [ ] `about/page.jsx` — HoverableWord lacks keyboard support. `onMouseEnter/Leave`
+      but no `onFocus/onBlur`. Keyboard users can't trigger hover content.
+- [ ] `Section.jsx:36` — `<ol>` with no `<li>` wrappers. SectionItem rendered
+      directly inside `<ol>`. Breaks semantic HTML and screen reader list parsing.
+- [ ] `bookmarks/page.jsx` — Same `<ol>` without `<li>` issue with LinkItem.
+- [ ] (Design decision) Color contrast: `text-neutral-500` (#737373) on #f5f5f5
+      is ~3.5:1, below WCAG AA (4.5:1). Consider `text-neutral-600` (#525252)
+      for body text. Widespread — affects Footer, SectionItem, Hero subtitle.
 
-### Phase 5 Review (Completed)
+---
 
-**Changes Made:**
-1. `.eslintrc.json` - Added rules: `no-unused-vars`, `no-console`, `react/self-closing-comp`, `react/jsx-curly-brace-presence`
-2. `.prettierrc` - NEW FILE: Standard Prettier config
-3. `package.json` - Added prettier devDependency and format scripts
-4. `components/Experience.jsx` - DELETED: Unused component
-5. `app/page.jsx` - Removed dead import and commented usage
+### Task 6: TypingAnimatedText Rewrite
+**Priority:** Medium
+**Files:** `components/TypingAnimatedText.jsx`
+**Estimated scope:** ~20 lines changed
 
-**Verification:**
-- ✅ Dev server running
-- ✅ All routes compiling
-- ✅ Dead code removed
+- [ ] Rewrite interval logic using `useRef` for the character index instead of
+      state-driven `[i, text]` dependency. Current approach creates/destroys an
+      interval on every single character — works but wastes lifecycle effort.
+- [ ] Fix the text fallback logic. Line 33: `{displayedText ? displayedText : text}`
+      shows full text only *before* typing starts (when `displayedText` is `""`).
+      Once a single character is typed, it shows partial text forever if the
+      component unmounts mid-animation. Should show full text after animation
+      completes OR when not in viewport.
+- [ ] `text-muted-foreground` class on line 27 doesn't exist in Tailwind config.
+      Replace with `text-neutral-500` or appropriate class.
+- [ ] Component doesn't accept `className` prop but callers may pass it.
+      Styles silently dropped. Add `className` prop support.
+- [ ] Consider using IntersectionObserver (or Framer Motion's `whileInView`) to
+      only start the typing animation when the element scrolls into view,
+      rather than immediately on mount. Currently 8+ items on the works page
+      all type simultaneously.
+
+---
+
+### Task 7: Code Cleanup & Housekeeping
+**Priority:** Low
+**Files:** Various (see list below)
+**Shared files:** `CaseStudyLayout.jsx` (also in Task 1 — different line), `about/page.jsx` (also in Tasks 4/5/8)
+**Estimated scope:** File deletions + ~20 lines changed
+
+- [ ] Delete unused components:
+      - `components/Article.jsx` — not imported anywhere
+      - `components/LayersImage.jsx` — not imported anywhere
+      - `app/genesis/GenesisContent.jsx` — not imported by genesis/page.jsx
+- [ ] Verify `components/HProjectCard.jsx` usage — appears unused. Delete if
+      confirmed.
+- [ ] Delete unused data: `public/data/layersURLs.json` — not imported anywhere.
+- [ ] Remove `react-aria-components` from `package.json` — listed as dependency
+      but never imported.
+- [ ] `Section.jsx:12` — Fix typo `projecctB` → `projectB`.
+- [ ] `Section.jsx:19` — Remove stale TODO comment link.
+- [ ] `about/page.jsx:8` — Remove orphan comment `// otherData import removed`.
+- [ ] `app/not-found.jsx` — Replace hardcoded social URLs with `SOCIAL_LINKS`
+      from `lib/constants.js`. Also: hardcoded URLs use `x.com` while
+      constants use `twitter.com` — unify.
+- [ ] Deduplicate animation configs:
+      - `about/page.jsx:18-22` — import `fadeInUp` from `lib/animations.js`
+        instead of redefining
+      - `CaseStudyLayout.jsx:9-13` — same
+      - `CaseStudyTitle.jsx` — same
+- [ ] Normalize import paths to consistently use `@/` alias (currently mixed
+      with `../` relative paths in the same files, e.g., `ContactCard.jsx`).
+- [ ] `globals.css:5-15` — Remove duplicate `:root` block; `@theme` already
+      registers CSS variables in Tailwind v4.
+- [ ] `others.json` — Date format inconsistency: `"February 2021"` (no comma)
+      vs all other dates like `"August, 2021"` (with comma).
+- [ ] `gacContent.json` — Typo: "their focused to create" → "they focused on
+      creating".
+- [ ] `app/page.jsx:22` — Hardcoded `selection:text-[#017BFC]` (blue) while
+      brand color is orange. Use brand token.
+- [ ] `Footer.jsx:24` — Hardcoded `hover:text-[#017bfc]` instead of design token.
+
+---
+
+### Task 8: About Page Touch Support
+**Priority:** Low
+**Files:** `app/about/page.jsx`
+**Shared files:** Also touched by Tasks 4, 5, 7 — all target different sections
+**Estimated scope:** ~25 lines changed
+
+- [ ] The hover-to-reveal interaction (profile image, timezone cards) has no
+      touch/mobile fallback. On touch devices, these interactive words look
+      like regular links and the content popup never appears.
+- [ ] Options to evaluate:
+      1. **Tap-to-toggle**: First tap shows content, second tap follows link
+      2. **Always visible on mobile**: Show timezone/profile below the text on
+         small screens (no hover needed)
+      3. **Long-press to preview**: Show content on long-press, normal tap
+         follows link
+- [ ] Whichever approach: ensure the timezone card's fixed `w-3xs` (256px)
+      doesn't overflow on small viewports.
+- [ ] The `pointer-events-none` on the popup (line 201) prevents interaction
+      with the timezone card. Consider if that's intentional.
+
+---
+
+## Future Considerations (from reviews)
+
+These are larger-scope items not in the 8-task plan:
+
+- [ ] Add per-page metadata to all case study pages (all 6 inherit generic title)
+- [ ] Add `app/sitemap.js` and `app/robots.js` for SEO
+- [ ] Add back-navigation / breadcrumbs to case study pages
+- [ ] Handle external project links in SectionItem (`target="_blank"` for
+      "Frey Money", "Dezign Brief" etc.)
+- [ ] Add `loading.jsx` states for route transitions
+- [ ] Consider converting static pages (Bookmarks) to server components
+- [ ] Evaluate framer-motion bundle impact / dynamic imports
+- [ ] Footer `pb-80` (320px padding) — reduce to `pb-16` or `pb-24`
+- [ ] Button `h-8` (32px) too small for mobile touch — consider `h-10`
+- [ ] Button: consolidate `primary`/`primaryLong` into a `fullWidth` prop
+- [ ] Bookmarks tab hidden on mobile — no way to discover the page
+- [ ] Footer shows only X + LinkedIn vs Contacts showing 5 platforms
+
+---
+
+## File Dependency Map
+
+Shows which tasks touch each file. If working on two tasks that share a file,
+do them sequentially to avoid merge conflicts.
+
+| File | Tasks |
+|------|-------|
+| `app/layout.jsx` | 1, 4, 5 |
+| `app/about/page.jsx` | 4, 5, 7, 8 |
+| `CaseStudyLayout.jsx` | 1, 4, 7 |
+| `globals.css` | 5, 7 |
+| All other files | Single task each |
+
+---
+
+## Recommended Order (if doing sequentially)
+
+1 → 2 → 4 → 3 → 5 → 6 → 7 → 8
+
+Critical fixes first, then dark mode and layout (user-facing), then
+accessibility and component improvements, then housekeeping.
