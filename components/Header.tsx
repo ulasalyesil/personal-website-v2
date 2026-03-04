@@ -10,7 +10,7 @@ export default function Header() {
   const scrolled = useScrolled(60);
 
   return (
-    <header className="sticky top-0 z-10 h-24 pointer-events-none">
+    <header className="hidden sm:block sticky top-0 z-10 h-24 pointer-events-none">
       {/* Progressive blur layers */}
       <div
         className="absolute inset-0"
