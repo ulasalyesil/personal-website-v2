@@ -9,7 +9,7 @@ export default function Hero() {
       <p className="mt-1 text-text-secondary font-mono text-sm">
         Product Designer
       </p>
-      <p className="mt-4 text-lg sm:text-xl text-text-secondary max-w-2xl leading-relaxed text-pretty">
+      <p className="mt-4 text-lg sm:text-xl text-text-secondary max-w-2xl leading-relaxed text-pretty tracking-tight leading-snug">
         Designing clear interfaces, useful tools, and creative technology.
         Currently focused on early-stage products where design shapes the
         outcome.

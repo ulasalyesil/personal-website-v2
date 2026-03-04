@@ -29,7 +29,7 @@ export default function TimeZoneCard({ city = "berlin" }) {
   const markerPosition = (hour / 24) * 100;
 
   return (
-    <div className="w-contain h-32 rounded-md border border-border-default bg-surface-2 text-text-primary p-4 shadow-md flex flex-col justify-between font-mono">
+    <div className="w-contain h-32 rounded-md border border-border-default bg-surface-1 text-text-primary p-4 shadow-md flex flex-col justify-between font-mono">
       <div className="flex justify-between text-xs tracking-tight">
         <span className="lowercase">{label}</span>
         <span className="tabular-nums">{gmtOffset}</span>
