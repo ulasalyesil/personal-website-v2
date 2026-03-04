@@ -284,3 +284,399 @@ do them sequentially to avoid merge conflicts.
 
 Critical fixes first, then dark mode and layout (user-facing), then
 accessibility and component improvements, then housekeeping.
+
+---
+
+## New Features — Implementation Plan
+
+Four new features approved for implementation. Order: TypeScript migration
+first (foundation), then haptic, tab bar, work experience, page animations.
+
+Skills installed: `baseline-ui`, `fixing-accessibility`, `fixing-metadata`,
+`fixing-motion-performance`, `12-principles-of-animation`, `canvas-design`,
+`design-lab`, `frontend-design`, `interaction-design`, `interface-design`,
+`swiftui-ui-patterns`, `ui-ux-pro-max`, `wcag-audit-patterns`,
+`web-design-guidelines`. (`tailwind-css-patterns` — 404, not available.)
+
+Plan reviewed against `frontend-design` + `baseline-ui` + `interaction-design`
+skills. Refinements incorporated below.
+
+---
+
+### Feature A: TypeScript Migration
+**Priority:** Foundation — do first, all other features depend on this
+**Files:** All `.jsx` → `.tsx`, all `.js` lib files → `.ts`
+**Scope:** File renames + prop interface additions
+
+**Steps:**
+- [ ] Add `tsconfig.json` (if not present) with strict mode, path alias `@/*`
+- [ ] Install `@types/react`, `@types/react-dom`, `@types/node` as dev dependencies
+- [ ] Rename and type `app/layout.jsx` → `app/layout.tsx`
+- [ ] Rename and type `app/(main)/layout.jsx` → `.tsx`
+- [ ] Rename and type `app/(main)/page.jsx` → `.tsx`
+- [ ] Rename and type `app/(main)/about/page.jsx` → `.tsx`
+- [ ] Rename and type `app/(main)/works/page.jsx` → `.tsx`
+- [ ] Rename and type `app/(main)/bookmarks/page.jsx` → `.tsx`
+- [ ] Rename and type `app/(case-study)/layout.jsx` → `.tsx`
+- [ ] Rename and type `app/(case-study)/[slug]/page.jsx` → `.tsx`
+- [ ] Rename and type all `components/*.jsx` → `.tsx` (add props interfaces)
+- [ ] Rename `lib/animations.js` → `lib/animations.ts`
+- [ ] Rename `lib/constants.js` → `lib/constants.ts`
+- [ ] Rename `lib/utils.js` → `lib/utils.ts` (if exists)
+- [ ] Add project-level types file `types/index.ts` for shared types
+      (project data shapes, slug types, etc.)
+- [ ] Run `npx tsc --noEmit` — fix all type errors before proceeding
+
+**Key types to define in `types/index.ts`:**
+```ts
+export interface ProjectData {
+  slug: string
+  title: string
+  role: string
+  date: string
+  // etc.
+}
+```
+
+**Note:** `next.config.js` stays `.js` — Next.js convention.
+
+---
+
+### Feature B: Haptic Feedback
+**Priority:** High — quick isolated utility, no dependencies
+**Files:** `lib/haptic.ts` (new), `components/Button.tsx`
+**Scope:** ~30 lines total
+
+**Source:** https://chanhdai.com/components/haptic.mdx
+
+**Implementation — `lib/haptic.ts`:**
+```ts
+export function haptic(pattern: number | number[] = 50): void {
+  if (typeof window === 'undefined') return // SSR guard
+
+  // Android / modern browsers — Vibration API
+  if ('vibrate' in navigator) {
+    navigator.vibrate(pattern)
+    return
+  }
+
+  // iOS trick: briefly click a hidden checkbox to trigger taptic engine
+  const el = document.createElement('input')
+  el.setAttribute('type', 'checkbox')
+  el.style.cssText =
+    'position:fixed;top:-999px;opacity:0;pointer-events:none'
+  document.body.appendChild(el)
+  el.click()
+  document.body.removeChild(el)
+}
+```
+
+**Integration — `components/Button.tsx`:**
+- Compose the existing `onClick` prop — do NOT override it:
+```tsx
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  haptic()
+  props.onClick?.(e)
+}
+```
+- Apply only to `<button>` elements (not `<Link>`-rendered buttons)
+- `haptic()` is a no-op on desktop — safe to call unconditionally
+
+**Pitfalls:**
+- Guard with `typeof window === 'undefined'` not `typeof navigator` — safer for SSR
+- iOS trick creates a real DOM element — must remove it immediately after click
+- Apple HIG: use haptics for meaningful feedback, not decorative — buttons qualify
+- Default 50ms pattern is appropriate; don't customize unless there's a reason
+
+---
+
+### Feature C: Animated Tab Bar (Scroll Morph)
+**Priority:** High — isolated to `Header` + `Tabs`, no new dependencies
+**Files:** `hooks/useScrolled.ts` (new), `components/Tabs.tsx`
+**Scope:** ~60 lines total
+
+**Behavior:**
+- Threshold: 60px scroll from top
+- At top: `[Home] [About] [Works] [Bookmarks]` — full labels, normal pill padding
+- Scrolled: `[Home] [About] [Works] [Saved]` — compressed padding, "Bookmarks" → "Saved"
+- Label change: crossfade via `AnimatePresence` (not an abrupt string swap)
+- Transition: explicit CSS properties only — NOT `transition-all` (perf issue)
+
+**Implementation — `hooks/useScrolled.ts`:**
+```ts
+'use client'
+import { useEffect, useState } from 'react'
+
+export function useScrolled(threshold = 60): boolean {
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > threshold)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [threshold])
+  return scrolled
+}
+```
+
+**Tab data shape — add `shortLabel` to tab definitions:**
+```ts
+const tabs = [
+  { href: '/', label: 'Home',      shortLabel: 'Home'  },
+  { href: '/about', label: 'About',     shortLabel: 'About' },
+  { href: '/works', label: 'Works',     shortLabel: 'Works' },
+  { href: '/bookmarks', label: 'Bookmarks', shortLabel: 'Saved' },
+]
+```
+
+**Label crossfade — use `AnimatePresence` + `m.span`:**
+```tsx
+import { AnimatePresence, m } from 'framer-motion'
+
+<AnimatePresence mode="wait">
+  <m.span
+    key={compact ? 'short' : 'full'}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.15 }}
+  >
+    {compact ? tab.shortLabel : tab.label}
+  </m.span>
+</AnimatePresence>
+```
+
+**Pill size transition — specific properties only:**
+```tsx
+className={cn(
+  'transition-[padding,font-size] duration-200 ease-out',
+  compact ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm'
+)}
+```
+
+**Pitfalls:**
+- Never use `transition-all` — it transitions every CSS property and tanks GPU compositing
+- The `useScrolled` hook returns `false` on SSR — header renders un-scrolled by default, correct behavior
+- `passive: true` on scroll listener is required for mobile performance
+
+---
+
+### Feature D: Work Experience Component (About page)
+**Priority:** Medium — new dependencies required
+**Files:** `components/WorkExperience.tsx` (new), `data/experience.ts` (new),
+           `app/(main)/about/page.tsx`
+**New dependencies:** `react-markdown`, `lucide-react`, `@tailwindcss/typography`
+**Scope:** ~200 lines (component) + data file
+
+**Source:** https://chanhdai.com/components/work-experience-component.mdx
+
+**Install before implementing:**
+```bash
+npm install react-markdown lucide-react
+npm install -D @tailwindcss/typography
+```
+Add to `app/globals.css`:
+```css
+@plugin "@tailwindcss/typography";
+```
+
+**TypeScript types — `types/index.ts`:**
+```ts
+import type { ComponentProps, ComponentType } from 'react'
+
+export interface ExperiencePositionItem {
+  id: string
+  title: string
+  employmentPeriod: string
+  employmentType?: string
+  description?: string                                    // markdown string
+  icon?: ComponentType<ComponentProps<'svg'>>
+  skills?: string[]
+  isExpanded?: boolean
+}
+
+export interface ExperienceItem {
+  id: string
+  companyName: string
+  companyLogo?: string
+  positions: ExperiencePositionItem[]
+  isCurrentEmployer?: boolean
+}
+```
+
+**Design adaptation rules (from skill review):**
+- Replace all hardcoded colors from source with design tokens:
+  - `text-neutral-*` → `text-text-primary` / `text-text-secondary`
+  - `bg-neutral-*` → `bg-surface-1` / `bg-surface-2`
+  - `border-neutral-*` → `border-border-subtle`
+- **Reuse existing `Pill` component** for skill tags — do NOT create new badge markup
+- Current employer pulse: use `animate-pulse` from `tw-animate-css` in brand orange
+  (`bg-brand`), NOT blue as in source
+- Vertical timeline line: `border-border-subtle`
+- Collapsible arrow icon: use `lucide-react`'s `ChevronDown` with
+  `transition-transform duration-200` for the rotate animation
+
+**Data file — `data/experience.ts`:**
+Scaffold with placeholder data — user will replace with real content:
+```ts
+import type { ExperienceItem } from '@/types'
+import { BriefcaseIcon } from 'lucide-react'
+
+export const experiences: ExperienceItem[] = [
+  {
+    id: 'company-1',
+    companyName: 'Company Name',
+    isCurrentEmployer: true,
+    positions: [
+      {
+        id: 'pos-1',
+        title: 'Job Title',
+        employmentPeriod: '01.2024 — present',
+        employmentType: 'Full-time',
+        icon: BriefcaseIcon,
+        description: '- Key responsibility\n- Another achievement',
+        skills: ['React', 'TypeScript', 'Next.js'],
+        isExpanded: true,
+      },
+    ],
+  },
+]
+```
+
+**About page integration:**
+- Add `<WorkExperience experiences={experiences} />` below existing content
+- Add a section heading: `Experience` consistent with existing section style
+- Section should be separated by existing spacing conventions (`mt-16` or similar)
+
+**Pitfalls:**
+- `react-markdown` does not sanitize HTML by default — fine for authored content, never for user input
+- Positions without `description` render as non-collapsible (no chevron shown)
+- `isExpanded` on a position controls initial open state, not forced state
+
+---
+
+### Feature E: Page Load Animations
+**Priority:** Medium — applied across all pages, do last to avoid conflicts
+**Files:** `lib/animations.ts` (update), `components/AnimateIn.tsx` (new),
+           `app/(main)/page.tsx`, `app/(main)/about/page.tsx`,
+           `app/(main)/works/page.tsx`, `app/(main)/bookmarks/page.tsx`
+**Scope:** ~80 lines (component + variants) + 4 page files updated
+
+**Motion spec (from skill review, baseline-ui compliant):**
+- `y: 12` — subtle, not dramatic
+- `opacity: 0 → 1`
+- `duration: 0.35s`
+- `ease: easeOut`
+- `stagger: 80ms` between sibling sections
+- `prefers-reduced-motion: true` → animations skipped entirely (not just faster)
+
+**Bundle optimization — wrap root layout with `LazyMotion`:**
+```tsx
+// app/layout.tsx
+import { LazyMotion, domAnimation } from 'framer-motion'
+
+<LazyMotion features={domAnimation} strict>
+  {children}
+</LazyMotion>
+```
+This reduces Framer Motion bundle from ~80kb to ~18kb. Use `m.div` (not
+`motion.div`) everywhere after enabling `LazyMotion`.
+
+**Variants — `lib/animations.ts` (replace current placeholder content):**
+```ts
+import type { Variants } from 'framer-motion'
+
+export const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: 'easeOut' },
+  },
+}
+
+export const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
+}
+```
+
+**`AnimateIn` component — `components/AnimateIn.tsx`:**
+```tsx
+'use client'
+import { m, useReducedMotion } from 'framer-motion'
+import { fadeUp } from '@/lib/animations'
+
+interface AnimateInProps {
+  children: React.ReactNode
+  delay?: number
+  className?: string
+}
+
+export function AnimateIn({ children, delay = 0, className }: AnimateInProps) {
+  const reduced = useReducedMotion()
+  return (
+    <m.div
+      initial={reduced ? false : 'hidden'}
+      animate="visible"
+      variants={fadeUp}
+      transition={{ duration: 0.35, ease: 'easeOut', delay }}
+      className={className}
+    >
+      {children}
+    </m.div>
+  )
+}
+```
+
+**Application scope (from skill review — section-level only, NOT per-row):**
+
+Home page (`app/(main)/page.tsx`):
+- `<AnimateIn delay={0}>` wraps Hero
+- `<AnimateIn delay={0.08}>` wraps ProjectGrid
+- `<AnimateIn delay={0.16}>` wraps Section
+
+About page (`app/(main)/about/page.tsx`):
+- `<AnimateIn delay={0}>` wraps intro text block
+- `<AnimateIn delay={0.08}>` wraps WorkExperience section
+
+Works page (`app/(main)/works/page.tsx`):
+- `<AnimateIn delay={0}>` wraps the entire list
+
+Bookmarks page (`app/(main)/bookmarks/page.tsx`):
+- `<AnimateIn delay={0}>` wraps the entire list
+
+**Pitfalls:**
+- Do NOT animate individual `SectionItem` rows — 8+ items animating simultaneously
+  is excessive and slows perceived load
+- `initial={reduced ? false : 'hidden'}` — `false` skips animation entirely
+  (not just instant), this is the correct `prefers-reduced-motion` pattern
+- `LazyMotion` must wrap the root layout, NOT individual pages
+- Use `m.div` (not `motion.div`) after adding `LazyMotion` — otherwise you'll
+  import the full bundle even with `LazyMotion` present
+
+---
+
+### Implementation Checklist
+
+**Order:** A → B → C → D → E
+
+- [ ] **A** — TypeScript migration: rename all files, add interfaces, `tsc --noEmit` passes
+- [ ] **B** — Haptic: `lib/haptic.ts` created, `Button.tsx` updated, tested on mobile
+- [ ] **C** — Tab bar: `hooks/useScrolled.ts` created, `Tabs.tsx` updated with
+      `AnimatePresence` label crossfade, padding transition verified
+- [ ] **D** — Work experience: dependencies installed, component created with design
+      token mapping, `Pill` reused for skills, data file scaffolded, About page updated
+- [ ] **E** — Page animations: `LazyMotion` in root layout, `AnimateIn` component created,
+      all 4 pages updated at section level, `prefers-reduced-motion` verified
+
+**Verification per feature:**
+- A: `npx tsc --noEmit` — zero errors
+- B: Open on mobile Safari/Chrome — tap any button — feel vibration feedback
+- C: Scroll any page past 60px — tab labels compress, "Bookmarks" → "Saved" crossfades;
+     scroll back — labels restore; verify 200ms transition feels snappy not sluggish
+- D: Visit `/about` — timeline renders, expand/collapse works, markdown renders,
+     current employer shows orange pulse, skill tags use `Pill` style
+- E: Navigate between pages — sections fade+slide in; enable OS "Reduce Motion" →
+     no animations fire; check both light and dark mode
