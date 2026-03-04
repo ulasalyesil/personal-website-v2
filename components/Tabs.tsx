@@ -41,7 +41,7 @@ export default function Tabs() {
               scrolled ? "px-2 py-1" : "px-3 py-1.5",
               isActive
                 ? "bg-surface-2 text-text-primary"
-                : "text-text-tertiary hover:text-text-secondary hover:bg-surface-1",
+                : "text-text-tertiary hover:text-text-secondary hover:bg-surface-1 mix-blend-difference",
             )}
           >
             {displayLabel}
