@@ -4,12 +4,13 @@ import Link from "next/link";
 import Tabs from "./Tabs";
 import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
+import { triggerHaptic } from "@/lib/haptics";
 
 export default function Header() {
   const scrolled = useScrolled(60);
 
   return (
-    <header className="sticky top-0 z-10 h-24 pointer-events-none">
+    <header className="hidden sm:block sticky top-0 z-10 h-24 pointer-events-none">
       {/* Progressive blur layers */}
       <div
         className="absolute inset-0"
@@ -39,6 +40,7 @@ export default function Header() {
       >
         <Link
           href="/"
+          onClick={() => triggerHaptic("selection")}
           className="size-8 bg-brand rounded-full hover:scale-105 transition-transform duration-150 shrink-0"
           aria-label="Home"
         />

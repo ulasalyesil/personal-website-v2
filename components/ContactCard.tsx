@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { triggerHaptic } from "@/lib/haptics";
 
 import PostsIcon from "@/public/icons/contactIcons/posts";
 import LayersIcon from "@/public/icons/contactIcons/layers";
@@ -51,6 +54,7 @@ export default function ContactCard({ icon, iconFill, iconBorder, target }: Cont
       href={target}
       rel="noopener noreferrer"
       target="_blank"
+      onClick={() => triggerHaptic("light")}
       aria-label={`Visit ${iconLabels[icon] || icon} profile`}
     >
       {renderIcon()}

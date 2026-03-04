@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import type { FeaturedProject } from "@/types";
+import { triggerHaptic } from "@/lib/haptics";
 
 interface ProjectGridProps {
   projects: FeaturedProject[];
@@ -17,6 +20,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           <Link
             key={project.slug}
             href={`/${project.slug}`}
+            onClick={() => triggerHaptic("light")}
             className="group flex flex-col gap-3 p-4 rounded-lg bg-surface-1 border border-border-subtle hover:border-border-default transition-colors duration-150"
             style={{ viewTransitionName: `project-${project.slug}` }}
           >

@@ -4,6 +4,7 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { triggerHaptic } from "@/lib/haptics";
 import Pill from "@/components/ui/Pill";
 import type { ExperienceItem } from "@/types";
 
@@ -22,7 +23,7 @@ function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
   return (
     <div className="border-b border-border-subtle last:border-0">
       <button
-        onClick={() => setExpanded((v) => !v)}
+        onClick={() => { setExpanded((v) => !v); triggerHaptic("selection"); }}
         className="w-full flex items-center justify-between py-3 gap-4 text-left group"
         aria-expanded={expanded}
       >

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { useScrolled } from "@/hooks/useScrolled";
+import { triggerHaptic } from "@/lib/haptics";
 
 interface Tab {
   label: string;
@@ -36,6 +37,7 @@ export default function Tabs() {
           <Link
             key={tab.href}
             href={tab.href}
+            onClick={() => triggerHaptic("selection")}
             className={cn(
               "text-sm rounded-full transition-[padding,colors] duration-200",
               scrolled ? "px-2 py-1" : "px-3 py-1.5",
