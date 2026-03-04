@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import TimeZoneCard from "@/components/TimeZoneCard";
 import WorkExperience from "@/components/WorkExperience";
 import { experience } from "@/data/experience";
+import AnimateIn, { AnimateItem } from "@/components/AnimateIn";
 
 const ProfileImage = () => (
   <div className="size-48 rounded-md overflow-hidden">
@@ -114,35 +115,41 @@ export default function About() {
       : null;
 
   return (
-    <div className="w-full">
-      <div className="flex justify-between items-center my-6">
-        <h2 className="text-text-secondary text-xl font-mono">about me</h2>
-        <Button
-          label="See Resume"
-          target="_blank"
-          type="secondary"
-          href="https://drive.google.com/file/d/1e-gnjC4ZW6X3jsW_MZ45JaVRhC7rUONy/view?usp=sharing"
-        />
-      </div>
+    <AnimateIn className="w-full">
+      <AnimateItem>
+        <div className="flex justify-between items-center my-6">
+          <h2 className="text-text-secondary text-xl font-mono">about me</h2>
+          <Button
+            label="See Resume"
+            target="_blank"
+            type="secondary"
+            href="https://drive.google.com/file/d/1e-gnjC4ZW6X3jsW_MZ45JaVRhC7rUONy/view?usp=sharing"
+          />
+        </div>
+      </AnimateItem>
 
-      <div className="relative">
-        {paragraphs.map((text, index) => (
-          <p
-            key={index}
-            className="text-text-primary text-2xl md:text-3xl text-pretty"
-          >
-            {processText(text, handleWordHover, handleWordLeave)}
-          </p>
-        ))}
+      <AnimateItem>
+        <div className="relative">
+          {paragraphs.map((text, index) => (
+            <p
+              key={index}
+              className="text-text-primary text-2xl md:text-3xl text-pretty"
+            >
+              {processText(text, handleWordHover, handleWordLeave)}
+            </p>
+          ))}
 
-        {ContentComponent && (
-          <div className="absolute pointer-events-none z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 transition-opacity duration-150">
-            <ContentComponent />
-          </div>
-        )}
-      </div>
+          {ContentComponent && (
+            <div className="absolute pointer-events-none z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 transition-opacity duration-150">
+              <ContentComponent />
+            </div>
+          )}
+        </div>
+      </AnimateItem>
 
-      <WorkExperience items={experience} />
-    </div>
+      <AnimateItem>
+        <WorkExperience items={experience} />
+      </AnimateItem>
+    </AnimateIn>
   );
 }

@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import ProjectGrid from "@/components/ProjectGrid";
 import Section from "@/components/Section";
+import AnimateIn, { AnimateItem } from "@/components/AnimateIn";
 
 import projectsData from "@/public/data/projects.json";
 
@@ -43,10 +44,16 @@ const featured: FeaturedProject[] = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col gap-16">
-      <Hero />
-      <ProjectGrid projects={featured} />
-      <Section sectionTitle="All Projects" projects={projectsData} />
-    </div>
+    <AnimateIn className="flex flex-col gap-16">
+      <AnimateItem>
+        <Hero />
+      </AnimateItem>
+      <AnimateItem>
+        <ProjectGrid projects={featured} />
+      </AnimateItem>
+      <AnimateItem>
+        <Section sectionTitle="All Projects" projects={projectsData} />
+      </AnimateItem>
+    </AnimateIn>
   );
 }
