@@ -7,6 +7,8 @@ import Image from "next/image";
 import picture from "@/public/images/picture.jpeg";
 import Button from "@/components/ui/Button";
 import TimeZoneCard from "@/components/TimeZoneCard";
+import WorkExperience from "@/components/WorkExperience";
+import { experience } from "@/data/experience";
 
 const ProfileImage = () => (
   <div className="size-48 rounded-md overflow-hidden">
@@ -139,6 +141,8 @@ export default function About() {
           </div>
         )}
       </div>
+
+      <WorkExperience items={experience} />
     </div>
   );
 }
