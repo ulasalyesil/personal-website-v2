@@ -19,8 +19,7 @@ export function haptic(pattern: number | number[] = 50): void {
     "position:absolute;opacity:0;pointer-events:none;width:0;height:0;";
   document.body.appendChild(input);
   input.checked = true;
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  input.offsetHeight; // force layout
+  void input.offsetHeight; // force layout
   input.checked = false;
   document.body.removeChild(input);
 }
