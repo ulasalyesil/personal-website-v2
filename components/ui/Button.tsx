@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/cn";
+import { haptic } from "@/lib/haptic";
 
 type ButtonVariant = "primary" | "secondary";
 
@@ -31,6 +34,7 @@ export default function Button({
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}
       className={cn(styles[type], className)}
+      onClick={() => haptic()}
     >
       {label}
     </Link>
