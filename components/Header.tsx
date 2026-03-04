@@ -4,6 +4,7 @@ import Link from "next/link";
 import Tabs from "./Tabs";
 import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
+import { triggerHaptic } from "@/lib/haptics";
 
 export default function Header() {
   const scrolled = useScrolled(60);
@@ -39,6 +40,7 @@ export default function Header() {
       >
         <Link
           href="/"
+          onClick={() => triggerHaptic("selection")}
           className="size-8 bg-brand rounded-full hover:scale-105 transition-transform duration-150 shrink-0"
           aria-label="Home"
         />

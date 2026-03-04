@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
+import { triggerHaptic } from "@/lib/haptics";
 
 interface SectionItemProps {
   date: string;
@@ -17,6 +20,7 @@ export default function SectionItem({ date, projectTitle, role, target }: Sectio
         href={target}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
+        onClick={() => triggerHaptic("light")}
         className="flex items-center justify-between py-3 px-2 -mx-2 rounded-lg hover:bg-surface-1 transition-colors duration-150 group"
       >
         <div className="flex flex-col">

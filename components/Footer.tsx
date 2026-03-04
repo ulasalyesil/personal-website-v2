@@ -1,4 +1,7 @@
+"use client";
+
 import { SOCIAL_LINKS, EMAIL } from "@/lib/constants";
+import { triggerHaptic } from "@/lib/haptics";
 
 export default function Footer() {
   return (
@@ -6,6 +9,7 @@ export default function Footer() {
       <div className="flex flex-col sm:flex-row justify-between gap-4 text-sm text-text-tertiary">
         <a
           href={`mailto:${EMAIL}`}
+          onClick={() => triggerHaptic("light")}
           className="hover:text-text-primary transition-colors duration-150"
         >
           {EMAIL}
@@ -15,6 +19,7 @@ export default function Footer() {
             href={SOCIAL_LINKS.twitter}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => triggerHaptic("light")}
             className="hover:text-text-primary transition-colors duration-150"
           >
             X
@@ -23,6 +28,7 @@ export default function Footer() {
             href={SOCIAL_LINKS.linkedin}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => triggerHaptic("light")}
             className="hover:text-text-primary transition-colors duration-150"
           >
             LinkedIn
@@ -31,6 +37,7 @@ export default function Footer() {
             href={SOCIAL_LINKS.dribbble}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => triggerHaptic("light")}
             className="hover:text-text-primary transition-colors duration-150"
           >
             Dribbble
