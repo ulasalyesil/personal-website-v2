@@ -67,8 +67,8 @@ const HoverableWord = ({ word, contentType, onHover, onLeave, link }: HoverableW
 );
 
 const paragraphs = [
-  "Hey, I'm Ulaş — a designer working across product, visual systems, and interactive experiences. I split my time between Berlin and Istanbul, collaborating on early-stage products and self-initiated creative work.",
-  "Most recently, I was the founding designer at a health tech startup in the US, where I helped take the product from zero to launch — shaping the design system, product UX, and brand identity. Now, I'm freelancing while rebuilding my portfolio and exploring new full-time opportunities.",
+  "Hey, I'm Ulaş, a designer working across product, visual systems, and interactive experiences. I split my time between Berlin and Istanbul, working on product design and self-initiated creative work.",
+  "Currently at getirfinans, designing features and owning the design system for Turkey's leading service banking app.",
   "I'm interested in the overlap between design, code, and culture. Outside of product work, I produce music, experiment with generative visuals, and build interactive prototypes — often as a way to think through emotion, structure, and rhythm.",
   "I care about clarity, intention, and craft — and I'm drawn to ideas that challenge conventional patterns. Whether it's a tool, a system, or a story, I try to build things that feel both thoughtful and alive.",
 ];
