@@ -16,6 +16,7 @@ const tabs: Tab[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Works", href: "/works" },
+  { label: "Lab", href: "/lab" },
   { label: "Bookmarks", compactLabel: "Saved", href: "/bookmarks" },
 ];
 

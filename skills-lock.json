@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "portfolio-audit": {
+      "source": "hey-stefan/portfolio-audit",
+      "sourceType": "github",
+      "computedHash": "85b8757a801f3e6c3e3b28617de476bab7d534ad3a530997916cd64047a2f390"
+    }
+  }
+}

@@ -9,6 +9,7 @@ const tabs = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Works", href: "/works" },
+  { label: "Lab", href: "/lab" },
   { label: "Saved", href: "/bookmarks" },
 ];
 
