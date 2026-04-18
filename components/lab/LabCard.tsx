@@ -20,6 +20,7 @@ const LabCard = forwardRef<HTMLButtonElement, Props>(function LabCard(
   return (
     <button
       ref={ref}
+      type="button"
       onClick={() => onOpen(item, index)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

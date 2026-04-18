@@ -1,9 +1,20 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { LabItem } from "./data";
 import { LAB_PREVIEWS } from "./previews";
 import { IOSDevice, SafariWindow } from "./frames";
+
+const SLIDE_TRANSITION = { duration: 0.38, ease: [0.22, 1, 0.36, 1] as const };
+
+function slideVariants(direction: 1 | -1) {
+  return {
+    enter: { y: direction * 40, opacity: 0 },
+    center: { y: 0, opacity: 1 },
+    exit: { y: direction * -40, opacity: 0 },
+  };
+}
 
 function Pill({ label }: { label: string }) {
   return (
@@ -94,13 +105,16 @@ function DesktopModal({
   item,
   index,
   total,
+  direction,
   onClose,
 }: {
   item: LabItem;
   index: number;
   total: number;
+  direction: 1 | -1;
   onClose: () => void;
 }) {
+  const variants = slideVariants(direction);
   return (
     <div
       className="bg-surface-0 border border-border-subtle rounded-xl overflow-hidden relative grid"
@@ -119,23 +133,32 @@ function DesktopModal({
         ×
       </button>
 
-      <div className="px-9 py-10 flex flex-col justify-between border-r border-border-subtle overflow-hidden">
-        <div>
-          <div className="font-mono uppercase tracking-wider text-text-tertiary tabular-nums" style={{ fontSize: 11, marginBottom: 24 }}>
-            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-          </div>
-          <h2 className="text-text-primary font-medium tracking-tight text-balance m-0" style={{ fontSize: 20 }}>
-            {item.title}
-          </h2>
-          <div className="flex gap-1.5 flex-wrap mt-2.5">
-            <Pill label={item.date} />
-            <Pill label={item.tag} />
-            {item.frame !== "none" && <Pill label={item.frame} />}
-          </div>
-          <p className="font-mono text-text-secondary text-pretty mt-7" style={{ fontSize: 13, lineHeight: 1.6 }}>
-            {item.blurb}
-          </p>
-        </div>
+      <div className="px-9 py-10 flex flex-col justify-between border-r border-border-subtle overflow-hidden relative">
+        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+          <motion.div
+            key={item.slug}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={SLIDE_TRANSITION}
+          >
+            <div className="font-mono uppercase tracking-wider text-text-tertiary tabular-nums" style={{ fontSize: 11, marginBottom: 24 }}>
+              {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            </div>
+            <h2 className="text-text-primary font-medium tracking-tight text-balance m-0" style={{ fontSize: 20 }}>
+              {item.title}
+            </h2>
+            <div className="flex gap-1.5 flex-wrap mt-2.5">
+              <Pill label={item.date} />
+              <Pill label={item.tag} />
+              {item.frame !== "none" && <Pill label={item.frame} />}
+            </div>
+            <p className="font-mono text-text-secondary text-pretty mt-7" style={{ fontSize: 13, lineHeight: 1.6 }}>
+              {item.blurb}
+            </p>
+          </motion.div>
+        </AnimatePresence>
         <div className="font-mono text-text-tertiary flex flex-col gap-1.5" style={{ fontSize: 11 }}>
           <div className="flex justify-between gap-3"><span>↑ ↓ · j / k</span><span>cycle</span></div>
           <div className="flex justify-between gap-3"><span>esc</span><span>close</span></div>
@@ -143,7 +166,19 @@ function DesktopModal({
       </div>
 
       <div className="relative overflow-hidden">
-        <ProtoFrame item={item} mode="desktop" />
+        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+          <motion.div
+            key={item.slug}
+            className="absolute inset-0"
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={SLIDE_TRANSITION}
+          >
+            <ProtoFrame item={item} mode="desktop" />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -153,13 +188,16 @@ function MobileModal({
   item,
   index,
   total,
+  direction,
   onClose,
 }: {
   item: LabItem;
   index: number;
   total: number;
+  direction: 1 | -1;
   onClose: () => void;
 }) {
+  const variants = slideVariants(direction);
   return (
     <div
       className="fixed inset-0 z-[100] bg-surface-0 grid"
@@ -188,24 +226,47 @@ function MobileModal({
         </button>
       </div>
       <div className="overflow-hidden relative">
-        <ProtoFrame item={item} mode="mobile" />
+        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+          <motion.div
+            key={item.slug}
+            className="absolute inset-0"
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={SLIDE_TRANSITION}
+          >
+            <ProtoFrame item={item} mode="mobile" />
+          </motion.div>
+        </AnimatePresence>
       </div>
-      <div className="px-5 py-3 border-t border-border-subtle">
-        <div className="flex justify-between items-baseline gap-3">
-          <div className="font-medium text-text-primary tracking-tight" style={{ fontSize: 16 }}>
-            {item.title}
-          </div>
-          <div className="font-mono text-text-tertiary" style={{ fontSize: 11 }}>
-            {item.date}
-          </div>
-        </div>
-        <p className="font-mono text-text-secondary mt-2 text-pretty" style={{ fontSize: 12, lineHeight: 1.55 }}>
-          {item.blurb}
-        </p>
-        <div className="flex gap-1.5 mt-3">
-          <Pill label={item.tag} />
-          {item.frame !== "none" && <Pill label={item.frame} />}
-        </div>
+      <div className="px-5 py-3 border-t border-border-subtle relative overflow-hidden">
+        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+          <motion.div
+            key={item.slug}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={SLIDE_TRANSITION}
+          >
+            <div className="flex justify-between items-baseline gap-3">
+              <div className="font-medium text-text-primary tracking-tight" style={{ fontSize: 16 }}>
+                {item.title}
+              </div>
+              <div className="font-mono text-text-tertiary" style={{ fontSize: 11 }}>
+                {item.date}
+              </div>
+            </div>
+            <p className="font-mono text-text-secondary mt-2 text-pretty" style={{ fontSize: 12, lineHeight: 1.55 }}>
+              {item.blurb}
+            </p>
+            <div className="flex gap-1.5 mt-3">
+              <Pill label={item.tag} />
+              {item.frame !== "none" && <Pill label={item.frame} />}
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className="grid place-items-center">
         <div className="w-[134px] h-[5px] rounded-full bg-black/25" />
@@ -219,17 +280,19 @@ export default function LabModal({
   index,
   total,
   isMobile,
+  direction,
   onClose,
 }: {
   item: LabItem;
   index: number;
   total: number;
   isMobile: boolean;
+  direction: 1 | -1;
   onClose: () => void;
 }) {
   return isMobile ? (
-    <MobileModal item={item} index={index} total={total} onClose={onClose} />
+    <MobileModal item={item} index={index} total={total} direction={direction} onClose={onClose} />
   ) : (
-    <DesktopModal item={item} index={index} total={total} onClose={onClose} />
+    <DesktopModal item={item} index={index} total={total} direction={direction} onClose={onClose} />
   );
 }

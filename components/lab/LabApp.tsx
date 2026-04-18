@@ -23,12 +23,15 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   const [selected, setSelected] = useState<number | null>(
     initialIndex >= 0 ? initialIndex : null,
   );
+  const [direction, setDirection] = useState<1 | -1>(1);
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const titleRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const total = LAB_ITEMS.length;
 
   const cycle = useCallback(
     (dir: "next" | "prev") => {
+      setDirection(dir === "next" ? 1 : -1);
       setSelected((curr) => {
         if (curr == null) return curr;
         return (curr + (dir === "next" ? 1 : -1) + total) % total;
@@ -80,24 +83,35 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
     document.body.style.overflow = "hidden";
 
     let wheelLock = false;
+    let wheelAccum = 0;
+    let wheelResetTimer: ReturnType<typeof setTimeout> | null = null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
-      else if (["ArrowDown", "j"].includes(e.key)) {
+      else if (["ArrowDown", "ArrowRight", "j"].includes(e.key)) {
         e.preventDefault();
         cycle("next");
-      } else if (["ArrowUp", "k"].includes(e.key)) {
+      } else if (["ArrowUp", "ArrowLeft", "k"].includes(e.key)) {
         e.preventDefault();
         cycle("prev");
       }
     };
     const onWheel = (e: WheelEvent) => {
       if (wheelLock) return;
-      if (Math.abs(e.deltaY) < 20) return;
-      wheelLock = true;
-      cycle(e.deltaY > 0 ? "next" : "prev");
-      setTimeout(() => {
-        wheelLock = false;
-      }, 480);
+      // Prefer the larger axis so sideways trackpad swipes cycle too.
+      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      wheelAccum += delta;
+      if (wheelResetTimer) clearTimeout(wheelResetTimer);
+      wheelResetTimer = setTimeout(() => {
+        wheelAccum = 0;
+      }, 160);
+      if (Math.abs(wheelAccum) > 24) {
+        wheelLock = true;
+        cycle(wheelAccum > 0 ? "next" : "prev");
+        wheelAccum = 0;
+        setTimeout(() => {
+          wheelLock = false;
+        }, 380);
+      }
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -129,7 +143,7 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   return (
     <div className="relative w-full h-full">
       {/* Floating title — echoes existing section-heading treatment */}
-      <div className="absolute left-4 sm:left-6 top-4 z-[5] max-w-[420px] pointer-events-none">
+      <div ref={titleRef} className="absolute left-4 sm:left-6 top-4 z-[5] max-w-[420px] pointer-events-none">
         <h2 className="font-mono text-xs uppercase tracking-wider text-text-tertiary m-0">
           Lab
         </h2>
@@ -139,7 +153,7 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
         </p>
       </div>
 
-      <LabCanvas items={LAB_ITEMS} onOpen={open} cardRefs={cardRefs} />
+      <LabCanvas items={LAB_ITEMS} onOpen={open} cardRefs={cardRefs} safeAreaRef={titleRef} />
 
       {item && (
         <>
@@ -165,6 +179,7 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
                 index={selected!}
                 total={total}
                 isMobile={isMobile}
+                direction={direction}
                 onClose={close}
               />
             </div>

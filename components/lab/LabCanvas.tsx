@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import LabCard from "./LabCard";
-import { LAB_ITEMS, type LabItem } from "./data";
+import type { LabItem } from "./data";
 
 type Placed = { x: number; y: number; w: number; h: number; item: LabItem };
 
@@ -19,103 +19,154 @@ function seedRand(seed: number) {
   };
 }
 
+type Rect = { x: number; y: number; w: number; h: number };
+
+function overlaps(a: Rect, b: Rect, gutter = 0) {
+  return (
+    a.x < b.x + b.w + gutter &&
+    a.x + a.w + gutter > b.x &&
+    a.y < b.y + b.h + gutter &&
+    a.y + a.h + gutter > b.y
+  );
+}
+
+// Attempts scatter at a given scale. Returns null if any card can't be placed
+// without overlapping another card or an obstacle — caller retries at a
+// smaller scale.
+function scatterAt(
+  items: LabItem[],
+  W: number,
+  H: number,
+  scale: number,
+  rand: () => number,
+  obstacles: Rect[],
+): Placed[] | null {
+  const sized = items.map((it) => ({
+    item: it,
+    w: Math.round(it.w * scale),
+    h: Math.round(it.h * scale),
+  }));
+
+  const placed: Placed[] = [];
+  // Biggest first — they're the hardest to fit.
+  const order = [...sized].sort((a, b) => b.w * b.h - a.w * a.h);
+
+  for (const s of order) {
+    let pos: Rect | null = null;
+    for (let t = 0; t < MAX_TRIES && !pos; t++) {
+      const cand: Rect = {
+        x: MARGIN + rand() * Math.max(0, W - s.w - MARGIN * 2),
+        y: MARGIN + rand() * Math.max(0, H - s.h - MARGIN * 2),
+        w: s.w,
+        h: s.h,
+      };
+      const hitCard = placed.some((p) => overlaps(cand, p, GUTTER));
+      const hitObs = obstacles.some((r) => overlaps(cand, r, GUTTER / 2));
+      if (!hitCard && !hitObs) pos = cand;
+    }
+    // Deterministic grid-scan fallback, bottom-right → top-left, so if
+    // rejection sampling got unlucky we still find a non-overlapping cell.
+    if (!pos) pos = gridScan(s, W, H, placed, obstacles);
+    if (!pos) return null;
+    placed.push({ ...pos, item: s.item });
+  }
+  return placed;
+}
+
+function gridScan(
+  s: { w: number; h: number },
+  W: number,
+  H: number,
+  placed: Placed[],
+  obstacles: Rect[],
+): Rect | null {
+  const step = 16;
+  for (let y = H - s.h - MARGIN; y >= MARGIN; y -= step) {
+    for (let x = W - s.w - MARGIN; x >= MARGIN; x -= step) {
+      const cand: Rect = { x, y, w: s.w, h: s.h };
+      const hitCard = placed.some((p) => overlaps(cand, p, GUTTER));
+      const hitObs = obstacles.some((r) => overlaps(cand, r, GUTTER / 2));
+      if (!hitCard && !hitObs) return cand;
+    }
+  }
+  return null;
+}
+
 function scatter(
   items: LabItem[],
   W: number,
   H: number,
   rand: () => number,
+  obstacles: Rect[] = [],
 ): Placed[] {
-  // Scale card sizes so each fits comfortably inside W×H.
   const maxW = Math.max(...items.map((i) => i.w));
   const maxH = Math.max(...items.map((i) => i.h));
-  const scale = Math.min(
-    1,
-    (W * 0.42) / maxW,
-    (H * 0.55) / maxH,
-  );
-
-  const sized = items.map((it) => ({
-    ...it,
-    w: Math.round(it.w * scale),
-    h: Math.round(it.h * scale),
-  }));
-
-  // Safe area for floating Lab title and description (top-left)
-  const SAFE_AREA = {
-    x: 0,
-    y: 0,
-    w: 440,  // ~440px width as noted in issue
-    h: 120,  // ~120px height as noted in issue
-  };
-
-  const placed: Placed[] = [];
-  const order = [...sized].sort((a, b) => b.w * b.h - a.w * a.h);
-
-  for (const it of order) {
-    let ok = false;
-    for (let t = 0; t < MAX_TRIES && !ok; t++) {
-      const x = MARGIN + rand() * Math.max(0, W - it.w - MARGIN * 2);
-      const y = MARGIN + rand() * Math.max(0, H - it.h - MARGIN * 2);
-      const hit = placed.some(
-        (p) =>
-          x < p.x + p.w + GUTTER &&
-          x + it.w + GUTTER > p.x &&
-          y < p.y + p.h + GUTTER &&
-          y + it.h + GUTTER > p.y,
-      ) || (
-        // Check collision with safe area
-        x < SAFE_AREA.x + SAFE_AREA.w &&
-        x + it.w > SAFE_AREA.x &&
-        y < SAFE_AREA.y + SAFE_AREA.h &&
-        y + it.h > SAFE_AREA.y
-      );
-      if (!hit) {
-        placed.push({ x, y, w: it.w, h: it.h, item: it });
-        ok = true;
-      }
-    }
-    if (!ok) {
-      placed.push({
-        x: MARGIN,
-        y: MARGIN,
-        w: it.w,
-        h: it.h,
-        item: it,
-      });
-    }
+  let scale = Math.min(1, (W * 0.38) / maxW, (H * 0.5) / maxH);
+  // Retry at progressively smaller scales until everything fits cleanly.
+  for (let i = 0; i < 8; i++) {
+    const out = scatterAt(items, W, H, scale, rand, obstacles);
+    if (out) return out;
+    scale *= 0.9;
   }
-  return placed;
+  // Extreme degenerate case (tiny canvas): accept last attempt even if lossy.
+  return scatterAt(items, W, H, scale, rand, obstacles) ?? [];
 }
 
 export default function LabCanvas({
   items,
   onOpen,
   cardRefs,
+  safeAreaRef,
 }: {
   items: LabItem[];
   onOpen: (item: LabItem, index: number) => void;
   cardRefs: React.MutableRefObject<Record<string, HTMLButtonElement | null>>;
+  safeAreaRef?: React.RefObject<HTMLElement | null>;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
+  const [safeRect, setSafeRect] = useState<Rect | null>(null);
   // Re-randomize on each page load.
   const seed = useMemo(() => Math.floor(Math.random() * 1e9), []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
-    const measure = () =>
+    const measure = () => {
       setSize({ w: el.clientWidth, h: el.clientHeight });
+      const safeEl = safeAreaRef?.current;
+      if (safeEl) {
+        const canvasBox = el.getBoundingClientRect();
+        const safeBox = safeEl.getBoundingClientRect();
+        setSafeRect({
+          x: safeBox.left - canvasBox.left,
+          y: safeBox.top - canvasBox.top,
+          w: safeBox.width,
+          h: safeBox.height,
+        });
+      }
+    };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
+    if (safeAreaRef?.current) ro.observe(safeAreaRef.current);
     return () => ro.disconnect();
-  }, []);
+  }, [safeAreaRef]);
 
   const placed = useMemo(() => {
     if (!size) return [] as Placed[];
-    return scatter(items, size.w, size.h, seedRand(seed));
-  }, [items, size, seed]);
+    const obstacles: Rect[] = safeRect
+      ? [
+          {
+            x: Math.max(0, safeRect.x - 8),
+            y: Math.max(0, safeRect.y - 8),
+            w: safeRect.w + 16,
+            h: safeRect.h + 16,
+          },
+        ]
+      : [];
+    return scatter(items, size.w, size.h, seedRand(seed), obstacles);
+  }, [items, size, seed, safeRect]);
 
   return (
     <div ref={wrapRef} className="relative w-full h-full">
@@ -134,7 +185,7 @@ export default function LabCanvas({
         >
           <LabCard
             item={item}
-            index={LAB_ITEMS.findIndex((it) => it.slug === item.slug)}
+            index={items.indexOf(item)}
             onOpen={onOpen}
             ref={(el) => {
               cardRefs.current[item.slug] = el;
