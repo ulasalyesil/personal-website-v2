@@ -16,6 +16,15 @@ export default function Footer() {
         </a>
         <div className="flex gap-4">
           <a
+            href={SOCIAL_LINKS.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => triggerHaptic("light")}
+            className="hover:text-text-primary transition-colors duration-150"
+          >
+            GitHub
+          </a>
+          <a
             href={SOCIAL_LINKS.twitter}
             target="_blank"
             rel="noopener noreferrer"
