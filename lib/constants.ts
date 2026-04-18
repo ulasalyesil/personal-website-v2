@@ -1,5 +1,6 @@
 // Social Links
 export const SOCIAL_LINKS: Record<string, string> = {
+  github: "https://github.com/ulasalyesil",
   twitter: "https://twitter.com/ulasalyesil",
   linkedin: "https://www.linkedin.com/in/ulasalyesil",
   layers: "https://layers.to/ulas",
