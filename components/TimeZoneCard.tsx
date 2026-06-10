@@ -21,20 +21,23 @@ export default function TimeZoneCard({ city = "berlin" }: TimeZoneCardProps) {
   const key = city.toLowerCase();
   const { zone, label } = CITY_MAP[key] || CITY_MAP["berlin"];
 
-  const [now, setNow] = useState(DateTime.now().setZone(zone));
+  // Starts null so server HTML and first client render match; the real time
+  // arrives in the mount effect (avoids a hydration mismatch).
+  const [now, setNow] = useState<DateTime | null>(null);
 
   useEffect(() => {
+    setNow(DateTime.now().setZone(zone));
     const interval = setInterval(() => {
       setNow(DateTime.now().setZone(zone));
     }, 1000);
     return () => clearInterval(interval);
   }, [zone]);
 
-  const formattedTime = now.toFormat("h:mm a").toLowerCase();
-  const formattedDate = now.toFormat("dd LLL").toLowerCase();
-  const gmtOffset = `GMT${now.offset >= 0 ? "+" : ""}${now.offset / 60}`;
+  const formattedTime = now ? now.toFormat("h:mm a").toLowerCase() : "--";
+  const formattedDate = now ? now.toFormat("dd LLL").toLowerCase() : "--";
+  const gmtOffset = now ? `GMT${now.offset >= 0 ? "+" : ""}${now.offset / 60}` : "--";
 
-  const hour = now.hour + now.minute / 60;
+  const hour = now ? now.hour + now.minute / 60 : 0;
   const markerPosition = (hour / 24) * 100;
 
   return (
@@ -66,18 +69,20 @@ export default function TimeZoneCard({ city = "berlin" }: TimeZoneCardProps) {
           <span>12</span>
         </div>
 
-        <div
-          className="absolute bottom-0"
-          style={{
-            left: `${markerPosition}%`,
-            transform: "translateX(-50%)",
-            width: "1px",
-            height: "56px",
-            backgroundColor: "var(--color-text-tertiary)",
-          }}
-        >
-          <div className="absolute bottom-full left-1/2 size-2 bg-brand rounded-full -translate-x-1/2" />
-        </div>
+        {now && (
+          <div
+            className="absolute bottom-0"
+            style={{
+              left: `${markerPosition}%`,
+              transform: "translateX(-50%)",
+              width: "1px",
+              height: "56px",
+              backgroundColor: "var(--color-text-tertiary)",
+            }}
+          >
+            <div className="absolute bottom-full left-1/2 size-2 bg-brand rounded-full -translate-x-1/2" />
+          </div>
+        )}
       </div>
     </div>
   );
