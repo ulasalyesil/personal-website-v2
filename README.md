@@ -12,17 +12,13 @@ Framer Motion for declarative animations.
 
 Structure
 
-app/ – pages and layouts for the App Router.
+app/ – App Router pages in two route groups: (main) for home, about, works, bookmarks, and lab, and (case-study) with one folder per case study.
 
-components/ – reusable React components.
+components/ – reusable React components; components/lab/ is the interactive lab canvas.
 
-public/data/ – JSON data files, such as:
+public/data/ – JSON data files: projects.json (case-study metadata for home/works) and others.json (secondary works list).
 
-projects.json – metadata for showcased projects.
-
-experience.json – timeline data for work history.
-
-uiShots.json – configuration for the UI shots carousel.
+data/experience.ts – typed work-history data (rendered on the about page).
 
 public/images/ – static images and other assets used by the site.
 
