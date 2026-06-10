@@ -21,7 +21,7 @@
     "framer-motion": "^12.23.6",
     "lucide-react": "^0.577.0",
     "luxon": "^3.7.1",
-    "next": "15.4.10",
+    "next": "15.5.19",
     "postcss": "8.4.26",
     "react": "^19.1.0",
     "react-aria-components": "^1.10.1",
@@ -39,7 +39,7 @@
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.31.0",
-    "eslint-config-next": "^15.4.1",
+    "eslint-config-next": "^15.5.19",
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.3"
