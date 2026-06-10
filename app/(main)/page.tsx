@@ -8,7 +8,9 @@ import projectsData from "@/public/data/projects.json";
 import wisecareaCover from "@/public/images/wisecare/wisecare_cover.webp";
 import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
-import gacCover from "@/public/images/goodafternoon/gacWeb2.webp";
+// TODO: replace with the real cover once exported.
+// import gfDarkCover from "@/public/images/getirfinans-dark-mode/cover.webp";
+import gfDarkCover from "@/public/images/wisecare/wisecare_cover.webp"; // PLACEHOLDER
 import type { FeaturedProject } from "@/types";
 
 const featured: FeaturedProject[] = [
@@ -34,11 +36,11 @@ const featured: FeaturedProject[] = [
     cover: qbCover,
   },
   {
-    slug: "good-afternoon-creative",
-    title: "Good Afternoon Creative",
+    slug: "getirfinans-dark-mode",
+    title: "GetirFinans Dark Mode",
     description:
-      "Building a branded portfolio site for an Istanbul-based creative agency to showcase their work.",
-    cover: gacCover,
+      "Rebuilding the color foundation of a live fintech app — a dark mode sprint that surfaced design system debt and forced the architecture to catch up.",
+    cover: gfDarkCover,
   },
 ];
 

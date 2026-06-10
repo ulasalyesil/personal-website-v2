@@ -32,6 +32,17 @@ export default function CaseStudyLayout({
 
       <div className="mt-12 space-y-6 text-base text-text-secondary font-mono leading-relaxed">
         {contentBlocks.map((block, index) => {
+          if (block.type === "heading") {
+            return (
+              <h2
+                key={index}
+                className="pt-6 text-xl font-semibold tracking-tight text-text-primary first:pt-0"
+              >
+                {block.text}
+              </h2>
+            );
+          }
+
           if (block.type === "text") {
             return (
               <p key={index} className="text-pretty">

@@ -23,6 +23,11 @@ export interface FeaturedProject {
 
 // ─── Case study content blocks ─────────────────────────────────────────────────
 
+export interface HeadingBlock {
+  type: "heading";
+  text: string;
+}
+
 export interface TextBlock {
   type: "text";
   text: string;
@@ -44,7 +49,7 @@ export interface GalleryBlock {
   items: GalleryItem[];
 }
 
-export type ContentBlock = TextBlock | ImageBlock | GalleryBlock;
+export type ContentBlock = HeadingBlock | TextBlock | ImageBlock | GalleryBlock;
 
 // ─── Work experience ───────────────────────────────────────────────────────────
 
