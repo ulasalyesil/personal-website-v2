@@ -680,3 +680,36 @@ Bookmarks page (`app/(main)/bookmarks/page.tsx`):
      current employer shows orange pulse, skill tags use `Pill` style
 - E: Navigate between pages — sections fade+slide in; enable OS "Reduce Motion" →
      no animations fire; check both light and dark mode
+
+---
+
+## 2026-06-11 — Execution day (advisor plans + dark mode images)
+
+Full plan files live in `plans/` (written 2026-06-10 against `cae30f1`); `plans/README.md` is the index. Run sheet:
+
+### 1. Dark mode images (Ulaş — first, unblocks the WIP commit)
+
+**Spec: 2560 × 1600 px (16:10), WebP** — matches every existing case-study cover exactly (`wisecare_cover.webp`, `fsi_cover.webp` are 2560×1600), and the homepage card crops to `aspect-[16/10]`, so a 16:10 cover displays uncropped there. In-article images render in a ~976px column (next/image downscales), so 2560 covers 2x retina with headroom. Mock all 8 at the same size:
+
+- [ ] `public/images/getirfinans-dark-mode/cover.webp` (doubles as homepage featured cover)
+- [ ] `public/images/getirfinans-dark-mode/legacy-vs-new.webp`
+- [ ] `public/images/getirfinans-dark-mode/token-structure.webp`
+- [ ] `public/images/getirfinans-dark-mode/fx-chart.webp`
+- [ ] `public/images/getirfinans-dark-mode/ai-components.webp`
+- [ ] `public/images/getirfinans-dark-mode/docs-website.webp`
+- [ ] `public/images/getirfinans-dark-mode/bottom-sheet.webp`
+
+(7 files; cover is used twice.) Then swap the 7 PLACEHOLDER imports in `app/(case-study)/getirfinans-dark-mode/page.tsx:12-18` and the 1 in `app/(main)/page.tsx` (TODO comments give exact paths), and **commit the WIP** — several plan drift-checks want a clean tree.
+
+### 2. Execute advisor plans (in batches, executor + review per plan)
+
+- [ ] Batch 1 — quick wins (~45–60 min): plans 001 (CI), 002 (Next 15.5.x), 003 (lab wheel), 004 (TimeZoneCard hydration), 005 (drop react-aria-components), 007 (dead data + README). Note: 002/005 touch the lockfile — run sequentially.
+- [ ] Batch 2 (~30 min): plan 006 (Vitest + scatter characterization tests).
+- [ ] Batch 3 (~30–40 min, sequential — same file): plan 008 (hover words touch/keyboard), plan 010 **SHIP branch** (WorkExperience; content specified in the plan — current employer Getir Finans).
+- [ ] Batch 4 (~20 min): plan 009 (case-study metadata + sitemap + robots).
+- [ ] If time allows: plan 011 (case-study dialog spike — wisecareai only, ends in a recommendation, not a rollout).
+
+### Backlog — do NOT start
+
+- [ ] **AI assistant case study** — new case study to be added. Waiting on Ulaş's plan/brief; advisor writes the implementation plan only when the brief arrives. (Recorded 2026-06-10.)
+- [ ] **Site-wide image + performance checkup** — full audit of every image (format, dimensions vs. rendered size, `sizes`, lazy/priority, weight) and overall performance with a native-feel-on-mobile bar (interaction latency, scroll, animation cost, bundle, fonts). **Run AFTER execution day** — auditing now would measure placeholder images and a dirty tree. Invoke as `/improve perf` once images are committed and plans 001–010 landed. (Recorded 2026-06-10.)
