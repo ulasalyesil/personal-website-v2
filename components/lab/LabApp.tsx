@@ -77,14 +77,17 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
     } catch {}
   }, [selected]);
 
-  // Body scroll lock + keyboard/wheel/swipe cycling
+  // Body scroll lock + keyboard/wheel/swipe cycling.
+  // Keyed on isOpen (not selected) so wheelLock/wheelAccum survive cycling.
+  const isOpen = selected != null;
   useEffect(() => {
-    if (selected == null) return;
+    if (!isOpen) return;
     document.body.style.overflow = "hidden";
 
     let wheelLock = false;
     let wheelAccum = 0;
     let wheelResetTimer: ReturnType<typeof setTimeout> | null = null;
+    let wheelLockTimer: ReturnType<typeof setTimeout> | null = null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
       else if (["ArrowDown", "ArrowRight", "j"].includes(e.key)) {
@@ -108,7 +111,7 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
         wheelLock = true;
         cycle(wheelAccum > 0 ? "next" : "prev");
         wheelAccum = 0;
-        setTimeout(() => {
+        wheelLockTimer = setTimeout(() => {
           wheelLock = false;
         }, 380);
       }
@@ -119,8 +122,10 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("wheel", onWheel);
+      if (wheelResetTimer) clearTimeout(wheelResetTimer);
+      if (wheelLockTimer) clearTimeout(wheelLockTimer);
     };
-  }, [selected, cycle, close]);
+  }, [isOpen, cycle, close]);
 
   const touchRef = useRef({ x: 0, y: 0, t: 0 });
   const onTouchStart = (e: React.TouchEvent) => {
