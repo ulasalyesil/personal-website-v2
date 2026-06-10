@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -50,18 +50,41 @@ interface HoverableWordProps {
   contentType: HoverKey;
   onHover: (key: HoverKey) => void;
   onLeave: () => void;
+  onPeek: (key: HoverKey) => void;
+  peekedKey: HoverKey | null;
   link: string;
 }
 
-const HoverableWord = ({ word, contentType, onHover, onLeave, link }: HoverableWordProps) => (
+const HoverableWord = ({
+  word,
+  contentType,
+  onHover,
+  onLeave,
+  onPeek,
+  peekedKey,
+  link,
+}: HoverableWordProps) => (
   <Link
     href={link}
     target="_blank"
+    rel="noopener noreferrer"
+    data-hover-word
     className="relative inline-block group"
     onMouseEnter={() => onHover(contentType)}
     onMouseLeave={onLeave}
+    onFocus={() => onHover(contentType)}
+    onBlur={onLeave}
+    onClick={(e) => {
+      // Touch (hover-none) devices: first tap peeks, second tap follows the
+      // link. Mouse users hover first, so click-through stays native.
+      if (window.matchMedia("(hover: none)").matches && peekedKey !== contentType) {
+        e.preventDefault();
+        onHover(contentType);
+        onPeek(contentType);
+      }
+    }}
   >
-    <span className="absolute inset-0 bg-brand rounded-md scale-x-110 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+    <span className="absolute inset-0 bg-brand rounded-md scale-x-110 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-150" />
     <span className="relative z-10">{word}</span>
   </Link>
 );
@@ -76,7 +99,9 @@ const paragraphs = [
 function processText(
   text: string,
   onWordHover: (key: HoverKey) => void,
-  onWordLeave: () => void
+  onWordLeave: () => void,
+  onWordPeek: (key: HoverKey) => void,
+  peekedKey: HoverKey | null
 ): React.ReactNode[] {
   const words = Object.keys(hoverContent) as HoverKey[];
   const pattern = new RegExp(`(${words.join("|")})`, "gi");
@@ -96,6 +121,8 @@ function processText(
           link={hoverContent[matchedWord].link}
           onHover={onWordHover}
           onLeave={onWordLeave}
+          onPeek={onWordPeek}
+          peekedKey={peekedKey}
         />
       );
     }
@@ -105,9 +132,25 @@ function processText(
 
 export default function About() {
   const [activeContentType, setActiveContentType] = useState<HoverKey | null>(null);
+  const [peeked, setPeeked] = useState<HoverKey | null>(null);
 
   const handleWordHover = (contentType: HoverKey) => setActiveContentType(contentType);
   const handleWordLeave = () => setActiveContentType(null);
+  const handleWordPeek = (contentType: HoverKey) => setPeeked(contentType);
+
+  // While a word is peeked (touch), tapping anywhere outside a hover word
+  // dismisses the card and resets the peek.
+  useEffect(() => {
+    if (peeked == null) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!(e.target as Element | null)?.closest?.("[data-hover-word]")) {
+        setPeeked(null);
+        setActiveContentType(null);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [peeked]);
 
   const ContentComponent =
     activeContentType && hoverContent[activeContentType]
@@ -135,7 +178,7 @@ export default function About() {
               key={index}
               className="text-text-primary text-2xl md:text-3xl text-pretty"
             >
-              {processText(text, handleWordHover, handleWordLeave)}
+              {processText(text, handleWordHover, handleWordLeave, handleWordPeek, peeked)}
             </p>
           ))}
 
