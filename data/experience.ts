@@ -2,6 +2,31 @@ import type { ExperienceItem } from "@/types";
 
 export const experience: ExperienceItem[] = [
   {
+    id: "getir-finans",
+    companyName: "Getir Finans",
+    isCurrentEmployer: true,
+    positions: [
+      {
+        id: "getir-product-designer",
+        title: "Product Designer",
+        employmentPeriod: "2025 — Present",
+        employmentType: "Full-time",
+        description:
+          "Designing features and owning the design system for Turkey's leading service banking app. Rebuilt the color foundation and shipped dark mode via a two-tier token system.",
+        skills: ["Product Design", "Design Systems", "Figma", "Dark Mode"],
+      },
+      {
+        id: "getir-senior",
+        title: "Senior Product Designer",
+        employmentPeriod: "2022 — 2024",
+        employmentType: "Full-time",
+        description:
+          "Led product design for fintech features including BNPL, virtual cards, and spending insights. Owned design system components and collaborated closely with engineering teams.",
+        skills: ["Fintech", "iOS & Android", "Design Systems", "Figma"],
+      },
+    ],
+  },
+  {
     id: "wisecare",
     companyName: "WiseCareAI",
     isCurrentEmployer: false,
@@ -18,24 +43,8 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    id: "getir-finans",
-    companyName: "Getir Finans",
-    positions: [
-      {
-        id: "getir-senior",
-        title: "Senior Product Designer",
-        employmentPeriod: "2022 — 2024",
-        employmentType: "Full-time",
-        description:
-          "Led product design for fintech features including BNPL, virtual cards, and spending insights. Owned design system components and collaborated closely with engineering teams.",
-        skills: ["Fintech", "iOS & Android", "Design Systems", "Figma"],
-      },
-    ],
-  },
-  {
     id: "freelance",
     companyName: "Freelance",
-    isCurrentEmployer: true,
     positions: [
       {
         id: "freelance-designer",

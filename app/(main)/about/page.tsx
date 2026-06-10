@@ -190,9 +190,9 @@ export default function About() {
         </div>
       </AnimateItem>
 
-      {/* <AnimateItem>
+      <AnimateItem>
         <WorkExperience items={experience} />
-      </AnimateItem> */}
+      </AnimateItem>
     </AnimateIn>
   );
 }
