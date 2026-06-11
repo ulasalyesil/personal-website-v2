@@ -16,6 +16,19 @@ export type LabItem = {
 
 export const LAB_ITEMS: LabItem[] = [
   {
+    slug: "sidebar-stack",
+    title: "Sidebar stack",
+    tag: "prototype",
+    date: "jun 2026",
+    frame: "safari",
+    url: "lab.ulasalyesil.com/sidebar-stack",
+    preview: "sidebar-stack",
+    w: 460,
+    h: 300,
+    blurb:
+      "Layered nav study: the page sits on the menu as a card. Toggling slides the whole content plane aside on a spring and settles it at 95% — depth instead of a drawer. The sidebar deliberately ignores the theme toggle; the content layer owns it. If it holds up, this becomes the site's real navigation.",
+  },
+  {
     slug: "scroll-field",
     title: "Scroll field",
     tag: "code",

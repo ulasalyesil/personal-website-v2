@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import SidebarStack from "@/components/sidebar-stack/SidebarStack";
 
 const BRAND = "var(--color-brand)";
 
@@ -366,10 +367,21 @@ export function PreviewEaseViz({ active, compact }: PreviewProps) {
   );
 }
 
+export function PreviewSidebarStack({ active, compact }: PreviewProps) {
+  // Card (compact): auto-playing open/close loop while hovered, no buttons —
+  // LabCard wraps previews in a <button>. Modal: fully interactive.
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+      <SidebarStack compact={compact} autoplay={compact} paused={!active} />
+    </div>
+  );
+}
+
 export const LAB_PREVIEWS: Record<
   string,
   (props: PreviewProps) => React.ReactElement
 > = {
+  "sidebar-stack": PreviewSidebarStack,
   "scroll-field": PreviewScrollField,
   "wave-study": PreviewWaveStudy,
   "time-card": PreviewTimeCard,
