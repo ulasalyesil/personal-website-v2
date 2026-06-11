@@ -703,11 +703,11 @@ Full plan files live in `plans/` (written 2026-06-10 against `cae30f1`); `plans/
 
 ### 2. Execute advisor plans (in batches, executor + review per plan)
 
-- [ ] Batch 1 — quick wins (~45–60 min): plans 001 (CI), 002 (Next 15.5.x), 003 (lab wheel), 004 (TimeZoneCard hydration), 005 (drop react-aria-components), 007 (dead data + README). Note: 002/005 touch the lockfile — run sequentially.
-- [ ] Batch 2 (~30 min): plan 006 (Vitest + scatter characterization tests).
-- [ ] Batch 3 (~30–40 min, sequential — same file): plan 008 (hover words touch/keyboard), plan 010 **SHIP branch** (WorkExperience; content specified in the plan — current employer Getir Finans).
-- [ ] Batch 4 (~20 min): plan 009 (case-study metadata + sitemap + robots).
-- [ ] If time allows: plan 011 (case-study dialog spike — wisecareai only, ends in a recommendation, not a rollout).
+- [x] Batch 1 — quick wins (~45–60 min): plans 001 (CI), 002 (Next 15.5.x), 003 (lab wheel), 004 (TimeZoneCard hydration), 005 (drop react-aria-components), 007 (dead data + README). Note: 002/005 touch the lockfile — run sequentially.
+- [x] Batch 2 (~30 min): plan 006 (Vitest + scatter characterization tests).
+- [x] Batch 3 (~30–40 min, sequential — same file): plan 008 (hover words touch/keyboard), plan 010 **SHIP branch** (WorkExperience; content specified in the plan — current employer Getir Finans).
+- [x] Batch 4 (~20 min): plan 009 (case-study metadata + sitemap + robots).
+- [x] Plan 011 (case-study dialog spike — wisecareai only). DONE — recommends Option A (intercepting routes); see `plans/011-spike-findings.md`. Rollout to the other 6 case studies awaits Ulaş accepting the recommendation.
 
 ### Backlog — do NOT start
 
