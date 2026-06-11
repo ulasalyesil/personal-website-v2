@@ -2,7 +2,13 @@ import Header from "@/components/Header";
 import MobileTabBar from "@/components/MobileTabBar";
 import Footer from "@/components/Footer";
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default function MainLayout({
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <div className="flex flex-col min-h-dvh">
       <Header />
@@ -11,6 +17,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </main>
       <Footer />
       <MobileTabBar />
+      {modal}
     </div>
   );
 }
