@@ -709,6 +709,25 @@ Full plan files live in `plans/` (written 2026-06-10 against `cae30f1`); `plans/
 - [x] Batch 4 (~20 min): plan 009 (case-study metadata + sitemap + robots).
 - [x] Plan 011 (case-study dialog spike — wisecareai only). DONE — recommends Option A (intercepting routes); see `plans/011-spike-findings.md`. Rollout to the other 6 case studies awaits Ulaş accepting the recommendation.
 
+### Sidebar stack → real site nav (2026-06-11, decided with Ulaş)
+
+Decisions: replaces BOTH desktop tabs and mobile tab bar; nav only (no theme
+toggle yet); (main) pages only — case studies keep the Back shell.
+
+- [x] `components/sidebar-stack/motion.ts` — shared spring (300/30), used by demo + site
+- [x] `components/sidebar-stack/SiteNavShell.tsx` — client shell: fixed charcoal
+      sidebar (base layer) + content plane (header w/ brand dot + MENU, children,
+      footer) that springs translateX(sidebar)+scale(0.95); scroll-centered
+      transform origin; click-plane-to-close overlay; Esc; body scroll lock;
+      focus to first nav item on open, back to MENU on close; reduced-motion instant
+- [x] `app/(main)/layout.tsx` — render shell; keep `{modal}` slot OUTSIDE the
+      transformed plane (transformed ancestors break position:fixed)
+- [x] Delete dead nav: Header.tsx, Tabs.tsx, MobileTabBar.tsx, hooks/useScrolled.ts
+- [x] Verify: open spring + design + Esc/overlay/focus/a11y states verified;
+      gate green. STILL OWED (preview window was hidden → rAF paused): visual
+      pass of motion feel, soft-nav close behavior, case-study dialog over the
+      new shell, mobile open-state — needs a visible browser window.
+
 ### Backlog — do NOT start
 
 - [ ] **AI assistant case study** — new case study to be added. Waiting on Ulaş's plan/brief; advisor writes the implementation plan only when the brief arrives. (Recorded 2026-06-10.)

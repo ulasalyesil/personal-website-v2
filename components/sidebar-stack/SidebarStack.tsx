@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { STACK_SPRING, STACK_SCALE } from "./motion";
 import styles from "./SidebarStack.module.css";
 
 const SECTIONS = [
@@ -113,9 +114,7 @@ export default function SidebarStack({
   };
 
   // Reduced motion: skip the slide/scale entirely — instant state change.
-  const spring = reduceMotion
-    ? { duration: 0 }
-    : ({ type: "spring", stiffness: 300, damping: 30 } as const);
+  const spring = reduceMotion ? { duration: 0 } : STACK_SPRING;
   const fade = reduceMotion
     ? { duration: 0 }
     : ({ duration: 0.18, ease: "easeOut" } as const);
@@ -173,7 +172,7 @@ export default function SidebarStack({
         className={styles.content}
         data-theme={theme}
         initial={false}
-        animate={{ x: isOpen ? sidebarWidth : 0, scale: isOpen ? 0.95 : 1 }}
+        animate={{ x: isOpen ? sidebarWidth : 0, scale: isOpen ? STACK_SCALE : 1 }}
         transition={spring}
       >
         <header className={styles.header}>

@@ -1,6 +1,5 @@
-import Header from "@/components/Header";
-import MobileTabBar from "@/components/MobileTabBar";
 import Footer from "@/components/Footer";
+import SiteNavShell from "@/components/sidebar-stack/SiteNavShell";
 
 export default function MainLayout({
   children,
@@ -10,14 +9,16 @@ export default function MainLayout({
   modal: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-dvh">
-      <Header />
-      <main className="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-6 pt-8 pb-28 sm:pt-32 sm:pb-0">
-        {children}
-      </main>
-      <Footer />
-      <MobileTabBar />
+    <>
+      <SiteNavShell>
+        <main className="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-6 pt-8 pb-12 sm:pt-32 sm:pb-0">
+          {children}
+        </main>
+        <Footer />
+      </SiteNavShell>
+      {/* Overlays stay outside the shell: the plane is transformed while the
+          menu is open, and a transformed ancestor breaks position:fixed. */}
       {modal}
-    </div>
+    </>
   );
 }
