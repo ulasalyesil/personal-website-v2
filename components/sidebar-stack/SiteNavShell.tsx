@@ -175,7 +175,9 @@ export default function SiteNavShell({ children }: { children: React.ReactNode }
               opacity: 0.8,
             }}
           />
-          <div className="relative pointer-events-auto w-full max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          {/* MENU sits left, on the plane's leading edge — it stays on-screen
+              and adjacent to the revealed nav when the plane slides right. */}
+          <div className="relative pointer-events-auto w-full max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-4">
             <Link
               href="/"
               onClick={() => triggerHaptic("selection")}
