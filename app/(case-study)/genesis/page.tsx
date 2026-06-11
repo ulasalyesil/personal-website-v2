@@ -12,6 +12,18 @@ import img10 from '@/public/images/genesis/10.jpg';
 import img11 from '@/public/images/genesis/11.jpg';
 import img12 from '@/public/images/genesis/12.webp';
 // img13 and img14 exist but are not currently used in the gallery
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Genesis: Digital Revolution — Ulaş Alyeşil',
+  description:
+    'Art direction for an audio-visual live show concept: generative visuals created from sonic data for a Sonar × DGTL collaboration.',
+  openGraph: {
+    title: 'Genesis: Digital Revolution — Ulaş Alyeşil',
+    description: 'Audio-visual live show concept with generative visuals from sonic data.',
+    images: [{ url: img1.src }],
+  },
+};
 
 export default function GenesisCase() {
   return (

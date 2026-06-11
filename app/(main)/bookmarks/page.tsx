@@ -4,6 +4,8 @@ import AnimateIn, { AnimateItem } from "@/components/AnimateIn";
 import { NotionLogoIcon } from "@radix-ui/react-icons";
 import Cosmos from "@/public/icons/contactIcons/cosmos";
 
+export const metadata = { title: "Bookmarks — Ulaş Alyeşil" };
+
 export default function Bookmarks() {
   return (
     <AnimateIn className="flex flex-col gap-4">

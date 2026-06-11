@@ -8,6 +8,18 @@ import marketing from "@/public/images/wisecare/marketing.webp";
 import plans from "@/public/images/wisecare/plan_selection.webp";
 import plans2 from "@/public/images/wisecare/plans.webp";
 import wizard from "@/public/images/wisecare/wizard.webp";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "WiseCareAI — Ulaş Alyeşil",
+  description:
+    "End-to-end product design for a US health-insurance platform: design system, agent tools, and AI-augmented enrollment workflows.",
+  openGraph: {
+    title: "WiseCareAI — Ulaş Alyeşil",
+    description: "End-to-end product design for a US health-insurance platform.",
+    images: [{ url: cover.src }],
+  },
+};
 
 export default function WiseCareAICase() {
   return (

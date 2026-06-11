@@ -3,6 +3,18 @@ import banner from "@/public/images/goodafternoon/banner.webp";
 import gacWeb from "@/public/images/goodafternoon/gacWeb.webp";
 import gacContent from "./gacContent.json";
 import type { TextBlock } from "@/types";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Good Afternoon Creative — Ulaş Alyeşil",
+  description:
+    "Web design and development for an Istanbul brand-design agency building its online presence and portfolio.",
+  openGraph: {
+    title: "Good Afternoon Creative — Ulaş Alyeşil",
+    description: "Web design and development for an Istanbul brand-design agency.",
+    images: [{ url: banner.src }],
+  },
+};
 
 export default function Page() {
   return (

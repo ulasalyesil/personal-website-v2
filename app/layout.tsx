@@ -1,9 +1,11 @@
 import GoogleAnalytics from "@bradgarropy/next-google-analytics/";
 import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
 import "../styles/globals.css";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://ulasalyesil.com"),
   title: "Ulaş Alyeşil | Product Designer",
   description: "Product designer focused on clear interfaces, useful tools, and creative technology.",
 };

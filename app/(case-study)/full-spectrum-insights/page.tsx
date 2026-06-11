@@ -1,6 +1,18 @@
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import fsiWeb from "@/public/images/fsi/fsi_web.webp";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Full Spectrum Insights — Ulaş Alyeşil",
+  description:
+    "Web design and Framer development for a consultancy pivoting to AI-assisted insight workflows — clear problems, concrete demos, measured outcomes.",
+  openGraph: {
+    title: "Full Spectrum Insights — Ulaş Alyeşil",
+    description: "Web design and Framer development for an AI-focused consultancy.",
+    images: [{ url: fsiCover.src }],
+  },
+};
 
 export default function FullSpectrumInsightsCase() {
   return (

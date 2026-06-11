@@ -7,6 +7,18 @@ import commodore1 from '@/public/images/commodoreImages/commodore1.jpg';
 import commodore2 from '@/public/images/commodoreImages/commodore2.jpg';
 import commodore3 from '@/public/images/commodoreImages/commodore3.jpg';
 import commodore4 from '@/public/images/commodoreImages/commodore4.jpg';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Commodore Z Glass — Ulaş Alyeşil',
+  description:
+    'Rebranding Commodore for a concept product: logo, color, typography, web design, posters, and motion graphics.',
+  openGraph: {
+    title: 'Commodore Z Glass — Ulaş Alyeşil',
+    description: 'Rebranding Commodore for a concept product launch.',
+    images: [{ url: commodoreLanding.src }],
+  },
+};
 
 export default function CommodoreCase() {
   return (

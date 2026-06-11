@@ -4,6 +4,18 @@ import uxrSlide from '@/public/images/quickbooks/slide.jpg';
 import mapper from '@/public/images/quickbooks/mapper.webp';
 import actions from '@/public/images/quickbooks/actions.webp';
 import createCustomer from '@/public/images/quickbooks/createCustomer.webp';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Jotform | QuickBooks Integration — Ulaş Alyeşil',
+  description:
+    'Product design for Jotform’s QuickBooks integration: automating invoices and customer records without setup friction.',
+  openGraph: {
+    title: 'Jotform | QuickBooks Integration — Ulaş Alyeşil',
+    description: 'Product design for Jotform’s QuickBooks integration.',
+    images: [{ url: cover.src }],
+  },
+};
 
 export default function QuickBooksIntegrationCase() {
   return (
