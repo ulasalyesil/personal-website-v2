@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import CaseStudyTitle from "@/components/CaseStudyTitle";
-import type { ContentBlock } from "@/types";
+import type { ContentBlock, GalleryItem } from "@/types";
 
 interface CaseStudyLayoutProps {
   title: string;
@@ -11,6 +11,7 @@ interface CaseStudyLayoutProps {
   contentBlocks: ContentBlock[];
   websiteUrl?: string;
   slug?: string;
+  customComponents?: Record<string, React.ReactNode>;
 }
 
 export default function CaseStudyLayout({
@@ -21,6 +22,7 @@ export default function CaseStudyLayout({
   contentBlocks,
   websiteUrl,
   slug,
+  customComponents,
 }: CaseStudyLayoutProps) {
   const firstImageIndex = contentBlocks.findIndex(
     (block) => block.type === "image",
@@ -30,7 +32,7 @@ export default function CaseStudyLayout({
     <article>
       <CaseStudyTitle title={title} date={date} company={company} role={role} />
 
-      <div className="mt-12 space-y-6 text-base text-text-secondary font-mono leading-relaxed">
+      <div className="mt-12 space-y-6 text-base text-text-secondary leading-relaxed">
         {contentBlocks.map((block, index) => {
           if (block.type === "heading") {
             return (
@@ -74,7 +76,7 @@ export default function CaseStudyLayout({
           if (block.type === "gallery") {
             return (
               <div key={index} className="grid grid-cols-2 gap-3">
-                {block.items.map((img, idx) => (
+                {block.items.map((img: GalleryItem, idx: number) => (
                   <div
                     key={idx}
                     className="rounded-lg overflow-hidden bg-surface-1"
@@ -86,6 +88,14 @@ export default function CaseStudyLayout({
                     />
                   </div>
                 ))}
+              </div>
+            );
+          }
+
+          if (block.type === "custom") {
+            return (
+              <div key={index} className="w-full">
+                {customComponents?.[block.id]}
               </div>
             );
           }

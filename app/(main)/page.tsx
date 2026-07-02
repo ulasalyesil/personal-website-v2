@@ -8,9 +8,7 @@ import projectsData from "@/public/data/projects.json";
 import wisecareaCover from "@/public/images/wisecare/wisecare_cover.webp";
 import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
-// TODO: replace with the real cover once exported.
-// import gfDarkCover from "@/public/images/getirfinans-dark-mode/cover.webp";
-import gfDarkCover from "@/public/images/wisecare/wisecare_cover.webp"; // PLACEHOLDER
+import gfDarkCover from "@/public/images/getirfinans-dark-mode/cover.webp";
 import type { FeaturedProject } from "@/types";
 
 const featured: FeaturedProject[] = [

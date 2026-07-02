@@ -1,23 +1,28 @@
 import CaseStudyLayout from "@/components/CaseStudyLayout";
+import {
+  TokenExplorer,
+  ComponentSandbox,
+  ColorGrid,
+  CodeSwitcher,
+  FxChartSimulator,
+  BottomSheetSimulator,
+  AiComponentPreview,
+} from "./components";
 
-// TODO: replace each placeholder with the real exported image.
-// Real paths (create these files, then swap the import below):
-//   import cover from "@/public/images/getirfinans-dark-mode/cover.webp";
-//   import legacyVsNew from "@/public/images/getirfinans-dark-mode/legacy-vs-new.webp";
-//   import tokenStructure from "@/public/images/getirfinans-dark-mode/token-structure.webp";
-//   import fxChart from "@/public/images/getirfinans-dark-mode/fx-chart.webp";
-//   import aiComponents from "@/public/images/getirfinans-dark-mode/ai-components.webp";
-//   import docsWebsite from "@/public/images/getirfinans-dark-mode/docs-website.webp";
-//   import bottomSheet from "@/public/images/getirfinans-dark-mode/bottom-sheet.webp";
-import cover from "@/public/images/wisecare/cover.webp"; // PLACEHOLDER
-import legacyVsNew from "@/public/images/wisecare/form.webp"; // PLACEHOLDER
-import tokenStructure from "@/public/images/wisecare/init.webp"; // PLACEHOLDER
-import fxChart from "@/public/images/wisecare/plan_selection.webp"; // PLACEHOLDER
-import aiComponents from "@/public/images/wisecare/ai_found.webp"; // PLACEHOLDER
+// For static assets that are still screenshots
 import docsWebsite from "@/public/images/wisecare/marketing.webp"; // PLACEHOLDER
-import bottomSheet from "@/public/images/wisecare/wizard.webp"; // PLACEHOLDER
 
 export default function GetirFinansDarkModeCase() {
+  const customComponents = {
+    "palette-grid": <ColorGrid />,
+    "token-explorer": <TokenExplorer />,
+    "code-switcher": <CodeSwitcher />,
+    "fx-chart": <FxChartSimulator />,
+    "ai-components": <AiComponentPreview />,
+    "bottom-sheet": <BottomSheetSimulator />,
+    "component-sandbox": <ComponentSandbox />,
+  };
+
   return (
     <CaseStudyLayout
       slug="getirfinans-dark-mode"
@@ -25,14 +30,15 @@ export default function GetirFinansDarkModeCase() {
       date="2025 — 2026"
       company="GetirFinans"
       role="Product Designer"
+      customComponents={customComponents}
       contentBlocks={[
         // ── Context ──────────────────────────────────────────────
         {
           type: "text",
           text: "GetirFinans started as a product inside the Getir super-app — light mode only, built on a flat set of named color variables with no semantic layer. When we built the standalone app, we needed dark mode. But to do dark mode properly, we needed a system first.",
         },
-        // Image: light/dark side-by-side of a key screen, or the new bottom sheet.
-        { type: "image", src: cover, alt: "GetirFinans key screen in light and dark mode" },
+        // Interactive: light/dark side-by-side color token grid.
+        { type: "custom", id: "palette-grid" },
 
         // ── The Legacy System ────────────────────────────────────
         { type: "heading", text: "The Legacy System" },
@@ -40,8 +46,8 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "The starting color system was a flat list: Getir-Primary, GraySecondary, PalePurple, FintechGreen. Names described visual properties, not intent. No primitive/semantic separation. No mode awareness. It worked well enough for a single-mode app living inside a larger shell.",
         },
-        // Image: before/after — flat legacy color variables vs. new semantic naming.
-        { type: "image", src: legacyVsNew, alt: "Flat legacy color variables versus new semantic naming" },
+        // Interactive: Do vs. Don't Code Switcher.
+        { type: "custom", id: "code-switcher" },
 
         // ── The Brief Was the Wrong Model ────────────────────────
         { type: "heading", text: "The Brief Was the Wrong Model" },
@@ -72,8 +78,8 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "One exception: bg/ai/* — an isolated namespace for AI components. The existing semantic tokens conflated AI surfaces with error/success states, which broke visually in dark mode. Isolation was the cleaner fix than trying to redefine shared tokens.",
         },
-        // Image: two-tier token diagram — primitive → semantic.
-        { type: "image", src: tokenStructure, alt: "Two-tier token diagram: primitive to semantic" },
+        // Interactive: token diagram / builder.
+        { type: "custom", id: "token-explorer" },
 
         // ── What Dark Mode Actually Required ──────────────────────
         { type: "heading", text: "What Dark Mode Actually Required" },
@@ -93,6 +99,8 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "Brand color — kept identical across modes. bg/action/primary maps to purple-dark.700 (#5D3EBC) in both light and dark. Brand is a mode-independent anchor. Most fintech dark modes oversaturate brand color on dark surfaces — the decision here was restraint.",
         },
+        // Interactive: Live Component Specifications Sandbox (Buttons & Inputs)
+        { type: "custom", id: "component-sandbox" },
 
         // ── Beyond the Token System ──────────────────────────────
         { type: "heading", text: "Beyond the Token System" },
@@ -112,8 +120,8 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "Lottie animations — dark mode color management is outside the token system. Required separate animation files or layer-level overrides. Android constraint: layers nested inside precomps don't support runtime color override.",
         },
-        // Image: FX line chart in light vs dark (conditional render case).
-        { type: "image", src: fxChart, alt: "FX line chart in light versus dark mode" },
+        // Interactive: FX Line Chart Simulator.
+        { type: "custom", id: "fx-chart" },
 
         // ── The Real Structural Problem ──────────────────────────
         { type: "heading", text: "The Real Structural Problem" },
@@ -140,8 +148,8 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "bg/ai/primary in dark mode is #2B2438 — a desaturated dark purple. Not an inversion of the light value. Dark AI surfaces needed to feel contained and premium, not just dark.",
         },
-        // Image: AI components (podcast cards) in dark mode.
-        { type: "image", src: aiComponents, alt: "AI podcast cards in dark mode" },
+        // Interactive: AI podcast and assistant cards.
+        { type: "custom", id: "ai-components" },
 
         // ── How It Shipped ───────────────────────────────────────
         { type: "heading", text: "How It Shipped" },
@@ -157,7 +165,7 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "Beyond the token system itself: facilitated sessions on token usage across the team, wrote implementation guidelines, educated other designers on the two-tier model, and built a documentation and education website at gf-design-system.vercel.app so the system had a living reference anyone could open.",
         },
-        // Image: screenshot of gf-design-system.vercel.app.
+        // Screenshot of the website.
         { type: "image", src: docsWebsite, alt: "GetirFinans design system documentation website" },
 
         // ── The Standout Screen ──────────────────────────────────
@@ -166,8 +174,8 @@ export default function GetirFinansDarkModeCase() {
           type: "text",
           text: "The new bottom sheet, designed after the token system shipped, is the clearest example of what the system enables. Every color decision is a semantic token reference — no hardcoded values, no one-off overrides. Light and dark modes are a single design file with a mode toggle. That's the difference between adapting a product to dark mode and building a product that understands it.",
         },
-        // Image: the new bottom sheet — standout screen.
-        { type: "image", src: bottomSheet, alt: "The new bottom sheet in light and dark mode" },
+        // Interactive: bottom sheet simulator.
+        { type: "custom", id: "bottom-sheet" },
 
         // ── Outcome ──────────────────────────────────────────────
         { type: "heading", text: "Outcome" },

@@ -49,7 +49,12 @@ export interface GalleryBlock {
   items: GalleryItem[];
 }
 
-export type ContentBlock = HeadingBlock | TextBlock | ImageBlock | GalleryBlock;
+export interface CustomBlock {
+  type: "custom";
+  id: string;
+}
+
+export type ContentBlock = HeadingBlock | TextBlock | ImageBlock | GalleryBlock | CustomBlock;
 
 // ─── Work experience ───────────────────────────────────────────────────────────
 
