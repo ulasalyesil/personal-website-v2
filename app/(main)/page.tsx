@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import ProjectGrid from "@/components/ProjectGrid";
+import LabTeaserCard from "@/components/LabTeaserCard";
 import Section from "@/components/Section";
 import AnimateIn, { AnimateItem } from "@/components/AnimateIn";
 
@@ -50,6 +51,10 @@ export default function HomePage() {
       </AnimateItem>
       <AnimateItem>
         <ProjectGrid projects={featured} />
+        {/* mt-4 matches the grid's gap-4 so the card reads as its last row. */}
+        <div className="mt-4">
+          <LabTeaserCard />
+        </div>
       </AnimateItem>
       <AnimateItem>
         <Section sectionTitle="All Projects" projects={projectsData} />
