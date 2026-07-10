@@ -32,5 +32,16 @@
   (state flips but styles freeze). Cost: ~45 min of false code-bisecting on
   2026-06-11 while building the site nav shell.
 
+- **Functional flows ARE testable in a hidden claude-in-chrome tab** (when no
+  visible window exists): hidden documents *skip* view transitions instead of
+  hanging, so soft navigation works — unlike the "visible-but-unpainted"
+  preview pane. Technique: set `window.__marker` before acting; if it's gone
+  afterwards, a full reload happened (that's how the double-close history bug
+  surfaced on 2026-07-10). Springs/AnimatePresence exits stay frozen (rAF),
+  so exiting panes linger — that's an artifact, not a bug. Motion *feel*
+  still needs a visible window. Also: don't `await` across a navigation
+  inside one `javascript_tool` call — the eval context dies and the click
+  degrades into a hard navigation.
+
 ## Project-Specific Notes
 <!-- Notes specific to this portfolio project -->

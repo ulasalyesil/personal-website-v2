@@ -727,8 +727,13 @@ toggle yet); (main) pages only — case studies keep the Back shell.
       gate green. STILL OWED (preview window was hidden → rAF paused): visual
       pass of motion feel, soft-nav close behavior, case-study dialog over the
       new shell, mobile open-state — needs a visible browser window.
+- [x] 2026-07-10: soft-nav close + case-study dialog verified FUNCTIONALLY
+      (hidden Chrome tab: dialog open/exit-anim/close, lab modal cycle, no
+      full reloads). Found + fixed a real bug: double close trigger popped
+      history twice (state guard → ref guard, commit 1666fda). STILL OWED:
+      motion *feel* pass with an actually visible window.
 
 ### Backlog — do NOT start
 
 - [ ] **AI assistant case study** — new case study to be added. Waiting on Ulaş's plan/brief; advisor writes the implementation plan only when the brief arrives. (Recorded 2026-06-10.)
-- [ ] **Site-wide image + performance checkup** — full audit of every image (format, dimensions vs. rendered size, `sizes`, lazy/priority, weight) and overall performance with a native-feel-on-mobile bar (interaction latency, scroll, animation cost, bundle, fonts). **Run AFTER execution day** — auditing now would measure placeholder images and a dirty tree. Invoke as `/improve perf` once images are committed and plans 001–010 landed. (Recorded 2026-06-10.)
+- [ ] **Site-wide image + performance checkup** — full audit of every image (format, dimensions vs. rendered size, `sizes`, lazy/priority, weight) and overall performance with a native-feel-on-mobile bar (interaction latency, scroll, animation cost, bundle, fonts). **Run AFTER execution day** — auditing now would measure placeholder images and a dirty tree. Invoke as `/improve perf` once images are committed and plans 001–010 landed. (Recorded 2026-06-10.) **2026-07-10: UNBLOCKED** — last placeholder swapped (0ed49c0), tree clean. Known lead: homepage LCP warning (wisecare cover missing `priority`).
