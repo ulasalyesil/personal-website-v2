@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { triggerHaptic } from "@/lib/haptics";
-import { STACK_SPRING, STACK_SCALE } from "./motion";
+import { STACK_SPRING, STACK_SCALE } from "@/lib/animations";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },

@@ -1,7 +1,11 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+
+// Mirrors .lab-modal-enter's duration — exit should match entrance for
+// symmetry rather than just cutting to nothing on close.
+const CLOSE_DURATION_MS = 260;
 
 export default function CaseStudyDialog({
   title,
@@ -11,9 +15,24 @@ export default function CaseStudyDialog({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const [closing, setClosing] = useState(false);
+  // Ref, not state: two close triggers in the same frame (Esc + scrim click,
+  // double Esc) both see stale `closing` and would each call router.back(),
+  // popping history one entry too far. A ref flips synchronously.
+  const closingRef = useRef(false);
 
   const close = useCallback(() => {
-    router.back();
+    if (closingRef.current) return;
+    closingRef.current = true;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion) {
+      router.back();
+      return;
+    }
+    setClosing(true);
+    setTimeout(() => router.back(), CLOSE_DURATION_MS);
   }, [router]);
 
   // Body scroll lock + Escape, the lab modal's conventions.
@@ -33,7 +52,7 @@ export default function CaseStudyDialog({
     <>
       <div
         onClick={close}
-        className="fixed inset-0 z-[95] lab-scrim"
+        className={`fixed inset-0 z-[95] ${closing ? "lab-scrim-exit" : "lab-scrim"}`}
         style={{
           background: "rgba(10,10,10,0.45)",
           backdropFilter: "blur(4px)",
@@ -45,7 +64,7 @@ export default function CaseStudyDialog({
           role="dialog"
           aria-modal="true"
           aria-label={title}
-          className="pointer-events-auto relative w-full max-w-5xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-xl bg-surface-0 border border-border-subtle lab-modal-enter"
+          className={`pointer-events-auto relative w-full max-w-5xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-xl bg-surface-0 border border-border-subtle ${closing ? "lab-modal-exit" : "lab-modal-enter"}`}
         >
           {/* Sticky, zero-height row so the close button stays pinned without
               reserving layout space above the content. */}

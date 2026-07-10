@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { STACK_SPRING, STACK_SCALE } from "./motion";
+import { STACK_SPRING, STACK_SCALE, FADE_FAST } from "@/lib/animations";
 import styles from "./SidebarStack.module.css";
 
 const SECTIONS = [
@@ -115,9 +115,7 @@ export default function SidebarStack({
 
   // Reduced motion: skip the slide/scale entirely — instant state change.
   const spring = reduceMotion ? { duration: 0 } : STACK_SPRING;
-  const fade = reduceMotion
-    ? { duration: 0 }
-    : ({ duration: 0.18, ease: "easeOut" } as const);
+  const fade = reduceMotion ? { duration: 0 } : FADE_FAST;
 
   const current = SECTIONS[section];
 
@@ -212,7 +210,7 @@ export default function SidebarStack({
         </header>
 
         <div className={styles.body}>
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="popLayout" initial={false}>
             <motion.div
               key={current.id}
               initial={{ opacity: 0 }}

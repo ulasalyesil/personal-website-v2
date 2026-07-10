@@ -5,8 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { LabItem } from "./data";
 import { LAB_PREVIEWS } from "./previews";
 import { IOSDevice, SafariWindow } from "./frames";
-
-const SLIDE_TRANSITION = { duration: 0.38, ease: [0.22, 1, 0.36, 1] as const };
+import { LAB_SLIDE_SPRING } from "@/lib/animations";
 
 function slideVariants(direction: 1 | -1) {
   return {
@@ -117,11 +116,10 @@ function DesktopModal({
   const variants = slideVariants(direction);
   return (
     <div
-      className="bg-surface-0 border border-border-subtle rounded-xl overflow-hidden relative grid"
+      className="bg-surface-0 border border-border-subtle rounded-xl overflow-hidden relative"
       style={{
         width: "min(1200px, calc(100vw - 64px))",
         height: "min(720px, calc(100vh - 80px))",
-        gridTemplateColumns: "380px 1fr",
         boxShadow: "0 40px 80px rgba(0,0,0,0.12)",
       }}
     >
@@ -133,53 +131,48 @@ function DesktopModal({
         ×
       </button>
 
-      <div className="px-9 py-10 flex flex-col justify-between border-r border-border-subtle overflow-hidden relative">
-        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
-          <motion.div
-            key={item.slug}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
-            <div className="font-mono uppercase tracking-wider text-text-tertiary tabular-nums" style={{ fontSize: 11, marginBottom: 24 }}>
-              {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      {/* Both panes share one AnimatePresence so they always enter/exit as a
+          single coordinated unit — no risk of the text and image panes
+          drifting out of sync mid-cycle. */}
+      <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+        <motion.div
+          key={item.slug}
+          className="grid h-full"
+          style={{ gridTemplateColumns: "380px 1fr" }}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={LAB_SLIDE_SPRING}
+        >
+          <div className="px-9 py-10 flex flex-col justify-between border-r border-border-subtle overflow-hidden">
+            <div>
+              <div className="font-mono uppercase tracking-wider text-text-tertiary tabular-nums" style={{ fontSize: 11, marginBottom: 24 }}>
+                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </div>
+              <h2 className="text-text-primary font-medium tracking-tight text-balance m-0" style={{ fontSize: 20 }}>
+                {item.title}
+              </h2>
+              <div className="flex gap-1.5 flex-wrap mt-2.5">
+                <Pill label={item.date} />
+                <Pill label={item.tag} />
+                {item.frame !== "none" && <Pill label={item.frame} />}
+              </div>
+              <p className="font-mono text-text-secondary text-pretty mt-7" style={{ fontSize: 13, lineHeight: 1.6 }}>
+                {item.blurb}
+              </p>
             </div>
-            <h2 className="text-text-primary font-medium tracking-tight text-balance m-0" style={{ fontSize: 20 }}>
-              {item.title}
-            </h2>
-            <div className="flex gap-1.5 flex-wrap mt-2.5">
-              <Pill label={item.date} />
-              <Pill label={item.tag} />
-              {item.frame !== "none" && <Pill label={item.frame} />}
+            <div className="font-mono text-text-tertiary flex flex-col gap-1.5" style={{ fontSize: 11 }}>
+              <div className="flex justify-between gap-3"><span>↑ ↓ · j / k</span><span>cycle</span></div>
+              <div className="flex justify-between gap-3"><span>esc</span><span>close</span></div>
             </div>
-            <p className="font-mono text-text-secondary text-pretty mt-7" style={{ fontSize: 13, lineHeight: 1.6 }}>
-              {item.blurb}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-        <div className="font-mono text-text-tertiary flex flex-col gap-1.5" style={{ fontSize: 11 }}>
-          <div className="flex justify-between gap-3"><span>↑ ↓ · j / k</span><span>cycle</span></div>
-          <div className="flex justify-between gap-3"><span>esc</span><span>close</span></div>
-        </div>
-      </div>
+          </div>
 
-      <div className="relative overflow-hidden">
-        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
-          <motion.div
-            key={item.slug}
-            className="absolute inset-0"
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
+          <div className="relative overflow-hidden">
             <ProtoFrame item={item} mode="desktop" />
-          </motion.div>
-        </AnimatePresence>
-      </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
@@ -202,7 +195,7 @@ function MobileModal({
     <div
       className="fixed inset-0 z-[100] bg-surface-0 grid"
       style={{
-        gridTemplateRows: "env(safe-area-inset-top, 44px) 52px 1fr auto 34px",
+        gridTemplateRows: "env(safe-area-inset-top, 44px) 52px 1fr 34px",
       }}
     >
       <div />
@@ -225,31 +218,24 @@ function MobileModal({
           ×
         </button>
       </div>
-      <div className="overflow-hidden relative">
-        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
-          <motion.div
-            key={item.slug}
-            className="absolute inset-0"
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
+
+      {/* Image pane and caption pane share one AnimatePresence so they
+          always cycle together, never mid-exit out of sync. */}
+      <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+        <motion.div
+          key={item.slug}
+          className="grid overflow-hidden"
+          style={{ gridTemplateRows: "1fr auto" }}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={LAB_SLIDE_SPRING}
+        >
+          <div className="overflow-hidden relative">
             <ProtoFrame item={item} mode="mobile" />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      <div className="px-5 py-3 border-t border-border-subtle relative overflow-hidden">
-        <AnimatePresence mode="popLayout" custom={direction} initial={false}>
-          <motion.div
-            key={item.slug}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={SLIDE_TRANSITION}
-          >
+          </div>
+          <div className="px-5 py-3 border-t border-border-subtle relative overflow-hidden">
             <div className="flex justify-between items-baseline gap-3">
               <div className="font-medium text-text-primary tracking-tight" style={{ fontSize: 16 }}>
                 {item.title}
@@ -265,9 +251,10 @@ function MobileModal({
               <Pill label={item.tag} />
               {item.frame !== "none" && <Pill label={item.frame} />}
             </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
       <div className="grid place-items-center">
         <div className="w-[134px] h-[5px] rounded-full bg-black/25" />
       </div>
