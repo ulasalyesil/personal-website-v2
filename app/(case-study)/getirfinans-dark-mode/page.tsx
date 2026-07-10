@@ -10,7 +10,7 @@ import {
 } from "./components";
 
 // For static assets that are still screenshots
-import docsWebsite from "@/public/images/wisecare/marketing.webp"; // PLACEHOLDER
+import docsWebsite from "@/public/images/getirfinans-dark-mode/docs-website.webp";
 
 export default function GetirFinansDarkModeCase() {
   const customComponents = {
