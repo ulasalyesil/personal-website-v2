@@ -1,10 +1,8 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import type { LabItem } from "./data";
-import { LAB_PREVIEWS } from "./previews";
-import { IOSDevice, SafariWindow } from "./frames";
 import { LAB_SLIDE_SPRING } from "@/lib/animations";
 
 function slideVariants(direction: 1 | -1) {
@@ -23,78 +21,31 @@ function Pill({ label }: { label: string }) {
   );
 }
 
-function ProtoFrame({ item, mode }: { item: LabItem; mode: "desktop" | "mobile" }) {
-  const Preview = LAB_PREVIEWS[item.preview];
-  const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-
-  const hasFrame = item.frame !== "none";
-  const frameW = item.frame === "ios" ? 402 : 900;
-  const frameH = item.frame === "ios" ? 820 : 560;
-
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-    const measure = () => {
-      const r = ref.current!.getBoundingClientRect();
-      const pad = mode === "mobile" ? 16 : 32;
-      if (!hasFrame) {
-        setScale(1);
-        return;
-      }
-      const s = Math.min(
-        (r.width - pad * 2) / frameW,
-        (r.height - pad * 2) / frameH,
-      );
-      setScale(Math.max(0.2, Math.min(1, s)));
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(ref.current);
-    return () => ro.disconnect();
-  }, [frameW, frameH, mode, hasFrame]);
-
-  const inner = (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      {Preview && <Preview active compact={false} />}
-    </div>
-  );
-
+function LabMediaView({ item, mode }: { item: LabItem; mode: "desktop" | "mobile" }) {
+  const pad = mode === "mobile" ? "p-4" : "p-8";
   return (
-    <div
-      ref={ref}
-      className="relative w-full h-full overflow-hidden bg-surface-1"
-    >
-      {hasFrame ? (
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            width: frameW,
-            height: frameH,
-            transform: `translate(-50%, -50%) scale(${scale})`,
-            transformOrigin: "center center",
-          }}
-        >
-          {item.frame === "ios" ? (
-            <IOSDevice width={frameW} height={frameH}>
-              {inner}
-            </IOSDevice>
-          ) : (
-            <SafariWindow
-              url={item.url || "lab.ulasalyesil.com"}
-              title={item.title}
-              width={frameW}
-              height={frameH}
-            >
-              {inner}
-            </SafariWindow>
-          )}
-        </div>
+    <div className={`relative w-full h-full overflow-hidden bg-surface-1 grid place-items-center ${pad}`}>
+      {item.media.video ? (
+        <video
+          src={item.media.video}
+          poster={item.media.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label={item.media.alt}
+          className="max-w-full max-h-full object-contain rounded-md border border-border-subtle"
+        />
       ) : (
-        <div className="absolute inset-8 rounded-md overflow-hidden border border-border-subtle bg-white">
-          {inner}
-        </div>
+        <Image
+          src={item.media.src}
+          alt={item.media.alt}
+          width={1600}
+          height={1000}
+          sizes="(max-width: 768px) 100vw, 820px"
+          className="max-w-full max-h-full w-auto h-auto object-contain rounded-md border border-border-subtle"
+          priority
+        />
       )}
     </div>
   );
@@ -156,11 +107,22 @@ function DesktopModal({
               <div className="flex gap-1.5 flex-wrap mt-2.5">
                 <Pill label={item.date} />
                 <Pill label={item.tag} />
-                {item.frame !== "none" && <Pill label={item.frame} />}
+                {item.wip && <Pill label="wip" />}
               </div>
               <p className="font-mono text-text-secondary text-pretty mt-7" style={{ fontSize: 13, lineHeight: 1.6 }}>
                 {item.blurb}
               </p>
+              {item.url && (
+                <a
+                  href={`https://${item.url.replace(/^https?:\/\//, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-text-tertiary hover:text-text-primary transition-colors duration-150 mt-5 inline-block underline underline-offset-4"
+                  style={{ fontSize: 12 }}
+                >
+                  open live ↗
+                </a>
+              )}
             </div>
             <div className="font-mono text-text-tertiary flex flex-col gap-1.5" style={{ fontSize: 11 }}>
               <div className="flex justify-between gap-3"><span>↑ ↓ · j / k</span><span>cycle</span></div>
@@ -169,7 +131,7 @@ function DesktopModal({
           </div>
 
           <div className="relative overflow-hidden">
-            <ProtoFrame item={item} mode="desktop" />
+            <LabMediaView item={item} mode="desktop" />
           </div>
         </motion.div>
       </AnimatePresence>
@@ -233,7 +195,7 @@ function MobileModal({
           transition={LAB_SLIDE_SPRING}
         >
           <div className="overflow-hidden relative">
-            <ProtoFrame item={item} mode="mobile" />
+            <LabMediaView item={item} mode="mobile" />
           </div>
           <div className="px-5 py-3 border-t border-border-subtle relative overflow-hidden">
             <div className="flex justify-between items-baseline gap-3">
@@ -249,7 +211,7 @@ function MobileModal({
             </p>
             <div className="flex gap-1.5 mt-3">
               <Pill label={item.tag} />
-              {item.frame !== "none" && <Pill label={item.frame} />}
+              {item.wip && <Pill label="wip" />}
             </div>
           </div>
         </motion.div>

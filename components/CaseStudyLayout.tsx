@@ -11,6 +11,7 @@ interface CaseStudyLayoutProps {
   contentBlocks: ContentBlock[];
   websiteUrl?: string;
   slug?: string;
+  status?: string;
   customComponents?: Record<string, React.ReactNode>;
 }
 
@@ -22,6 +23,7 @@ export default function CaseStudyLayout({
   contentBlocks,
   websiteUrl,
   slug,
+  status,
   customComponents,
 }: CaseStudyLayoutProps) {
   const firstImageIndex = contentBlocks.findIndex(
@@ -30,7 +32,7 @@ export default function CaseStudyLayout({
 
   return (
     <article>
-      <CaseStudyTitle title={title} date={date} company={company} role={role} />
+      <CaseStudyTitle title={title} date={date} company={company} role={role} status={status} />
 
       <div className="mt-12 space-y-6 text-base text-text-secondary leading-relaxed">
         {contentBlocks.map((block, index) => {

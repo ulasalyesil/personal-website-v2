@@ -1,7 +1,9 @@
 "use client";
 
-import { forwardRef, useState } from "react";
-import { LAB_PREVIEWS } from "./previews";
+import Image from "next/image";
+import { useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import { triggerHaptic } from "@/lib/haptics";
 import type { LabItem } from "./data";
 
 type Props = {
@@ -10,67 +12,74 @@ type Props = {
   onOpen: (labItem: LabItem, itemIndex: number) => void;
 };
 
-const LabCard = forwardRef<HTMLButtonElement, Props>(function LabCard(
-  { item, index, onOpen },
-  ref,
-) {
-  const [hovered, setHovered] = useState(false);
-  const Preview = LAB_PREVIEWS[item.preview];
+export default function LabCard({ item, index, onOpen }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const reducedMotion = useReducedMotion();
+  const hasVideo = Boolean(item.media.video) && !reducedMotion;
+
+  const play = () => {
+    void videoRef.current?.play().catch(() => {});
+  };
+
+  const stop = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+  };
 
   return (
     <button
-      ref={ref}
       type="button"
-      onClick={() => onOpen(item, index)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group relative block overflow-hidden rounded-lg border bg-surface-1 p-0 text-left transition-colors duration-150"
-      style={{
-        width: "100%",
-        aspectRatio: `${item.w} / ${item.h}`,
-        borderColor: hovered ? "var(--color-border-default)" : "var(--color-border-subtle)",
-        cursor: "pointer",
+      onClick={() => {
+        triggerHaptic("light");
+        onOpen(item, index);
       }}
+      onMouseEnter={hasVideo ? play : undefined}
+      onMouseLeave={hasVideo ? stop : undefined}
+      onFocus={hasVideo ? play : undefined}
+      onBlur={hasVideo ? stop : undefined}
+      className="group flex h-full w-full flex-col gap-3 p-4 rounded-lg bg-surface-1 border border-border-subtle hover:border-border-default transition-colors duration-150 text-left cursor-pointer"
       aria-label={`Open ${item.title}`}
     >
-      {Preview && <Preview active={hovered} compact />}
-
-      <div className="absolute left-3 top-2.5 right-3 flex items-start justify-between gap-2">
-        <span className="text-xs font-medium text-text-primary tracking-tight">
-          {item.title}
-        </span>
+      <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-surface-2">
+        <Image
+          src={item.media.src}
+          alt={item.media.alt}
+          className="object-cover group-hover:scale-[1.02] transition-transform duration-150"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        {hasVideo && (
+          <video
+            ref={videoRef}
+            src={item.media.video}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+          />
+        )}
       </div>
 
-      <div className="absolute left-3 bottom-2.5 right-3 flex items-center justify-between gap-2">
-        <span
-          className="font-mono text-text-tertiary uppercase tracking-wider border border-border-subtle rounded-full"
-          style={{
-            fontSize: 10,
-            padding: "3px 8px",
-            background: "color-mix(in srgb, var(--color-surface-0) 85%, transparent)",
-            backdropFilter: "blur(6px)",
-            WebkitBackdropFilter: "blur(6px)",
-          }}
-        >
+      <div>
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="font-medium text-text-primary text-balance">
+            {item.title}
+          </h3>
+          <span className="font-mono text-xs text-text-tertiary tabular-nums whitespace-nowrap">
+            {item.wip ? "wip" : item.date}
+          </span>
+        </div>
+        <p className="text-sm text-text-tertiary mt-1 line-clamp-2 text-pretty">
+          {item.blurb}
+        </p>
+        <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary mt-2 inline-block">
           {item.tag}
         </span>
-        {item.placeholder && (
-          <span
-            className="font-mono text-text-tertiary border border-border-subtle rounded-full"
-            style={{
-              fontSize: 10,
-              padding: "3px 8px",
-              background: "color-mix(in srgb, var(--color-surface-0) 85%, transparent)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-            }}
-          >
-            wip
-          </span>
-        )}
       </div>
     </button>
   );
-});
-
-export default LabCard;
+}

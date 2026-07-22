@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import LabCanvas from "./LabCanvas";
+import LabGrid from "./LabGrid";
 import LabModal from "./LabModal";
 import { LAB_ITEMS, type LabItem } from "./data";
 
@@ -24,13 +24,12 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
     initialIndex >= 0 ? initialIndex : null,
   );
   const [direction, setDirection] = useState<1 | -1>(1);
-  const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-  const titleRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const total = LAB_ITEMS.length;
 
   const cycle = useCallback(
     (dir: "next" | "prev") => {
+      if (total === 0) return;
       setDirection(dir === "next" ? 1 : -1);
       setSelected((curr) => {
         if (curr == null) return curr;
@@ -146,19 +145,16 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   const item = selected != null ? LAB_ITEMS[selected] : null;
 
   return (
-    <div className="relative w-full h-full">
-      {/* Floating title — echoes existing section-heading treatment */}
-      <div ref={titleRef} className="absolute left-4 sm:left-6 top-4 z-[5] max-w-[420px] pointer-events-none">
-        <h2 className="font-mono text-xs uppercase tracking-wider text-text-tertiary m-0">
-          Lab
-        </h2>
-        <p className="text-text-secondary m-0 mt-1.5 text-pretty" style={{ fontSize: 15, lineHeight: 1.45 }}>
-          a quiet dumping ground for experiments — scraps, sketches, and
-          half-finished ideas that wouldn&apos;t fit anywhere else.
-        </p>
-      </div>
+    <section>
+      <h2 className="text-xs font-mono uppercase tracking-wider text-text-tertiary">
+        Lab
+      </h2>
+      <p className="text-text-secondary mt-1.5 mb-8 max-w-[52ch] text-pretty">
+        A quiet dumping ground for experiments — scraps, sketches, and
+        half-finished ideas that wouldn&apos;t fit anywhere else.
+      </p>
 
-      <LabCanvas items={LAB_ITEMS} onOpen={open} cardRefs={cardRefs} safeAreaRef={titleRef} />
+      <LabGrid items={LAB_ITEMS} onOpen={open} />
 
       {item && (
         <>
@@ -191,6 +187,6 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
           </div>
         </>
       )}
-    </div>
+    </section>
   );
 }

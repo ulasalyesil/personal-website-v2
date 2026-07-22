@@ -14,8 +14,6 @@ export default async function LabDetailPage({
   const { slug } = await params;
   if (!LAB_ITEMS.some((it) => it.slug === slug)) notFound();
   return (
-    <div className="relative w-full h-[calc(100dvh-12rem)] sm:h-[calc(100dvh-16rem)]">
-      <LabApp initialSlug={slug} />
-    </div>
+    <LabApp initialSlug={slug} />
   );
 }

@@ -737,3 +737,35 @@ toggle yet); (main) pages only — case studies keep the Back shell.
 
 - [ ] **AI assistant case study** — new case study to be added. Waiting on Ulaş's plan/brief; advisor writes the implementation plan only when the brief arrives. (Recorded 2026-06-10.)
 - [ ] **Site-wide image + performance checkup** — full audit of every image (format, dimensions vs. rendered size, `sizes`, lazy/priority, weight) and overall performance with a native-feel-on-mobile bar (interaction latency, scroll, animation cost, bundle, fonts). **Run AFTER execution day** — auditing now would measure placeholder images and a dirty tree. Invoke as `/improve perf` once images are committed and plans 001–010 landed. (Recorded 2026-06-10.) **2026-07-10: UNBLOCKED** — last placeholder swapped (0ed49c0), tree clean. Known lead: homepage LCP warning (wisecare cover missing `priority`).
+
+### Lab: scatter canvas → tile grid (2026-07-22, decided with Ulaş)
+
+Ulaş: the six lab items were invented placeholders, and the scatter layout read
+as chaotic. Directions ideated against Mobbin references (Pentagram, Base,
+Vucko, Framer, Plain, Notion, Linear) + ui-skills; presented as a findings page.
+Ulaş picked **A — uniform tile grid**, page/route kept with an empty state,
+items *and* their bespoke previews deleted, media = image + optional video loop,
+modal + deep links kept.
+
+- [x] `components/lab/data.ts` — new `LabItem`/`LabMedia` (media, wip, url);
+      `LAB_ITEMS = []`. Dropped frame/preview/w/h/placeholder.
+- [x] Deleted `previews.tsx`, `frames.tsx`, `scatter.ts`, `scatter.test.ts`,
+      `LabCanvas.tsx`
+- [x] `LabGrid.tsx` (new) — 1/2/3-col grid via AnimateIn+AnimateItem, plus the
+      dashed empty state; `LabCard.tsx` rewritten to mirror ProjectGrid's card
+      with metadata BELOW the frame (the core fix — every reference does this)
+- [x] `LabApp.tsx` — grid replaces canvas, heading in normal flow, cycling
+      guarded on total>0; all URL/keyboard/wheel/touch behaviour kept
+- [x] `LabModal.tsx` — `ProtoFrame` (device chrome + scale measuring) → simple
+      `LabMediaView`; frame pill → wip pill; added "open live ↗" when url set
+- [x] Page shells drop the `h-[calc(100dvh-12rem)]` box (existed only for the
+      absolute canvas); teaser card copy + tiles regridded; `.lab-scale-in`
+      removed from globals
+- [x] `npm test` → `--passWithNoTests` (scatter.test.ts was the only suite; CI
+      runs `npm test` and would have failed on exit 1)
+- [x] Verified: typecheck, lint, build all green. Browser — empty state, dead
+      slug 404s, 3-up/2-up/1-up, dark mode, and with temporary fixtures: modal
+      open, arrow cycling, Esc close + scroll unlock, direct deep link.
+
+Owed: real experiments + captures into `public/images/lab/` and
+`public/video/lab/`. Grid ships empty by design.

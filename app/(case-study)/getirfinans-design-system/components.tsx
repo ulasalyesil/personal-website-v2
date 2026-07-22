@@ -4,6 +4,183 @@ import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/cn";
 
 // ─────────────────────────────────────────────────────────────────────────────
+// SHARED PRIMITIVES
+//
+// Widget *chrome* (frames, headers, controls, spec rows) is built entirely on the
+// site's semantic tokens — bg-surface-*, text-text-*, border-border-* — so every
+// widget adapts to the visitor's light/dark preference automatically, with no
+// `dark:` variants. The GetirFinans *product* colors being showcased are inline
+// hex, because those are the specimens under discussion, not the site's theme.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type Mode = "light" | "dark";
+
+// GetirFinans product palette (the colors the case study is about).
+const GF = {
+  // Brand fill is mode-invariant — this is one of the case study's core claims.
+  brand: "#5D3EBC",
+  brandPressed: "#482F9B",
+  brandDisabled: "#A99CD5",
+  success: "#00B235",
+  error: "#E23737",
+};
+
+// Resolve the product surface palette for a given mode.
+function product(mode: Mode) {
+  return mode === "light"
+    ? {
+        canvas: "#F8F7FC",
+        surface: "#FFFFFF",
+        surfaceSubtle: "#FAFAFA",
+        text: "#0E0E0E",
+        subtext: "#757575",
+        border: "#EAEAEA",
+        // text/action lightens in dark; brand *fill* stays #5D3EBC.
+        accentText: "#5D3EBC",
+      }
+    : {
+        canvas: "#0E0E0E",
+        surface: "#1A1A1A",
+        surfaceSubtle: "#262626",
+        text: "#FFFFFF",
+        subtext: "#A5A5A5",
+        border: "#2E2E2E",
+        accentText: "#B49FE6",
+      };
+}
+
+/** Outer widget frame. */
+function Widget({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "overflow-hidden rounded-2xl border border-border-subtle bg-surface-1",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Widget header bar: label, optional mono subtitle, optional right-aligned control. */
+function WidgetHeader({
+  title,
+  subtitle,
+  action,
+}: {
+  title: string;
+  subtitle?: string;
+  action?: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-4 border-b border-border-subtle px-5 py-4">
+      <div className="min-w-0">
+        <div className="text-sm font-semibold text-text-primary">{title}</div>
+        {subtitle && (
+          <div className="mt-0.5 truncate font-mono text-[11px] text-text-tertiary">
+            {subtitle}
+          </div>
+        )}
+      </div>
+      {action && <div className="shrink-0">{action}</div>}
+    </div>
+  );
+}
+
+/** Generic segmented control — one consistent toggle for every widget. */
+function Segmented<T extends string>({
+  options,
+  value,
+  onChange,
+  ariaLabel,
+}: {
+  options: { value: T; label: React.ReactNode }[];
+  value: T;
+  onChange: (v: T) => void;
+  ariaLabel?: string;
+}) {
+  return (
+    <div
+      role="tablist"
+      aria-label={ariaLabel}
+      className="inline-flex items-center gap-0.5 rounded-full border border-border-subtle bg-surface-2 p-0.5"
+    >
+      {options.map((o) => {
+        const active = o.value === value;
+        return (
+          <button
+            key={o.value}
+            type="button"
+            role="tab"
+            aria-selected={active}
+            onClick={() => onChange(o.value)}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors duration-150",
+              active
+                ? "bg-surface-0 text-text-primary shadow-sm"
+                : "text-text-secondary hover:text-text-primary",
+            )}
+          >
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+const SunIcon = () => (
+  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 9H3m15.36-6.36l-.7.7M6.34 17.66l-.7.7m12.72 0l-.7-.7M6.34 6.34l-.7-.7M14 12a2 2 0 11-4 0 2 2 0 014 0z" />
+  </svg>
+);
+const MoonIcon = () => (
+  <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+  </svg>
+);
+
+/** Light/dark palette switch, shared by every widget that renders a product canvas. */
+function PaletteToggle({ value, onChange }: { value: Mode; onChange: (m: Mode) => void }) {
+  return (
+    <Segmented<Mode>
+      ariaLabel="Palette mode"
+      value={value}
+      onChange={onChange}
+      options={[
+        { value: "light", label: <><SunIcon /> Light</> },
+        { value: "dark", label: <><MoonIcon /> Dark</> },
+      ]}
+    />
+  );
+}
+
+/** Mono "token: value" spec row. */
+function SpecRow({
+  token,
+  value,
+  valueClassName,
+}: {
+  token: string;
+  value: string;
+  valueClassName?: string;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-4 font-mono text-[11px]">
+      <span className="text-text-tertiary">{token}</span>
+      <span className={cn("font-medium text-text-secondary", valueClassName)}>{value}</span>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 1. TOKEN FORMULA EXPLORER
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -99,13 +276,85 @@ const TOKEN_DICTIONARY: Record<string, TokenMapEntry> = {
   },
   "border-base-subtle": {
     tokenName: "border/base/subtle",
-    usage: "Soft gridlines, list items dividers, and border lines",
+    usage: "Soft gridlines, list item dividers, and border lines",
     lightHex: "#F3F0FE",
     lightPrimitive: "purple-light.50",
     darkHex: "#2A2342",
     darkPrimitive: "purple-dark.900",
   },
 };
+
+const CATEGORIES = [
+  { id: "bg", desc: "Backgrounds & Surfaces" },
+  { id: "text", desc: "Typography & Icons" },
+  { id: "border", desc: "Borders & Lines" },
+] as const;
+
+const CONCEPTS: Record<string, { id: string; desc: string }[]> = {
+  bg: [
+    { id: "action", desc: "Buttons & CTAs" },
+    { id: "surface", desc: "Cards & Sheets" },
+    { id: "status", desc: "Feedback Alerts" },
+  ],
+  text: [
+    { id: "action", desc: "Interactive Words" },
+    { id: "content", desc: "Regular Text" },
+  ],
+  border: [
+    { id: "input", desc: "Boundary Frames" },
+    { id: "base", desc: "Grid & Dividers" },
+  ],
+};
+
+const ROLES: Record<string, { id: string; desc: string }[]> = {
+  action: [
+    { id: "primary", desc: "Main call to action" },
+    { id: "inverse", desc: "Overlay contrast color" },
+  ],
+  surface: [
+    { id: "default", desc: "Standard flat surface" },
+    { id: "subtle", desc: "Elevated / offset surface" },
+  ],
+  status: [
+    { id: "success", desc: "Positive feedback color" },
+    { id: "error", desc: "Negative alert color" },
+  ],
+  content: [
+    { id: "primary", desc: "Title & base text weight" },
+    { id: "secondary", desc: "Helper & caption weight" },
+    { id: "inverse", desc: "Opposite theme contrast" },
+  ],
+  input: [{ id: "default", desc: "Base divider outline" }],
+  base: [{ id: "subtle", desc: "Fine separation divider" }],
+};
+
+function OptionButton({
+  label,
+  desc,
+  active,
+  onClick,
+}: {
+  label: string;
+  desc: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "flex flex-col items-start rounded-lg border p-3 text-left transition-colors duration-150",
+        active
+          ? "border-brand/40 bg-brand/10 text-brand"
+          : "border-border-subtle bg-surface-0 text-text-secondary hover:border-border-default hover:text-text-primary",
+      )}
+    >
+      <span className="font-mono text-sm font-medium">{label}</span>
+      <span className="mt-0.5 text-[11px] opacity-70">{desc}</span>
+    </button>
+  );
+}
 
 export function TokenExplorer() {
   const [category, setCategory] = useState("bg");
@@ -115,864 +364,567 @@ export function TokenExplorer() {
   const builtKey = `${category}-${concept}-${role}`;
   const mappedToken = TOKEN_DICTIONARY[builtKey];
 
+  const pickCategory = (id: string) => {
+    setCategory(id);
+    const firstConcept = CONCEPTS[id][0];
+    setConcept(firstConcept.id);
+    setRole(ROLES[firstConcept.id][0].id);
+  };
+  const pickConcept = (id: string) => {
+    setConcept(id);
+    setRole(ROLES[id][0].id);
+  };
+
   return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 p-6 md:p-8 space-y-8 transition-colors">
-      <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-text-primary">Token Formula Builder</h3>
+    <Widget>
+      <WidgetHeader
+        title="Token Formula Builder"
+        subtitle="{category}/{concept}/{role}"
+      />
+      <div className="space-y-6 p-5 md:p-6">
         <p className="text-sm text-text-secondary">
-          Combine a Category, Concept, and Role to generate a semantic token and inspect its mode values.
+          Combine a category, concept, and role to build a semantic token, then
+          inspect how it resolves in each mode.
         </p>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Category */}
-        <div className="space-y-3">
-          <label className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Category
-          </label>
-          <div className="flex flex-col gap-2">
-            {[
-              { id: "bg", label: "bg", desc: "Backgrounds & Surfaces" },
-              { id: "text", label: "text", desc: "Typography & Icons" },
-              { id: "border", label: "border", desc: "Borders & Lines" },
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setCategory(item.id);
-                  if (item.id === "text") {
-                    setConcept("content");
-                    setRole("primary");
-                  } else if (item.id === "border") {
-                    setConcept("input");
-                    setRole("default");
-                  } else {
-                    setConcept("surface");
-                    setRole("default");
-                  }
-                }}
-                className={cn(
-                  "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                  category === item.id
-                    ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                    : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                )}
-              >
-                <span>{item.label}</span>
-                <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Concept */}
-        <div className="space-y-3">
-          <label className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Concept
-          </label>
-          <div className="flex flex-col gap-2">
-            {category === "bg" &&
-              [
-                { id: "action", label: "action", desc: "Buttons & CTAs" },
-                { id: "surface", label: "surface", desc: "Cards & Sheets" },
-                { id: "status", label: "status", desc: "Feedback Alerts" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setConcept(item.id);
-                    setRole(item.id === "action" ? "primary" : item.id === "status" ? "success" : "default");
-                  }}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    concept === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {category === "text" &&
-              [
-                { id: "action", label: "action", desc: "Interactive Words" },
-                { id: "content", label: "content", desc: "Regular Texts" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setConcept(item.id);
-                    setRole(item.id === "action" ? "primary" : "primary");
-                  }}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    concept === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {category === "border" &&
-              [
-                { id: "input", label: "input", desc: "Boundary Frames" },
-                { id: "base", label: "base", desc: "Grid & Dividers" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setConcept(item.id);
-                    setRole(item.id === "input" ? "default" : "subtle");
-                  }}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    concept === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-          </div>
-        </div>
-
-        {/* Role */}
-        <div className="space-y-3">
-          <label className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Role
-          </label>
-          <div className="flex flex-col gap-2">
-            {concept === "action" &&
-              [
-                { id: "primary", label: "primary", desc: "Main call to action" },
-                { id: "inverse", label: "inverse", desc: "Overlay contrast color" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setRole(item.id)}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    role === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {concept === "surface" &&
-              [
-                { id: "default", label: "default", desc: "Standard flat surface" },
-                { id: "subtle", label: "subtle", desc: "Elevated/offset surface" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setRole(item.id)}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    role === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {concept === "status" &&
-              [
-                { id: "success", label: "success", desc: "Positive feedback color" },
-                { id: "error", label: "error", desc: "Negative alert color" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setRole(item.id)}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    role === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {concept === "content" &&
-              [
-                { id: "primary", label: "primary", desc: "Title & base text weight" },
-                { id: "secondary", label: "secondary", desc: "Helper & caption weight" },
-                { id: "inverse", label: "inverse", desc: "Opposite theme contrast" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setRole(item.id)}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    role === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {concept === "input" &&
-              [
-                { id: "default", label: "default", desc: "Base divider outline" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setRole(item.id)}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    role === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-
-            {concept === "base" &&
-              [
-                { id: "subtle", label: "subtle", desc: "Fine separation divider" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setRole(item.id)}
-                  className={cn(
-                    "flex flex-col items-start p-3 text-left rounded-xl border text-sm transition-all duration-200",
-                    role === item.id
-                      ? "bg-brand/10 border-brand text-brand font-medium shadow-sm"
-                      : "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 text-text-secondary"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-xxs opacity-70 mt-0.5">{item.desc}</span>
-                </button>
-              ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Result Panel */}
-      <div className="bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 md:p-6 shadow-inner space-y-4">
-        {mappedToken ? (
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="font-mono text-base md:text-lg font-semibold text-brand px-3 py-1 bg-brand/5 dark:bg-brand/10 rounded-md border border-brand/20">
-                {mappedToken.tokenName}
-              </span>
-              <span className="text-xs text-text-secondary italic flex-grow text-right">
-                {mappedToken.usage}
-              </span>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {/* Category */}
+          <div className="space-y-2">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
+              Category
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-neutral-100 dark:border-neutral-900">
-              {/* Light Mode Value */}
-              <div className="flex items-center gap-3 p-3 bg-neutral-50 dark:bg-neutral-900 rounded-lg">
-                <div
-                  className="w-10 h-10 rounded border border-neutral-200"
-                  style={{ backgroundColor: mappedToken.lightHex }}
+            <div className="flex flex-col gap-2">
+              {CATEGORIES.map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.id}
+                  desc={item.desc}
+                  active={category === item.id}
+                  onClick={() => pickCategory(item.id)}
                 />
-                <div>
-                  <div className="text-xxs uppercase tracking-wider text-text-secondary font-semibold">
-                    Light Mode Value
-                  </div>
-                  <div className="text-sm font-semibold text-text-primary">
-                    {mappedToken.lightHex}{" "}
-                    <span className="font-mono text-xs font-normal text-text-secondary">
-                      ({mappedToken.lightPrimitive})
-                    </span>
-                  </div>
-                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Concept */}
+          <div className="space-y-2">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
+              Concept
+            </div>
+            <div className="flex flex-col gap-2">
+              {CONCEPTS[category].map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.id}
+                  desc={item.desc}
+                  active={concept === item.id}
+                  onClick={() => pickConcept(item.id)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Role */}
+          <div className="space-y-2">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
+              Role
+            </div>
+            <div className="flex flex-col gap-2">
+              {(ROLES[concept] ?? []).map((item) => (
+                <OptionButton
+                  key={item.id}
+                  label={item.id}
+                  desc={item.desc}
+                  active={role === item.id}
+                  onClick={() => setRole(item.id)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Result */}
+        <div className="rounded-xl border border-border-subtle bg-surface-0 p-5">
+          {mappedToken ? (
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="rounded-md border border-brand/20 bg-brand/10 px-2.5 py-1 font-mono text-sm font-semibold text-brand">
+                  {mappedToken.tokenName}
+                </span>
+                <span className="text-xs text-text-tertiary">{mappedToken.usage}</span>
               </div>
 
-              {/* Dark Mode Value */}
-              <div className="flex items-center gap-3 p-3 bg-neutral-950 text-white rounded-lg">
-                <div
-                  className="w-10 h-10 rounded border border-neutral-800"
-                  style={{ backgroundColor: mappedToken.darkHex }}
-                />
-                <div>
-                  <div className="text-xxs uppercase tracking-wider text-neutral-400 font-semibold">
-                    Dark Mode Value
+              <div className="grid grid-cols-1 gap-3 border-t border-border-subtle pt-4 sm:grid-cols-2">
+                {/* Light resolution */}
+                <div className="flex items-center gap-3 rounded-lg border border-border-subtle p-3">
+                  <div
+                    className="h-10 w-10 shrink-0 rounded-md border border-black/10"
+                    style={{ backgroundColor: mappedToken.lightHex }}
+                  />
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
+                      Light
+                    </div>
+                    <div className="text-sm font-medium text-text-primary">
+                      {mappedToken.lightHex}
+                    </div>
+                    <div className="truncate font-mono text-[11px] text-text-tertiary">
+                      {mappedToken.lightPrimitive}
+                    </div>
                   </div>
-                  <div className="text-sm font-semibold text-white">
-                    {mappedToken.darkHex}{" "}
-                    <span className="font-mono text-xs font-normal text-neutral-400">
-                      ({mappedToken.darkPrimitive})
-                    </span>
+                </div>
+
+                {/* Dark resolution */}
+                <div className="flex items-center gap-3 rounded-lg border border-border-subtle p-3">
+                  <div
+                    className="h-10 w-10 shrink-0 rounded-md border border-white/10"
+                    style={{ backgroundColor: mappedToken.darkHex }}
+                  />
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
+                      Dark
+                    </div>
+                    <div className="text-sm font-medium text-text-primary">
+                      {mappedToken.darkHex}
+                    </div>
+                    <div className="truncate font-mono text-[11px] text-text-tertiary">
+                      {mappedToken.darkPrimitive}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="text-center py-6 text-text-secondary text-sm">
-            Combination <span className="font-mono">{builtKey}</span> is not mapped in this design system specimen. Select another role.
-          </div>
-        )}
+          ) : (
+            <div className="py-6 text-center text-sm text-text-tertiary">
+              <span className="font-mono">{builtKey}</span> isn&apos;t mapped in this
+              specimen. Pick another combination.
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Widget>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 2. INTERACTIVE COMPONENT SANDBOX
+// 2. LIVE COMPONENT SPECS (button + input states)
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function ComponentSandbox() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<Mode>("light");
   const [btnState, setBtnState] = useState<"default" | "pressed" | "disabled">("default");
   const [inputVal, setInputVal] = useState("");
   const [inputState, setInputState] = useState<"default" | "focus" | "success" | "error">("default");
 
-  return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-sm">
-      {/* Top Bar / Theme Control */}
-      <div className="flex items-center justify-between px-6 py-4 bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-        <span className="text-sm font-semibold text-text-primary">Live Component Specs</span>
-        <div className="flex items-center gap-2 bg-neutral-200 dark:bg-neutral-800 p-0.5 rounded-full">
-          <button
-            onClick={() => setTheme("light")}
-            className={cn(
-              "px-3 py-1 rounded-full text-xs font-medium transition-all duration-150",
-              theme === "light"
-                ? "bg-white text-neutral-900 shadow-sm"
-                : "text-neutral-500 hover:text-neutral-300"
-            )}
-          >
-            Light Mode
-          </button>
-          <button
-            onClick={() => setTheme("dark")}
-            className={cn(
-              "px-3 py-1 rounded-full text-xs font-medium transition-all duration-150",
-              theme === "dark"
-                ? "bg-neutral-950 text-white shadow-sm"
-                : "text-neutral-500 hover:text-neutral-300 dark:hover:text-neutral-450"
-            )}
-          >
-            Dark Mode
-          </button>
-        </div>
-      </div>
+  const p = product(mode);
+  const btnBg =
+    btnState === "default" ? GF.brand : btnState === "pressed" ? GF.brandPressed : GF.brandDisabled;
 
-      {/* Render Canvas */}
+  const inputBorder =
+    inputState === "focus"
+      ? GF.brand
+      : inputState === "success"
+        ? GF.success
+        : inputState === "error"
+          ? GF.error
+          : p.border;
+
+  return (
+    <Widget>
+      <WidgetHeader
+        title="Live Component Specs"
+        subtitle="button + input · semantic states"
+        action={<PaletteToggle value={mode} onChange={setMode} />}
+      />
+
+      {/* Product canvas */}
       <div
-        className={cn(
-          "p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 transition-colors duration-300",
-          theme === "light" ? "bg-white text-neutral-900" : "bg-neutral-950 text-white"
-        )}
+        className="grid grid-cols-1 gap-8 p-5 transition-colors duration-300 md:grid-cols-2 md:p-8"
+        style={{ backgroundColor: p.canvas, color: p.text }}
       >
-        {/* Component A: Primary Action Button */}
+        {/* Button */}
         <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-text-secondary">
-              Button Component
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: p.subtext }}>
+              Button
             </span>
-            <div className="flex gap-1.5 bg-neutral-100 dark:bg-neutral-900 p-0.5 rounded-lg border border-neutral-200/50 dark:border-neutral-800">
-              {(["default", "pressed", "disabled"] as const).map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setBtnState(s)}
-                  className={cn(
-                    "px-2 py-0.5 text-xxs font-semibold rounded-md capitalize transition-colors",
-                    btnState === s
-                      ? theme === "light"
-                        ? "bg-neutral-200 text-neutral-900"
-                        : "bg-neutral-800 text-white"
-                      : "text-text-secondary hover:text-text-primary"
-                  )}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
+            <Segmented
+              ariaLabel="Button state"
+              value={btnState}
+              onChange={setBtnState}
+              options={[
+                { value: "default", label: "Default" },
+                { value: "pressed", label: "Pressed" },
+                { value: "disabled", label: "Disabled" },
+              ]}
+            />
           </div>
 
           <div
-            className={cn(
-              "flex flex-col items-center justify-center p-8 rounded-xl border transition-all min-h-[140px]",
-              theme === "light" ? "bg-neutral-50 border-neutral-200" : "bg-neutral-900/50 border-neutral-800"
-            )}
+            className="flex min-h-[128px] items-center justify-center rounded-xl border"
+            style={{ backgroundColor: p.surfaceSubtle, borderColor: p.border }}
           >
             <button
+              type="button"
               disabled={btnState === "disabled"}
               onMouseDown={() => btnState !== "disabled" && setBtnState("pressed")}
               onMouseUp={() => btnState !== "disabled" && setBtnState("default")}
               className={cn(
-                "h-11 px-6 text-sm font-semibold rounded-full select-none transform transition-all active:scale-[0.96]",
-                btnState === "default" && "bg-[#5D3EBC] text-white hover:bg-[#482F9B] shadow-sm shadow-[#5D3EBC]/20 hover:shadow-md hover:shadow-[#5D3EBC]/30",
-                btnState === "pressed" && "bg-[#482F9B] text-white scale-[0.95]",
-                btnState === "disabled" && "bg-[#A99CD5] text-white/70 cursor-not-allowed opacity-60"
+                "h-11 select-none rounded-full px-6 text-sm font-semibold text-white transition-transform duration-150",
+                btnState === "pressed" && "scale-[0.96]",
+                btnState === "disabled" ? "cursor-not-allowed opacity-60" : "active:scale-[0.96]",
               )}
+              style={{ backgroundColor: btnBg }}
             >
               İşlemi Onayla
             </button>
           </div>
 
-          <div className="space-y-1 bg-neutral-100/50 dark:bg-neutral-900/30 p-3 rounded-lg border border-neutral-200/20">
-            <div className="flex justify-between text-xxs font-mono">
-              <span className="text-text-secondary">bg/action/primary:</span>
-              <span className="font-semibold">{btnState === "default" ? "#5D3EBC" : btnState === "pressed" ? "#482F9B" : "#A99CD5"}</span>
-            </div>
-            <div className="flex justify-between text-xxs font-mono">
-              <span className="text-text-secondary">text/action/inverse:</span>
-              <span className="font-semibold">#FFFFFF</span>
-            </div>
+          <div className="space-y-1.5 rounded-lg border border-border-subtle bg-surface-0 p-3">
+            <SpecRow token="bg/action/primary" value={btnBg.toUpperCase()} />
+            <SpecRow token="text/action/inverse" value="#FFFFFF" />
           </div>
         </div>
 
-        {/* Component B: Input Form Field */}
+        {/* Input */}
         <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-text-secondary">
-              Input Field
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: p.subtext }}>
+              Input
             </span>
-            <div className="flex gap-1.5 bg-neutral-100 dark:bg-neutral-900 p-0.5 rounded-lg border border-neutral-200/50 dark:border-neutral-800">
-              {(["default", "focus", "success", "error"] as const).map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setInputState(s)}
-                  className={cn(
-                    "px-2 py-0.5 text-xxs font-semibold rounded-md capitalize transition-colors",
-                    inputState === s
-                      ? theme === "light"
-                        ? "bg-neutral-200 text-neutral-900"
-                        : "bg-neutral-800 text-white"
-                      : "text-text-secondary hover:text-text-primary"
-                  )}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
+            <Segmented
+              ariaLabel="Input state"
+              value={inputState}
+              onChange={setInputState}
+              options={[
+                { value: "default", label: "Default" },
+                { value: "focus", label: "Focus" },
+                { value: "success", label: "Success" },
+                { value: "error", label: "Error" },
+              ]}
+            />
           </div>
 
           <div
-            className={cn(
-              "flex flex-col items-stretch justify-center p-6 rounded-xl border transition-all min-h-[140px] space-y-2",
-              theme === "light" ? "bg-neutral-50 border-neutral-200" : "bg-neutral-900/50 border-neutral-800"
-            )}
+            className="flex min-h-[128px] flex-col justify-center gap-2 rounded-xl border p-6"
+            style={{ backgroundColor: p.surfaceSubtle, borderColor: p.border }}
           >
             <div className="relative">
               <input
                 type="text"
-                placeholder="İban numarası girin"
+                placeholder="IBAN numarası girin"
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
                 onFocus={() => setInputState("focus")}
                 onBlur={() => setInputState("default")}
-                className={cn(
-                  "w-full h-11 px-4 text-sm bg-transparent rounded-lg border transition-all outline-none",
-                  theme === "light" ? "text-neutral-900 placeholder:text-neutral-400" : "text-white placeholder:text-neutral-600",
-                  inputState === "default" && (theme === "light" ? "border-neutral-200" : "border-neutral-800"),
-                  inputState === "focus" && "border-[#5D3EBC] ring-2 ring-[#5D3EBC]/15",
-                  inputState === "success" && "border-emerald-500 ring-2 ring-emerald-500/15",
-                  inputState === "error" && "border-red-500 ring-2 ring-red-500/15"
-                )}
+                className="h-11 w-full rounded-lg border bg-transparent px-4 text-sm outline-none transition-shadow"
+                style={{
+                  color: p.text,
+                  borderColor: inputBorder,
+                  boxShadow:
+                    inputState === "default" ? "none" : `0 0 0 3px ${inputBorder}26`,
+                }}
               />
               {inputState === "success" && (
-                <span className="absolute right-3 top-3 text-emerald-500">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <span className="absolute right-3 top-3" style={{ color: GF.success }}>
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </span>
               )}
             </div>
             {inputState === "error" && (
-              <span className="text-xs text-red-500 ml-1">Geçersiz IBAN formatı</span>
+              <span className="ml-1 text-xs" style={{ color: GF.error }}>
+                Geçersiz IBAN formatı
+              </span>
             )}
           </div>
 
-          <div className="space-y-1 bg-neutral-100/50 dark:bg-neutral-900/30 p-3 rounded-lg border border-neutral-200/20">
-            <div className="flex justify-between text-xxs font-mono">
-              <span className="text-text-secondary">bg/input/default:</span>
-              <span className="font-semibold">{theme === "light" ? "#FFFFFF" : "Transparent"}</span>
-            </div>
-            <div className="flex justify-between text-xxs font-mono">
-              <span className="text-text-secondary">border/input/*:</span>
-              <span className={cn("font-semibold", inputState === "success" && "text-emerald-500", inputState === "error" && "text-red-500")}>
-                {inputState === "default" ? (theme === "light" ? "#EAEAEA" : "#2E2E2E") : inputState === "focus" ? "#5D3EBC" : inputState === "success" ? "#10B981" : "#EF4444"}
-              </span>
-            </div>
+          <div className="space-y-1.5 rounded-lg border border-border-subtle bg-surface-0 p-3">
+            <SpecRow token="bg/input/default" value={mode === "light" ? "#FFFFFF" : "transparent"} />
+            <SpecRow
+              token="border/input/*"
+              value={inputBorder.toUpperCase()}
+              valueClassName={
+                inputState === "success"
+                  ? "text-[color:#00B235]"
+                  : inputState === "error"
+                    ? "text-[color:#E23737]"
+                    : undefined
+              }
+            />
           </div>
         </div>
       </div>
-    </div>
+    </Widget>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 3. INTERACTIVE COLOR TOKEN GRID
+// 3. COLOR TOKEN GRID
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface ColorCardProps {
+interface ColorEntry {
   label: string;
   lightVal: string;
   lightPrim: string;
   darkVal: string;
   darkPrim: string;
-  isDarkTheme: boolean;
 }
 
-function ColorCard({ label, lightVal, lightPrim, darkVal, darkPrim, isDarkTheme }: ColorCardProps) {
-  const [copied, setCopied] = useState(false);
-  const currentHex = isDarkTheme ? darkVal : lightVal;
-  const currentPrimitive = isDarkTheme ? darkPrim : lightPrim;
+const SEMANTIC_COLORS: ColorEntry[] = [
+  { label: "bg/app/brand", lightVal: "#5D3EBC", lightPrim: "purple-dark.700", darkVal: "#5D3EBC", darkPrim: "purple-dark.700" },
+  { label: "bg/surface/default", lightVal: "#FFFFFF", lightPrim: "neutral.white", darkVal: "#121212", darkPrim: "neutral.900" },
+  { label: "bg/surface/subtle", lightVal: "#FAFAFA", lightPrim: "neutral.25", darkVal: "#1E1E1E", darkPrim: "neutral.800" },
+  { label: "bg/action/primary", lightVal: "#5D3EBC", lightPrim: "purple-dark.700", darkVal: "#5D3EBC", darkPrim: "purple-dark.700" },
+  { label: "bg/status/success", lightVal: "#EDFDF0", lightPrim: "green.50", darkVal: "#0B4E1B", darkPrim: "green.900" },
+  { label: "bg/status/error", lightVal: "#FDF2F2", lightPrim: "red.50", darkVal: "#661111", darkPrim: "red.900" },
+  { label: "bg/status/warning", lightVal: "#FFF9EB", lightPrim: "orange.50", darkVal: "#5E3D04", darkPrim: "orange.900" },
+  { label: "text/content/primary", lightVal: "#0E0E0E", lightPrim: "neutral.1000", darkVal: "#FFFFFF", darkPrim: "neutral.white" },
+  { label: "text/content/secondary", lightVal: "#757575", lightPrim: "neutral.600", darkVal: "#A5A5A5", darkPrim: "neutral.400" },
+  { label: "text/content/inverse", lightVal: "#FFFFFF", lightPrim: "neutral.white", darkVal: "#FFFFFF", darkPrim: "neutral.white" },
+  { label: "border/input/default", lightVal: "#EAEAEA", lightPrim: "neutral.100", darkVal: "#2E2E2E", darkPrim: "neutral.700" },
+  { label: "border/base/subtle", lightVal: "#F3F0FE", lightPrim: "purple-light.50", darkVal: "#2A2342", darkPrim: "purple-dark.900" },
+];
 
-  const copyToClipboard = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    navigator.clipboard.writeText(currentHex);
+const PRIMITIVE_COLORS: ColorEntry[] = [
+  { label: "purple-dark.700", lightVal: "#5D3EBC", lightPrim: "Primary brand violet", darkVal: "#5D3EBC", darkPrim: "Primary brand violet" },
+  { label: "purple-dark.800", lightVal: "#482F9B", lightPrim: "Brand violet pressed", darkVal: "#482F9B", darkPrim: "Brand violet pressed" },
+  { label: "purple-dark.900", lightVal: "#2A2342", lightPrim: "Deep dark violet", darkVal: "#2A2342", darkPrim: "Deep dark violet" },
+  { label: "purple-light.50", lightVal: "#F3F0FE", lightPrim: "Pale violet tint", darkVal: "#F3F0FE", darkPrim: "Pale violet tint" },
+  { label: "neutral.white", lightVal: "#FFFFFF", lightPrim: "Pure white", darkVal: "#FFFFFF", darkPrim: "Pure white" },
+  { label: "neutral.25", lightVal: "#FAFAFA", lightPrim: "Off-white surface", darkVal: "#FAFAFA", darkPrim: "Off-white surface" },
+  { label: "neutral.100", lightVal: "#EAEAEA", lightPrim: "Light gray edge", darkVal: "#EAEAEA", darkPrim: "Light gray edge" },
+  { label: "neutral.600", lightVal: "#757575", lightPrim: "Slate reading gray", darkVal: "#757575", darkPrim: "Slate reading gray" },
+  { label: "neutral.800", lightVal: "#1E1E1E", lightPrim: "Elevated dark bg", darkVal: "#1E1E1E", darkPrim: "Elevated dark bg" },
+  { label: "neutral.900", lightVal: "#121212", lightPrim: "Primary dark bg", darkVal: "#121212", darkPrim: "Primary dark bg" },
+  { label: "red.500", lightVal: "#E23737", lightPrim: "Base failure red", darkVal: "#E23737", darkPrim: "Base failure red" },
+  { label: "green.500", lightVal: "#00B235", lightPrim: "Base success green", darkVal: "#00B235", darkPrim: "Base success green" },
+];
+
+function ColorCard({ entry, mode }: { entry: ColorEntry; mode: Mode }) {
+  const [copied, setCopied] = useState(false);
+  const hex = mode === "dark" ? entry.darkVal : entry.lightVal;
+  const prim = mode === "dark" ? entry.darkPrim : entry.lightPrim;
+
+  const copy = () => {
+    navigator.clipboard?.writeText(hex);
     setCopied(true);
     setTimeout(() => setCopied(false), 1200);
   };
 
   return (
-    <div
-      onClick={copyToClipboard}
-      className={cn(
-        "group relative p-3 border rounded-xl flex items-center gap-3 cursor-pointer shadow-sm active:scale-[0.98] transition-all duration-200",
-        isDarkTheme
-          ? "bg-neutral-900 border-neutral-800/80 hover:border-neutral-700/80 text-white"
-          : "bg-white border-neutral-200/70 hover:border-neutral-300 text-neutral-900"
-      )}
+    <button
+      type="button"
+      onClick={copy}
+      className="group relative flex items-center gap-3 overflow-hidden rounded-xl border border-border-subtle bg-surface-0 p-3 text-left transition-colors duration-150 hover:border-border-default active:scale-[0.99]"
     >
       <div
-        className="w-10 h-10 rounded-lg border border-neutral-200/20 transition-colors duration-300 shadow-inner flex-shrink-0"
-        style={{ backgroundColor: currentHex }}
+        className="h-9 w-9 shrink-0 rounded-lg border border-black/10 dark:border-white/10"
+        style={{ backgroundColor: hex }}
       />
       <div className="min-w-0 flex-1">
-        <div className="font-mono text-xxs font-semibold opacity-85 truncate">
-          {label}
-        </div>
-        <div className="text-xs font-bold mt-0.5">{currentHex}</div>
-        <div className="text-xxs font-mono text-text-secondary opacity-70 truncate mt-0.5">
-          {currentPrimitive}
-        </div>
+        <div className="truncate font-mono text-[11px] font-medium text-text-primary">{entry.label}</div>
+        <div className="text-xs font-semibold text-text-secondary">{hex}</div>
+        <div className="truncate font-mono text-[11px] text-text-tertiary">{prim}</div>
       </div>
-      
-      {/* Hover action overlay */}
-      <span className="opacity-0 group-hover:opacity-100 absolute right-2 top-2 p-1 bg-brand/5 rounded transition-opacity">
-        <svg className="w-3.5 h-3.5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-        </svg>
-      </span>
-
       {copied && (
-        <span className="absolute inset-0 bg-brand backdrop-blur-xs flex items-center justify-center text-xs font-semibold text-white rounded-xl transition-all animate-fade-in">
-          Copied Hex!
+        <span className="absolute inset-0 flex items-center justify-center bg-brand text-xs font-semibold text-white">
+          Copied
         </span>
       )}
-    </div>
+    </button>
   );
 }
 
 export function ColorGrid() {
   const [tab, setTab] = useState<"semantics" | "primitives">("semantics");
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [mode, setMode] = useState<Mode>("light");
+  const entries = tab === "semantics" ? SEMANTIC_COLORS : PRIMITIVE_COLORS;
 
   return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-neutral-50 dark:bg-neutral-900/30 p-6 md:p-8 space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Toggle tab */}
-        <div className="flex p-0.5 bg-neutral-200 dark:bg-neutral-800 rounded-lg">
-          <button
-            onClick={() => setTab("semantics")}
-            className={cn(
-              "px-3 py-1.5 rounded-md text-xs font-semibold transition-all",
-              tab === "semantics"
-                ? "bg-white dark:bg-neutral-950 text-brand shadow"
-                : "text-text-secondary hover:text-text-primary"
-            )}
-          >
-            Semantic Tokens
-          </button>
-          <button
-            onClick={() => setTab("primitives")}
-            className={cn(
-              "px-3 py-1.5 rounded-md text-xs font-semibold transition-all",
-              tab === "primitives"
-                ? "bg-white dark:bg-neutral-950 text-brand shadow"
-                : "text-text-secondary hover:text-text-primary"
-            )}
-          >
-            Primitives
-          </button>
-        </div>
-
-        {/* Global Palette Switcher */}
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-text-secondary font-medium">Palette Mode:</span>
-          <button
-            onClick={() => setIsDarkTheme(!isDarkTheme)}
-            className={cn(
-              "h-8 px-4 rounded-full text-xs font-semibold border flex items-center gap-2 shadow-sm transition-all duration-150",
-              isDarkTheme
-                ? "bg-neutral-950 text-white border-neutral-800 hover:bg-neutral-900"
-                : "bg-white text-neutral-950 border-neutral-200 hover:bg-neutral-50"
-            )}
-          >
-            {isDarkTheme ? (
-              <>
-                <svg className="w-3.5 h-3.5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-                Dark Palette
-              </>
-            ) : (
-              <>
-                <svg className="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 9H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                Light Palette
-              </>
-            )}
-          </button>
-        </div>
+    <Widget>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle px-5 py-4">
+        <Segmented
+          ariaLabel="Token layer"
+          value={tab}
+          onChange={setTab}
+          options={[
+            { value: "semantics", label: "Semantic" },
+            { value: "primitives", label: "Primitive" },
+          ]}
+        />
+        <PaletteToggle value={mode} onChange={setMode} />
       </div>
-
-      {tab === "semantics" ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <ColorCard label="bg/app/brand" lightVal="#5D3EBC" lightPrim="purple-dark.700" darkVal="#5D3EBC" darkPrim="purple-dark.700" isDarkTheme={isDarkTheme} />
-          <ColorCard label="bg/surface/default" lightVal="#FFFFFF" lightPrim="neutral.white" darkVal="#121212" darkPrim="neutral.900" isDarkTheme={isDarkTheme} />
-          <ColorCard label="bg/surface/subtle" lightVal="#FAFAFA" lightPrim="neutral.25" darkVal="#1E1E1E" darkPrim="neutral.800" isDarkTheme={isDarkTheme} />
-          <ColorCard label="bg/action/primary" lightVal="#5D3EBC" lightPrim="purple-dark.700" darkVal="#5D3EBC" darkPrim="purple-dark.700" isDarkTheme={isDarkTheme} />
-          <ColorCard label="bg/status/success" lightVal="#EDFDF0" lightPrim="green.50" darkVal="#0B4E1B" darkPrim="green.900" isDarkTheme={isDarkTheme} />
-          <ColorCard label="bg/status/error" lightVal="#FDF2F2" lightPrim="red.50" darkVal="#661111" darkPrim="red.900" isDarkTheme={isDarkTheme} />
-          <ColorCard label="bg/status/warning" lightVal="#FFF9EB" lightPrim="orange.50" darkVal="#5E3D04" darkPrim="orange.900" isDarkTheme={isDarkTheme} />
-          <ColorCard label="text/content/primary" lightVal="#0E0E0E" lightPrim="neutral.1000" darkVal="#FFFFFF" darkPrim="neutral.white" isDarkTheme={isDarkTheme} />
-          <ColorCard label="text/content/secondary" lightVal="#757575" lightPrim="neutral.600" darkVal="#A5A5A5" darkPrim="neutral.400" isDarkTheme={isDarkTheme} />
-          <ColorCard label="text/content/inverse" lightVal="#FFFFFF" lightPrim="neutral.white" darkVal="#FFFFFF" darkPrim="neutral.white" isDarkTheme={isDarkTheme} />
-          <ColorCard label="border/input/default" lightVal="#EAEAEA" lightPrim="neutral.100" darkVal="#2E2E2E" darkPrim="neutral.700" isDarkTheme={isDarkTheme} />
-          <ColorCard label="border/base/subtle" lightVal="#F3F0FE" lightPrim="purple-light.50" darkVal="#2A2342" darkPrim="purple-dark.900" isDarkTheme={isDarkTheme} />
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <ColorCard label="purple-dark.700" lightVal="#5D3EBC" lightPrim="Primary brand violet" darkVal="#5D3EBC" darkPrim="Primary brand violet" isDarkTheme={isDarkTheme} />
-          <ColorCard label="purple-dark.800" lightVal="#482F9B" lightPrim="Brand violet pressed" darkVal="#482F9B" darkPrim="Brand violet pressed" isDarkTheme={isDarkTheme} />
-          <ColorCard label="purple-dark.900" lightVal="#2A2342" lightPrim="Deep dark violet" darkVal="#2A2342" darkPrim="Deep dark violet" isDarkTheme={isDarkTheme} />
-          <ColorCard label="purple-light.50" lightVal="#F3F0FE" lightPrim="Pale violet tint" darkVal="#F3F0FE" darkPrim="Pale violet tint" isDarkTheme={isDarkTheme} />
-          <ColorCard label="neutral.white" lightVal="#FFFFFF" lightPrim="Pure white" darkVal="#FFFFFF" darkPrim="Pure white" isDarkTheme={isDarkTheme} />
-          <ColorCard label="neutral.25" lightVal="#FAFAFA" lightPrim="Off-white surface shade" darkVal="#FAFAFA" darkPrim="Off-white surface shade" isDarkTheme={isDarkTheme} />
-          <ColorCard label="neutral.100" lightVal="#EAEAEA" lightPrim="Light gray edge outline" darkVal="#EAEAEA" darkPrim="Light gray edge outline" isDarkTheme={isDarkTheme} />
-          <ColorCard label="neutral.600" lightVal="#757575" lightPrim="Slate reading gray" darkVal="#757575" darkPrim="Slate reading gray" isDarkTheme={isDarkTheme} />
-          <ColorCard label="neutral.800" lightVal="#1E1E1E" lightPrim="Elevated dark background" darkVal="#1E1E1E" darkPrim="Elevated dark background" isDarkTheme={isDarkTheme} />
-          <ColorCard label="neutral.900" lightVal="#121212" lightPrim="Primary dark background" darkVal="#121212" darkPrim="Primary dark background" isDarkTheme={isDarkTheme} />
-          <ColorCard label="red.500" lightVal="#E23737" lightPrim="Base failure red" darkVal="#E23737" darkPrim="Base failure red" isDarkTheme={isDarkTheme} />
-          <ColorCard label="green.500" lightVal="#00B235" lightPrim="Base success green" darkVal="#00B235" darkPrim="Base success green" isDarkTheme={isDarkTheme} />
-        </div>
-      )}
-    </div>
+      <div className="grid grid-cols-1 gap-3 p-5 sm:grid-cols-2 lg:grid-cols-3">
+        {entries.map((entry) => (
+          <ColorCard key={entry.label} entry={entry} mode={mode} />
+        ))}
+      </div>
+    </Widget>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 4. DO VS DON'T CODE COMPARISON
+// 4. DO vs DON'T CODE COMPARISON
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function CodeSwitcher() {
-  const [activeMode, setActiveMode] = useState<"do" | "dont">("dont");
-
-  return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-sm bg-white dark:bg-neutral-950">
-      {/* Selector Headers */}
-      <div className="flex border-b border-neutral-200 dark:border-neutral-800">
-        <button
-          onClick={() => setActiveMode("dont")}
-          className={cn(
-            "flex-1 py-4 text-center text-sm font-semibold border-b-2 transition-all flex items-center justify-center gap-2",
-            activeMode === "dont"
-              ? "border-red-500 text-red-500 bg-red-50/10"
-              : "border-transparent text-text-secondary hover:text-text-primary"
-          )}
-        >
-          <span className="text-red-500 font-bold">✕</span> Don&apos;t (Legacy Hardcoded)
-        </button>
-        <button
-          onClick={() => setActiveMode("do")}
-          className={cn(
-            "flex-1 py-4 text-center text-sm font-semibold border-b-2 transition-all flex items-center justify-center gap-2",
-            activeMode === "do"
-              ? "border-emerald-500 text-emerald-500 bg-emerald-50/10"
-              : "border-transparent text-text-secondary hover:text-text-primary"
-          )}
-        >
-          <span className="text-emerald-500 font-bold">✓</span> Do (Semantic Tokens)
-        </button>
-      </div>
-
-      <div className="p-6 md:p-8 space-y-6">
-        {activeMode === "dont" ? (
-          <div className="space-y-4">
-            <p className="text-sm text-text-secondary">
-              **Problem:** Hardcoding color values or injecting manual conditional checks inside every layout file causes major design system debt. Adding dark mode requires a massive audit, forces duplicate styles, and breaks easily when brand colors change.
-            </p>
-            <pre className="p-4 bg-neutral-900 text-neutral-100 rounded-lg text-xs md:text-sm font-mono overflow-x-auto leading-relaxed border border-neutral-800">
-{`// ✕ Legacy implementation - component handles theme logic
+const DONT_CODE = `// ✕ Legacy — the component owns theme logic
 import { useColorScheme } from "@/hooks/useColorScheme";
 
-export default function ConfirmButton() {
+export function ConfirmButton() {
   const isDark = useColorScheme() === "dark";
-
   return (
     <button
       style={{
         backgroundColor: isDark ? "#2A2342" : "#5D3EBC",
         color: "#FFFFFF",
         borderColor: isDark ? "#5D3EBC" : "#EAEAEA",
-        borderWidth: "1px",
       }}
     >
       Onayla
     </button>
   );
-}`}
-            </pre>
-            <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-700 dark:text-red-400">
-              <span className="text-base leading-none">⚠️</span>
-              <div className="text-xs space-y-1 flex-1">
-                <span className="font-semibold block">Governance Debt:</span>
-                <p>Component is coupled to isDark checks. Refactoring a color (e.g. replacing Brand purple) requires changing 100+ separate style parameters across the codebase.</p>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-sm text-text-secondary">
-              **Solution:** Style components using single semantic intent classes. The component has zero awareness of dark mode or theme state; values switch dynamically at the root system level.
-            </p>
-            <pre className="p-4 bg-neutral-900 text-neutral-100 rounded-lg text-xs md:text-sm font-mono overflow-x-auto leading-relaxed border border-neutral-800">
-{`// ✓ Refactored implementation - component is theme-agnostic
-export default function ConfirmButton() {
+}`;
+
+const DO_CODE = `// ✓ Refactored — the component is theme-agnostic
+export function ConfirmButton() {
   return (
-    <button 
-      className="bg-action-primary text-action-inverse border border-base-subtle"
-    >
+    <button className="bg-action-primary text-action-inverse border border-base-subtle">
       Onayla
     </button>
   );
-}`}
-            </pre>
-            <div className="flex items-start gap-3 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-700 dark:text-emerald-400">
-              <span className="text-base leading-none">✓</span>
-              <div className="text-xs space-y-1 flex-1">
-                <span className="font-semibold block">Robust Theming Architecture:</span>
-                <p>One source of truth. Colors are mapped once in global css variables. Component code is clean, testable, and completely decoupling design variables from rendering logic.</p>
-              </div>
-            </div>
-          </div>
-        )}
+}`;
+
+function CodeBlock({ code }: { code: string }) {
+  return (
+    <pre className="overflow-x-auto rounded-lg border border-border-subtle bg-surface-0 p-4 font-mono text-xs leading-relaxed text-text-secondary [font-variant-ligatures:none] md:text-[13px]">
+      {code}
+    </pre>
+  );
+}
+
+export function CodeSwitcher() {
+  const [mode, setMode] = useState<"dont" | "do">("dont");
+  const isDo = mode === "do";
+  const accent = isDo ? GF.success : GF.error;
+
+  return (
+    <Widget>
+      <div className="flex border-b border-border-subtle">
+        {(["dont", "do"] as const).map((m) => {
+          const active = mode === m;
+          const isDoTab = m === "do";
+          return (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setMode(m)}
+              className={cn(
+                "flex flex-1 items-center justify-center gap-2 border-b-2 py-3.5 text-sm font-semibold transition-colors",
+                active
+                  ? "text-text-primary"
+                  : "border-transparent text-text-tertiary hover:text-text-secondary",
+              )}
+              style={active ? { borderBottomColor: isDoTab ? GF.success : GF.error } : undefined}
+            >
+              <span style={{ color: isDoTab ? GF.success : GF.error }}>{isDoTab ? "✓" : "✕"}</span>
+              {isDoTab ? "Do — Semantic tokens" : "Don't — Hardcoded"}
+            </button>
+          );
+        })}
       </div>
-    </div>
+
+      <div className="space-y-4 p-5 md:p-6">
+        <p className="text-sm text-text-secondary">
+          {isDo
+            ? "Style components with single semantic-intent classes. The component has zero awareness of theme state — values resolve at the system root."
+            : "Hardcoding values and branching on isDark inside every layout file is how design-system debt compounds. Dark mode becomes an audit, styles duplicate, and a brand change touches hundreds of call sites."}
+        </p>
+
+        <CodeBlock code={isDo ? DO_CODE : DONT_CODE} />
+
+        <div
+          className="flex items-start gap-3 rounded-lg border p-4 text-xs"
+          style={{ backgroundColor: `${accent}14`, borderColor: `${accent}4D`, color: accent }}
+        >
+          <span className="leading-none">{isDo ? "✓" : "⚠"}</span>
+          <p className="flex-1">
+            <span className="font-semibold">{isDo ? "One source of truth. " : "Governance debt. "}</span>
+            <span className="text-text-secondary">
+              {isDo
+                ? "Colors map once in root variables; component code stays clean, testable, and fully decoupled from rendering logic."
+                : "A single color change (say, replacing brand purple) means editing every conditional style across the codebase."}
+            </span>
+          </p>
+        </div>
+      </div>
+    </Widget>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 5. INTERACTIVE LINE CHART (FX LINE CHART SIMULATOR)
+// 5. FX LINE CHART — where the token system runs out
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function FxChartSimulator() {
-  const [chartTheme, setChartTheme] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<Mode>("light");
+  const p = product(mode);
+  const stroke = mode === "light" ? "#5D3EBC" : "#8A6CE5";
 
   return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-sm">
-      <div className="flex items-center justify-between px-6 py-4 bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="flex flex-col">
-          <span className="text-sm font-semibold text-text-primary">FX Exchange Chart</span>
-          <span className="text-xxs text-text-secondary">Conditional Render SwiftUI / SVG Path</span>
-        </div>
-        <button
-          onClick={() => setChartTheme(chartTheme === "light" ? "dark" : "light")}
-          className={cn(
-            "h-8 px-3 rounded-full text-xs font-semibold border transition-all duration-150",
-            chartTheme === "dark"
-              ? "bg-neutral-950 text-white border-neutral-800"
-              : "bg-white text-neutral-950 border-neutral-200"
-          )}
-        >
-          Toggle: {chartTheme === "light" ? "Dark Mode" : "Light Mode"}
-        </button>
-      </div>
+    <Widget>
+      <WidgetHeader
+        title="FX Exchange Chart"
+        subtitle="conditional render · SwiftUI / SVG path"
+        action={<PaletteToggle value={mode} onChange={setMode} />}
+      />
 
       <div
-        className={cn(
-          "p-6 md:p-8 flex flex-col items-stretch justify-center transition-colors duration-300 min-h-[220px]",
-          chartTheme === "light" ? "bg-white text-neutral-900" : "bg-neutral-950 text-white"
-        )}
+        className="min-h-[220px] p-5 transition-colors duration-300 md:p-8"
+        style={{ backgroundColor: p.canvas, color: p.text }}
       >
-        <div className="flex justify-between items-center mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <div>
-            <span className="text-xs text-text-secondary block">Dolar / Türk Lirası</span>
-            <span className="text-xl font-bold font-mono">USD/TRY 32.8450</span>
+            <span className="block text-xs" style={{ color: p.subtext }}>
+              Dolar / Türk Lirası
+            </span>
+            <span className="font-mono text-xl font-bold">USD/TRY 32.8450</span>
           </div>
-          <span className="px-2 py-0.5 text-xs font-bold rounded bg-emerald-500/10 text-emerald-500">
+          <span
+            className="rounded px-2 py-0.5 text-xs font-bold"
+            style={{ backgroundColor: `${GF.success}1A`, color: GF.success }}
+          >
             +0.34%
           </span>
         </div>
 
-        {/* SVG Drawing */}
         <div className="relative h-28 w-full">
-          <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
+          <svg className="h-full w-full" viewBox="0 0 500 100" preserveAspectRatio="none">
             <defs>
-              <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="0%"
-                  stopColor={chartTheme === "light" ? "#5D3EBC" : "#8A6CE5"}
-                  stopOpacity={chartTheme === "light" ? 0.25 : 0.4}
-                />
-                <stop
-                  offset="100%"
-                  stopColor={chartTheme === "light" ? "#5D3EBC" : "#8A6CE5"}
-                  stopOpacity="0"
-                />
+              <linearGradient id="fxGlow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={stroke} stopOpacity={mode === "light" ? 0.25 : 0.4} />
+                <stop offset="100%" stopColor={stroke} stopOpacity="0" />
               </linearGradient>
             </defs>
-            {/* Area Fill */}
             <path
               d="M0,90 Q75,30 150,70 T300,20 T450,50 L500,45 L500,100 L0,100 Z"
-              fill="url(#chartGlow)"
+              fill="url(#fxGlow)"
               className="transition-all duration-500"
             />
-            {/* Line Path */}
             <path
               d="M0,90 Q75,30 150,70 T300,20 T450,50 L500,45"
               fill="none"
-              stroke={chartTheme === "light" ? "#5D3EBC" : "#8A6CE5"}
+              stroke={stroke}
               strokeWidth="3.5"
               strokeLinecap="round"
               className="transition-all duration-500"
             />
-            {/* End glowing marker point */}
-            <circle
-              cx="500"
-              cy="45"
-              r="5"
-              fill={chartTheme === "light" ? "#5D3EBC" : "#8A6CE5"}
-              className="transition-all duration-500 animate-pulse"
-            />
+            <circle cx="500" cy="45" r="5" fill={stroke} className="transition-all duration-500" />
           </svg>
         </div>
 
-        <div className="flex justify-between items-center text-xxs text-text-secondary mt-2 font-mono">
+        <div className="mt-2 flex justify-between font-mono text-[11px]" style={{ color: p.subtext }}>
           <span>09:00</span>
           <span>11:00</span>
           <span>13:00</span>
@@ -980,78 +932,70 @@ export function FxChartSimulator() {
           <span>17:00</span>
         </div>
       </div>
-    </div>
+
+      <div className="space-y-1.5 border-t border-border-subtle px-5 py-4">
+        <SpecRow token="stroke" value={`${stroke.toUpperCase()} · hardcoded in markup`} />
+        <SpecRow token="fill" value="conditional gradient · not a token swap" />
+      </div>
+    </Widget>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 6. INTERACTIVE BOTTOM SHEET SIMULATOR (STANDOUT SCREEN)
+// 6. BOTTOM SHEET SIMULATOR — the standalone app
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function BottomSheetSimulator() {
   const [isOpen, setIsOpen] = useState(false);
-  const [deviceTheme, setDeviceTheme] = useState<"light" | "dark">("light");
-  const [bsState, setBsState] = useState<"idle" | "positive_tapped" | "positive_done" | "negative_expand" | "negative_done">("idle");
+  const [mode, setMode] = useState<Mode>("light");
+  const [bsState, setBsState] = useState<
+    "idle" | "positive_tapped" | "positive_done" | "negative_expand" | "negative_done"
+  >("idle");
   const [feedbackCategory, setFeedbackCategory] = useState<string | null>(null);
 
-  // Auto transition from positive_tapped to positive_done
+  const p = product(mode);
+  const sheetBg = mode === "light" ? "#FFFFFF" : "#181524";
+
   useEffect(() => {
     if (bsState === "positive_tapped") {
-      const t = setTimeout(() => setBsState("positive_done"), 600);
+      const t = setTimeout(() => setBsState("positive_done"), 700);
       return () => clearTimeout(t);
     }
     if (bsState === "positive_done") {
       const t = setTimeout(() => {
         setIsOpen(false);
         setBsState("idle");
-      }, 2000);
+      }, 1800);
       return () => clearTimeout(t);
     }
   }, [bsState]);
 
-  const handleThumbsUp = () => {
-    setBsState("positive_tapped");
+  const close = () => {
+    setIsOpen(false);
+    setBsState("idle");
+    setFeedbackCategory(null);
   };
 
-  const handleThumbsDown = () => {
-    setBsState("negative_expand");
-  };
-
-  const handleFeedbackSubmit = () => {
+  const submitNegative = () => {
     setBsState("negative_done");
-    setTimeout(() => {
-      setIsOpen(false);
-      setBsState("idle");
-      setFeedbackCategory(null);
-    }, 2000);
+    setTimeout(close, 1800);
   };
 
   return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-sm bg-neutral-900 text-white relative">
-      {/* Device Header Panel */}
-      <div className="flex items-center justify-between px-6 py-4 bg-neutral-950 border-b border-neutral-800">
-        <span className="text-xs font-mono font-semibold tracking-wider text-neutral-400">
-          Standalone App Simulator
-        </span>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setDeviceTheme(deviceTheme === "light" ? "dark" : "light")}
-            className="text-xxs font-bold px-2 py-0.5 rounded border border-neutral-800 bg-neutral-900 hover:bg-neutral-800"
-          >
-            Switch Theme: {deviceTheme === "light" ? "Dark" : "Light"}
-          </button>
-        </div>
-      </div>
+    <Widget>
+      <WidgetHeader
+        title="Standalone App"
+        subtitle="rating sheet · every color a semantic token"
+        action={<PaletteToggle value={mode} onChange={setMode} />}
+      />
 
-      {/* Screen Canvas */}
+      {/* Device screen */}
       <div
-        className={cn(
-          "w-full aspect-[4/3] flex flex-col justify-between p-6 relative overflow-hidden transition-colors duration-300",
-          deviceTheme === "light" ? "bg-[#F8F7FC] text-neutral-900" : "bg-[#09090A] text-white"
-        )}
+        className="relative flex aspect-[4/3] w-full flex-col overflow-hidden p-6 transition-colors duration-300"
+        style={{ backgroundColor: p.canvas, color: p.text }}
       >
-        {/* Device Status Bar */}
-        <div className="flex justify-between items-center text-xxs font-semibold opacity-75 font-mono mb-4">
+        {/* Status bar */}
+        <div className="mb-4 flex items-center justify-between font-mono text-[11px] font-semibold opacity-70">
           <span>09:41</span>
           <div className="flex gap-1">
             <span>5G</span>
@@ -1059,97 +1003,90 @@ export function BottomSheetSimulator() {
           </div>
         </div>
 
-        {/* Mock content */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center space-y-4">
-          <div className={cn(
-            "p-3 rounded-full shadow-inner",
-            deviceTheme === "light" ? "bg-emerald-500/10 text-emerald-600" : "bg-emerald-500/20 text-emerald-400"
-          )}>
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+        {/* Content */}
+        <div className="flex flex-1 flex-col items-center justify-center space-y-4 text-center">
+          <div
+            className="rounded-full p-3"
+            style={{ backgroundColor: `${GF.success}1A`, color: GF.success }}
+          >
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
           <div>
-            <h4 className="font-bold text-sm">Transfer İşlemi Başarılı</h4>
-            <p className="text-xs text-text-secondary mt-1">₺2.500,00 Ulaş Alyeşil hesabına gönderildi.</p>
+            <h4 className="text-sm font-bold">Transfer İşlemi Başarılı</h4>
+            <p className="mt-1 text-xs" style={{ color: p.subtext }}>
+              ₺2.500,00 Ulaş Alyeşil hesabına gönderildi.
+            </p>
           </div>
-          
           <button
+            type="button"
             onClick={() => {
               setIsOpen(true);
               setBsState("idle");
             }}
-            className="px-5 py-2 bg-[#5D3EBC] text-white font-semibold rounded-full text-xs hover:bg-[#482F9B] transition-colors"
+            className="rounded-full px-5 py-2 text-xs font-semibold text-white transition-transform active:scale-95"
+            style={{ backgroundColor: GF.brand }}
           >
             Trigger Rating Sheet
           </button>
         </div>
 
-        {/* Bottom Sheet Modal Backdrop */}
+        {/* Backdrop */}
         {isOpen && (
           <div
-            onClick={() => {
-              setIsOpen(false);
-              setBsState("idle");
-              setFeedbackCategory(null);
-            }}
-            className="absolute inset-0 bg-black/40 backdrop-blur-xxs z-10 transition-opacity duration-300 animate-fade-in"
+            onClick={close}
+            className="animate-fade-in absolute inset-0 z-10 bg-black/40 backdrop-blur-sm"
           />
         )}
 
-        {/* The Sliding Bottom Sheet */}
+        {/* Sheet */}
         <div
-          className={cn(
-            "absolute bottom-0 left-0 right-0 z-20 rounded-t-[28px] p-6 pb-8 transition-transform duration-300 shadow-2xl transform border-t",
-            deviceTheme === "light"
-              ? "bg-white text-neutral-900 border-neutral-100"
-              : "bg-[#181524] text-white border-neutral-800/50",
-            isOpen ? "translate-y-0" : "translate-y-full"
-          )}
+          className="absolute inset-x-0 bottom-0 z-20 rounded-t-[28px] border-t p-6 pb-8 shadow-2xl transition-transform duration-300"
+          style={{
+            backgroundColor: sheetBg,
+            borderColor: p.border,
+            color: p.text,
+            transform: isOpen ? "translateY(0)" : "translateY(100%)",
+            transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)",
+          }}
         >
-          {/* Drag handle indicator */}
-          <div className="w-10 h-1 bg-neutral-300 dark:bg-neutral-700/80 rounded-full mx-auto mb-6" />
+          <div
+            className="mx-auto mb-6 h-1 w-10 rounded-full"
+            style={{ backgroundColor: p.border }}
+          />
 
           {bsState === "idle" && (
-            <div className="space-y-6 text-center animate-fade-in">
+            <div className="animate-fade-in space-y-6 text-center">
               <div className="space-y-2">
                 <h4 className="text-base font-bold">GetirFinans&apos;ı seviyor musun?</h4>
-                <p className="text-xs text-text-secondary max-w-[280px] mx-auto">
+                <p className="mx-auto max-w-[280px] text-xs" style={{ color: p.subtext }}>
                   Dürüst görüşün bizi daha iyi yapar.
                 </p>
               </div>
-
               <div className="flex justify-center gap-6">
-                {/* Outlined Negative Button */}
                 <button
-                  onClick={handleThumbsDown}
-                  className={cn(
-                    "w-14 h-14 rounded-full border-2 flex items-center justify-center text-xl transition-all duration-200 active:scale-90",
-                    deviceTheme === "light"
-                      ? "border-[#5D3EBC] text-[#5D3EBC] bg-[#5D3EBC]/5 hover:bg-[#5D3EBC]/10"
-                      : "border-[#8A6CE5] text-[#8A6CE5] bg-[#8A6CE5]/5 hover:bg-[#8A6CE5]/10"
-                  )}
+                  type="button"
+                  onClick={() => setBsState("negative_expand")}
+                  className="flex h-14 w-14 items-center justify-center rounded-full border-2 text-xl transition-transform active:scale-90"
+                  style={{ borderColor: p.accentText, color: p.accentText, backgroundColor: `${GF.brand}0D` }}
                 >
                   👎
                 </button>
-
-                {/* Filled Positive Button */}
                 <button
-                  onClick={handleThumbsUp}
-                  className={cn(
-                    "w-14 h-14 rounded-full flex items-center justify-center text-xl text-white transition-all duration-200 active:scale-90 shadow-md",
-                    deviceTheme === "light"
-                      ? "bg-[#5D3EBC] hover:bg-[#482F9B] shadow-[#5D3EBC]/20"
-                      : "bg-[#8A6CE5] hover:bg-[#7656D4] shadow-[#8A6CE5]/20"
-                  )}
+                  type="button"
+                  onClick={() => setBsState("positive_tapped")}
+                  className="flex h-14 w-14 items-center justify-center rounded-full text-xl text-white transition-transform active:scale-90"
+                  style={{ backgroundColor: GF.brand }}
                 >
                   👍
                 </button>
               </div>
-
               <button
+                type="button"
                 onClick={() => setIsOpen(false)}
-                className="text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors block mx-auto pt-2"
+                className="mx-auto block pt-1 text-xs font-semibold"
+                style={{ color: p.subtext }}
               >
                 Şimdi değil
               </button>
@@ -1157,81 +1094,89 @@ export function BottomSheetSimulator() {
           )}
 
           {bsState === "positive_tapped" && (
-            <div className="space-y-4 py-6 text-center animate-fade-in">
-              <div className="w-12 h-12 rounded-full bg-[#5D3EBC] text-white flex items-center justify-center mx-auto text-xl animate-ping">
+            <div className="animate-fade-in space-y-4 py-6 text-center">
+              <div
+                className="mx-auto flex h-12 w-12 animate-ping items-center justify-center rounded-full text-xl text-white"
+                style={{ backgroundColor: GF.brand }}
+              >
                 👍
               </div>
-              <p className="text-xs font-semibold text-text-secondary animate-pulse">Launching App Store Review...</p>
+              <p className="text-xs font-semibold" style={{ color: p.subtext }}>
+                App Store değerlendirmesi açılıyor…
+              </p>
             </div>
           )}
 
           {bsState === "positive_done" && (
-            <div className="space-y-4 py-4 text-center animate-fade-in">
-              <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto text-xl shadow-md">
+            <div className="animate-fade-in space-y-3 py-4 text-center">
+              <div
+                className="mx-auto flex h-12 w-12 items-center justify-center rounded-full text-xl text-white"
+                style={{ backgroundColor: GF.success }}
+              >
                 ✓
               </div>
               <div className="space-y-1">
-                <h5 className="font-bold text-sm">Teşekkürler!</h5>
-                <p className="text-xs text-text-secondary">Desteğiniz için teşekkür ederiz.</p>
+                <h5 className="text-sm font-bold">Teşekkürler!</h5>
+                <p className="text-xs" style={{ color: p.subtext }}>
+                  Desteğiniz için teşekkür ederiz.
+                </p>
               </div>
             </div>
           )}
 
           {bsState === "negative_expand" && (
-            <div className="space-y-5 animate-fade-in">
+            <div className="animate-fade-in space-y-5">
               <div className="space-y-1 text-center">
                 <h4 className="text-sm font-bold">Görüşünü bizimle paylaş</h4>
-                <p className="text-xxs text-text-secondary">Uygulamayı geliştirmemize yardımcı olun.</p>
+                <p className="text-[11px]" style={{ color: p.subtext }}>
+                  Uygulamayı geliştirmemize yardımcı olun.
+                </p>
               </div>
-
-              {/* Multi-select category chips */}
-              <div className="flex flex-wrap gap-2 justify-center py-2">
+              <div className="flex flex-wrap justify-center gap-2 py-2">
                 {[
                   "Arayüz / Tasarım",
-                  "Yavaşlık / Performans",
-                  "Para Transferi Hatası",
+                  "Performans",
+                  "Transfer Hatası",
                   "Müşteri Hizmetleri",
                   "Faiz Oranları",
                   "Diğer",
-                ].map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setFeedbackCategory(cat)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-full text-xxs font-semibold border transition-all duration-150",
-                      feedbackCategory === cat
-                        ? "bg-[#5D3EBC] border-transparent text-white shadow-sm"
-                        : deviceTheme === "light"
-                          ? "bg-neutral-50 border-neutral-200 text-neutral-600 hover:bg-neutral-100"
-                          : "bg-neutral-900 border-neutral-800 text-neutral-400 hover:bg-neutral-800"
-                    )}
-                  >
-                    {cat}
-                  </button>
-                ))}
+                ].map((cat) => {
+                  const selected = feedbackCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setFeedbackCategory(cat)}
+                      className="rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-colors"
+                      style={
+                        selected
+                          ? { backgroundColor: GF.brand, borderColor: "transparent", color: "#FFFFFF" }
+                          : { backgroundColor: p.surfaceSubtle, borderColor: p.border, color: p.subtext }
+                      }
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
               </div>
-
-              <div className="flex gap-3 mt-4">
+              <div className="mt-2 flex gap-3">
                 <button
+                  type="button"
                   onClick={() => setBsState("idle")}
-                  className={cn(
-                    "flex-1 py-2.5 rounded-full text-xs font-semibold transition-colors",
-                    deviceTheme === "light" ? "bg-neutral-100 text-neutral-700 hover:bg-neutral-200" : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800"
-                  )}
+                  className="flex-1 rounded-full py-2.5 text-xs font-semibold transition-colors"
+                  style={{ backgroundColor: p.surfaceSubtle, color: p.subtext }}
                 >
                   Geri Dön
                 </button>
                 <button
-                  onClick={handleFeedbackSubmit}
+                  type="button"
+                  onClick={submitNegative}
                   disabled={!feedbackCategory}
                   className={cn(
-                    "flex-1 py-2.5 rounded-full text-xs font-semibold text-white transition-all shadow-sm",
-                    feedbackCategory
-                      ? deviceTheme === "light"
-                        ? "bg-[#5D3EBC] hover:bg-[#482F9B] shadow-[#5D3EBC]/10"
-                        : "bg-[#8A6CE5] hover:bg-[#7656D4] shadow-[#8A6CE5]/10"
-                      : "bg-neutral-400/50 cursor-not-allowed opacity-60"
+                    "flex-1 rounded-full py-2.5 text-xs font-semibold text-white transition-opacity",
+                    !feedbackCategory && "cursor-not-allowed opacity-50",
                   )}
+                  style={{ backgroundColor: GF.brand }}
                 >
                   Gönder
                 </button>
@@ -1240,148 +1185,296 @@ export function BottomSheetSimulator() {
           )}
 
           {bsState === "negative_done" && (
-            <div className="space-y-4 py-4 text-center animate-fade-in">
-              <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto text-xl shadow-md">
+            <div className="animate-fade-in space-y-3 py-4 text-center">
+              <div
+                className="mx-auto flex h-12 w-12 items-center justify-center rounded-full text-xl text-white"
+                style={{ backgroundColor: GF.success }}
+              >
                 ✓
               </div>
               <div className="space-y-1">
-                <h5 className="font-bold text-sm">Geri Bildiriminiz Alındı</h5>
-                <p className="text-xs text-text-secondary">Katkınız için teşekkür ederiz.</p>
+                <h5 className="text-sm font-bold">Geri Bildiriminiz Alındı</h5>
+                <p className="text-xs" style={{ color: p.subtext }}>
+                  Katkınız için teşekkür ederiz.
+                </p>
               </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </Widget>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 7. INTERACTIVE AI COMPONENTS PREVIEW
+// 7. AI COMPONENTS PREVIEW — the isolated bg/ai/* namespace
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function AiComponentPreview() {
-  const [aiTheme, setAiTheme] = useState<"light" | "dark">("dark");
+  const [mode, setMode] = useState<Mode>("dark");
+  const p = product(mode);
+  // The whole point of the isolated namespace: dark AI surfaces are a contained,
+  // desaturated purple — not an inversion of the light value.
+  const aiCanvas = mode === "light" ? "#F8F7FC" : "#0A0810";
+  const aiCard = mode === "light" ? "#FFFFFF" : "#2B2438";
+  const aiBorder = mode === "light" ? "#EAEAEA" : "#3B324D";
+  const aiLabel = mode === "light" ? "#5D3EBC" : "#B49FE6";
 
   return (
-    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-sm">
-      <div className="flex items-center justify-between px-6 py-4 bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="flex flex-col">
-          <span className="text-sm font-semibold text-text-primary">AI Component Spec</span>
-          <span className="text-xxs text-text-secondary">Custom Isolated Token Namespace: bg/ai/*</span>
-        </div>
-        <button
-          onClick={() => setAiTheme(aiTheme === "light" ? "dark" : "light")}
-          className={cn(
-            "h-8 px-3 rounded-full text-xs font-semibold border transition-all duration-150",
-            aiTheme === "dark"
-              ? "bg-neutral-950 text-white border-neutral-800"
-              : "bg-white text-neutral-950 border-neutral-200"
-          )}
-        >
-          Toggle: {aiTheme === "light" ? "Dark Mode" : "Light Mode"}
-        </button>
-      </div>
+    <Widget>
+      <WidgetHeader
+        title="AI Component Spec"
+        subtitle="isolated namespace · bg/ai/*"
+        action={<PaletteToggle value={mode} onChange={setMode} />}
+      />
 
       <div
-        className={cn(
-          "p-6 md:p-8 flex flex-col md:flex-row gap-6 items-stretch justify-center transition-colors duration-300",
-          aiTheme === "light" ? "bg-[#F8F7FC] text-neutral-900" : "bg-[#0A0810] text-white"
-        )}
+        className="flex flex-col gap-4 p-5 transition-colors duration-300 md:flex-row md:p-8"
+        style={{ backgroundColor: aiCanvas, color: p.text }}
       >
-        {/* Card 1: AI Podcast Recommendation */}
+        {/* Podcast card */}
         <div
-          className={cn(
-            "flex-1 p-5 rounded-2xl border flex flex-col justify-between min-h-[160px] transition-colors duration-300 shadow-sm",
-            aiTheme === "light"
-              ? "bg-white border-neutral-200/50"
-              : "bg-[#2B2438] border-[#3B324D]/60"
-          )}
+          className="flex min-h-[160px] flex-1 flex-col justify-between rounded-2xl border p-5"
+          style={{ backgroundColor: aiCard, borderColor: aiBorder }}
         >
-          <div className="flex justify-between items-start">
-            <span className="text-xxs font-bold uppercase tracking-wider text-purple-400">
+          <div className="flex items-start justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: aiLabel }}>
               Podcast Önerisi
             </span>
-            <span className="text-xxs opacity-75 font-mono">24 dk</span>
+            <span className="font-mono text-[11px]" style={{ color: p.subtext }}>
+              24 dk
+            </span>
           </div>
-          
           <div className="my-4">
-            <h5 className="font-bold text-sm leading-snug">Yatırım Dünyasında Yeni Eğilimler</h5>
-            <p className="text-xxs text-text-secondary opacity-80 mt-1">Yapay zekanın portföy yönetimindeki yeri ve geleceği.</p>
+            <h5 className="text-sm font-bold leading-snug">Yatırım Dünyasında Yeni Eğilimler</h5>
+            <p className="mt-1 text-[11px]" style={{ color: p.subtext }}>
+              Yapay zekânın portföy yönetimindeki yeri ve geleceği.
+            </p>
           </div>
-
           <div className="flex items-center gap-3">
-            <button className="w-8 h-8 rounded-full bg-[#5D3EBC] text-white flex items-center justify-center text-xs shadow-sm hover:scale-105 active:scale-95 transition-transform">
+            <button
+              type="button"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-xs text-white transition-transform hover:scale-105 active:scale-95"
+              style={{ backgroundColor: GF.brand }}
+            >
               ▶
             </button>
-            <div className="flex-1 flex items-center gap-0.5">
+            <div className="flex flex-1 items-center gap-0.5">
               {[0.4, 0.7, 0.5, 0.9, 0.3, 0.6, 0.8, 0.4, 0.6, 0.3, 0.7, 0.5].map((h, i) => (
                 <span
                   key={i}
-                  className="flex-1 h-3 bg-brand/35 rounded-full"
-                  style={{ height: `${h * 16}px` }}
+                  className="flex-1 rounded-full"
+                  style={{ height: `${h * 16}px`, backgroundColor: `${GF.brand}59` }}
                 />
               ))}
             </div>
           </div>
         </div>
 
-        {/* Card 2: AI Smart Assistant Prompt */}
+        {/* Assistant card */}
         <div
-          className={cn(
-            "flex-1 p-5 rounded-2xl border flex flex-col justify-between min-h-[160px] transition-colors duration-300 shadow-sm",
-            aiTheme === "light"
-              ? "bg-white border-neutral-200/50"
-              : "bg-[#2B2438] border-[#3B324D]/60"
-          )}
+          className="flex min-h-[160px] flex-1 flex-col justify-between rounded-2xl border p-5"
+          style={{ backgroundColor: aiCard, borderColor: aiBorder }}
         >
-          <div className="flex gap-2 items-center">
-            <div className="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center text-xxs font-bold">
+          <div className="flex items-center gap-2">
+            <div
+              className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white"
+              style={{ backgroundColor: GF.brand }}
+            >
               AI
             </div>
-            <span className="text-xxs font-bold uppercase tracking-wider text-purple-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: aiLabel }}>
               Akıllı Asistan
             </span>
           </div>
-
           <div className="my-3 text-xs leading-relaxed">
-            Kira ödemeniz için <span className="font-bold">₺12.500,00</span> transfer talimatı oluşturulsun mu?
+            Kira ödemeniz için <span className="font-bold">₺12.500,00</span> transfer talimatı
+            oluşturulsun mu?
           </div>
-
           <div className="flex gap-2">
             <button
-              className={cn(
-                "flex-1 py-1.5 rounded-lg text-xxs font-semibold border transition-all",
-                aiTheme === "light"
-                  ? "bg-neutral-50 hover:bg-neutral-100 border-neutral-200 text-neutral-700"
-                  : "bg-[#1E1928] hover:bg-[#342D42] border-purple-900/40 text-purple-200"
-              )}
+              type="button"
+              className="flex-1 rounded-lg border py-1.5 text-[11px] font-semibold transition-colors"
+              style={{ backgroundColor: p.surfaceSubtle, borderColor: aiBorder, color: p.subtext }}
             >
               Hayır
             </button>
             <button
-              className={cn(
-                "flex-1 py-1.5 rounded-lg text-xxs font-semibold text-white transition-all shadow-sm",
-                aiTheme === "light" ? "bg-[#5D3EBC] hover:bg-[#482F9B]" : "bg-[#8A6CE5] hover:bg-[#7656D4]"
-              )}
+              type="button"
+              className="flex-1 rounded-lg py-1.5 text-[11px] font-semibold text-white transition-colors"
+              style={{ backgroundColor: GF.brand }}
             >
               Evet, Oluştur
             </button>
           </div>
         </div>
       </div>
-      
-      {/* Spec details */}
-      <div className="px-6 py-4 bg-neutral-100/50 dark:bg-neutral-900/30 border-t border-neutral-200/20 text-xxs font-mono space-y-1">
-        <div className="flex justify-between">
-          <span className="text-text-secondary">bg/ai/primary:</span>
-          <span className="font-semibold">{aiTheme === "light" ? "#FFFFFF" : "#2B2438"}</span>
+
+      <div className="space-y-1.5 border-t border-border-subtle px-5 py-4">
+        <SpecRow token="bg/ai/primary" value={mode === "light" ? "#FFFFFF" : "#2B2438"} />
+        <SpecRow token="bg/ai/border" value={mode === "light" ? "#EAEAEA" : "#3B324D"} />
+      </div>
+    </Widget>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 8. DOCS SITE PREVIEW — replaces the low-res documentation screenshot
+// ─────────────────────────────────────────────────────────────────────────────
+
+const DOC_PAGES = [
+  { id: "introduction", label: "Introduction" },
+  { id: "primitives", label: "Primitives" },
+  { id: "semantics", label: "Semantics" },
+  { id: "reality", label: "Reality" },
+  { id: "dark-mode", label: "Dark Mode" },
+  { id: "overlay", label: "Overlay" },
+  { id: "gradients", label: "Gradients" },
+];
+
+const DOC_CONTENT: Record<string, { title: string; body: string; swatches?: string[] }> = {
+  introduction: {
+    title: "Color",
+    body: "A two-tier token system: primitives carry values, semantics carry intent. This is the source of truth the product and docs both consume.",
+  },
+  primitives: {
+    title: "Primitives",
+    body: "Raw palette scales — purple-dark.700, neutral.900, green.500. No meaning, just values.",
+    swatches: ["#5D3EBC", "#482F9B", "#2A2342", "#121212", "#00B235", "#E23737"],
+  },
+  semantics: {
+    title: "Semantics",
+    body: "{property}/{context}/{variant}. bg/surface/default, text/content/primary, border/input/default — what a color does, not how it looks.",
+    swatches: ["#FFFFFF", "#FAFAFA", "#0E0E0E", "#757575", "#EAEAEA"],
+  },
+  reality: {
+    title: "Reality",
+    body: "The gap between the system as designed and as shipped in production right now. Most systems hide this page. Publishing it is what made migration tractable.",
+  },
+  "dark-mode": {
+    title: "Dark Mode",
+    body: "Canvas #0E0E0E, surfaces at #1A1A1A / #262626. Status colors range-switch to the 900 range — they do not invert.",
+    swatches: ["#0E0E0E", "#1A1A1A", "#262626", "#0B4E1B", "#661111"],
+  },
+  overlay: {
+    title: "Overlay",
+    body: "Scrims and elevated materials resolved at the semantic layer, so depth stays consistent across both modes.",
+  },
+  gradients: {
+    title: "Gradients",
+    body: "Brand and data gradients defined once, referenced everywhere. The FX chart is the open edge case the token model doesn't fully cover yet.",
+    swatches: ["#5D3EBC", "#8A6CE5", "#2B2438"],
+  },
+};
+
+export function DocsSitePreview() {
+  const [page, setPage] = useState("semantics");
+  const content = DOC_CONTENT[page];
+
+  return (
+    <Widget>
+      {/* Browser chrome */}
+      <div className="flex items-center gap-3 border-b border-border-subtle bg-surface-2 px-4 py-2.5">
+        <div className="flex gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-text-tertiary/40" />
+          <span className="h-2.5 w-2.5 rounded-full bg-text-tertiary/40" />
+          <span className="h-2.5 w-2.5 rounded-full bg-text-tertiary/40" />
         </div>
-        <div className="flex justify-between">
-          <span className="text-text-secondary">bg/ai/border:</span>
-          <span className="font-semibold">{aiTheme === "light" ? "#EAEAEA" : "#3B324D"}</span>
+        <div className="flex-1 truncate rounded-md border border-border-subtle bg-surface-0 px-3 py-1 text-center font-mono text-[11px] text-text-tertiary">
+          gf-design-system.vercel.app/color/{page}
         </div>
       </div>
-    </div>
+
+      <div className="flex flex-col sm:flex-row">
+        {/* Sidebar */}
+        <nav className="flex gap-1 overflow-x-auto border-b border-border-subtle p-3 sm:w-48 sm:flex-col sm:border-b-0 sm:border-r">
+          <div className="hidden px-2 pb-2 text-[11px] font-semibold uppercase tracking-wider text-text-tertiary sm:block">
+            Color
+          </div>
+          {DOC_PAGES.map((d) => {
+            const active = d.id === page;
+            return (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() => setPage(d.id)}
+                className={cn(
+                  "shrink-0 rounded-md px-3 py-1.5 text-left text-xs font-medium transition-colors",
+                  active
+                    ? "bg-brand/10 text-brand"
+                    : "text-text-secondary hover:bg-surface-2 hover:text-text-primary",
+                )}
+              >
+                {d.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Page body */}
+        <div className="min-h-[220px] flex-1 p-6 md:p-8">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
+            Color / {content.title}
+          </div>
+          <h4 className="mt-2 text-xl font-semibold text-text-primary">{content.title}</h4>
+          <p className="mt-3 max-w-prose text-sm leading-relaxed text-text-secondary">
+            {content.body}
+          </p>
+          {content.swatches && (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {content.swatches.map((s) => (
+                <div key={s} className="overflow-hidden rounded-lg border border-border-subtle">
+                  <div className="h-12 w-16" style={{ backgroundColor: s }} />
+                  <div className="bg-surface-0 px-1.5 py-1 text-center font-mono text-[10px] text-text-tertiary">
+                    {s}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </Widget>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 9. RESULTS — IN PROGRESS (honest WIP state, not an empty section)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PENDING_METRICS = [
+  "Exact primitive + semantic token counts",
+  "Docs site total page count",
+  "Domains migrated off the legacy collection (of 20)",
+  "Whether WCAG contrast was verified systematically",
+  "A publicly stateable active-user number",
+];
+
+export function ResultsInProgress() {
+  return (
+    <Widget className="bg-surface-1">
+      <div className="flex items-center gap-2.5 border-b border-border-subtle px-5 py-4">
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+        </span>
+        <span className="text-sm font-semibold text-text-primary">Results — being finalized</span>
+      </div>
+      <div className="space-y-4 p-5 md:p-6">
+        <p className="max-w-prose text-sm text-text-secondary">
+          This is a live system, still migrating. Rather than publish soft numbers, the
+          hard metrics are being confirmed against production before they go here — the
+          same &ldquo;evidence, not claims&rdquo; standard the docs site holds itself to.
+        </p>
+        <ul className="space-y-2">
+          {PENDING_METRICS.map((m) => (
+            <li key={m} className="flex items-center gap-3 text-sm text-text-secondary">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full border border-border-default" />
+              {m}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Widget>
   );
 }

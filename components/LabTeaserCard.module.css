@@ -1,14 +1,12 @@
 .tile {
-  position: absolute;
   border-radius: 4px;
   border: 1px solid var(--color-border-subtle);
   background: var(--color-surface-0);
-  transform: rotate(var(--tilt));
   transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card:hover .tile {
-  transform: translateY(var(--drift)) rotate(0deg);
+  transform: translateY(var(--drift));
 }
 
 @media (prefers-reduced-motion: reduce) {

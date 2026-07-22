@@ -7,10 +7,9 @@ import {
   FxChartSimulator,
   BottomSheetSimulator,
   AiComponentPreview,
+  DocsSitePreview,
+  ResultsInProgress,
 } from "./components";
-
-// For static assets that are still screenshots
-import docsWebsite from "@/public/images/getirfinans-design-system/docs-website.webp";
 
 export default function GetirFinansDesignSystemCase() {
   const customComponents = {
@@ -21,6 +20,8 @@ export default function GetirFinansDesignSystemCase() {
     "ai-components": <AiComponentPreview />,
     "bottom-sheet": <BottomSheetSimulator />,
     "component-sandbox": <ComponentSandbox />,
+    "docs-site": <DocsSitePreview />,
+    results: <ResultsInProgress />,
   };
 
   return (
@@ -30,6 +31,7 @@ export default function GetirFinansDesignSystemCase() {
       date="2025 — Present"
       company="GetirFinans"
       role="Design System Lead"
+      status="Live · in active development"
       customComponents={customComponents}
       contentBlocks={[
         // ── Opening ──────────────────────────────────────────────
@@ -177,11 +179,7 @@ export default function GetirFinansDesignSystemCase() {
           type: "text",
           text: "Beyond the site: facilitated token usage sessions across the design team, wrote implementation guidelines, and educated designers on the two-tier model.",
         },
-        {
-          type: "image",
-          src: docsWebsite,
-          alt: "GetirFinans design system documentation site",
-        },
+        { type: "custom", id: "docs-site" },
 
         // ── Proof ──────────────────────────────────────────────
         { type: "heading", text: "Proof" },
@@ -192,14 +190,8 @@ export default function GetirFinansDesignSystemCase() {
         { type: "custom", id: "bottom-sheet" },
 
         // ── Results ────────────────────────────────────────────
-        // RESULTS SECTION: not written yet, pending real numbers. Needed before
-        // this section can ship:
-        // - exact color primitive count
-        // - exact semantic token count
-        // - docs site total page count
-        // - how many of the 20 domains completed migration
-        // - whether WCAG contrast was verified systematically or ad hoc
-        // - publicly stateable user number
+        { type: "heading", text: "Results" },
+        { type: "custom", id: "results" },
 
         // ── What's Next ────────────────────────────────────────
         { type: "heading", text: "What's Next" },
