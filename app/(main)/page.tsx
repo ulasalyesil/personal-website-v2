@@ -10,9 +10,17 @@ import wisecareaCover from "@/public/images/wisecare/wisecare_cover.webp";
 import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
 import gfDarkCover from "@/public/images/getirfinans-design-system/cover.webp";
+import gfAiCover from "@/public/images/getirfinans-ai/cover.webp";
 import type { FeaturedProject } from "@/types";
 
 const featured: FeaturedProject[] = [
+  {
+    slug: "getirfinans-ai",
+    title: "GetirFinans AI",
+    description:
+      "Designing the AI surfaces of a live banking app and verifying every interaction against a running SwiftUI build rather than a static frame.",
+    cover: gfAiCover,
+  },
   {
     slug: "wisecareai",
     title: "WiseCareAI",
