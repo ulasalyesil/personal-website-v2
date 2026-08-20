@@ -150,8 +150,8 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
         Lab
       </h2>
       <p className="text-text-secondary mt-1.5 mb-8 max-w-[52ch] text-pretty">
-        A quiet dumping ground for experiments — scraps, sketches, and
-        half-finished ideas that wouldn&apos;t fit anywhere else.
+        Interaction studies and prototypes, built to answer the questions a
+        static frame can&apos;t. Some shipped, some didn&apos;t.
       </p>
 
       <LabGrid items={LAB_ITEMS} onOpen={open} />

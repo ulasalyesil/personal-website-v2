@@ -41,7 +41,7 @@ const ITEMS = [
     title: "Thinking, then answering",
     caption:
       "The thinking label fades out and the answer's first line fades up on the same baseline, 33ms later. Nothing moves, so the transition disappears. Tapping a card sends its follow-up immediately: the tap was already the decision.",
-    meta: "GFDES-2054 · GFDES-2207 · measured off the approved animation, rebuilt to ±1.8ms",
+    meta: "Measured off the approved animation, rebuilt to ±1.8ms",
   },
   {
     captures: [
@@ -85,7 +85,7 @@ const ITEMS = [
     title: "Two questions, one row apart",
     caption:
       "Left asks how something works and gets no suggestion row, because it has nowhere to go. Right names a destination and gets one. Where money moves, a loosely related guess is worse than nothing.",
-    meta: "GFDES-2171 · AISearch · SwiftUI",
+    meta: "AISearch · SwiftUI",
   },
 ];
 

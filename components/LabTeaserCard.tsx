@@ -37,9 +37,8 @@ export default function LabTeaserCard() {
       <div className="flex flex-col justify-center">
         <h3 className="font-medium text-text-primary text-balance">Lab</h3>
         <p className="text-sm text-text-tertiary mt-1 text-pretty">
-          Prototypes, interaction studies, and generative sketches
-          {count > 0 ? ` — ${count} experiments and counting` : ""}. Some of
-          them graduate into the site itself.
+          Interaction studies and prototypes, built to answer the questions a
+          static frame can&apos;t{count > 0 ? `. ${count} so far` : ""}.
         </p>
       </div>
     </Link>
