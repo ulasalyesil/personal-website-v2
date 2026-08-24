@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <CaseStudyLayout
+      tier="project"
       slug="good-afternoon-creative"
       title="Good Afternoon Creative"
       date="April, 2023"

@@ -32,6 +32,26 @@
 - [x] Add ARIA attributes to Tabs component
 - [ ] Centralize brand colors fully (still duplicated in globals.css `@theme` + `:root` + tailwind.config.js)
 
+## Case Study Format Redesign (2026-08-24)
+
+Plan: `08-career/portfolio/case-study-format-redesign.md` in the Obsidian vault.
+
+- [x] Long-form type scale + reading measure tokens in `globals.css`
+- [x] Three lanes (`prose` / `wide` / `bleed`) in `CaseStudyLayout`
+- [x] Three spacing intervals replacing the single `space-y-6`
+- [x] `section` block: anchors, kickers, section rhythm
+- [x] `CaseStudyNav`: sticky rail at xl, compact bar below, reading progress
+- [x] New blocks: `lead`, `list`, `figure`, `metrics`, `callout`, `quote`
+- [x] `tier` prop; `project` tier applied to commodore, genesis, gac, fsi
+- [x] `getirfinans-design-system` migrated to `content.ts` + 10 sections
+- [x] Missing `export const metadata` added to `getirfinans-design-system`
+- [x] `wisecareai` newline-joined pseudo-lists converted to `list` blocks
+- [ ] `compare` and `specs` blocks — deferred until a third case study needs them
+- [ ] `getirfinans-ai`, `jotform-integrations`, `wisecareai` content passes (tier 1 candidates, currently 301/240/428 words)
+- [ ] Results section still renders the "being finalized" placeholder (blocked on production metrics)
+- [ ] `getirfinans-design-system` is still `hidden: true` in `public/data/projects.json`
+- [x] Removed the plan 011 wisecareai dialog prototype so all 8 case studies open as full pages
+
 ## Phase 6: Dependencies
 
 - [ ] Update safe dependencies (framer-motion, luxon, etc.)

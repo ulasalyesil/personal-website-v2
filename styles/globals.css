@@ -19,6 +19,28 @@
 
   --color-border-subtle: #e5e5e5;
   --color-border-default: #d4d4d4;
+
+  /* ─── Long-form reading scale (case studies) ───
+     Body sits above UI text because a case study is read, not operated.
+     Section headings outrank body by a full step so a scanner can navigate
+     a 10-screen page from the headings alone. */
+  --text-kicker: 0.75rem;
+  --text-kicker--line-height: 1;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+  --text-subsection: 1.25rem;
+  --text-subsection--line-height: 1.3;
+  --text-section: 1.875rem;
+  --text-section--line-height: 1.2;
+
+  /* Reading measure. Geist's `ch` (the zero glyph) runs much wider than its
+     average character, so 65ch measures ~84 real characters. 37rem lands at
+     ~68, which is where the reading guidance actually points. */
+  --container-measure: 37rem;
 }
 
 /* Dark mode override */

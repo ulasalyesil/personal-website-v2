@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 export default function CommodoreCase() {
   return (
     <CaseStudyLayout
+      tier="project"
       slug="commodore"
       title="Commodore Z Glass"
       date="June, 2022"

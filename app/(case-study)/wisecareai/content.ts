@@ -25,30 +25,52 @@ export const wisecareai = {
     },
     { type: "image", src: cover, alt: "WiseCareAI overview cover" },
 
-    { type: "text", text: "Product scope:" },
     {
-      type: "text",
-      text: "ACA Enrollment (Agent): guided quoting/enrollment with dynamic form blocks.\nMedicare Quoting (Phone): quick compare with rationale for seniors.\nInternal Ops (CRM): timeline/status insights from notes and events.\nMarketing Site: clear story and trust signals in a regulated domain.\nDesign System: tokens, components, patterns (including generative states).",
+      type: "list",
+      lead: "Product scope:",
+      items: [
+        "ACA Enrollment (Agent): guided quoting/enrollment with dynamic form blocks.",
+        "Medicare Quoting (Phone): quick compare with rationale for seniors.",
+        "Internal Ops (CRM): timeline/status insights from notes and events.",
+        "Marketing Site: clear story and trust signals in a regulated domain.",
+        "Design System: tokens, components, patterns (including generative states).",
+      ],
     },
 
-    { type: "text", text: "Responsibilities:" },
     {
-      type: "text",
-      text: "User interviews and task flows (agents, support, end clients).\nInformation architecture and navigation across tools.\nWireframes → hi-fi UI → prototypes; dev handoff.\nDesign system definition and maintenance.\nAI feature integration: prompts/guardrails/UX for explainability and edits.",
+      type: "list",
+      lead: "Responsibilities:",
+      items: [
+        "User interviews and task flows (agents, support, end clients).",
+        "Information architecture and navigation across tools.",
+        "Wireframes → hi-fi UI → prototypes; dev handoff.",
+        "Design system definition and maintenance.",
+        "AI feature integration: prompts/guardrails/UX for explainability and edits.",
+      ],
     },
 
     { type: "image", src: form, alt: "Dynamic form block example" },
 
-    { type: "text", text: "Where AI/Generative fits (as augmentation):" },
     {
-      type: "text",
-      text: "Adaptive steps/fields when case context changes.\nFree-form intent or guided inputs—both converge to the same editable draft.\nRationale overlays: why a plan is suggested (cost, coverage fit, eligibility).\nRecovery loops: quick fixes to model mistakes without losing progress.",
+      type: "list",
+      lead: "Where AI/Generative fits (as augmentation):",
+      items: [
+        "Adaptive steps/fields when case context changes.",
+        "Free-form intent or guided inputs—both converge to the same editable draft.",
+        "Rationale overlays: why a plan is suggested (cost, coverage fit, eligibility).",
+        "Recovery loops: quick fixes to model mistakes without losing progress.",
+      ],
     },
 
-    { type: "text", text: "Key design challenges:" },
     {
-      type: "text",
-      text: "Stability vs plasticity: keep anchors while the work area adapts.\nTrust without overload: show a one-glance rationale; expand for trace.\nPreview vs commit: drafts first; explicit, reversible writes.\nPolicy complexity: ACA/Medicare rules without exposing regulation-speak.",
+      type: "list",
+      lead: "Key design challenges:",
+      items: [
+        "Stability vs plasticity: keep anchors while the work area adapts.",
+        "Trust without overload: show a one-glance rationale; expand for trace.",
+        "Preview vs commit: drafts first; explicit, reversible writes.",
+        "Policy complexity: ACA/Medicare rules without exposing regulation-speak.",
+      ],
     },
 
     {
@@ -96,16 +118,27 @@ export const wisecareai = {
       text: "System behavior (with engineering): prompt scaffolds, eligibility guardrails, deterministic anchors, streaming feedback, error classes mapped to recovery UI.",
     },
 
-    { type: "text", text: "Patterns distilled:" },
     {
-      type: "text",
-      text: "Correction Loop — inline edits update the draft and current context.\nAnchor Layout — stable shell; generative canvas.\nPreview-First — drafts by default; explicit commit.\nRationale Card — concise “why”, expandable trace.\nLow↔High Agency Toggle — guided steps or free-form intent.\nMemory Notes — lightweight notes the agent and system can reference.",
+      type: "list",
+      lead: "Patterns distilled:",
+      items: [
+        "Correction Loop — inline edits update the draft and current context.",
+        "Anchor Layout — stable shell; generative canvas.",
+        "Preview-First — drafts by default; explicit commit.",
+        "Rationale Card — concise “why”, expandable trace.",
+        "Low↔High Agency Toggle — guided steps or free-form intent.",
+        "Memory Notes — lightweight notes the agent and system can reference.",
+      ],
     },
 
-    { type: "text", text: "Impact (early signals):" },
     {
-      type: "text",
-      text: "≈25% faster enrollment time in agent tests.\nFewer back-and-forths due to visible rationale and editable constraints.\nLower recovery cost by treating AI output as drafts, not decisions.",
+      type: "list",
+      lead: "Impact (early signals):",
+      items: [
+        "≈25% faster enrollment time in agent tests.",
+        "Fewer back-and-forths due to visible rationale and editable constraints.",
+        "Lower recovery cost by treating AI output as drafts, not decisions.",
+      ],
     },
 
     {

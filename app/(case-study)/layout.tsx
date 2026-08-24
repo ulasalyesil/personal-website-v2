@@ -3,9 +3,9 @@ import Footer from "@/components/Footer";
 
 export default function CaseStudyGroupLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col min-h-dvh">
+    <div className="flex min-h-dvh flex-col overflow-x-clip">
       <nav className="sticky top-0 z-10 bg-surface-0 border-b border-border-subtle">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center">
+        <div className="mx-auto flex h-14 max-w-6xl items-center px-4 sm:px-6">
           <Link
             href="/"
             className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-150 flex items-center gap-2"
@@ -29,7 +29,7 @@ export default function CaseStudyGroupLayout({ children }: { children: React.Rea
           </Link>
         </div>
       </nav>
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-12">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12 sm:px-6">
         {children}
       </main>
       <Footer />

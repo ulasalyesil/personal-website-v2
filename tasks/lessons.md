@@ -18,6 +18,16 @@
   until a clean restart. Routing behavior is only trustworthy on a freshly
   started dev server with a clean `.next`.
 
+- **`cn()` silently drops custom font-size utilities.** tailwind-merge only
+  knows Tailwind's built-in scales, so a theme size like `text-body` or
+  `text-lead` looks like a text *color* to it: `cn("text-lead",
+  "text-text-primary")` returned only the color and the size vanished, with no
+  error and no lint warning. Symptom: an element renders at the inherited size
+  while the class list still looks right in the source. Fixed on 2026-08-24 by
+  declaring the sizes in `extendTailwindMerge` in `lib/cn.ts` — any new
+  `--text-*` token must be added to that list. Plain `className` strings are
+  unaffected, which is why some elements were correct and others were not.
+
 ## Mistakes to Avoid
 <!-- Track mistakes and their solutions -->
 

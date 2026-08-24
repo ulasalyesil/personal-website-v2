@@ -25,8 +25,23 @@ export interface FeaturedProject {
 
 // ─── Case study content blocks ─────────────────────────────────────────────────
 
+/**
+ * Which lane a block occupies inside the case study container.
+ * - `prose`  capped at the reading measure (~65ch). Text and anything read.
+ * - `wide`   the full container. Media, widgets, metric grids.
+ * - `bleed`  edge to edge. Reserved for whole-field visuals.
+ */
+export type BlockWidth = "prose" | "wide" | "bleed";
+
+/** Subsection heading, rendered as h3 inside a section. */
 export interface HeadingBlock {
   type: "heading";
+  text: string;
+}
+
+/** Opening paragraph, set one step up. One per case study. */
+export interface LeadBlock {
+  type: "lead";
   text: string;
 }
 
@@ -35,28 +50,106 @@ export interface TextBlock {
   text: string;
 }
 
+export interface ListBlock {
+  type: "list";
+  items: string[];
+  /** Numbered when true. Use for sequences, not for sets. */
+  ordered?: boolean;
+  /** Optional lead-in line above the list. */
+  lead?: string;
+}
+
 export interface GalleryItem {
   src: StaticImageData;
   alt?: string;
 }
 
+/** @deprecated Use `figure`, which adds a caption and a lane. Kept so existing pages render. */
 export interface ImageBlock {
   type: "image";
   src: StaticImageData;
   alt?: string;
 }
 
+export interface FigureBlock {
+  type: "figure";
+  src: StaticImageData;
+  alt?: string;
+  /** What the reader should notice. This is what a scanner reads instead of the paragraph. */
+  caption?: string;
+  width?: BlockWidth;
+}
+
 export interface GalleryBlock {
   type: "gallery";
   items: GalleryItem[];
+  columns?: 2 | 3 | 4;
+  caption?: string;
+}
+
+/** Counted results. Values only, no adjectives. */
+export interface MetricsBlock {
+  type: "metrics";
+  items: { value: string; label: string; note?: string }[];
+}
+
+/** One claim, boxed. Closes a section with its transferable principle. */
+export interface CalloutBlock {
+  type: "callout";
+  text: string;
+  variant?: "principle" | "note" | "constraint";
+  label?: string;
+}
+
+/** Pull quote. For the thesis and the closing line. */
+export interface QuoteBlock {
+  type: "quote";
+  text: string;
+  attribution?: string;
 }
 
 export interface CustomBlock {
   type: "custom";
   id: string;
+  width?: BlockWidth;
 }
 
-export type ContentBlock = HeadingBlock | TextBlock | ImageBlock | GalleryBlock | CustomBlock;
+/** Any block that can live inside a section. */
+export type LeafBlock =
+  | HeadingBlock
+  | LeadBlock
+  | TextBlock
+  | ListBlock
+  | ImageBlock
+  | FigureBlock
+  | GalleryBlock
+  | MetricsBlock
+  | CalloutBlock
+  | QuoteBlock
+  | CustomBlock;
+
+/**
+ * One level of nesting, and the only one. Sections are what make a long page
+ * addressable: anchors, the table of contents, reading progress and the
+ * section rhythm all derive from this block and nothing else.
+ */
+export interface SectionBlock {
+  type: "section";
+  /** Stable anchor id. Slug of the title unless there is a reason to differ. */
+  id: string;
+  title: string;
+  /** Short label above the title. */
+  kicker?: string;
+  blocks: LeafBlock[];
+}
+
+export type ContentBlock = LeafBlock | SectionBlock;
+
+/**
+ * `case-study` makes an argument and supports it. `project` shows a shipped
+ * thing well: images lead, copy captions them, no table of contents.
+ */
+export type CaseStudyTier = "case-study" | "project";
 
 // ─── Work experience ───────────────────────────────────────────────────────────
 

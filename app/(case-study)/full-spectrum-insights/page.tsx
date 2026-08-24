@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 export default function FullSpectrumInsightsCase() {
   return (
     <CaseStudyLayout
+      tier="project"
       slug="full-spectrum-insights"
       title="Full Spectrum Insights"
       date="June, 2025"

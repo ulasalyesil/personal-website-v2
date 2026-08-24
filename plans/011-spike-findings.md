@@ -5,6 +5,29 @@ subject: **wisecareai**, opened from `/works` and `/` via Next.js intercepting +
 parallel routes (Option A). Option B (lab-style `pushState`) was **not needed** —
 Option A passed every constraint.
 
+## Outcome (2026-08-24)
+
+**Rollout rejected. The prototype has been removed.** All eight case studies
+now open as full pages.
+
+Deleted: `app/(main)/@modal/` (the `(.)wisecareai` intercept, `CaseStudyDialog`,
+`default.tsx`) and the `modal` slot in `app/(main)/layout.tsx`.
+`app/(case-study)/wisecareai/content.ts` stays — the content split it introduced
+became the standard for every case study.
+
+Reason: the case study format redesign of the same day built the page around
+window-scroll reading affordances the dialog does not have — a sticky section
+rail, a reading-progress line, section anchors, and the cover-to-article view
+transition (which the dialog deliberately omits). The flagship case study is
+~13,000px tall, which a centred dialog is the wrong container for. The spike's
+own open questions (dialog width, missing Back nav, transition story) were never
+resolved, and resolving them would have meant designing against the reading
+page rather than with it.
+
+The findings below stand as a record of what was tested and what worked.
+
+---
+
 ## Recommendation
 
 **Adopt Option A — intercepting + parallel routes — with one STATIC intercept

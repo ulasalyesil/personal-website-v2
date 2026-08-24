@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 export default function GenesisCase() {
   return (
     <CaseStudyLayout
+      tier="project"
       slug="genesis"
       title="Genesis: Digital Revolution"
       date="January, 2021"
@@ -52,6 +53,7 @@ export default function GenesisCase() {
         },
         {
           type: 'gallery',
+          columns: 3,
           items: [
             { src: img1, alt: 'Genesis frame 1' },
             { src: img2, alt: 'Genesis frame 2' },
