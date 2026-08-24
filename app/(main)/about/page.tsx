@@ -91,7 +91,7 @@ const HoverableWord = ({
 
 const paragraphs = [
   "Hey, I'm Ulaş, a designer working across product, visual systems, and interactive experiences. I split my time between Berlin and Istanbul, working on product design and self-initiated creative work.",
-  "Currently at getirfinans, designing features and owning the design system for Turkey's leading service banking app.",
+  "Currently at getirfinans, owning the design system and designing the AI assistant for Turkey's leading service banking app.",
   "I'm interested in the overlap between design, code, and culture. Outside of product work, I produce music, experiment with generative visuals, and build interactive prototypes — often as a way to think through emotion, structure, and rhythm.",
   "I care about clarity, intention, and craft — and I'm drawn to ideas that challenge conventional patterns. Whether it's a tool, a system, or a story, I try to build things that feel both thoughtful and alive.",
 ];

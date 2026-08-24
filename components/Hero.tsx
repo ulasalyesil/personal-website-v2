@@ -11,8 +11,8 @@ export default function Hero() {
       </p>
       <p className="mt-4 text-lg sm:text-xl text-text-secondary max-w-2xl leading-relaxed text-pretty tracking-tight leading-snug">
         Designing clear interfaces, useful tools, and creative technology.
-        Currently at getirfinans, working across product design and design
-        systems.
+        Currently at getirfinans, owning the design system and designing the
+        AI assistant.
       </p>
       <div className="mt-6 flex gap-3">
         <Button

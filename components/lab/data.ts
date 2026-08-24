@@ -20,16 +20,15 @@ export type LabItem = {
 
 export const LAB_ITEMS: LabItem[] = [
   {
-    slug: "fx-chart-scrub",
-    title: "FX chart scrub",
+    slug: "fx-chart-range",
+    title: "FX chart range",
     tag: "interaction",
     date: "jul 2026",
     blurb:
-      "Dragging the chart moves the price, the change indicator and the date together, so the header reads as the value at your finger rather than the value now. SwiftUI gestures only expose one touch, so the chart reports raw touches from a bare UIView underneath: two fingers inspect a range instead of a point.",
+      "The actual problem: two fingers on the chart should select a range, not a point, and SwiftUI gestures only ever expose one touch. A bare UIView underneath reports raw multi-touch instead, so the chart owns the gesture, recolors the band by direction, and swaps the hero to a two-date delta while the rest of the screen is locked from scrolling out from under it.",
     media: {
-      src: "/images/lab/fx-chart-scrub.webp",
-      video: "/video/lab/fx-chart-scrub.mp4",
-      alt: "Scrubbing an FX chart, with the price and date updating live",
+      src: "/images/lab/fx-chart-range.webp",
+      alt: "FX chart with two fingers selecting a date range, the band between them colored green for a positive move",
     },
   },
   {

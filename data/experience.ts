@@ -12,8 +12,8 @@ export const experience: ExperienceItem[] = [
         employmentPeriod: "2025 — Present",
         employmentType: "Full-time",
         description:
-          "Designing features and owning the design system for Turkey's leading service banking app. Rebuilt the color foundation and shipped dark mode via a two-tier token system.",
-        skills: ["Product Design", "Design Systems", "Figma", "Dark Mode"],
+          "Own the design system for Turkey's leading service banking app: rebuilt the color foundation and shipped dark mode via a two-tier token system. Designed the AI assistant end to end, conversation UI, thinking states, and motion.",
+        skills: ["Product Design", "Design Systems", "AI/UX", "Figma", "Dark Mode"],
       },
     ],
   },
