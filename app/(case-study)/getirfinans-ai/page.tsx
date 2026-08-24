@@ -22,13 +22,16 @@ const ITEMS: Item[] = [
       {
         video: `${V}/ai-chat-entrance.mp4`,
         poster: `${I}/ai-chat-entrance.webp`,
-        alt: "The assistant screen appearing",
+        alt: "The assistant opening from the deposit calculator, its greeting and prompts resolving",
+        frame: "detail",
+        w: 600,
+        h: 590,
       },
     ],
     title: "Entry",
     caption:
-      "The greeting and its prompts resolve together rather than sliding in, and the mic sits inside the composer rather than beside it, so dictation and typing share one field.",
-    meta: "AIChat · SwiftUI",
+      "The assistant opens from wherever you already are, here the deposit calculator, so it arrives as a continuation rather than a destination. The greeting and its four prompts resolve together instead of sliding in one at a time, and the mic sits inside the composer rather than beside it, so dictation and typing share one field.",
+    meta: "getirfinans 2.55, dark mode",
   },
   {
     captures: [
@@ -81,20 +84,34 @@ const ITEMS: Item[] = [
   {
     captures: [
       {
-        video: `${V}/ai-search-semantic.mp4`,
-        poster: `${I}/ai-search-semantic.webp`,
-        alt: "A semantic question answered with no suggestion row",
-      },
-      {
-        video: `${V}/ai-search-destination.mp4`,
-        poster: `${I}/ai-search-destination.webp`,
-        alt: "A question that resolves to a destination, with a suggestion row beneath the answer",
+        video: `${V}/ai-search-answer.mp4`,
+        poster: `${I}/ai-search-answer.webp`,
+        alt: "A question answered inside search, with a route into the assistant beneath it",
+        frame: "detail",
+        w: 600,
+        h: 650,
       },
     ],
-    title: "Two questions, one row apart",
+    title: "Answering inside search",
     caption:
-      "Left asks how something works and gets no suggestion row, because it has nowhere to go. Right names a destination and gets one. Where money moves, a loosely related guess is worse than nothing.",
-    meta: "AISearch · SwiftUI",
+      "A question that search cannot match against a product still gets answered, in place, without a handoff. The route into the assistant sits under the answer rather than instead of it: you only need the conversation if the answer did not finish the job.",
+    meta: "getirfinans 2.55, dark mode",
+  },
+  {
+    captures: [
+      {
+        video: `${V}/ai-search-suggestions.mp4`,
+        poster: `${I}/ai-search-suggestions.webp`,
+        alt: "Assistant prompts resolving inline among search results",
+        frame: "detail",
+        w: 600,
+        h: 760,
+      },
+    ],
+    title: "Prompts where the results are",
+    caption:
+      "Typing a topic surfaces the assistant's prompts inline among the results, not above them and not as a separate mode. Every prompt is a question this topic actually raises, so the row reads as part of the result set rather than as an advertisement for a feature.",
+    meta: "getirfinans 2.55, dark mode",
   },
 ];
 
@@ -115,7 +132,7 @@ export default function GetirFinansAICase() {
         },
         {
           type: "text",
-          text: "Designed in Figma, then built in SwiftUI, because the questions worth arguing about here are ones a static frame cannot answer. Everything below is a recording of the running prototype.",
+          text: "Designed in Figma, then built in SwiftUI, because the questions worth arguing about here are ones a static frame cannot answer. Everything below is a recording of something running: the prototype where it is still a prototype, the shipped app where it shipped.",
         },
         { type: "custom", id: "gallery" },
         {
