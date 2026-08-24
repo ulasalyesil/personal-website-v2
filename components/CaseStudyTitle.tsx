@@ -11,6 +11,8 @@ interface CaseStudyTitleProps {
   platforms?: string;
   websiteUrl?: string;
   tier?: CaseStudyTier;
+  /** Pairs the title with the card or row it was opened from, for the route morph. */
+  slug?: string;
 }
 
 function hostname(url: string): string {
@@ -31,6 +33,7 @@ export default function CaseStudyTitle({
   platforms,
   websiteUrl,
   tier = "case-study",
+  slug,
 }: CaseStudyTitleProps) {
   // Role, timeline and team above the fold: the three things a reviewer checks
   // before deciding whether the rest is worth reading.
@@ -57,7 +60,10 @@ export default function CaseStudyTitle({
         </div>
       )}
 
-      <h1 className="max-w-measure text-balance text-3xl font-semibold tracking-tight text-text-primary md:text-5xl">
+      <h1
+        className="max-w-measure text-balance text-3xl font-semibold tracking-tight text-text-primary md:text-5xl"
+        style={slug ? { viewTransitionName: `project-${slug}-title` } : undefined}
+      >
         {title}
       </h1>
 

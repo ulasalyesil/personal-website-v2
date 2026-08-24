@@ -93,9 +93,39 @@ body {
 /* ─── Lab entrance + modal motion ─── */
 :root {
   --motion-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Strong ease-in-out, for things moving across the screen rather than
+     entering or leaving it. */
+  --motion-ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
+  --motion-duration-press: 120ms;
+  --motion-duration-reveal: 200ms;
   --motion-duration-scrim: 200ms;
   --motion-duration-modal: 260ms;
   --motion-duration-entrance: 420ms;
+  --motion-duration-route: 280ms;
+}
+
+/* ─── Route transitions ───
+   Opening a case study morphs the row or card you clicked into the page
+   header: the title carries over, and the cover carries over when both ends
+   have one. Everything else cross-fades. The point is spatial, not
+   decorative: it answers "where did this page come from". */
+::view-transition-group(*) {
+  animation-duration: var(--motion-duration-route);
+  animation-timing-function: var(--motion-ease-inout);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: var(--motion-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 @keyframes lab-fade-in {

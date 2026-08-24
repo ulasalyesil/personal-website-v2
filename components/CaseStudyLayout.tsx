@@ -213,7 +213,9 @@ export default function CaseStudyLayout({
                 width === "bleed" ? "rounded-none" : "rounded-lg",
               )}
               style={
-                slug && index === heroKey ? { viewTransitionName: `project-${slug}` } : undefined
+                slug && index === heroKey
+                  ? { viewTransitionName: `project-${slug}-cover` }
+                  : undefined
               }
             >
               <Image src={block.src} alt={block.alt || ""} className="w-full" />
@@ -346,6 +348,7 @@ export default function CaseStudyLayout({
           company={company}
           role={role}
           status={status}
+          slug={slug}
           team={team}
           platforms={platforms}
           websiteUrl={websiteUrl}

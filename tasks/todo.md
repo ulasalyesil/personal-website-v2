@@ -52,6 +52,19 @@ Plan: `08-career/portfolio/case-study-format-redesign.md` in the Obsidian vault.
 - [ ] `getirfinans-design-system` is still `hidden: true` in `public/data/projects.json`
 - [x] Removed the plan 011 wisecareai dialog prototype so all 8 case studies open as full pages
 
+## Interaction / motion pass (2026-08-24)
+
+Report: `03-projects/personal-website/motion-opportunities.md` in the vault.
+
+- [x] Route transition: case study open and back, driven by `lib/useRouteTransition.ts`
+- [x] Shared elements: title morph everywhere, cover morph where both ends have one
+- [x] `claimedSlugs` so the home grid and list never duplicate a transition name
+- [x] WorkExperience accordion: `grid-template-rows` transition, `inert` when collapsed
+- [x] Case study compact section bar fades instead of popping
+- [x] Press feedback on project cards and rows
+- [x] AI case study cover rebuilt from three real product screenshots
+- [ ] Judge the 280ms route morph in a visible window; the preview pane freezes CSS transitions
+
 ## Phase 6: Dependencies
 
 - [ ] Update safe dependencies (framer-motion, luxon, etc.)

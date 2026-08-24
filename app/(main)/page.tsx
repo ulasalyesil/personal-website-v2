@@ -57,7 +57,11 @@ export default function HomePage() {
         </div>
       </AnimateItem>
       <AnimateItem>
-        <Section sectionTitle="All Projects" projects={projectsData} />
+        <Section
+          sectionTitle="All Projects"
+          projects={projectsData}
+          claimedSlugs={featured.map((p) => p.slug)}
+        />
       </AnimateItem>
     </AnimateIn>
   );

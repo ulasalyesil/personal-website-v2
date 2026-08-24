@@ -74,9 +74,12 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           appearing and disappearing never reflows the article. */}
       <div
         className={cn(
-          "fixed inset-x-0 top-14 z-10 bg-surface-0/90 backdrop-blur xl:hidden",
-          !engaged && "hidden",
+          "fixed inset-x-0 top-14 z-10 bg-surface-0/90 backdrop-blur transition-[opacity,transform] duration-200 ease-out xl:hidden",
+          engaged
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-1 opacity-0",
         )}
+        aria-hidden={!engaged}
       >
         <button
           type="button"
