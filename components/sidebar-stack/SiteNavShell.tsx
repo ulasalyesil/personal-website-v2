@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { label: "About", href: "/about" },
   { label: "Works", href: "/works" },
   { label: "Lab", href: "/lab" },
-  { label: "Saved", href: "/bookmarks" },
+  { label: "Collected", href: "/bookmarks" },
 ];
 
 export default function SiteNavShell({ children }: { children: React.ReactNode }) {

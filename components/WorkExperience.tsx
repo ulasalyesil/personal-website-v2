@@ -55,22 +55,34 @@ function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
         />
       </button>
 
-      {expanded && (
-        <div className="pb-4 space-y-3">
-          {position.description && (
-            <div className="text-sm text-text-secondary font-mono leading-relaxed">
-              <ReactMarkdown>{position.description}</ReactMarkdown>
-            </div>
-          )}
-          {position.skills && position.skills.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {position.skills.map((skill) => (
-                <Pill key={skill} label={skill} />
-              ))}
-            </div>
-          )}
+      {/* `grid-template-rows: 0fr → 1fr` is the one way to transition to
+          content-sized height without measuring it. The row stays mounted so
+          the transition has something to animate; `inert` keeps the collapsed
+          copy out of tab order and out of the accessibility tree. */}
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows,opacity] duration-200 ease-out",
+          expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+        )}
+        inert={!expanded}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-4 space-y-3">
+            {position.description && (
+              <div className="text-sm text-text-secondary font-mono leading-relaxed">
+                <ReactMarkdown>{position.description}</ReactMarkdown>
+              </div>
+            )}
+            {position.skills && position.skills.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {position.skills.map((skill) => (
+                  <Pill key={skill} label={skill} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

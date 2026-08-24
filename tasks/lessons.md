@@ -18,6 +18,32 @@
   until a clean restart. Routing behavior is only trustworthy on a freshly
   started dev server with a clean `.next`.
 
+- **`cn()` silently drops custom font-size utilities.** tailwind-merge only
+  knows Tailwind's built-in scales, so a theme size like `text-body` or
+  `text-lead` looks like a text *color* to it: `cn("text-lead",
+  "text-text-primary")` returned only the color and the size vanished, with no
+  error and no lint warning. Symptom: an element renders at the inherited size
+  while the class list still looks right in the source. Fixed on 2026-08-24 by
+  declaring the sizes in `extendTailwindMerge` in `lib/cn.ts` — any new
+  `--text-*` token must be added to that list. Plain `className` strings are
+  unaffected, which is why some elements were correct and others were not.
+
+- **`experimental.viewTransition` in next.config does nothing on stable React.**
+  It only exposes React's `unstable_ViewTransition`, which `react@19.2.4` does
+  not export (`'unstable_ViewTransition' in require('react')` is `false`).
+  Setting `view-transition-name` on elements is therefore inert on its own:
+  something has to call `document.startViewTransition`. `lib/useRouteTransition.ts`
+  does it directly. To check whether a transition actually runs, patch
+  `document.startViewTransition` in the console before clicking and count the
+  calls; it was 0 before 2026-08-24.
+
+- **A duplicate `view-transition-name` silently disables the whole transition.**
+  The home page renders the featured grid *and* the full project list, so four
+  slugs claimed the same name twice and nothing morphed. `Section` takes
+  `claimedSlugs` so the list yields those names to the grid. When adding a new
+  surface that links to case studies, check for duplicates first:
+  `[...document.querySelectorAll('*')].filter(e => e.style?.viewTransitionName)`.
+
 ## Mistakes to Avoid
 <!-- Track mistakes and their solutions -->
 

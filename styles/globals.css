@@ -19,6 +19,37 @@
 
   --color-border-subtle: #e5e5e5;
   --color-border-default: #d4d4d4;
+
+  /* ─── Long-form reading scale (case studies) ───
+     Body sits above UI text because a case study is read, not operated.
+     Section headings outrank body by a full step so a scanner can navigate
+     a 10-screen page from the headings alone. */
+  --text-kicker: 0.75rem;
+  --text-kicker--line-height: 1;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+  --text-subsection: 1.25rem;
+  --text-subsection--line-height: 1.3;
+  --text-section: 1.875rem;
+  --text-section--line-height: 1.2;
+
+  /* ─── Inline marks (about page) ───
+     Highlighter tints, not UI colors: low enough alpha to sit under text
+     without competing with it, and hue-matched across modes rather than
+     inverted, so a mark reads as the same mark in both. */
+  --color-mark-amber: #f9b6232e;
+  --color-mark-blue: #3b82f62e;
+  --color-mark-green: #22c55e2e;
+  --color-mark-violet: #8b5cf62e;
+
+  /* Reading measure. Geist's `ch` (the zero glyph) runs much wider than its
+     average character, so 65ch measures ~84 real characters. 37rem lands at
+     ~68, which is where the reading guidance actually points. */
+  --container-measure: 37rem;
 }
 
 /* Dark mode override */
@@ -38,6 +69,11 @@
 
     --color-border-subtle: #1f1f1f;
     --color-border-default: #2a2a2a;
+
+    --color-mark-amber: #f9b62340;
+    --color-mark-blue: #60a5fa40;
+    --color-mark-green: #4ade8040;
+    --color-mark-violet: #a78bfa40;
   }
 }
 
@@ -71,9 +107,39 @@ body {
 /* ─── Lab entrance + modal motion ─── */
 :root {
   --motion-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Strong ease-in-out, for things moving across the screen rather than
+     entering or leaving it. */
+  --motion-ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
+  --motion-duration-press: 120ms;
+  --motion-duration-reveal: 200ms;
   --motion-duration-scrim: 200ms;
   --motion-duration-modal: 260ms;
   --motion-duration-entrance: 420ms;
+  --motion-duration-route: 280ms;
+}
+
+/* ─── Route transitions ───
+   Opening a case study morphs the row or card you clicked into the page
+   header: the title carries over, and the cover carries over when both ends
+   have one. Everything else cross-fades. The point is spatial, not
+   decorative: it answers "where did this page come from". */
+::view-transition-group(*) {
+  animation-duration: var(--motion-duration-route);
+  animation-timing-function: var(--motion-ease-inout);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: var(--motion-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 @keyframes lab-fade-in {

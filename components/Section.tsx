@@ -4,9 +4,15 @@ import type { ProjectsData } from "@/types";
 interface SectionProps {
   sectionTitle: string;
   projects: ProjectsData;
+  /**
+   * Slugs whose route-morph name is already claimed elsewhere on the page (the
+   * featured grid on the home page). A `view-transition-name` must be unique
+   * per document: a duplicate makes the browser skip the whole transition.
+   */
+  claimedSlugs?: string[];
 }
 
-export default function Section({ sectionTitle, projects }: SectionProps) {
+export default function Section({ sectionTitle, projects, claimedSlugs = [] }: SectionProps) {
   const sortedProjects = Object.entries(projects)
     .filter(([, project]) => !project.hidden)
     .sort(
@@ -29,6 +35,7 @@ export default function Section({ sectionTitle, projects }: SectionProps) {
               projectTitle={title}
               role={role}
               target={target}
+              claimedSlugs={claimedSlugs}
             />
           );
         })}

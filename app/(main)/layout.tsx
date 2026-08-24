@@ -1,13 +1,7 @@
 import Footer from "@/components/Footer";
 import SiteNavShell from "@/components/sidebar-stack/SiteNavShell";
 
-export default function MainLayout({
-  children,
-  modal,
-}: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SiteNavShell>
@@ -16,9 +10,6 @@ export default function MainLayout({
         </main>
         <Footer />
       </SiteNavShell>
-      {/* Overlays stay outside the shell: the plane is transformed while the
-          menu is open, and a transformed ancestor breaks position:fixed. */}
-      {modal}
     </>
   );
 }
