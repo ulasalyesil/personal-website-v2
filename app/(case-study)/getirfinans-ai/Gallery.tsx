@@ -9,15 +9,24 @@ import { cn } from "@/lib/cn";
 // running simulator: no mockups, no re-creations.
 // ─────────────────────────────────────────────────────────────────────────────
 
-type Capture = {
+export type Capture = {
   /** /video/... — omit for a still. */
   video?: string;
   /** /images/... poster, and the still itself when there is no video. */
   poster: string;
   alt: string;
+  /**
+   * `phone` is a whole screen. `detail` is a capture cropped to the part of the
+   * UI it is about: a whole screen at this size makes the detail unreadable, and
+   * a crop is no longer phone-shaped, so it loses the phone framing.
+   */
+  frame?: "phone" | "detail";
+  /** Intrinsic size, so the box is reserved before the video loads. */
+  w?: number;
+  h?: number;
 };
 
-type Item = {
+export type Item = {
   captures: Capture[];
   title: string;
   caption: string;
@@ -34,6 +43,9 @@ function Screen({
   priority?: boolean;
   viewTransitionName?: string;
 }) {
+  const detail = capture.frame === "detail";
+  const w = capture.w ?? 600;
+  const h = capture.h ?? 1304;
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
 
@@ -71,7 +83,11 @@ function Screen({
 
   return (
     <div
-      className="group/screen relative overflow-hidden rounded-[7.5%/3.5%] border border-border-subtle bg-surface-1"
+      className={cn(
+        "group/screen relative overflow-hidden border border-border-subtle bg-surface-1",
+        // The percentage radius reads as a phone only on a phone-shaped box.
+        detail ? "rounded-xl" : "rounded-[7.5%/3.5%]",
+      )}
       style={viewTransitionName ? { viewTransitionName } : undefined}
     >
       {capture.video ? (
@@ -79,6 +95,8 @@ function Screen({
           <video
             ref={ref}
             className="block w-full"
+            width={w}
+            height={h}
             src={capture.video}
             poster={capture.poster}
             muted
@@ -102,8 +120,8 @@ function Screen({
         <Image
           src={capture.poster}
           alt={capture.alt}
-          width={600}
-          height={1304}
+          width={w}
+          height={h}
           className="block w-full"
           priority={priority}
           sizes="(max-width: 640px) 70vw, 260px"
@@ -115,12 +133,14 @@ function Screen({
 
 function Figure({ item, index }: { item: Item; index: number }) {
   const pair = item.captures.length > 1;
+  // A cropped detail is wider than it is tall, so it needs more column to read.
+  const detail = item.captures.some((c) => c.frame === "detail");
   return (
     <figure className={cn("flex flex-col", pair && "sm:col-span-2")}>
       <div
         className={cn(
           "mx-auto w-full",
-          pair ? "grid max-w-[34rem] grid-cols-2 gap-3" : "max-w-[16rem]",
+          pair ? "grid max-w-[34rem] grid-cols-2 gap-3" : detail ? "max-w-[22rem]" : "max-w-[16rem]",
         )}
       >
         {item.captures.map((c, i) => (
@@ -128,7 +148,7 @@ function Figure({ item, index }: { item: Item; index: number }) {
             key={c.poster}
             capture={c}
             priority={index === 0 && i === 0}
-            viewTransitionName={index === 0 && i === 0 ? "project-getirfinans-ai" : undefined}
+            viewTransitionName={index === 0 && i === 0 ? "project-getirfinans-ai-cover" : undefined}
           />
         ))}
       </div>

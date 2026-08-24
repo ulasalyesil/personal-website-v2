@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
-import Gallery from "./Gallery";
+import Gallery, { type Item } from "./Gallery";
 
 export const metadata: Metadata = {
   title: "GetirFinans AI — Ulaş Alyeşil",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const V = "/video/getirfinans-ai";
 const I = "/images/getirfinans-ai";
 
-const ITEMS = [
+const ITEMS: Item[] = [
   {
     captures: [
       {
@@ -35,6 +35,9 @@ const ITEMS = [
       {
         video: `${V}/assistant-answer.mp4`,
         poster: `${I}/assistant-answer.webp`,
+        frame: "detail",
+        w: 600,
+        h: 520,
         alt: "A thinking state handing over to a streamed answer with campaign cards",
       },
     ],
@@ -48,6 +51,9 @@ const ITEMS = [
       {
         video: `${V}/voice-listening.mp4`,
         poster: `${I}/voice-listening.webp`,
+        frame: "detail",
+        w: 600,
+        h: 210,
         alt: "The composer in its listening state",
       },
     ],
@@ -61,6 +67,9 @@ const ITEMS = [
       {
         video: `${V}/char-limit.mp4`,
         poster: `${I}/char-limit.webp`,
+        frame: "detail",
+        w: 600,
+        h: 290,
         alt: "The composer growing line by line, then refusing more text",
       },
     ],
