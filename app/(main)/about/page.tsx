@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/cn";
 import Image from "next/image";
 
 import picture from "@/public/images/picture.jpeg";
@@ -23,26 +24,122 @@ const ProfileImage = () => (
   </div>
 );
 
-type HoverKey = "Ulaş" | "Berlin" | "Istanbul";
+/** A compact preview for terms whose payoff is the destination, not an image. */
+const LinkPeek = ({ title, note, host }: { title: string; note: string; host: string }) => (
+  <div className="w-64 rounded-xl border border-border-default bg-surface-1 p-4 shadow-lg">
+    <div className="text-sm font-medium text-text-primary">{title}</div>
+    <p className="mt-1 text-xs leading-relaxed text-text-secondary">{note}</p>
+    <div className="mt-2.5 font-mono text-[11px] text-text-tertiary">{host}</div>
+  </div>
+);
+
+type HoverKey =
+  | "Ulaş"
+  | "Berlin"
+  | "Istanbul"
+  | "getirfinans"
+  | "design system"
+  | "AI assistant"
+  | "music"
+  | "generative visuals"
+  | "interactive prototypes";
+
+type Tint = "amber" | "blue" | "green" | "violet" | "none";
 
 interface HoverContentItem {
   component: React.ComponentType;
   link: string;
+  /** Marked terms are discoverable without hovering. Names stay unmarked:
+   *  they read as names, and a highlighted name looks like a mistake. */
+  tint: Tint;
 }
 
 const hoverContent: Record<HoverKey, HoverContentItem> = {
   Ulaş: {
     component: ProfileImage,
     link: "https://www.linkedin.com/in/ulasalyesil",
+    tint: "none",
   },
   Berlin: {
     component: () => <TimeZoneCard city="berlin" />,
     link: "https://en.wikipedia.org/wiki/Berlin",
+    tint: "none",
   },
   Istanbul: {
     component: () => <TimeZoneCard city="istanbul" />,
     link: "https://en.wikipedia.org/wiki/Istanbul",
+    tint: "none",
   },
+  getirfinans: {
+    component: () => (
+      <LinkPeek
+        title="getirfinans"
+        note="Turkey's leading service banking app, and the product every system decision below had to survive."
+        host="getirfinans.com"
+      />
+    ),
+    link: "https://www.getirfinans.com",
+    tint: "violet",
+  },
+  "design system": {
+    component: () => (
+      <LinkPeek
+        title="The design system"
+        note="A two-tier token architecture rebuilt underneath a live product, across web, iOS and Android."
+        host="Case study"
+      />
+    ),
+    link: "/getirfinans-design-system",
+    tint: "amber",
+  },
+  "AI assistant": {
+    component: () => (
+      <LinkPeek
+        title="The AI assistant"
+        note="Designed in Figma, then built in SwiftUI, because the arguments worth having need something running."
+        host="Case study"
+      />
+    ),
+    link: "/getirfinans-ai",
+    tint: "blue",
+  },
+  music: {
+    component: () => (
+      <LinkPeek title="Locura" note="Released 2020." host="music.apple.com" />
+    ),
+    link: "https://music.apple.com/tr/album/locura/1523904240?i=1523904488",
+    tint: "green",
+  },
+  "generative visuals": {
+    component: () => (
+      <LinkPeek
+        title="isthisevendesign_ua"
+        note="Visual experiments, mostly TouchDesigner, mostly unfinished on purpose."
+        host="instagram.com"
+      />
+    ),
+    link: "https://www.instagram.com/isthisevendesign_ua/",
+    tint: "violet",
+  },
+  "interactive prototypes": {
+    component: () => (
+      <LinkPeek
+        title="Lab"
+        note="Small things built to answer a question that a static frame could not."
+        host="/lab"
+      />
+    ),
+    link: "/lab",
+    tint: "amber",
+  },
+};
+
+const TINT: Record<Tint, string> = {
+  amber: "bg-mark-amber",
+  blue: "bg-mark-blue",
+  green: "bg-mark-green",
+  violet: "bg-mark-violet",
+  none: "",
 };
 
 interface HoverableWordProps {
@@ -53,6 +150,7 @@ interface HoverableWordProps {
   onPeek: (key: HoverKey) => void;
   peekedKey: HoverKey | null;
   link: string;
+  tint: Tint;
 }
 
 const HoverableWord = ({
@@ -63,11 +161,12 @@ const HoverableWord = ({
   onPeek,
   peekedKey,
   link,
+  tint,
 }: HoverableWordProps) => (
   <Link
     href={link}
-    target="_blank"
-    rel="noopener noreferrer"
+    target={link.startsWith("http") ? "_blank" : undefined}
+    rel={link.startsWith("http") ? "noopener noreferrer" : undefined}
     data-hover-word
     className="relative inline-block group"
     onMouseEnter={() => onHover(contentType)}
@@ -84,7 +183,16 @@ const HoverableWord = ({
       }
     }}
   >
-    <span className="absolute inset-0 bg-brand rounded-md scale-x-110 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-150" />
+    {/* The resting mark: visible, so the term reads as something to try. */}
+    <span
+      className={cn(
+        "absolute inset-0 scale-x-105 rounded-md transition-opacity duration-150",
+        TINT[tint],
+        tint !== "none" && "group-hover:opacity-0 group-focus-visible:opacity-0",
+      )}
+    />
+    {/* The hover mark, in brand. */}
+    <span className="absolute inset-0 scale-x-110 rounded-md bg-brand opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100" />
     <span className="relative z-10">{word}</span>
   </Link>
 );
@@ -103,7 +211,9 @@ function processText(
   onWordPeek: (key: HoverKey) => void,
   peekedKey: HoverKey | null
 ): React.ReactNode[] {
-  const words = Object.keys(hoverContent) as HoverKey[];
+  const words = (Object.keys(hoverContent) as HoverKey[]).sort(
+    (a, b) => b.length - a.length,
+  );
   const pattern = new RegExp(`(${words.join("|")})`, "gi");
   const parts = text.split(pattern);
 
@@ -119,6 +229,7 @@ function processText(
           word={part}
           contentType={matchedWord}
           link={hoverContent[matchedWord].link}
+          tint={hoverContent[matchedWord].tint}
           onHover={onWordHover}
           onLeave={onWordLeave}
           onPeek={onWordPeek}

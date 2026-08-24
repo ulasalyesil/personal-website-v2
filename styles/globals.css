@@ -37,6 +37,15 @@
   --text-section: 1.875rem;
   --text-section--line-height: 1.2;
 
+  /* ─── Inline marks (about page) ───
+     Highlighter tints, not UI colors: low enough alpha to sit under text
+     without competing with it, and hue-matched across modes rather than
+     inverted, so a mark reads as the same mark in both. */
+  --color-mark-amber: #f9b6232e;
+  --color-mark-blue: #3b82f62e;
+  --color-mark-green: #22c55e2e;
+  --color-mark-violet: #8b5cf62e;
+
   /* Reading measure. Geist's `ch` (the zero glyph) runs much wider than its
      average character, so 65ch measures ~84 real characters. 37rem lands at
      ~68, which is where the reading guidance actually points. */
@@ -60,6 +69,11 @@
 
     --color-border-subtle: #1f1f1f;
     --color-border-default: #2a2a2a;
+
+    --color-mark-amber: #f9b62340;
+    --color-mark-blue: #60a5fa40;
+    --color-mark-green: #4ade8040;
+    --color-mark-violet: #a78bfa40;
   }
 }
 
