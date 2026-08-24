@@ -113,8 +113,46 @@ export const contentBlocks: ContentBlock[] = [
         text: "Brand invariance: bg/action/primary resolves to #5D3EBC in both modes. Brand is a mode-independent anchor. Most fintech dark modes oversaturate the brand color into large fills; here purple lives at the stroke, accent, and border layer.",
       },
       {
+        type: "compare",
+        panes: [
+          {
+            label: "Brand as surface",
+            tone: "rejected",
+            id: "brand-flooded",
+            caption: "The same token used as a large fill. Legible, and it makes every screen a brand screen.",
+          },
+          {
+            label: "Brand as anchor",
+            tone: "shipped",
+            id: "brand-anchored",
+            caption: "Neutral surface, purple reserved for the action and the border it owns.",
+          },
+        ],
+        verdict:
+          "Same token, same hex, both modes. The decision was never which purple, it was how much surface purple is allowed to own. Restraint here is what keeps the accent legible when it matters.",
+      },
+      {
         type: "text",
         text: "Status colors range-switch, they do not invert. green.50 in light mode becomes green.900 in dark mode: same semantic role, different scale position.",
+      },
+      {
+        type: "compare",
+        panes: [
+          {
+            label: "Positional equivalence",
+            tone: "rejected",
+            id: "status-positional",
+            caption: "What \u201cgive us dark mode equivalents\u201d produces: the light scale positions, unchanged, on the dark canvas.",
+          },
+          {
+            label: "Range switch",
+            tone: "shipped",
+            id: "status-range",
+            caption: "Same semantic roles, resolved into the 900s. Contained instead of glowing.",
+          },
+        ],
+        verdict:
+          "Both panes are the same three semantic tokens. Only the primitive they bind to changed. The left one is what a 1:1 mapping gives you, and it is why the brief had to be argued with before anything could be designed.",
       },
       {
         type: "callout",
@@ -271,17 +309,68 @@ export const contentBlocks: ContentBlock[] = [
     title: "Results",
     blocks: [
       {
+        type: "text",
+        text: "The foundation was replaced underneath a running product without a freeze, a big-bang refactor, or a rollback.",
+      },
+      {
         type: "metrics",
         items: [
+          {
+            value: "2 months",
+            label: "Full migration",
+            note: "Every sub-product, with the core dev team, ahead of the standalone app release",
+          },
+          {
+            value: "20",
+            label: "Domains migrated",
+            note: "All of them, not a partial rollout",
+          },
           { value: "3", label: "Platforms", note: "Web, iOS, Android" },
           { value: "2", label: "Modes", note: "Resolved at the semantic layer" },
           { value: "3", label: "Token collections", note: "Primitives, semantics, legacy" },
-          { value: "9", label: "Spacing steps", note: "0 through 64" },
-          { value: "10", label: "Size steps", note: "Includes a 2-step touch target scale" },
-          { value: "8", label: "Radius steps", note: "Primitives, not yet promoted" },
+          {
+            value: "30",
+            label: "Dimensional primitives",
+            note: "9 spacing, 10 size, 8 radius, 3 breakpoint",
+          },
         ],
       },
-      { type: "custom", id: "results" },
+      { type: "heading", text: "Shipped" },
+      {
+        type: "list",
+        items: [
+          "The token system is live in production across the getirfinans app, on all three platforms.",
+          "The legacy color file is fully replaced. Accounts, loans, FX and cards all resolve through the semantic layer.",
+          "The migration landed ahead of the standalone app release, which was the deadline that mattered.",
+          "gf-design-system.vercel.app is live and in active use by design and engineering.",
+        ],
+      },
+      { type: "heading", text: "Adoption" },
+      {
+        type: "list",
+        items: [
+          "Every sub-product is on the semantic layer. There is no domain still reading raw hex.",
+          "The design team was trained on the two-tier model through facilitated token sessions.",
+          "Engineering went from resisting the refactor to advocating for it, and now files token requests rather than hardcoding around them.",
+        ],
+      },
+      { type: "heading", text: "What it changed beyond the system" },
+      {
+        type: "list",
+        items: [
+          "getirfinans.com was redesigned end to end on the new visual language.",
+          "A formal token governance process exists where there was none.",
+          "The SVG icon migration was approved and prioritized, which is the fix for the CDN sprawl dark mode exposed.",
+          "The monorepo split into a source repo and a documentation repo, so the docs cannot describe a token that does not ship.",
+          "Design system deep dives now run after each sprint.",
+        ],
+      },
+      {
+        type: "callout",
+        variant: "note",
+        label: "Still being confirmed",
+        text: "Exact primitive and semantic token counts, and whether contrast was verified systematically rather than per screen. Both are being checked against production before they go here, on the same standard the reality page holds itself to.",
+      },
     ],
   },
 

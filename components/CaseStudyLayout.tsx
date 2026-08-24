@@ -87,6 +87,10 @@ function countWords(blocks: ContentBlock[]): number {
     if (block.type === "list") {
       return total + block.items.join(" ").split(/\s+/).length;
     }
+    if (block.type === "compare") {
+      const prose = [block.verdict, ...block.panes.map((p) => p.text)].filter(Boolean).join(" ");
+      return total + (prose ? prose.split(/\s+/).length : 0);
+    }
     return total;
   }, 0);
 }
@@ -97,6 +101,7 @@ function countWords(blocks: ContentBlock[]): number {
  * block equal weight, which is what makes a long page unreadable.
  */
 const STANDOFF = new Set([
+  "compare",
   "figure",
   "image",
   "gallery",
@@ -305,6 +310,49 @@ export default function CaseStudyLayout({
               <footer className="mt-2 text-caption text-text-tertiary">{block.attribution}</footer>
             )}
           </blockquote>
+        );
+
+      case "compare":
+        return (
+          <figure key={key} className="w-full">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {block.panes.map((pane, i) => (
+                <div key={i} className="flex min-w-0 flex-col gap-3">
+                  <p className="flex items-center gap-2 text-kicker font-mono uppercase tracking-wide text-text-tertiary">
+                    {pane.tone && pane.tone !== "neutral" && (
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "leading-none",
+                          pane.tone === "shipped" ? "text-brand" : "text-text-tertiary",
+                        )}
+                      >
+                        {pane.tone === "shipped" ? "✓" : "✕"}
+                      </span>
+                    )}
+                    {pane.label}
+                  </p>
+
+                  {pane.src && (
+                    <div className="overflow-hidden rounded-lg bg-surface-1">
+                      <Image src={pane.src} alt={pane.alt || ""} className="w-full" />
+                    </div>
+                  )}
+                  {pane.id && <div>{customComponents?.[pane.id]}</div>}
+                  {pane.text && <p className="text-pretty">{pane.text}</p>}
+
+                  {pane.caption && (
+                    <p className="text-caption text-text-tertiary">{pane.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+            {block.verdict && (
+              <figcaption className={cn(LANE.prose, "mt-5 border-l-2 border-brand pl-4 text-pretty")}>
+                {block.verdict}
+              </figcaption>
+            )}
+          </figure>
         );
 
       case "custom":

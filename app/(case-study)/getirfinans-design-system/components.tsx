@@ -1439,41 +1439,96 @@ export function DocsSitePreview() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 9. RESULTS — IN PROGRESS (honest WIP state, not an empty section)
+// 10. COMPARISON SPECIMENS — the explorations that lost
+//
+// Each renders one side of a `compare` block. Values are the real tokens, so
+// these are specimens rather than illustrations: the rejected pane shows what
+// the rejected approach actually produces, not a caricature of it.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PENDING_METRICS = [
-  "Exact primitive + semantic token counts",
-  "Docs site total page count",
-  "Domains migrated off the legacy collection (of 20)",
-  "Whether WCAG contrast was verified systematically",
-  "A publicly stateable active-user number",
-];
+const STATUS_SPECIMEN = [
+  { role: "success", label: "Transfer complete", light: "#EDFDF0", dark: "#0B4E1B", lightName: "green.50", darkName: "green.900" },
+  { role: "error", label: "Card declined", light: "#FDF2F2", dark: "#661111", lightName: "red.50", darkName: "red.900" },
+  { role: "warning", label: "Limit almost reached", light: "#FFF9EB", dark: "#5E3D04", lightName: "orange.50", darkName: "orange.900" },
+] as const;
 
-export function ResultsInProgress() {
+/**
+ * The same three status banners on the dark canvas, resolved two ways.
+ * `positional` keeps the light mode's scale position (the 50s), which is what
+ * "give us dark mode equivalents" produces. `range` switches to the 900s.
+ */
+export function StatusScaleSpecimen({ variant }: { variant: "positional" | "range" }) {
+  const positional = variant === "positional";
+  const dark = product("dark");
+
   return (
-    <Widget className="bg-surface-1">
-      <div className="flex items-center gap-2.5 border-b border-border-subtle px-5 py-4">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-        </span>
-        <span className="text-sm font-semibold text-text-primary">Results — being finalized</span>
+    <Widget>
+      <div className="space-y-3 p-5" style={{ backgroundColor: dark.canvas }}>
+        {STATUS_SPECIMEN.map((s) => (
+          <div
+            key={s.role}
+            className="flex items-center justify-between gap-3 rounded-xl px-4 py-3"
+            style={{ backgroundColor: positional ? s.light : s.dark }}
+          >
+            <span
+              className="text-sm font-medium"
+              style={{ color: positional ? "#0E0E0E" : "#FFFFFF" }}
+            >
+              {s.label}
+            </span>
+            <span
+              className="font-mono text-[11px]"
+              style={{ color: positional ? "#5C5C5C" : "#FFFFFFA6" }}
+            >
+              {positional ? s.lightName : s.darkName}
+            </span>
+          </div>
+        ))}
       </div>
-      <div className="space-y-4 p-5 md:p-6">
-        <p className="max-w-prose text-sm text-text-secondary">
-          This is a live system, still migrating. Rather than publish soft numbers, the
-          hard metrics are being confirmed against production before they go here — the
-          same &ldquo;evidence, not claims&rdquo; standard the docs site holds itself to.
+    </Widget>
+  );
+}
+
+/**
+ * Brand purple on a dark surface, as a large fill and as an anchor. Same token
+ * (`bg/action/primary`, #5D3EBC), which is the point: brand invariance is about
+ * where the color is allowed to sit, not about changing its value per mode.
+ */
+export function BrandFillSpecimen({ variant }: { variant: "flooded" | "anchored" }) {
+  const flooded = variant === "flooded";
+  const dark = product("dark");
+
+  return (
+    <Widget>
+      <div className="p-5" style={{ backgroundColor: dark.canvas }}>
+        <div
+          className="rounded-2xl p-4"
+          style={{
+            backgroundColor: flooded ? GF.brand : dark.surface,
+            // Invisible against the flooded fill, which is the point: the
+            // anchored version is the only one where the stroke does work.
+            border: `1px solid ${GF.brand}`,
+          }}
+        >
+          <p className="text-xs" style={{ color: flooded ? "#FFFFFFB3" : dark.subtext }}>
+            Vadeli hesap
+          </p>
+          <p className="mt-1 text-xl font-semibold" style={{ color: dark.text }}>
+            ₺100.000
+          </p>
+          <div
+            className="mt-4 flex h-9 items-center justify-center rounded-full text-sm font-semibold"
+            style={{
+              backgroundColor: flooded ? "#FFFFFF1F" : GF.brand,
+              color: "#FFFFFF",
+            }}
+          >
+            Devam et
+          </div>
+        </div>
+        <p className="mt-3 font-mono text-[11px]" style={{ color: dark.subtext }}>
+          {flooded ? "bg/action/primary as surface" : "bg/action/primary as action + border"}
         </p>
-        <ul className="space-y-2">
-          {PENDING_METRICS.map((m) => (
-            <li key={m} className="flex items-center gap-3 text-sm text-text-secondary">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full border border-border-default" />
-              {m}
-            </li>
-          ))}
-        </ul>
       </div>
     </Widget>
   );

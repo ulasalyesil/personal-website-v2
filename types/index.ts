@@ -114,6 +114,35 @@ export interface CustomBlock {
   width?: BlockWidth;
 }
 
+/**
+ * One side of a comparison. Supply exactly one of `src`, `id` or `text` as the
+ * pane's content. `tone` marks which side lost, so the reader does not have to
+ * infer the verdict from the caption.
+ */
+export interface ComparePane {
+  /** Name the position, not the medium: "Positional equivalence", not "Option A". */
+  label: string;
+  tone?: "rejected" | "shipped" | "neutral";
+  src?: StaticImageData;
+  alt?: string;
+  /** Key into `customComponents`, for specimens that have to be rendered. */
+  id?: string;
+  text?: string;
+  caption?: string;
+}
+
+/**
+ * Two options side by side, with the reasoning that picked one. This is the
+ * block that lets a case study show an exploration rather than assert that it
+ * happened: what was tried, what shipped, and why the difference mattered.
+ */
+export interface CompareBlock {
+  type: "compare";
+  panes: [ComparePane, ComparePane];
+  /** The argument that decided it. */
+  verdict?: string;
+}
+
 /** Any block that can live inside a section. */
 export type LeafBlock =
   | HeadingBlock
@@ -126,6 +155,7 @@ export type LeafBlock =
   | MetricsBlock
   | CalloutBlock
   | QuoteBlock
+  | CompareBlock
   | CustomBlock;
 
 /**

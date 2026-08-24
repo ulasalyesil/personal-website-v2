@@ -11,7 +11,8 @@ import {
   BottomSheetSimulator,
   AiComponentPreview,
   DocsSitePreview,
-  ResultsInProgress,
+  StatusScaleSpecimen,
+  BrandFillSpecimen,
 } from "./components";
 
 export const metadata: Metadata = {
@@ -36,7 +37,10 @@ export default function GetirFinansDesignSystemCase() {
     "bottom-sheet": <BottomSheetSimulator />,
     "component-sandbox": <ComponentSandbox />,
     "docs-site": <DocsSitePreview />,
-    results: <ResultsInProgress />,
+    "status-positional": <StatusScaleSpecimen variant="positional" />,
+    "status-range": <StatusScaleSpecimen variant="range" />,
+    "brand-flooded": <BrandFillSpecimen variant="flooded" />,
+    "brand-anchored": <BrandFillSpecimen variant="anchored" />,
   };
 
   return (
