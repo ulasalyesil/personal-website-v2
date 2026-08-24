@@ -8,6 +8,8 @@ export interface ProjectEntry {
   title: string;
   role: string;
   target: string;
+  /** Excluded from the Works listing without deleting the entry or its case study page. */
+  hidden?: boolean;
 }
 
 export type ProjectsData = Record<string, ProjectEntry>;

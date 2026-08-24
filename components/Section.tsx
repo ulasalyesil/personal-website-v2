@@ -7,10 +7,12 @@ interface SectionProps {
 }
 
 export default function Section({ sectionTitle, projects }: SectionProps) {
-  const sortedProjects = Object.entries(projects).sort(
-    ([, a], [, b]) =>
-      new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  const sortedProjects = Object.entries(projects)
+    .filter(([, project]) => !project.hidden)
+    .sort(
+      ([, a], [, b]) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
 
   return (
     <section>

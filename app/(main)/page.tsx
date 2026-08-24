@@ -9,7 +9,6 @@ import projectsData from "@/public/data/projects.json";
 import wisecareaCover from "@/public/images/wisecare/wisecare_cover.webp";
 import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
-import gfDarkCover from "@/public/images/getirfinans-design-system/cover.webp";
 import gfAiCover from "@/public/images/getirfinans-ai/cover.webp";
 import type { FeaturedProject } from "@/types";
 
@@ -41,13 +40,6 @@ const featured: FeaturedProject[] = [
     description:
       "Designing a seamless QuickBooks integration that automates invoice and customer creation from form submissions.",
     cover: qbCover,
-  },
-  {
-    slug: "getirfinans-design-system",
-    title: "GetirFinans Design System",
-    description:
-      "Rebuilding the color foundation of a live fintech app: a two-tier token system shipped under a running product, and the governance work that made it stick.",
-    cover: gfDarkCover,
   },
 ];
 

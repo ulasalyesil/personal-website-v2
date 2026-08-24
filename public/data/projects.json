@@ -9,7 +9,8 @@
     "title": "GetirFinans Design System",
     "role": "Product Design, Design Systems",
     "date": "February, 2026",
-    "target": "/getirfinans-design-system"
+    "target": "/getirfinans-design-system",
+    "hidden": true
   },
   "jotform": {
     "title": "Jotform",

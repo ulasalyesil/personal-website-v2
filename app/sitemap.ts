@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/full-spectrum-insights",
     "/genesis",
     "/getirfinans-ai",
-    "/getirfinans-design-system",
     "/good-afternoon-creative",
     "/jotform-integrations",
     "/wisecareai",
