@@ -49,14 +49,14 @@ export default function HomePage() {
       <AnimateItem>
         <Hero />
       </AnimateItem>
-      <AnimateItem>
+      <AnimateItem index={1}>
         <ProjectGrid projects={featured} />
         {/* mt-4 matches the grid's gap-4 so the card reads as its last row. */}
         <div className="mt-4">
           <LabTeaserCard />
         </div>
       </AnimateItem>
-      <AnimateItem>
+      <AnimateItem index={2}>
         <Section
           sectionTitle="All Projects"
           projects={projectsData}

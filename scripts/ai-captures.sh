@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Build the getirfinans-ai gallery assets.
 #
-# Raw simulator/device recordings land in public/video/getirfinans-ai/incoming/.
+# Raw simulator/device recordings land in captures/getirfinans-ai/, which is
+# git-ignored and outside public/ so a build input can never be served as a URL.
 # They are 1206x2622 at 60fps and include whatever happened before and after the
 # moment worth showing, up to and including the swipe that stopped the recording.
 # This script downscales them to the gallery's 600x1304 coordinate space, trims
@@ -12,7 +13,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-RAW=public/video/getirfinans-ai/incoming
+RAW=captures/getirfinans-ai
 VID=public/video/getirfinans-ai
 IMG=public/images/getirfinans-ai
 
@@ -38,6 +39,12 @@ Image.open('/tmp/ai-poster-$name.png').convert('RGB').save('$IMG/$name.webp','WE
 "
   rm -f "/tmp/ai-poster-$name.png"
 }
+
+if [ ! -d "$RAW" ] || [ -z "$(ls -A "$RAW"/*.mp4 2>/dev/null)" ]; then
+  echo "No raw captures in $RAW/." >&2
+  echo "They are git-ignored by design: see $RAW/README.md." >&2
+  exit 1
+fi
 
 echo "Building captures:"
 

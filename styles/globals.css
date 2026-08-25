@@ -182,3 +182,23 @@ body {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Page entry: the same 12px rise the framer-motion `fadeUp` variant used, but
+   in CSS so it runs at first paint. Driven from JS, the content had to ship
+   server-rendered at opacity 0 and stayed invisible until the bundle
+   downloaded and React hydrated, which put LCP at 5.5s behind a 0.9s FCP. */
+@keyframes enter-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.enter-item {
+  animation: enter-rise 350ms ease-out both;
+  /* Capped so a long list never staggers for seconds. */
+  animation-delay: calc(min(var(--enter-index, 0), 8) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-item {
+    animation: none;
+  }
+}

@@ -14,7 +14,7 @@ export default function Bookmarks() {
           Bookmarks
         </h2>
       </AnimateItem>
-      <AnimateItem>
+      <AnimateItem index={1}>
         <ul className="flex flex-col">
           <li>
             <LinkItem

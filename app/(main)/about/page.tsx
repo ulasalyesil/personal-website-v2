@@ -4,13 +4,22 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 import picture from "@/public/images/picture.jpeg";
 import Button from "@/components/ui/Button";
-import TimeZoneCard from "@/components/TimeZoneCard";
 import WorkExperience from "@/components/WorkExperience";
 import { experience } from "@/data/experience";
 import AnimateIn, { AnimateItem } from "@/components/AnimateIn";
+
+// TimeZoneCard pulls in luxon, and it only ever renders when the reader hovers
+// "Berlin" or "Istanbul". Statically imported it put luxon on the initial
+// /about bundle for a card most visitors never open. Deferring it keeps luxon,
+// and with it the timezone correctness plans/README chose not to trade away.
+const TimeZoneCard = dynamic(() => import("@/components/TimeZoneCard"), {
+  ssr: false,
+  loading: () => <div className="w-contain h-32" aria-hidden="true" />,
+});
 
 const ProfileImage = () => (
   <div className="size-48 rounded-md overflow-hidden">
@@ -25,11 +34,21 @@ const ProfileImage = () => (
 );
 
 /** A compact preview for terms whose payoff is the destination, not an image. */
-const LinkPeek = ({ title, note, host }: { title: string; note: string; host: string }) => (
+const LinkPeek = ({
+  title,
+  note,
+  host,
+}: {
+  title: string;
+  note: string;
+  host: string;
+}) => (
   <div className="w-64 rounded-xl border border-border-default bg-surface-1 p-4 shadow-lg">
     <div className="text-sm font-medium text-text-primary">{title}</div>
     <p className="mt-1 text-xs leading-relaxed text-text-secondary">{note}</p>
-    <div className="mt-2.5 font-mono text-[11px] text-text-tertiary">{host}</div>
+    <div className="mt-2.5 font-mono text-[11px] text-text-tertiary">
+      {host}
+    </div>
   </div>
 );
 
@@ -176,7 +195,10 @@ const HoverableWord = ({
     onClick={(e) => {
       // Touch (hover-none) devices: first tap peeks, second tap follows the
       // link. Mouse users hover first, so click-through stays native.
-      if (window.matchMedia("(hover: none)").matches && peekedKey !== contentType) {
+      if (
+        window.matchMedia("(hover: none)").matches &&
+        peekedKey !== contentType
+      ) {
         e.preventDefault();
         onHover(contentType);
         onPeek(contentType);
@@ -188,7 +210,7 @@ const HoverableWord = ({
       className={cn(
         "absolute inset-0 scale-x-105 rounded-md transition-opacity duration-150",
         TINT[tint],
-        tint !== "none" && "group-hover:opacity-0 group-focus-visible:opacity-0",
+        tint !== "none" && "group-hover:opacity-0 group-focus-visible:opacity-0"
       )}
     />
     {/* The hover mark, in brand. */}
@@ -212,14 +234,14 @@ function processText(
   peekedKey: HoverKey | null
 ): React.ReactNode[] {
   const words = (Object.keys(hoverContent) as HoverKey[]).sort(
-    (a, b) => b.length - a.length,
+    (a, b) => b.length - a.length
   );
   const pattern = new RegExp(`(${words.join("|")})`, "gi");
   const parts = text.split(pattern);
 
   return parts.map((part, index) => {
     const matchedWord = words.find(
-      (word) => part.toLowerCase() === word.toLowerCase(),
+      (word) => part.toLowerCase() === word.toLowerCase()
     );
 
     if (matchedWord) {
@@ -242,10 +264,13 @@ function processText(
 }
 
 export default function About() {
-  const [activeContentType, setActiveContentType] = useState<HoverKey | null>(null);
+  const [activeContentType, setActiveContentType] = useState<HoverKey | null>(
+    null
+  );
   const [peeked, setPeeked] = useState<HoverKey | null>(null);
 
-  const handleWordHover = (contentType: HoverKey) => setActiveContentType(contentType);
+  const handleWordHover = (contentType: HoverKey) =>
+    setActiveContentType(contentType);
   const handleWordLeave = () => setActiveContentType(null);
   const handleWordPeek = (contentType: HoverKey) => setPeeked(contentType);
 
@@ -282,14 +307,20 @@ export default function About() {
         </div>
       </AnimateItem>
 
-      <AnimateItem>
+      <AnimateItem index={1}>
         <div className="relative">
           {paragraphs.map((text, index) => (
             <p
               key={index}
               className="text-text-primary text-2xl md:text-3xl text-pretty"
             >
-              {processText(text, handleWordHover, handleWordLeave, handleWordPeek, peeked)}
+              {processText(
+                text,
+                handleWordHover,
+                handleWordLeave,
+                handleWordPeek,
+                peeked
+              )}
             </p>
           ))}
 
@@ -301,7 +332,7 @@ export default function About() {
         </div>
       </AnimateItem>
 
-      <AnimateItem>
+      <AnimateItem index={2}>
         <WorkExperience items={experience} />
       </AnimateItem>
     </AnimateIn>

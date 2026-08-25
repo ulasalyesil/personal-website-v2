@@ -1,8 +1,18 @@
 /** @type {import('next').NextConfig} */
 
+// `experimental.viewTransition` used to be set here. It only exposes React's
+// `unstable_ViewTransition`, which stable React 19.2 does not export
+// (`'unstable_ViewTransition' in require('react')` is false), so it was inert:
+// the route morph is driven by `document.startViewTransition` in
+// `lib/useRouteTransition.ts`. Removed 2026-08-25 so the config stops implying
+// a mechanism the app does not use.
+
 module.exports = {
-  experimental: {
-    viewTransition: true,
+  images: {
+    // Default is WebP only. AVIF first is the one change in the 013 round that
+    // reduces the bytes a visitor actually downloads for an image; Next falls
+    // back to WebP on browsers that do not accept AVIF.
+    formats: ["image/avif", "image/webp"],
   },
   async redirects() {
     return [

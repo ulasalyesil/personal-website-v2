@@ -19,7 +19,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
         Selected Work
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <Link
             key={project.slug}
             href={`/${project.slug}`}
@@ -41,6 +41,13 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                 className="object-cover transition-transform duration-150 group-hover:scale-[1.02]"
                 fill
                 sizes="(max-width: 640px) 100vw, 50vw"
+                // The first cover is the LCP element on the home page: it
+                // sits inside the initial viewport, so it must not be
+                // lazy-loaded. `priority` emits the preload link and drops
+                // loading="lazy"; the explicit hint is separate, and is what
+                // lcp-discovery-insight's `priorityHinted` check reads.
+                priority={index === 0}
+                fetchPriority={index === 0 ? "high" : undefined}
               />
             </div>
             <div>

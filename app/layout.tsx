@@ -7,7 +7,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 export const metadata: Metadata = {
   metadataBase: new URL("https://ulasalyesil.com"),
   title: "Ulaş Alyeşil | Product Designer",
-  description: "Product designer focused on clear interfaces, useful tools, and creative technology.",
+  description:
+    "Product designer focused on clear interfaces, useful tools, and creative technology.",
 };
 
 export const viewport = {
@@ -17,13 +18,22 @@ export const viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // Without this guard an unset id still rendered the tag, which fetched 87KB
+  // of gtag.js from googletagmanager.com for a measurement id of "" and left a
+  // 404 in the console on every page.
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en">
       <body className="bg-surface-0 text-text-primary antialiased">
         <ErrorBoundary>{children}</ErrorBoundary>
         <Analytics />
-        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_ID ?? ""} />
+        {gaId ? <GoogleAnalytics measurementId={gaId} /> : null}
       </body>
     </html>
   );
