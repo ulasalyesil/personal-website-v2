@@ -12,7 +12,7 @@ export default function Works() {
       <AnimateItem>
         <Section sectionTitle="Design Works" projects={projectsData} />
       </AnimateItem>
-      <AnimateItem>
+      <AnimateItem index={1}>
         <Section sectionTitle="Other Stuff" projects={otherData} />
       </AnimateItem>
     </AnimateIn>

@@ -16,58 +16,114 @@ export interface NavSection {
  */
 export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
-  const [progress, setProgress] = useState(0);
   const [open, setOpen] = useState(false);
   /** False until the reader is actually inside a section, so the compact bar
    *  never sits above the page title. */
   const [engaged, setEngaged] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
   const ticking = useRef(false);
 
+  /**
+   * Section tops in document coordinates, plus the page's scrollable height.
+   *
+   * The scroll handler used to call `getBoundingClientRect()` on every section
+   * on every frame and then set three pieces of React state, so one scroll
+   * frame cost N forced layouts plus a full re-render of the nav. Measuring
+   * once and comparing numbers per frame is the same answer for no layout
+   * work, and unlike an IntersectionObserver it stays correct across an
+   * instant jump: a section that goes from above the viewport to below it
+   * never crosses a boundary, so an observer would never hear about it.
+   *
+   * Re-measured whenever the document resizes, which covers font swap, images
+   * settling, and orientation changes.
+   */
+  const layout = useRef<{ tops: number[]; scrollable: number }>({
+    tops: [],
+    scrollable: 0,
+  });
+  /** Last width written to the bar, so an unchanged frame writes nothing. */
+  const lastWidth = useRef(-1);
+
   useEffect(() => {
-    function measure() {
+    function measureLayout() {
+      // All reads, batched, no writes in between.
+      const scrollY = window.scrollY;
+      const tops = sections.map((s) => {
+        const el = document.getElementById(s.id);
+        return el ? el.getBoundingClientRect().top + scrollY : Infinity;
+      });
+      layout.current = {
+        tops,
+        scrollable: document.documentElement.scrollHeight - window.innerHeight,
+      };
+      update();
+    }
+
+    /** Pure arithmetic against the cached layout: no DOM reads. */
+    function update() {
       ticking.current = false;
+      const { tops, scrollable } = layout.current;
+      const scrollY = window.scrollY;
+      // The nav line sits 96px down, so a section counts as reached once its
+      // top has passed that line. Same threshold the rect test used.
+      const line = scrollY + 96;
 
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0);
+      let current = -1;
+      for (let i = 0; i < tops.length; i++) {
+        if (tops[i] <= line) current = i;
+        else break;
+      }
 
-      // The active section is the last one whose heading has passed the nav.
-      let current = sections[0]?.id ?? "";
-      let reached = false;
-      for (const section of sections) {
-        const el = document.getElementById(section.id);
-        if (el && el.getBoundingClientRect().top <= 96) {
-          current = section.id;
-          reached = true;
+      // Passing the same value is a no-op in React, so these are only a
+      // re-render on an actual section change, not once per frame.
+      setActiveId(
+        current >= 0 ? sections[current].id : (sections[0]?.id ?? "")
+      );
+      setEngaged(current >= 0);
+
+      const bar = progressRef.current;
+      if (bar) {
+        const progress =
+          scrollable > 0 ? Math.min(1, Math.max(0, scrollY / scrollable)) : 0;
+        // Two decimals is finer than a pixel on any real viewport. Rounding
+        // first means a frame that would not move the bar writes nothing, and
+        // so invalidates no style.
+        const width = Math.round(progress * 10000) / 100;
+        if (width !== lastWidth.current) {
+          lastWidth.current = width;
+          bar.style.width = `${width}%`;
         }
       }
-      setActiveId(current);
-      setEngaged(reached);
     }
 
     function onScroll() {
       if (ticking.current) return;
       ticking.current = true;
-      requestAnimationFrame(measure);
+      requestAnimationFrame(update);
     }
 
-    measure();
+    measureLayout();
+
+    const ro = new ResizeObserver(measureLayout);
+    ro.observe(document.documentElement);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
+      ro.disconnect();
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
     };
   }, [sections]);
 
-  const activeTitle = sections.find((s) => s.id === activeId)?.title ?? sections[0]?.title;
+  const activeTitle =
+    sections.find((s) => s.id === activeId)?.title ?? sections[0]?.title;
 
   return (
     <>
       {/* Reading progress, on the bottom edge of the page nav. */}
       <div
+        ref={progressRef}
         aria-hidden="true"
         className="fixed left-0 top-[calc(3.5rem-2px)] z-20 h-0.5 bg-brand"
-        style={{ width: `${progress * 100}%` }}
+        style={{ width: 0 }}
       />
 
       {/* Compact section bar, below xl. Fixed rather than sticky so that
@@ -77,7 +133,7 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           "fixed inset-x-0 top-14 z-10 bg-surface-0/90 backdrop-blur transition-[opacity,transform] duration-200 ease-out xl:hidden",
           engaged
             ? "translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-1 opacity-0",
+            : "pointer-events-none -translate-y-1 opacity-0"
         )}
         aria-hidden={!engaged}
       >
@@ -87,7 +143,9 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           aria-expanded={open}
           className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 border-b border-border-subtle px-4 py-3 text-left sm:px-6"
         >
-          <span className="truncate text-caption text-text-secondary">{activeTitle}</span>
+          <span className="truncate text-caption text-text-secondary">
+            {activeTitle}
+          </span>
           <svg
             width="14"
             height="14"
@@ -96,7 +154,7 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
             aria-hidden="true"
             className={cn(
               "shrink-0 text-text-tertiary transition-transform duration-150",
-              open && "rotate-180",
+              open && "rotate-180"
             )}
           >
             <path
@@ -117,7 +175,9 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
                   onClick={() => setOpen(false)}
                   className={cn(
                     "flex gap-3 py-2 text-caption transition-colors duration-150",
-                    section.id === activeId ? "text-text-primary" : "text-text-secondary",
+                    section.id === activeId
+                      ? "text-text-primary"
+                      : "text-text-secondary"
                   )}
                 >
                   <span className="font-mono tabular-nums text-text-tertiary">
@@ -142,13 +202,15 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
                   "flex gap-2.5 text-caption leading-snug transition-colors duration-150",
                   section.id === activeId
                     ? "text-text-primary"
-                    : "text-text-tertiary hover:text-text-secondary",
+                    : "text-text-tertiary hover:text-text-secondary"
                 )}
               >
                 <span
                   className={cn(
                     "font-mono tabular-nums",
-                    section.id === activeId ? "text-brand" : "text-text-tertiary",
+                    section.id === activeId
+                      ? "text-brand"
+                      : "text-text-tertiary"
                   )}
                 >
                   {String(i + 1).padStart(2, "0")}

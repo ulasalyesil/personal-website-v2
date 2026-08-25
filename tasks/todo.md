@@ -65,9 +65,43 @@ Report: `03-projects/personal-website/motion-opportunities.md` in the vault.
 - [x] AI case study cover rebuilt from three real product screenshots
 - [ ] Judge the 280ms route morph in a visible window; the preview pane freezes CSS transitions
 
+## Performance round (2026-08-25)
+
+Plan: `plans/013-performance-round.md`. Branch `perf/measured-round-013`.
+First Lighthouse this repo has ever had. Numbers are median of 3, mobile preset.
+
+- [x] Lighthouse baseline on `/`, `/about`, `/getirfinans-ai`
+- [x] **LCP root cause**: `AnimateIn` server-rendered every page at `opacity: 0`,
+      so LCP tracked hydration, not paint. Replaced the framer-motion entry with
+      a CSS animation that runs at first paint. `/` 5.48s to 2.58s, `/about`
+      5.26s to 2.46s. Both routes 80 to 97.
+- [x] First project cover marked `priority` + `fetchPriority="high"`; it was the
+      LCP element and it was `loading="lazy"`
+- [x] `app/favicon.ico` 285KB to 2.7KB (it was a 256px blue circle, on every page)
+- [x] Google Analytics no longer loads gtag.js with an empty measurement id (87KB)
+- [x] Raw capture sources out of `public/` into git-ignored `captures/`, 18.4MB
+- [x] 19 unreferenced images deleted, ~3.9MB
+- [x] AVIF enabled in `next.config.js`, -15% per optimized image
+- [x] Inert `experimental.viewTransition` flag removed (re-verified inert first)
+- [x] `react-markdown` removed (0 of 5 descriptions had markdown syntax)
+- [x] `lucide-react` removed, one icon inlined; site now carries one icon library
+- [x] luxon kept but deferred via `next/dynamic`; earlier `Intl` rejection stands
+- [x] `CaseStudyNav` scroll: N `getBoundingClientRect()` + 3 setStates per frame
+      became measure-once + arithmetic. Script time per scroll 37ms to 12ms.
+- [ ] `/getirfinans-ai` still fails `lcp-discovery-insight`: the LCP element is
+      the first gallery video's poster and nothing hints its priority. Left
+      alone deliberately (gallery behavior is off limits until the encoding
+      work); the route still scores 97.
+- [ ] Gallery video encodings measured (632KB total, worst clip 244KB at crf 20)
+      but not re-encoded. Next candidate if that page ever needs more.
+- [ ] `/lab` is now the heaviest route at 155 kB (framer-motion for the modal).
+      Legitimate, but unmeasured by Lighthouse: never audited that route.
+- [ ] No field data. Everything here is lab data from localhost.
+
 ## Phase 6: Dependencies
 
 - [ ] Update safe dependencies (framer-motion, luxon, etc.)
+      (`react-markdown` and `lucide-react` were removed outright in plan 013)
 - [ ] Plan Next.js 16 migration
 
 ---

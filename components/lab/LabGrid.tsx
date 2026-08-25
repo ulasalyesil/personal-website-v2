@@ -25,7 +25,7 @@ export default function LabGrid({
   return (
     <AnimateIn className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((item, index) => (
-        <AnimateItem key={item.slug} className="h-full">
+        <AnimateItem key={item.slug} index={index} className="h-full">
           <LabCard item={item} index={index} onOpen={onOpen} />
         </AnimateItem>
       ))}

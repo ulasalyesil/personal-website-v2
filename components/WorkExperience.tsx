@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { triggerHaptic } from "@/lib/haptics";
 import Pill from "@/components/ui/Pill";
@@ -23,13 +21,18 @@ function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
   return (
     <div className="border-b border-border-subtle last:border-0">
       <button
-        onClick={() => { setExpanded((v) => !v); triggerHaptic("selection"); }}
+        onClick={() => {
+          setExpanded((v) => !v);
+          triggerHaptic("selection");
+        }}
         className="w-full flex items-center justify-between py-3 gap-4 text-left group"
         aria-expanded={expanded}
       >
         <div className="flex flex-col gap-0.5 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="font-medium text-text-primary text-sm">{position.title}</span>
+            <span className="font-medium text-text-primary text-sm">
+              {position.title}
+            </span>
             {isCurrentEmployer && (
               <span className="relative flex size-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
@@ -47,12 +50,28 @@ function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
             )}
           </div>
         </div>
-        <ChevronDown
+        {/* Was lucide-react's ChevronDown, the only icon this app took from
+            that library. Inlined so the site carries one icon dependency
+            instead of two; same 16-unit path CaseStudyNav already draws. */}
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
           className={cn(
             "size-4 text-text-tertiary shrink-0 transition-transform duration-200",
-            expanded && "rotate-180",
+            expanded && "rotate-180"
           )}
-        />
+        >
+          <path
+            d="M4 6l4 4 4-4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </button>
 
       {/* `grid-template-rows: 0fr → 1fr` is the one way to transition to
@@ -62,16 +81,19 @@ function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
       <div
         className={cn(
           "grid transition-[grid-template-rows,opacity] duration-200 ease-out",
-          expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+          expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         )}
         inert={!expanded}
       >
         <div className="overflow-hidden">
           <div className="pb-4 space-y-3">
+            {/* Was <ReactMarkdown>. Every description in data/experience.ts is
+                plain prose: checked 2026-08-25, 0 of 5 contain any markdown
+                syntax, so the parser was there to render paragraphs. */}
             {position.description && (
-              <div className="text-sm text-text-secondary font-mono leading-relaxed">
-                <ReactMarkdown>{position.description}</ReactMarkdown>
-              </div>
+              <p className="text-sm text-text-secondary font-mono leading-relaxed">
+                {position.description}
+              </p>
             )}
             {position.skills && position.skills.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
@@ -97,7 +119,9 @@ export default function WorkExperience({ items }: WorkExperienceProps) {
         {items.map((item) => (
           <div key={item.id}>
             <div className="flex items-center gap-2 mb-2">
-              <span className="font-medium text-text-primary">{item.companyName}</span>
+              <span className="font-medium text-text-primary">
+                {item.companyName}
+              </span>
             </div>
             <div className="border border-border-subtle rounded-lg px-4 divide-y divide-border-subtle">
               {item.positions.map((position) => (

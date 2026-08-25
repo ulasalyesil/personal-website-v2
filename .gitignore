@@ -33,3 +33,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw capture sources (build inputs for scripts/ai-captures.sh, never shipped)
+/captures/**
+!/captures/**/
+!/captures/**/README.md
