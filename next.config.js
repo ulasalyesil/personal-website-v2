@@ -14,6 +14,15 @@ module.exports = {
     // back to WebP on browsers that do not accept AVIF.
     formats: ["image/avif", "image/webp"],
   },
+  async rewrites() {
+    return [
+      // The Common Ground prototype is a static export living in
+      // public/common-ground. Next serves public/ files by exact path, so the
+      // clean URL needs pointing at the export's entry document.
+      { source: "/common-ground", destination: "/common-ground/index.html" },
+      { source: "/common-ground/", destination: "/common-ground/index.html" },
+    ];
+  },
   async redirects() {
     return [
       {

@@ -3,6 +3,13 @@ export type LabMedia = {
   src: string;
   /** Optional muted loop — plays on hover in the grid, autoplays in the modal. */
   video?: string;
+  /** Poster for the video's resting state. */
+  poster?: string;
+  /**
+   * Set when `video` is a raw phone screen recording, so it renders inside
+   * the device bezel instead of as a flat frame.
+   */
+  device?: "iphone";
   alt: string;
 };
 
@@ -37,7 +44,7 @@ export const LAB_ITEMS: LabItem[] = [
       alt: "A private AI thread open over a shared knowledge model, offering four ways to move an insight out of the private context",
     },
     tint: "#4a4a7d",
-    url: "https://common-ground-ulas-alyesil.vercel.app",
+    url: "/common-ground",
   },
   {
     slug: "fx-chart-range",
@@ -50,7 +57,10 @@ export const LAB_ITEMS: LabItem[] = [
       "The actual problem: two fingers on the chart should select a range, not a point, and SwiftUI gestures only ever expose one touch. A bare UIView underneath reports raw multi-touch instead, so the chart owns the gesture, recolors the band by direction, and swaps the hero to a two-date delta while the rest of the screen is locked from scrolling out from under it.",
     media: {
       src: "/images/lab/fx-chart-range.webp",
-      alt: "FX chart with two fingers selecting a date range, the band between them colored green for a positive move",
+      video: "/video/lab/fx-chart-range.mp4",
+      poster: "/video/lab/fx-chart-range-poster.jpg",
+      device: "iphone",
+      alt: "Two fingers dragging across an FX chart to select a date range, the band between them recoloured by direction",
     },
     tint: "#2f6f52",
   },
@@ -66,7 +76,9 @@ export const LAB_ITEMS: LabItem[] = [
     media: {
       src: "/images/lab/campaigns.webp",
       video: "/video/lab/campaigns.mp4",
-      alt: "A campaign carousel zooming into its detail page",
+      poster: "/video/lab/campaigns-poster.jpg",
+      device: "iphone",
+      alt: "A campaign carousel zooming into the detail page for the card that was tapped",
     },
     tint: "#b5782a",
   },

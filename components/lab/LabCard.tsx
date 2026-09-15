@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { triggerHaptic } from "@/lib/haptics";
+import DeviceFrame from "./DeviceFrame";
 import type { LabItem } from "./data";
 
 type Props = {
@@ -21,6 +22,7 @@ export default function LabCard({ item, index, onOpen }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
   const hasVideo = Boolean(item.media.video) && !reducedMotion;
+  const inDevice = item.media.device === "iphone" && Boolean(item.media.video);
 
   const play = () => void videoRef.current?.play().catch(() => {});
   const stop = () => {
@@ -44,29 +46,36 @@ export default function LabCard({ item, index, onOpen }: Props) {
       className="group grid w-full cursor-pointer grid-cols-1 items-start gap-5 text-left lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-10"
       aria-label={`Open ${item.title}`}
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-surface-2 transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
-        <div className="relative h-full w-full overflow-hidden">
-          <Image
-            src={item.media.src}
-            alt={item.media.alt}
-            className="object-cover"
-            fill
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            priority={index === 0}
-          />
-          {hasVideo && (
-            <video
+      <div
+        className="relative aspect-[16/10] w-full overflow-hidden rounded-xl transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
+        style={{ backgroundColor: inDevice ? item.tint : undefined }}
+      >
+        {inDevice ? (
+          /* the recording is raw screen capture, so the colour field can sit
+             behind the device without fighting a background baked into a shot */
+          /* the device runs off the bottom edge on purpose — a decisive crop
+             reads as composition, a crop landing on the corner curve reads as
+             a mistake, and bleeding buys back screen size */
+          <div className="absolute inset-x-0 top-[8%] bottom-[-22%] flex justify-center">
+            <DeviceFrame
               ref={videoRef}
-              src={item.media.video}
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-hidden
-              className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              src={item.media.video!}
+              poster={item.media.poster}
+              label={item.media.alt}
             />
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="relative h-full w-full overflow-hidden bg-surface-2">
+            <Image
+              src={item.media.src}
+              alt={item.media.alt}
+              className="object-cover"
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              priority={index === 0}
+            />
+          </div>
+        )}
       </div>
 
       <div className="lg:pt-2">
