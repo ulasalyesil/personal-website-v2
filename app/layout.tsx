@@ -31,6 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-surface-0 text-text-primary antialiased">
+        <a
+          href="#main-content"
+          className="sr-only fixed left-4 top-4 z-50 rounded-md bg-surface-0 px-3 py-2 text-sm text-text-primary shadow-lg focus:not-sr-only focus:outline-2 focus:outline-brand"
+        >
+          Skip to content
+        </a>
         <ErrorBoundary>{children}</ErrorBoundary>
         <Analytics />
         {gaId ? <GoogleAnalytics measurementId={gaId} /> : null}

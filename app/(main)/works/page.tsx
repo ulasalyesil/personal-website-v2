@@ -10,7 +10,8 @@ export default function Works() {
   return (
     <AnimateIn className="flex flex-col gap-16">
       <AnimateItem>
-        <Section sectionTitle="Design Works" projects={projectsData} />
+        <h1 className="mb-8 text-2xl font-semibold text-text-primary text-balance">Works</h1>
+        <Section sectionTitle="Design work" projects={projectsData} />
       </AnimateItem>
       <AnimateItem index={1}>
         <Section sectionTitle="Other Stuff" projects={otherData} />

@@ -3,91 +3,59 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { triggerHaptic } from "@/lib/haptics";
-import { STACK_SPRING, STACK_SCALE } from "@/lib/animations";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Works", href: "/works" },
+  { label: "Résumé", href: "/ulas-alyesil-resume.pdf" },
   { label: "Lab", href: "/lab" },
   { label: "Collected", href: "/bookmarks" },
 ];
 
 export default function SiteNavShell({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [sidebarW, setSidebarW] = useState(280);
-  const [originY, setOriginY] = useState(0);
-  const reduceMotion = useReducedMotion();
   const pathname = usePathname();
-  const sidebarRef = useRef<HTMLElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const firstNavRef = useRef<HTMLAnchorElement>(null);
-  const wasOpen = useRef(false);
-
-  // The translate distance must match the rendered sidebar width
-  // (min(280px, 78vw) on small screens).
-  useEffect(() => {
-    const measure = () => setSidebarW(sidebarRef.current?.offsetWidth ?? 280);
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
 
   const toggle = () => {
     triggerHaptic("selection");
-    if (!isOpen) {
-      // The plane is document-tall; scale around the center of what's on
-      // screen, not the element, or the motion drifts with scroll position.
-      setOriginY(window.scrollY + window.innerHeight / 2);
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (dialog.open) {
+      dialog.close();
+    } else {
+      dialog.showModal();
+      setIsOpen(true);
     }
-    setIsOpen((v) => !v);
   };
 
-  // Esc closes; body scroll locks while open (the lab modal's conventions).
+  // A native modal supplies background inertness and focus containment.
   useEffect(() => {
     if (!isOpen) return;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
+    firstNavRef.current?.focus();
   }, [isOpen]);
 
-  // Close when the route changes (covers back/forward, not just link clicks).
   useEffect(() => {
-    setIsOpen(false);
+    if (dialogRef.current?.open) dialogRef.current.close();
   }, [pathname]);
-
-  // Focus follows the menu: into the nav on open, back to the toggle on close.
-  useEffect(() => {
-    if (isOpen) {
-      firstNavRef.current?.focus();
-      wasOpen.current = true;
-    } else if (wasOpen.current) {
-      menuBtnRef.current?.focus();
-      wasOpen.current = false;
-    }
-  }, [isOpen]);
-
-  const spring = reduceMotion ? { duration: 0 } : STACK_SPRING;
 
   return (
     <div className="relative min-h-dvh" style={{ background: "#141417" }}>
-      {/* Base layer: the navigation. Fixed palette, beneath the page plane. */}
-      <nav
-        ref={sidebarRef}
+      <dialog
+        ref={dialogRef}
         aria-label="Main navigation"
-        aria-hidden={!isOpen}
-        className="fixed inset-y-0 left-0 flex flex-col py-6 px-4"
-        style={{ width: "min(280px, 78vw)" }}
+        onClose={() => {
+          setIsOpen(false);
+          menuBtnRef.current?.focus();
+        }}
+        className="m-0 h-dvh max-h-none w-[min(280px,78vw)] border-0 bg-[#141417] p-0 text-[#fafafa] backdrop:bg-black/45"
       >
+        <nav className="flex h-full flex-col px-4 py-6" aria-label="Main navigation">
         <div
           className="flex items-center gap-2.5 px-3 pb-8 font-mono uppercase"
           style={{ fontSize: 11, letterSpacing: "0.08em", color: "#71717a" }}
@@ -103,10 +71,9 @@ export default function SiteNavShell({ children }: { children: React.ReactNode }
               key={item.href}
               href={item.href}
               ref={i === 0 ? firstNavRef : undefined}
-              tabIndex={isOpen ? 0 : -1}
               onClick={() => {
                 triggerHaptic("selection");
-                setIsOpen(false);
+                dialogRef.current?.close();
               }}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors duration-150",
@@ -135,26 +102,18 @@ export default function SiteNavShell({ children }: { children: React.ReactNode }
         >
           © 2026
         </div>
-      </nav>
+        <button
+          type="button"
+          onClick={toggle}
+          className="mt-6 self-start rounded-lg px-3 py-2 text-sm text-[#a1a1aa] transition-colors duration-150 hover:bg-white/5 hover:text-[#fafafa]"
+        >
+          Close menu
+        </button>
+        </nav>
+      </dialog>
 
-      {/* Top layer: the page plane. Springs aside to reveal the nav. */}
-      <motion.div
+      <div
         className="relative z-10 flex flex-col min-h-dvh bg-surface-0"
-        initial={false}
-        animate={{
-          x: isOpen ? sidebarW : 0,
-          scale: isOpen ? STACK_SCALE : 1,
-          borderRadius: isOpen ? 16 : 0,
-        }}
-        transition={spring}
-        style={{
-          // originX/originY is framer's native origin API — a raw
-          // transformOrigin string would fight its transform pipeline.
-          originX: 0.5,
-          originY: `${originY}px`,
-          boxShadow: "0 18px 60px rgba(0,0,0,0.4)",
-          overflow: isOpen ? "clip" : undefined,
-        }}
       >
         <header className="sticky top-0 z-30 h-16 sm:h-24 pointer-events-none">
           <div
@@ -212,21 +171,23 @@ export default function SiteNavShell({ children }: { children: React.ReactNode }
               </svg>
               Menu
             </button>
+            <div className="ml-auto hidden items-center gap-4 text-sm text-text-secondary sm:flex">
+              <Link href="/about" className="transition-colors duration-150 hover:text-text-primary">
+                About
+              </Link>
+              <Link
+                href="/ulas-alyesil-resume.pdf"
+                target="_blank"
+                className="transition-colors duration-150 hover:text-text-primary"
+              >
+                Résumé
+              </Link>
+            </div>
           </div>
         </header>
 
         {children}
-
-        {/* While open, the pushed-aside page acts as the scrim. The header sits
-            above this overlay so Menu and the brand dot stay clickable. */}
-        {isOpen && (
-          <div
-            className="absolute inset-0 z-20"
-            onClick={() => setIsOpen(false)}
-            aria-hidden
-          />
-        )}
-      </motion.div>
+      </div>
     </div>
   );
 }

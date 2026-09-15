@@ -5,8 +5,8 @@
 
 /* Light mode (default) */
 @theme {
-  --color-brand: #ff5701;
-  --color-brand-hover: #e64e00;
+  --color-brand: #c94200;
+  --color-brand-hover: #a93700;
 
   --color-surface-0: #ffffff;
   --color-surface-1: #f5f5f5;
@@ -55,8 +55,8 @@
 /* Dark mode override */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-brand: #ff5701;
-    --color-brand-hover: #e64e00;
+    --color-brand: #ff6b22;
+    --color-brand-hover: #ff8245;
 
     --color-surface-0: #0a0a0a;
     --color-surface-1: #111111;

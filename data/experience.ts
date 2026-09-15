@@ -9,7 +9,7 @@ export const experience: ExperienceItem[] = [
       {
         id: "getir-product-designer",
         title: "Product Designer",
-        employmentPeriod: "2025 — Present",
+        employmentPeriod: "November 2025 — Present",
         employmentType: "Full-time",
         description:
           "Own the design system for Turkey's leading service banking app: rebuilt the color foundation and shipped dark mode via a two-tier token system. Designed the AI assistant end to end, conversation UI, thinking states, and motion.",
@@ -25,10 +25,10 @@ export const experience: ExperienceItem[] = [
       {
         id: "wisecare-founding-designer",
         title: "Founding Product Designer",
-        employmentPeriod: "2024 — 2025",
+        employmentPeriod: "May 2024 — August 2025",
         employmentType: "Full-time",
         description:
-          "End-to-end product design for a US health-insurance platform: brand identity, visual language, marketing site, onboarding, and core flows, taken from zero to a market-ready product. Integrated generative AI to adapt forms and recommendations in real time. Now the primary asset in an ongoing acquisition process.",
+          "End-to-end product design for a U.S. health-insurance platform: brand identity, visual language, marketing site, onboarding, and core flows, taken from zero to a market-ready product. Integrated generative AI to support adaptable forms and recommendations.",
         skills: ["Product Design", "Design Systems", "Figma", "AI/UX", "User Research"],
       },
     ],
@@ -56,7 +56,7 @@ export const experience: ExperienceItem[] = [
       {
         id: "peaka-product-designer",
         title: "Product Designer",
-        employmentPeriod: "2023 — 2024",
+        employmentPeriod: "September 2023 — May 2024",
         employmentType: "Full-time",
         description:
           "Redesigned core workflows on a data-integration platform to reduce task friction, validated through usability testing. Led UX research that shaped major product decisions. Co-built a scalable design system with engineering.",

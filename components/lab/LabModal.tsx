@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { LabItem } from "./data";
 import { LAB_SLIDE_SPRING } from "@/lib/animations";
 
@@ -22,6 +22,7 @@ function Pill({ label }: { label: string }) {
 }
 
 function LabMediaView({ item, mode }: { item: LabItem; mode: "desktop" | "mobile" }) {
+  const reducedMotion = useReducedMotion();
   const pad = mode === "mobile" ? "p-4" : "p-8";
   return (
     <div className={`relative w-full h-full overflow-hidden bg-surface-1 grid place-items-center ${pad}`}>
@@ -29,7 +30,8 @@ function LabMediaView({ item, mode }: { item: LabItem; mode: "desktop" | "mobile
         <video
           src={item.media.video}
           poster={item.media.src}
-          autoPlay
+          autoPlay={!reducedMotion}
+          controls
           muted
           loop
           playsInline
@@ -56,12 +58,16 @@ function DesktopModal({
   index,
   total,
   direction,
+  onPrevious,
+  onNext,
   onClose,
 }: {
   item: LabItem;
   index: number;
   total: number;
   direction: 1 | -1;
+  onPrevious: () => void;
+  onNext: () => void;
   onClose: () => void;
 }) {
   const variants = slideVariants(direction);
@@ -124,9 +130,16 @@ function DesktopModal({
                 </a>
               )}
             </div>
-            <div className="font-mono text-text-tertiary flex flex-col gap-1.5" style={{ fontSize: 11 }}>
-              <div className="flex justify-between gap-3"><span>↑ ↓ · j / k</span><span>cycle</span></div>
-              <div className="flex justify-between gap-3"><span>esc</span><span>close</span></div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex gap-2">
+                <button type="button" onClick={onPrevious} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary">
+                  Previous
+                </button>
+                <button type="button" onClick={onNext} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary">
+                  Next
+                </button>
+              </div>
+              <div className="font-mono text-text-tertiary" style={{ fontSize: 11 }}>Esc closes</div>
             </div>
           </div>
 
@@ -144,12 +157,16 @@ function MobileModal({
   index,
   total,
   direction,
+  onPrevious,
+  onNext,
   onClose,
 }: {
   item: LabItem;
   index: number;
   total: number;
   direction: 1 | -1;
+  onPrevious: () => void;
+  onNext: () => void;
   onClose: () => void;
 }) {
   const variants = slideVariants(direction);
@@ -213,6 +230,10 @@ function MobileModal({
               <Pill label={item.tag} />
               {item.wip && <Pill label="wip" />}
             </div>
+            <div className="mt-3 flex gap-2">
+              <button type="button" onClick={onPrevious} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary">Previous</button>
+              <button type="button" onClick={onNext} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary">Next</button>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -230,6 +251,8 @@ export default function LabModal({
   total,
   isMobile,
   direction,
+  onPrevious,
+  onNext,
   onClose,
 }: {
   item: LabItem;
@@ -237,11 +260,13 @@ export default function LabModal({
   total: number;
   isMobile: boolean;
   direction: 1 | -1;
+  onPrevious: () => void;
+  onNext: () => void;
   onClose: () => void;
 }) {
   return isMobile ? (
-    <MobileModal item={item} index={index} total={total} direction={direction} onClose={onClose} />
+    <MobileModal item={item} index={index} total={total} direction={direction} onPrevious={onPrevious} onNext={onNext} onClose={onClose} />
   ) : (
-    <DesktopModal item={item} index={index} total={total} direction={direction} onClose={onClose} />
+    <DesktopModal item={item} index={index} total={total} direction={direction} onPrevious={onPrevious} onNext={onNext} onClose={onClose} />
   );
 }

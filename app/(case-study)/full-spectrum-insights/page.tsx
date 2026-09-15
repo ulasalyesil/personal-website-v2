@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Full Spectrum Insights — Ulaş Alyeşil",
   description:
-    "Web design and Framer development for a consultancy pivoting to AI-assisted insight workflows — clear problems, concrete demos, measured outcomes.",
+    "Web design and Framer development for an AI-focused consultancy.",
   openGraph: {
     title: "Full Spectrum Insights — Ulaş Alyeşil",
     description: "Web design and Framer development for an AI-focused consultancy.",
@@ -27,7 +27,7 @@ export default function FullSpectrumInsightsCase() {
       contentBlocks={[
         {
           type: "text",
-          text: "FSI is a consultancy pivoting toward AI-assisted insight workflows. The goal was to make AI tangible without hype: clear problems, concrete demos, measured outcomes.",
+          text: "FSI is a consultancy exploring AI-assisted insight workflows. The site needed to explain the offering through clear problems and concrete examples.",
         },
         {
           type: "image",
@@ -36,7 +36,7 @@ export default function FullSpectrumInsightsCase() {
         },
         {
           type: "text",
-          text: "I led end-to-end design and development of the site. Defined information architecture, wrote the narrative, designed the UI, and implemented a responsive, performance-focused build using Next.js.",
+          text: "I defined the information architecture, wrote the narrative, designed the interface, and built the responsive site in Framer.",
         },
         {
           type: "text",
@@ -57,7 +57,7 @@ export default function FullSpectrumInsightsCase() {
         },
         {
           type: "text",
-          text: "Outcome. A credible AI-forward presence with a modular component system and an interaction playbook FSI can extend into productized demos and client work.",
+          text: "Outcome. A clear, modular public presence that FSI can extend as its consulting and demonstration work evolves.",
         },
       ]}
     />

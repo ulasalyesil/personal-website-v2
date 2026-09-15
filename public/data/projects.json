@@ -10,7 +10,7 @@
     "role": "Product Design, Design Systems",
     "date": "February, 2026",
     "target": "/getirfinans-design-system",
-    "hidden": true
+    "hidden": false
   },
   "jotform": {
     "title": "Jotform",
@@ -51,12 +51,12 @@
   "wisecare": {
     "title": "WiseCareAI",
     "role": "Product & Web Design, Framer Dev",
-    "date": "March, 2025",
+    "date": "May, 2024 — August, 2025",
     "target": "/wisecareai"
   },
   "fsi": {
     "title": "Full Spectrum Insights",
-    "role": "Web Design, Framer Dev",
+    "role": "Web Design, Framer Development",
     "date": "June, 2025",
     "target": "/full-spectrum-insights"
   }

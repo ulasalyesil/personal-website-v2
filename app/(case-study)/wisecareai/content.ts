@@ -14,14 +14,17 @@ export { cover };
 export const wisecareai = {
   slug: "wisecareai",
   title: "WiseCareAI",
-  date: "2024 — 2025",
+  date: "May 2024 — August 2025",
   company: "WiseCareAI",
   role: "Founding Product Designer",
   websiteUrl: "https://www.wisecare.ai",
+  team: "Founding team",
+  platforms: "Agent tools, internal operations, and public web",
+  status: "Market-ready product · not launched",
   contentBlocks: [
     {
       type: "text",
-      text: "WiseCareAI is a health-insurance platform for the U.S. market. My work was end-to-end product design: research, IA, flows, interaction design, and a shared design system across agent tools, internal ops, and the public site. Generative UI/AI was integrated to augment core workflows—not define them.",
+      text: "WiseCareAI is a health-insurance platform for the U.S. market. As founding product designer, I shaped the product language, information architecture, core flows, and shared system across agent tools, internal operations, and the public site. Generative UI/AI supported core workflows rather than replacing them.",
     },
     { type: "image", src: cover, alt: "WiseCareAI overview cover" },
 
@@ -39,9 +42,8 @@ export const wisecareai = {
 
     {
       type: "list",
-      lead: "Responsibilities:",
+      lead: "My contribution:",
       items: [
-        "User interviews and task flows (agents, support, end clients).",
         "Information architecture and navigation across tools.",
         "Wireframes → hi-fi UI → prototypes; dev handoff.",
         "Design system definition and maintenance.",
@@ -132,13 +134,8 @@ export const wisecareai = {
     },
 
     {
-      type: "list",
-      lead: "Impact (early signals):",
-      items: [
-        "≈25% faster enrollment time in agent tests.",
-        "Fewer back-and-forths due to visible rationale and editable constraints.",
-        "Lower recovery cost by treating AI output as drafts, not decisions.",
-      ],
+      type: "text",
+      text: "Delivery stage: the product was brought to a market-ready state, but it was not launched. This page describes the designed and delivered capability, not measured customer outcomes or a completed acquisition.",
     },
 
     {
@@ -149,7 +146,7 @@ export const wisecareai = {
 
     {
       type: "text",
-      text: "Outcome: a coherent multi-tool product with a design system that embeds generative capabilities where they help most, while keeping control, speed, and trust.",
+      text: "The resulting product gave the team a consistent foundation for agent workflows, internal operations, and public-facing communication, with drafts and review states where generative assistance was involved.",
     },
   ] satisfies ContentBlock[],
 };
