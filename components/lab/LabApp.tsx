@@ -154,12 +154,22 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
 
   return (
     <section>
-      <h1 className="text-xs font-mono uppercase tracking-wider text-text-tertiary text-balance">
-        Lab
-      </h1>
-      <p className="text-text-secondary mt-1.5 mb-8 max-w-[52ch] text-pretty">
+      {/* The intro copy was doing the work of a headline at the size of a
+          caption. Promoted, so the page has something to anchor the eye. */}
+      <div className="mb-12 flex items-baseline justify-between gap-6">
+        <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary">
+          Lab
+        </span>
+        <span className="font-mono text-xs tabular-nums text-text-tertiary">
+          {LAB_ITEMS.length} entries
+        </span>
+      </div>
+      <h1 className="text-section max-w-[24ch] font-medium text-text-primary text-balance">
         Interaction studies and prototypes, built to answer the questions a
-        static frame can&apos;t. Some shipped, some didn&apos;t.
+        static frame can&apos;t.
+      </h1>
+      <p className="text-lead mt-3 mb-14 max-w-[52ch] text-text-tertiary text-pretty">
+        Some shipped, some didn&apos;t. One of them runs right here.
       </p>
 
       <LabGrid items={LAB_ITEMS} onOpen={open} />

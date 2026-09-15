@@ -23,9 +23,9 @@ export default function LabGrid({
   }
 
   return (
-    <AnimateIn className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <AnimateIn className="flex flex-col divide-y divide-border-subtle">
       {items.map((item, index) => (
-        <AnimateItem key={item.slug} index={index} className="h-full">
+        <AnimateItem key={item.slug} index={index} className="py-10 first:pt-0 last:pb-0">
           <LabCard item={item} index={index} onOpen={onOpen} />
         </AnimateItem>
       ))}
