@@ -33,6 +33,29 @@ interface CaseStudyLayoutProps {
 const TOC_MIN_SECTIONS = 5;
 const TOC_MIN_WORDS = 1200;
 
+const NEXT_STUDIES: Record<string, { title: string; href: string; description: string }> = {
+  "getirfinans-ai": {
+    title: "Shipping app-wide dark mode at GetirFinans",
+    href: "/getirfinans-design-system",
+    description: "See the system work that supported the banking product.",
+  },
+  "getirfinans-design-system": {
+    title: "Jotform | QuickBooks Integration",
+    href: "/jotform-integrations",
+    description: "See a workflow design case built with research and engineering.",
+  },
+  "jotform-integrations": {
+    title: "WiseCareAI",
+    href: "/wisecareai",
+    description: "See founding product design for a market-ready health-insurance platform.",
+  },
+  wisecareai: {
+    title: "GetirFinans AI",
+    href: "/getirfinans-ai",
+    description: "Return to current banking product work.",
+  },
+};
+
 const LANE: Record<BlockWidth, string> = {
   prose: "max-w-measure",
   wide: "w-full",
@@ -148,6 +171,7 @@ export default function CaseStudyLayout({
     tier === "case-study" &&
     sections.length >= TOC_MIN_SECTIONS &&
     countWords(contentBlocks) >= TOC_MIN_WORDS;
+  const nextStudy = slug ? NEXT_STUDIES[slug] : undefined;
 
   function renderLeaf(block: LeafBlock, key: number, index: number) {
     switch (block.type) {
@@ -443,6 +467,25 @@ export default function CaseStudyLayout({
             <div className="pt-10">
               <Button label="Visit Website" href={websiteUrl} type="primary" target="_blank" />
             </div>
+          )}
+
+          {nextStudy && (
+            <footer className="mt-20 border-t border-border-subtle pt-8">
+              <p className="text-kicker font-mono uppercase tracking-wide text-text-tertiary">
+                Next case study
+              </p>
+              <h2 className="mt-2 text-section font-semibold text-balance text-text-primary">
+                {nextStudy.title}
+              </h2>
+              <p className="mt-2 max-w-measure text-pretty text-text-secondary">
+                {nextStudy.description}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Button label="Read next study" href={nextStudy.href} type="primary" />
+                <Button label="View résumé" href="/ulas-alyesil-resume.pdf" target="_blank" type="secondary" />
+                <Button label="Contact" href="mailto:hello@ulasalyesil.com" type="secondary" />
+              </div>
+            </footer>
           )}
         </div>
       </article>

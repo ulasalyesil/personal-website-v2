@@ -20,6 +20,18 @@ export type LabItem = {
 
 export const LAB_ITEMS: LabItem[] = [
   {
+    slug: "common-ground",
+    title: "Common Ground",
+    tag: "prototype",
+    date: "sep 2026",
+    blurb:
+      "The actual problem: put three people and three AIs on one project and the default answer is a shared chat, which flattens everything anyone believes into a transcript nobody rereads. This builds the other thing, a typed model of what the team knows, assumes, disputes and has decided, where every card carries whether a person said it, a model inferred it, or the team accepted it. Private threads stay private; moving something out of one is a deliberate act with four different destinations, and proposing it as truth opens a review instead of writing it. Disagreements sit side by side rather than getting summarized away, and the model's confidence number is shown last, under the evidence, because a number raises trust in a wrong answer even when it means nothing.",
+    media: {
+      src: "/images/lab/common-ground.webp",
+      alt: "A private AI thread open over a shared knowledge model, offering four ways to move an insight out of the private context",
+    },
+  },
+  {
     slug: "fx-chart-range",
     title: "FX chart range",
     tag: "interaction",

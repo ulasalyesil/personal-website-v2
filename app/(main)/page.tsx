@@ -7,9 +7,9 @@ import AnimateIn, { AnimateItem } from "@/components/AnimateIn";
 import projectsData from "@/public/data/projects.json";
 
 import wisecareaCover from "@/public/images/wisecare/wisecare_cover.webp";
-import fsiCover from "@/public/images/fsi/fsi_cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
 import gfAiCover from "@/public/images/getirfinans-ai/cover.webp";
+import gfDesignSystemCover from "@/public/images/lab/dark-mode.webp";
 import type { FeaturedProject } from "@/types";
 
 const featured: FeaturedProject[] = [
@@ -17,35 +17,35 @@ const featured: FeaturedProject[] = [
     slug: "getirfinans-ai",
     title: "GetirFinans AI",
     description:
-      "Designing the AI surfaces of a live banking app and verifying every interaction against a running SwiftUI build rather than a static frame.",
+      "Helping people move from questions to useful next actions in a banking app.",
     cover: gfAiCover,
+  },
+  {
+    slug: "getirfinans-design-system",
+    title: "GetirFinans Design System",
+    description:
+      "Shipping app-wide dark mode through a semantic color foundation, documentation, and delivery with engineering.",
+    cover: gfDesignSystemCover,
+  },
+  {
+    slug: "jotform-integrations",
+    title: "Jotform | QuickBooks",
+    description:
+      "A guided integration flow for mapping form submissions to QuickBooks customers and invoices.",
+    cover: qbCover,
   },
   {
     slug: "wisecareai",
     title: "WiseCareAI",
     description:
-      "Health insurance platform combining product design with generative AI to adapt forms and recommendations in real time.",
+      "Founding product design for a market-ready U.S. health-insurance platform, across its public and internal tools.",
     cover: wisecareaCover,
-  },
-  {
-    slug: "full-spectrum-insights",
-    title: "Full Spectrum Insights",
-    description:
-      "A consultancy website showcasing AI-assisted business insights through practical demos and clear outcomes.",
-    cover: fsiCover,
-  },
-  {
-    slug: "jotform-integrations",
-    title: "Jotform",
-    description:
-      "Designing a seamless QuickBooks integration that automates invoice and customer creation from form submissions.",
-    cover: qbCover,
   },
 ];
 
 export default function HomePage() {
   return (
-    <AnimateIn className="flex flex-col gap-16">
+    <AnimateIn className="flex flex-col gap-12 sm:gap-14">
       <AnimateItem>
         <Hero />
       </AnimateItem>

@@ -220,10 +220,10 @@ const HoverableWord = ({
 );
 
 const paragraphs = [
-  "Hey, I'm Ulaş, a designer working across product, visual systems, and interactive experiences. I split my time between Berlin and Istanbul, working on product design and self-initiated creative work.",
-  "Currently at getirfinans, owning the design system and designing the AI assistant for Turkey's leading service banking app.",
-  "I'm interested in the overlap between design, code, and culture. Outside of product work, I produce music, experiment with generative visuals, and build interactive prototypes — often as a way to think through emotion, structure, and rhythm.",
-  "I care about clarity, intention, and craft — and I'm drawn to ideas that challenge conventional patterns. Whether it's a tool, a system, or a story, I try to build things that feel both thoughtful and alive.",
+  "I’m a product designer in Istanbul, open to remote work and relocation. I work with product and engineering teams to turn complex financial journeys into clear, testable interfaces.",
+  "At getirfinans, I design banking and AI experiences and lead design-system work. The current migration paired a semantic color foundation with the core development team, so dark mode could ship across the app ahead of its standalone release.",
+  "My process moves between product decisions and working prototypes. I use Figma to make the system legible, then SwiftUI or React to test the states that a static frame cannot explain.",
+  "Outside product work, I make music and generative visuals. The same attention to pacing, clarity, and feedback carries into the interfaces I ship.",
 ];
 
 function processText(
@@ -297,12 +297,12 @@ export default function About() {
     <AnimateIn className="w-full">
       <AnimateItem>
         <div className="flex justify-between items-center my-6">
-          <h2 className="text-text-secondary text-xl font-mono">about me</h2>
+          <h1 className="text-text-secondary text-xl font-mono text-balance">About</h1>
           <Button
             label="See Resume"
             target="_blank"
             type="secondary"
-            href="https://drive.google.com/file/d/1e-gnjC4ZW6X3jsW_MZ45JaVRhC7rUONy/view?usp=sharing"
+            href="/ulas-alyesil-resume.pdf"
           />
         </div>
       </AnimateItem>

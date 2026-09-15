@@ -24,6 +24,7 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
     initialIndex >= 0 ? initialIndex : null,
   );
   const [direction, setDirection] = useState<1 | -1>(1);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const isMobile = useIsMobile();
   const total = LAB_ITEMS.length;
 
@@ -144,11 +145,18 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
 
   const item = selected != null ? LAB_ITEMS[selected] : null;
 
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (item && !dialog.open) dialog.showModal();
+    if (!item && dialog.open) dialog.close();
+  }, [item]);
+
   return (
     <section>
-      <h2 className="text-xs font-mono uppercase tracking-wider text-text-tertiary">
+      <h1 className="text-xs font-mono uppercase tracking-wider text-text-tertiary text-balance">
         Lab
-      </h2>
+      </h1>
       <p className="text-text-secondary mt-1.5 mb-8 max-w-[52ch] text-pretty">
         Interaction studies and prototypes, built to answer the questions a
         static frame can&apos;t. Some shipped, some didn&apos;t.
@@ -156,37 +164,32 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
 
       <LabGrid items={LAB_ITEMS} onOpen={open} />
 
-      {item && (
-        <>
-          <div
-            onClick={close}
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-            className="fixed inset-0 z-[95] lab-scrim"
-            style={{
-              background: "rgba(10,10,10,0.45)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-            }}
-          />
-          <div
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-            className="fixed inset-0 z-[96] grid place-items-center pointer-events-none"
-          >
-            <div className="pointer-events-auto lab-modal-enter">
+      <dialog
+        ref={dialogRef}
+        aria-label={item ? `${item.title} lab detail` : "Lab detail"}
+        onClose={() => {
+          setSelected(null);
+          try { history.pushState({}, "", "/lab"); } catch {}
+        }}
+        className="m-0 h-dvh max-h-none w-full max-w-none border-0 bg-transparent p-0 backdrop:bg-black/45"
+      >
+        {item && (
+          <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="grid h-full place-items-center">
+            <div className={isMobile ? "h-full w-full" : "lab-modal-enter"}>
               <LabModal
                 item={item}
                 index={selected!}
                 total={total}
                 isMobile={isMobile}
                 direction={direction}
+                onPrevious={() => cycle("prev")}
+                onNext={() => cycle("next")}
                 onClose={close}
               />
             </div>
           </div>
-        </>
-      )}
+        )}
+      </dialog>
     </section>
   );
 }

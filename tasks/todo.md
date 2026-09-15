@@ -1,5 +1,14 @@
 # Tasks Todo
 
+## Portfolio review implementation (2026-09-15)
+
+- [ ] Reorder the home page around current GetirFinans work and expose About/CV.
+- [ ] Repair the AI, design-system, WiseCareAI, Jotform, and FSI narratives against verified delivery facts.
+- [ ] Surface the repaired design-system study in project discovery and sitemap.
+- [ ] Add shared next-study navigation and the focused accessibility, menu, and media-control fixes.
+- [ ] Typecheck, lint, build, and run a local preview check.
+
+
 ## Previous Work (Completed)
 
 <details>
@@ -48,8 +57,37 @@ Plan: `08-career/portfolio/case-study-format-redesign.md` in the Obsidian vault.
 - [x] `wisecareai` newline-joined pseudo-lists converted to `list` blocks
 - [ ] `compare` and `specs` blocks — deferred until a third case study needs them
 - [ ] `getirfinans-ai`, `jotform-integrations`, `wisecareai` content passes (tier 1 candidates, currently 301/240/428 words)
-- [ ] Results section still renders the "being finalized" placeholder (blocked on production metrics)
+- [x] Results section placeholder — stale note, Results carries real metrics
 - [ ] `getirfinans-design-system` is still `hidden: true` in `public/data/projects.json`
+
+## Design system case study — reference audit (2026-09-14)
+
+Audit against the 7 case studies saved in the vault (`08-career/portfolio/case-study-reference-audit.md`).
+
+- [x] Hero: `figure` block first, real capture of the docs site token naming page.
+      Cropped `cover.webp` 572x1024 to `docs-token-naming.webp` 572x834 and put it in
+      the `prose` lane. At `wide` it upscaled 1.7x and stood 1747px tall; now 1.03x, 863px.
+      This is what turns on `heroKey` and the grid view transition.
+- [x] "What Shipped" section after the four-deliverable contract, carrying `docs-site`
+      and `bottom-sheet` up from sections 6 and 7. Proof folded in, Documentation keeps
+      its prose. `palette-grid` moved down into Legacy where the flat list is discussed.
+- [x] You-claim promoted to the opening quote; new close names the through-line
+      (winning the argument from the other side of it, three times).
+- [x] Metrics split: 3 impact tiles, the 4 scope counts demoted to prose.
+- [ ] One real screenshot of the **app** (not the docs site). Ten widgets are still
+      reconstructions; the hero is the only real capture on the page.
+- [ ] Third `compare` for liquid glass on the home action grid, or the Maps purple.
+      Both are still a clause each in "Where the Token System Ran Out".
+- [ ] Causal spine: "Dark Mode as the Forcing Function" sits third, after the
+      architecture it produced. Restructure, not an edit.
+- [ ] Name the collaborators. Metadata says "20 domain designers" and no human
+      appears again anywhere on the page.
+
+### Before unhiding
+- [ ] The three Task 1 runtime fixes below (broken `use client` is on `CaseStudyLayout`,
+      which every case study page renders through)
+- [ ] Add to the home grid: `app/(main)/page.tsx` has a hardcoded `featured` array of 4,
+      separate from `projects.json`. Needs a cover import there too.
 - [x] Removed the plan 011 wisecareai dialog prototype so all 8 case studies open as full pages
 
 ## Interaction / motion pass (2026-08-24)

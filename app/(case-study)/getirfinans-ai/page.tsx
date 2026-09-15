@@ -5,10 +5,10 @@ import Gallery, { type Item } from "./Gallery";
 export const metadata: Metadata = {
   title: "GetirFinans AI — Ulaş Alyeşil",
   description:
-    "AI surfaces for a live banking app: the assistant, its composer, and search. Designed in Figma, built in SwiftUI, captured off the running prototype.",
+    "Designing answers and useful next actions in a banking app, across shipped iOS captures and SwiftUI prototypes.",
   openGraph: {
     title: "GetirFinans AI — Ulaş Alyeşil",
-    description: "AI surfaces for a live banking app, designed and then built in SwiftUI.",
+    description: "Product decisions for answers, next actions, and recovery in a banking app.",
     images: [{ url: "/images/getirfinans-ai/cover.webp" }],
   },
 };
@@ -28,10 +28,10 @@ const ITEMS: Item[] = [
         h: 590,
       },
     ],
-    title: "Entry",
+    title: "Continue from the task at hand",
     caption:
-      "The assistant opens from wherever you already are, here the deposit calculator, so it arrives as a continuation rather than a destination. The greeting and its four prompts resolve together instead of sliding in one at a time, and the mic sits inside the composer rather than beside it, so dictation and typing share one field.",
-    meta: "getirfinans 2.55, dark mode",
+      "The assistant opens from the deposit calculator, so it continues a task rather than becoming a separate destination. The composer holds typing and dictation together in one place.",
+    meta: "Shipped iOS capture · GetirFinans 2.55 · dark mode",
   },
   {
     captures: [
@@ -44,10 +44,10 @@ const ITEMS: Item[] = [
         alt: "A thinking state handing over to a streamed answer with campaign cards",
       },
     ],
-    title: "Thinking, then answering",
+    title: "One handoff from waiting to reading",
     caption:
-      "The thinking label fades out and the answer's first line fades up on the same baseline, 33ms later. Nothing moves, so the transition disappears. Tapping a card sends its follow-up immediately: the tap was already the decision.",
-    meta: "Measured off the approved animation, rebuilt to ±1.8ms",
+      "The selected prototype removes the thinking state before the answer begins. A sequential handoff lets one reading state end before the next starts, instead of asking people to track both at once.",
+    meta: "SwiftUI prototype · approved direction, July 2026",
   },
   {
     captures: [
@@ -60,10 +60,10 @@ const ITEMS: Item[] = [
         alt: "The composer in its listening state",
       },
     ],
-    title: "Listening",
+    title: "Keep the composer recognizable",
     caption:
-      "The pill itself becomes the listening surface, so transcription lands in the field it will send from. Stop turns into send the moment you actually speak, making it one tap instead of two.",
-    meta: "AIChat · tr-TR speech recognition",
+      "The field becomes the listening state, preserving where a future transcription will appear. This recording shows listening, not a completed dictation result.",
+    meta: "SwiftUI prototype · tr-TR speech recognition",
   },
   {
     captures: [
@@ -76,10 +76,10 @@ const ITEMS: Item[] = [
         alt: "The composer growing line by line, then refusing more text",
       },
     ],
-    title: "The edge of the field",
+    title: "Make the input limit recoverable",
     caption:
-      "It grows to five lines, then stops at 200 grapheme clusters rather than 200 characters, so an emoji costs one. Overflow shakes 5pt through three decaying cycles and fires a warning haptic.",
-    meta: "AIChat · SwiftUI",
+      "The field grows to five lines, then stops at 200 grapheme clusters. The boundary keeps the existing text in place and gives a local response, rather than discarding what a person has composed.",
+    meta: "SwiftUI prototype · composer boundary",
   },
   {
     captures: [
@@ -92,10 +92,10 @@ const ITEMS: Item[] = [
         h: 650,
       },
     ],
-    title: "Answering inside search",
+    title: "Answer first, route only when useful",
     caption:
-      "A question that search cannot match against a product still gets answered, in place, without a handoff. The route into the assistant sits under the answer rather than instead of it: you only need the conversation if the answer did not finish the job.",
-    meta: "getirfinans 2.55, dark mode",
+      "A question that search cannot match to a product can still receive an answer in place. The route into the assistant remains available when the answer does not finish the task.",
+    meta: "Shipped iOS capture · GetirFinans 2.55 · dark mode",
   },
   {
     captures: [
@@ -108,10 +108,10 @@ const ITEMS: Item[] = [
         h: 760,
       },
     ],
-    title: "Prompts where the results are",
+    title: "Only show a destination when it fits",
     caption:
-      "Typing a topic surfaces the assistant's prompts inline among the results, not above them and not as a separate mode. Every prompt is a question this topic actually raises, so the row reads as part of the result set rather than as an advertisement for a feature.",
-    meta: "getirfinans 2.55, dark mode",
+      "Assistant prompts live with search results when a curated destination is relevant. The row is omitted for explanatory answers that do not have a useful destination.",
+    meta: "SwiftUI prototype · search routing rule",
   },
 ];
 
@@ -119,25 +119,73 @@ export default function GetirFinansAICase() {
   return (
     <CaseStudyLayout
       slug="getirfinans-ai"
-      title="GetirFinans AI"
+      title="Designing answers and next actions in a banking app"
       date="2026 — Present"
       company="GetirFinans"
       role="Product Design, Prototyping"
-      status="Ongoing"
+      team="Product and iOS engineering"
+      platforms="Shipped iOS captures and SwiftUI prototypes"
+      status="Assistant streaming shipped · related work under evaluation"
       customComponents={{ gallery: <Gallery items={ITEMS} /> }}
       contentBlocks={[
         {
           type: "text",
-          text: "AI surfaces for a banking app used by millions: the assistant, the composer it is typed into, and what happens when a question arrives in search instead of a chat.",
+          text: "This work focused on the assistant, its composer, and what happens when a question arrives in search rather than a chat. Each artifact is labeled as a shipped iOS capture or a SwiftUI prototype, so the delivery stage stays clear.",
         },
         {
-          type: "text",
-          text: "Designed in Figma, then built in SwiftUI, because the questions worth arguing about here are ones a static frame cannot answer. Everything below is a recording of something running: the prototype where it is still a prototype, the shipped app where it shipped.",
+          type: "section",
+          id: "next-action",
+          kicker: "Decision one",
+          title: "When should an answer offer a next action?",
+          blocks: [
+            {
+              type: "text",
+              text: "A whole-string search match returned no result for some questions; matching individual words could suggest the wrong destination. I moved to curated destination matching and omitted the suggestion row when an explanatory answer did not have a useful next step.",
+            },
+            {
+              type: "callout",
+              variant: "note",
+              label: "Prototype validation",
+              text: "Eleven queries were checked against the prototype code. This tested the routing rule, not whether every financial intent is safely routed or whether people prefer the suggestion.",
+            },
+          ],
+        },
+        {
+          type: "section",
+          id: "handoff",
+          kicker: "Decision two",
+          title: "How should waiting hand over to reading?",
+          blocks: [
+            {
+              type: "text",
+              text: "The rejected concurrent treatment left a thinking label and answer competing for attention. The selected sequential handoff removes the waiting state before the answer begins. The product direction was approved in July; the implementation timing is secondary to the reading decision.",
+            },
+          ],
+        },
+        {
+          type: "section",
+          id: "composer",
+          kicker: "Decision three",
+          title: "What happens when composing gets difficult?",
+          blocks: [
+            {
+              type: "text",
+              text: "Dictation and typing share a composer, so a person does not have to learn a second place to compose. At the input boundary, the field preserves the draft and gives a local response. These are interface decisions under prototype evaluation, not evidence of completion or usage outcomes.",
+            },
+          ],
         },
         { type: "custom", id: "gallery" },
         {
-          type: "text",
-          text: "Fifteen prototypes now live in the catalog the team installs over TestFlight. The frame is the proposal; the running thing is the evidence.",
+          type: "section",
+          id: "next",
+          kicker: "Delivery and next evidence",
+          title: "What shipped, and what to measure next",
+          blocks: [
+            {
+              type: "text",
+              text: "Assistant streaming is shipped. Suggestion impressions, inline search routing, and dictation completion are not yet instrumented, so this page does not claim an outcome for them. The next useful evidence is whether people see, choose, and complete the actions these states offer.",
+            },
+          ],
         },
       ]}
     />

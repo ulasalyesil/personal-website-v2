@@ -21,7 +21,7 @@ export default function QuickBooksIntegrationCase() {
   return (
     <CaseStudyLayout
       slug="jotform-integrations"
-      title="Jotform | QuickBooks Integration"
+      title="Designing a QuickBooks mapping flow"
       date="July, 2023"
       company="Jotform"
       role="Product Design"
@@ -29,7 +29,7 @@ export default function QuickBooksIntegrationCase() {
       contentBlocks={[
         {
           type: 'text',
-          text: 'QuickBooks is one of the most widely used accounting tools for small businesses. As part of Jotform’s integrations team, I designed a seamless QuickBooks integration to bridge data between two platforms while keeping the experience effortless.',
+          text: 'As part of Jotform’s integrations team, I designed a QuickBooks connection that lets form submissions create customer records and invoices.',
         },
         {
           type: 'image',
@@ -42,27 +42,32 @@ export default function QuickBooksIntegrationCase() {
         },
         {
           type: 'text',
-          text: 'The Challenge: Many users manually created invoices and customer records in QuickBooks after collecting orders in Jotform. Our goal was to automate that gap without adding complexity or setup friction.',
+          text: 'The challenge was translating a form submission into the right QuickBooks object without asking a non-accountant to understand the accounting model first.',
         },
         {
-          type: 'text',
-          text: 'User Research Insights: We conducted 10+ interviews and surveys, learning:',
+          type: 'list',
+          lead: 'Research synthesis with the UXR team highlighted three setup needs:',
+          items: [
+            'Map specific form fields to QuickBooks fields.',
+            'Distinguish customer details from invoice fields.',
+            'Keep the setup path understandable while preserving control.',
+          ],
         },
-        { type: 'text', text: '• Users needed to map specific form fields to QuickBooks fields.' },
-        { type: 'text', text: '• There was confusion around QuickBooks data types (customer vs. invoice fields).' },
-        { type: 'text', text: '• Simplicity was key: users wanted automation without setup fatigue.' },
         {
           type: 'image',
           src: uxrSlide,
           alt: 'User research slide',
         },
         {
-          type: 'text',
-          text: 'Design Approach: We structured the flow into three steps:',
+          type: 'list',
+          lead: 'The resulting flow has three steps:',
+          ordered: true,
+          items: [
+            'Authenticate a QuickBooks account.',
+            'Choose whether the submission creates an invoice or customer.',
+            'Map form fields to QuickBooks fields.',
+          ],
         },
-        { type: 'text', text: '• Authenticate your QuickBooks account' },
-        { type: 'text', text: '• Choose an action (Create Invoice or Create Customer)' },
-        { type: 'text', text: '• Map your form fields to QuickBooks fields' },
         {
           type: 'image',
           src: mapper,
@@ -79,7 +84,7 @@ export default function QuickBooksIntegrationCase() {
         },
         {
           type: 'text',
-          text: 'Impact: This became one of our most requested features of 2023, boosting setup conversions and reducing support tickets.',
+          text: 'Delivered capability: people can authenticate, choose an action, and map their fields before a form submission creates the selected QuickBooks record. This case does not claim conversion or support outcomes without a published baseline.',
         },
         {
           type: 'image',
@@ -88,7 +93,7 @@ export default function QuickBooksIntegrationCase() {
         },
         {
           type: 'text',
-          text: 'What I Learned: Simplifying complex workflows for non-accountant users requires deep empathy, clear UI patterns, and tight cross-team collaboration under tight deadlines.',
+          text: 'The durable decision was to make the accounting choice explicit before mapping begins. That keeps the field mapper specific to the record a person is trying to create.',
         },
       ]}
     />

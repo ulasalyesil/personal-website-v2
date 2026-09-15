@@ -31,6 +31,12 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             }}
             className="group flex flex-col gap-3 rounded-lg border border-border-subtle bg-surface-1 p-4 transition-[border-color,transform] duration-150 ease-out hover:border-border-default active:scale-[0.99]"
           >
+            <h3
+              className="font-medium text-text-primary text-balance"
+              style={{ viewTransitionName: `project-${project.slug}-title` }}
+            >
+              {project.title}
+            </h3>
             <div
               className="relative aspect-[16/10] overflow-hidden rounded-md bg-surface-2"
               style={{ viewTransitionName: `project-${project.slug}-cover` }}
@@ -50,17 +56,9 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                 fetchPriority={index === 0 ? "high" : undefined}
               />
             </div>
-            <div>
-              <h3
-                className="font-medium text-text-primary text-balance"
-                style={{ viewTransitionName: `project-${project.slug}-title` }}
-              >
-                {project.title}
-              </h3>
-              <p className="text-sm text-text-tertiary mt-1 line-clamp-2 text-pretty">
-                {project.description}
-              </p>
-            </div>
+            <p className="text-sm text-text-tertiary line-clamp-2 text-pretty">
+              {project.description}
+            </p>
           </Link>
         ))}
       </div>
