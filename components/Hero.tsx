@@ -16,10 +16,11 @@ export default function Hero() {
       </p>
       <div className="mt-6 flex gap-3">
         <Button
-          label="Explore banking work"
+          label="Get in touch"
           type="primary"
-          href="/getirfinans-ai"
+          href="mailto:hello@ulasalyesil.com"
         />
+        <Button label="Explore banking work" type="secondary" href="/getirfinans-ai" />
         <Button label="View résumé" type="secondary" href="/ulas-alyesil-resume.pdf" target="_blank" />
       </div>
     </section>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import cover from "@/public/images/lab/dark-mode.webp";
 import { meta, contentBlocks } from "./content";
-import { BottomSheetSimulator } from "./components";
 
 export const metadata: Metadata = {
   title: "GetirFinans Design System — Ulaş Alyeşil",
@@ -17,11 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function GetirFinansDesignSystemCase() {
-  const customComponents = {
-    "bottom-sheet": <BottomSheetSimulator />,
-  };
-
-  return (
-    <CaseStudyLayout {...meta} contentBlocks={contentBlocks} customComponents={customComponents} />
-  );
+  return <CaseStudyLayout {...meta} contentBlocks={contentBlocks} />;
 }

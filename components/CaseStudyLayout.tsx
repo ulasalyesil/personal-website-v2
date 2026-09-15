@@ -481,9 +481,9 @@ export default function CaseStudyLayout({
                 {nextStudy.description}
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Button label="Read next study" href={nextStudy.href} type="primary" />
+                <Button label="Get in touch" href="mailto:hello@ulasalyesil.com" type="primary" />
+                <Button label="Read next study" href={nextStudy.href} type="secondary" />
                 <Button label="View résumé" href="/ulas-alyesil-resume.pdf" target="_blank" type="secondary" />
-                <Button label="Contact" href="mailto:hello@ulasalyesil.com" type="secondary" />
               </div>
             </footer>
           )}
