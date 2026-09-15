@@ -43,20 +43,25 @@ export default function LabCard({ item, index, onOpen }: Props) {
       onMouseLeave={hasVideo ? stop : undefined}
       onFocus={hasVideo ? play : undefined}
       onBlur={hasVideo ? stop : undefined}
-      className="group grid w-full cursor-pointer grid-cols-1 items-start gap-5 text-left lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-10"
+      className={`group grid w-full cursor-pointer grid-cols-1 gap-5 text-left lg:gap-10 ${
+        inDevice
+          ? "items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)]"
+          : "items-start lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]"
+      }`}
       aria-label={`Open ${item.title}`}
     >
       <div
-        className="relative aspect-[16/10] w-full overflow-hidden rounded-xl transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
+        className={`relative w-full overflow-hidden rounded-xl transition-transform duration-300 ease-out group-hover:-translate-y-0.5 ${
+          inDevice ? "aspect-[4/5]" : "aspect-[16/10]"
+        }`}
         style={{ backgroundColor: inDevice ? item.tint : undefined }}
       >
         {inDevice ? (
-          /* the recording is raw screen capture, so the colour field can sit
-             behind the device without fighting a background baked into a shot */
-          /* the device runs off the bottom edge on purpose — a decisive crop
-             reads as composition, a crop landing on the corner curve reads as
-             a mistake, and bleeding buys back screen size */
-          <div className="absolute inset-x-0 top-[8%] bottom-[-22%] flex justify-center">
+          /* A phone is portrait. Forcing it into a landscape card meant cutting
+             it, and every crop landed as a flat line straight across the
+             device. The box follows the shape of the work instead: whole
+             device, nothing sliced, colour field behind it. */
+          <div className="absolute inset-0 flex items-center justify-center py-[5%]">
             <DeviceFrame
               ref={videoRef}
               src={item.media.video!}
