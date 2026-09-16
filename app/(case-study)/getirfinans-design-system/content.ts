@@ -3,6 +3,9 @@ import darkModeCapture from "@/public/images/lab/dark-mode.webp";
 import tokenNaming from "@/public/images/getirfinans-design-system/docs-token-naming.webp";
 import buttonModes from "@/public/images/getirfinans-design-system/button-light-dark.webp";
 import checkboxModes from "@/public/images/getirfinans-design-system/checkbox-light-dark.webp";
+import findeksModes from "@/public/images/getirfinans-design-system/findeks-light-dark.webp";
+import appointmentModes from "@/public/images/getirfinans-design-system/appointment-light-dark.webp";
+import assetBreakdownModes from "@/public/images/getirfinans-design-system/asset-breakdown-light-dark.webp";
 
 export const meta = {
   slug: "getirfinans-design-system",
@@ -36,6 +39,21 @@ export const contentBlocks: ContentBlock[] = [
       {
         type: "text",
         text: "Two months with the core development team, finished before the standalone app went out. Every screen got light and dark, not a handful of them.",
+      },
+      {
+        type: "figure",
+        src: findeksModes,
+        alt: "The Findeks reports screen in light mode on the left and dark mode on the right, with a credit score gauge and a row of past reports.",
+        caption: "Findeks reports, light and dark.",
+        width: "wide",
+      },
+      {
+        type: "figure",
+        src: appointmentModes,
+        alt: "An appointment confirmation screen in light mode on the left and dark mode on the right, with a yellow date pill under the message.",
+        caption:
+          "An appointment confirmation. The yellow date pill is the same in both modes.",
+        width: "wide",
       },
       {
         type: "text",
@@ -80,6 +98,14 @@ export const contentBlocks: ContentBlock[] = [
       {
         type: "text",
         text: "That purple appears in 23 tokens. In dark mode they resolve to six different values, and only five keep the purple. All six yellow tokens hold, and so does every shadow. Keeping a value is a decision too.",
+      },
+      {
+        type: "figure",
+        src: assetBreakdownModes,
+        alt: "An asset breakdown sheet with a ring chart, in light mode on the left and dark mode on the right. The purple TL segment is lighter in dark mode, the yellow USD segment is unchanged.",
+        caption:
+          "The asset breakdown sheet. The TL slice takes the lighter purple in dark mode. The USD yellow does not change.",
+        width: "wide",
       },
       {
         type: "custom",
