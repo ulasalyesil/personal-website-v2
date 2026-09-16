@@ -29,6 +29,7 @@ export const contentBlocks: ContentBlock[] = [
     alt: "GetirFinans account screens in light and dark mode, shown side by side.",
     caption: "The same account and credit card screens, light and dark.",
     width: "wide",
+    radius: "screen",
   },
   {
     type: "section",
@@ -54,10 +55,6 @@ export const contentBlocks: ContentBlock[] = [
         caption:
           "An appointment confirmation. The yellow date pill is the same in both modes.",
         width: "wide",
-      },
-      {
-        type: "text",
-        text: "That is the part that shipped. The rest of the system is still being built.",
       },
     ],
   },

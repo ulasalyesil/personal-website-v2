@@ -139,3 +139,9 @@
   State only the visible behavior until the decision owner confirms the
   rationale, especially for AI waiting and answer states. (Correction,
   2026-09-16.)
+
+- **Everything shown in the design-system study is built and in production.**
+  "The rest of the system is still being built" was wrong: the components and
+  screens on the page are shipped. Do not frame shown work as unfinished; check
+  any "still in progress" or "unproven" line against what the page shows.
+  (Correction, 2026-09-16.)

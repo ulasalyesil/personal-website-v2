@@ -78,6 +78,11 @@ export interface FigureBlock {
   /** What the reader should notice. This is what a scanner reads instead of the paragraph. */
   caption?: string;
   width?: BlockWidth;
+  /**
+   * `screen` for a capture cut from a device screen, whose own rounded corners
+   * leave dark pixels behind. The radius is a percentage so it scales with the image.
+   */
+  radius?: "screen";
 }
 
 export interface GalleryBlock {

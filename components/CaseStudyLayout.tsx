@@ -237,12 +237,15 @@ export default function CaseStudyLayout({
       case "figure": {
         const width = block.type === "figure" ? (block.width ?? "wide") : "wide";
         const caption = block.type === "figure" ? block.caption : undefined;
+        const screen = block.type === "figure" && block.radius === "screen";
         return (
           <figure key={key} className={LANE[width]}>
             <div
               className={cn(
                 "overflow-hidden bg-surface-1",
                 width === "bleed" ? "rounded-none" : "rounded-lg",
+                // Device screens round at about 3.6% of their width; 4% covers the anti-aliased edge.
+                screen && "rounded-[4%/6.4%]",
               )}
               style={
                 slug && index === heroKey
