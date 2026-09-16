@@ -11,7 +11,7 @@ export default function Hero() {
       </p>
       <p className="mt-4 text-lg sm:text-xl text-text-secondary max-w-2xl leading-snug text-pretty">
         I design financial products and the systems behind them. At
-        GetirFinans, I work on banking and AI experiences, lead design-system
+        GetirFinans, I work on fintech and AI experiences, lead design-system
         work, and prototype interactions in SwiftUI and React.
       </p>
       <div className="mt-6 flex gap-3">
@@ -20,7 +20,7 @@ export default function Hero() {
           type="primary"
           href="mailto:hello@ulasalyesil.com"
         />
-        <Button label="Explore banking work" type="secondary" href="/getirfinans-ai" />
+        <Button label="Explore fintech work" type="secondary" href="/getirfinans-ai" />
         <Button label="View résumé" type="secondary" href="/ulas-alyesil-resume.pdf" target="_blank" />
       </div>
     </section>

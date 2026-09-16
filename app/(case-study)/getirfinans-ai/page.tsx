@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import Gallery, { type Item } from "./Gallery";
+import cover from "@/public/images/getirfinans-ai/cover.webp";
 
 export const metadata: Metadata = {
   title: "GetirFinans AI — Ulaş Alyeşil",
   description:
-    "Designing answers and useful next actions in a banking app, across shipped iOS captures and SwiftUI prototypes.",
+    "Designing answers and useful next actions in a fintech app, across shipped iOS captures and SwiftUI prototypes.",
   openGraph: {
     title: "GetirFinans AI — Ulaş Alyeşil",
-    description: "Product decisions for answers, next actions, and recovery in a banking app.",
+    description: "Product decisions for answers, next actions, and recovery in a fintech app.",
     images: [{ url: "/images/getirfinans-ai/cover.webp" }],
   },
 };
@@ -44,10 +46,10 @@ const ITEMS: Item[] = [
         alt: "A thinking state handing over to a streamed answer with campaign cards",
       },
     ],
-    title: "One handoff from waiting to reading",
+    title: "Thinking and answering",
     caption:
-      "The selected prototype removes the thinking state before the answer begins. A sequential handoff lets one reading state end before the next starts, instead of asking people to track both at once.",
-    meta: "SwiftUI prototype · approved direction, July 2026",
+      "The recording shows the assistant thinking, then presenting a streamed answer with campaign cards. The treatment is still being evaluated as the wider conversation experience develops.",
+    meta: "SwiftUI prototype · July 2026",
   },
   {
     captures: [
@@ -108,10 +110,10 @@ const ITEMS: Item[] = [
         h: 760,
       },
     ],
-    title: "Only show a destination when it fits",
+    title: "Prompts alongside search results",
     caption:
-      "Assistant prompts live with search results when a curated destination is relevant. The row is omitted for explanatory answers that do not have a useful destination.",
-    meta: "SwiftUI prototype · search routing rule",
+      "Typing a topic surfaces related questions inline among search results, rather than moving people into a separate mode.",
+    meta: "Shipped iOS capture · GetirFinans 2.55 · dark mode",
   },
 ];
 
@@ -119,18 +121,52 @@ export default function GetirFinansAICase() {
   return (
     <CaseStudyLayout
       slug="getirfinans-ai"
-      title="Designing answers and next actions in a banking app"
+      title="Designing answers and next actions in a fintech app"
       date="2026 — Present"
       company="GetirFinans"
       role="Product Design, Prototyping"
       team="Product and iOS engineering"
-      platforms="Shipped iOS captures and SwiftUI prototypes"
+      platforms="iOS"
       status="Assistant streaming shipped · related work under evaluation"
-      customComponents={{ gallery: <Gallery items={ITEMS} /> }}
+      visualLead={
+        <figure className="overflow-hidden rounded-lg border border-border-subtle bg-surface-1">
+          <div style={{ viewTransitionName: "project-getirfinans-ai-cover" }}>
+            <Image
+              src={cover}
+              alt="GetirFinans AI shown across assistant and search surfaces."
+              className="w-full"
+              priority
+              sizes="(max-width: 768px) 100vw, 1152px"
+            />
+          </div>
+          <figcaption className="px-4 py-3 text-caption text-text-tertiary">
+            GetirFinans AI across assistant and search surfaces.
+          </figcaption>
+        </figure>
+      }
+      customComponents={{
+        searchGallery: <Gallery items={ITEMS.slice(4, 6)} withTransition={false} />,
+        openingGallery: <Gallery items={ITEMS.slice(0, 1)} withTransition={false} />,
+        thinkingGallery: <Gallery items={ITEMS.slice(1, 2)} withTransition={false} />,
+        composerGallery: <Gallery items={ITEMS.slice(2, 4)} withTransition={false} />,
+      }}
       contentBlocks={[
         {
           type: "text",
-          text: "This work focused on the assistant, its composer, and what happens when a question arrives in search rather than a chat. Each artifact is labeled as a shipped iOS capture or a SwiftUI prototype, so the delivery stage stays clear.",
+          text: "This work focused on the assistant, its composer, and what happens when a question arrives in search rather than a chat.",
+        },
+        {
+          type: "section",
+          id: "opening",
+          kicker: "Opening context",
+          title: "Continue from the task at hand",
+          blocks: [
+            {
+              type: "text",
+              text: "The assistant opens from the deposit calculator, so it continues a task rather than becoming a separate destination. The composer holds typing and dictation together in one place.",
+            },
+            { type: "custom", id: "openingGallery" },
+          ],
         },
         {
           type: "section",
@@ -140,26 +176,28 @@ export default function GetirFinansAICase() {
           blocks: [
             {
               type: "text",
-              text: "A whole-string search match returned no result for some questions; matching individual words could suggest the wrong destination. I moved to curated destination matching and omitted the suggestion row when an explanatory answer did not have a useful next step.",
+              text: "A whole-string search match returned no result for some questions; matching individual words could suggest the wrong destination. “How do I pay my credit-card debt?” matched “kredi” into “kart” and suggested linking or unlinking an account to a card instead of paying card debt. The prototype moved to curated destination matching, with no route when an explanatory answer has no useful next step.",
             },
             {
               type: "callout",
               variant: "note",
               label: "Prototype validation",
-              text: "Eleven queries were checked against the prototype code. This tested the routing rule, not whether every financial intent is safely routed or whether people prefer the suggestion.",
+              text: "Eleven queries were checked against the prototype code to validate the routing rule.",
             },
+            { type: "custom", id: "searchGallery" },
           ],
         },
         {
           type: "section",
           id: "handoff",
-          kicker: "Decision two",
-          title: "How should waiting hand over to reading?",
+          kicker: "Interaction study",
+          title: "Thinking and answering",
           blocks: [
             {
               type: "text",
-              text: "The rejected concurrent treatment left a thinking label and answer competing for attention. The selected sequential handoff removes the waiting state before the answer begins. The product direction was approved in July; the implementation timing is secondary to the reading decision.",
+              text: "The assistant has distinct thinking and answering states. This recording captures the transition into a streamed answer and the campaign cards that follow it.",
             },
+            { type: "custom", id: "thinkingGallery" },
           ],
         },
         {
@@ -170,11 +208,11 @@ export default function GetirFinansAICase() {
           blocks: [
             {
               type: "text",
-              text: "Dictation and typing share a composer, so a person does not have to learn a second place to compose. At the input boundary, the field preserves the draft and gives a local response. These are interface decisions under prototype evaluation, not evidence of completion or usage outcomes.",
+              text: "Dictation and typing share a composer, so a person does not have to learn a second place to compose. At the input boundary, the field preserves the draft and gives a local response.",
             },
+            { type: "custom", id: "composerGallery" },
           ],
         },
-        { type: "custom", id: "gallery" },
         {
           type: "section",
           id: "next",
@@ -183,7 +221,7 @@ export default function GetirFinansAICase() {
           blocks: [
             {
               type: "text",
-              text: "Assistant streaming is shipped. Suggestion impressions, inline search routing, and dictation completion are not yet instrumented, so this page does not claim an outcome for them. The next useful evidence is whether people see, choose, and complete the actions these states offer.",
+              text: "Assistant streaming is shipped. Suggestion impressions, inline search routing, and dictation completion are the next evidence to collect.",
             },
           ],
         },

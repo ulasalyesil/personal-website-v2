@@ -1,5 +1,15 @@
 # Tasks Todo
 
+## Fintech case-study visuals (2026-09-16)
+
+- [x] Replace public-facing banking language with fintech across the portfolio.
+- [x] Add an AI visual lead and pair each decision chapter with its relevant recordings.
+- [x] Remove inferred thinking-state claims and keep the section factual and neutral.
+- [x] Remove the internal design-system documentation URL from public metadata.
+- [x] Run typecheck, lint, and a production build after stopping any preview.
+- [x] Drop the reconstructed `SemanticRoleDiagram` from the design-system page.
+- [x] Route the naming breakdown through the vault and render it as a `list` block.
+
 ## Portfolio review implementation (2026-09-15)
 
 - [ ] Reorder the home page around current GetirFinans work and expose About/CV.

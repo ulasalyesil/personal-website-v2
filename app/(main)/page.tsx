@@ -17,7 +17,7 @@ const featured: FeaturedProject[] = [
     slug: "getirfinans-ai",
     title: "GetirFinans AI",
     description:
-      "Helping people move from questions to useful next actions in a banking app.",
+      "Helping people move from questions to useful next actions in a fintech app.",
     cover: gfAiCover,
   },
   {

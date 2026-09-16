@@ -10,7 +10,6 @@ export const meta = {
   role: "Product Design, Design Systems",
   team: "The core development team, iOS and Android",
   platforms: "iOS and Android, plus a documentation site",
-  websiteUrl: "https://gf-design-system.vercel.app",
   status: "Dark mode shipped, the rest still in progress",
 } as const;
 
@@ -80,6 +79,15 @@ export const contentBlocks: ContentBlock[] = [
         alt: "The token naming convention page on the GetirFinans design-system documentation site, showing category, concept, and role guidance.",
         caption: "The naming page from the documentation site.",
         width: "prose",
+      },
+      {
+        type: "list",
+        lead: "Every token name has three parts:",
+        items: [
+          "Category: the property that changes, such as background or text.",
+          "Concept: where that property is used, such as a surface or an action.",
+          "Role: its place in the hierarchy, so a team can agree on intent before picking a value.",
+        ],
       },
       {
         type: "text",

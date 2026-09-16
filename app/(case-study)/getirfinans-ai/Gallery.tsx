@@ -48,6 +48,7 @@ function Screen({
   const h = capture.h ?? 1304;
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
+  const [userPaused, setUserPaused] = useState(false);
 
   // Play only while on screen: a page of looping videos otherwise burns
   // battery for clips nobody is looking at.
@@ -60,24 +61,24 @@ function Screen({
     }
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) void el.play().catch(() => {});
+        if (e.isIntersecting && !userPaused) void el.play().catch(() => {});
         else el.pause();
       },
       { rootMargin: "-5% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [userPaused]);
 
   const toggle = () => {
     const el = ref.current;
     if (!el) return;
     if (el.paused) {
+      setUserPaused(false);
       void el.play().catch(() => {});
-      setPlaying(true);
     } else {
+      setUserPaused(true);
       el.pause();
-      setPlaying(false);
     }
   };
 
@@ -104,12 +105,14 @@ function Screen({
             playsInline
             preload="metadata"
             aria-label={capture.alt}
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
           />
           <button
             type="button"
             onClick={toggle}
             aria-label={playing ? `Pause: ${capture.alt}` : `Play: ${capture.alt}`}
-            className="absolute inset-0 flex items-end justify-end p-2.5 opacity-0 transition-opacity duration-150 group-hover/screen:opacity-100 focus-visible:opacity-100"
+            className="absolute inset-0 flex items-end justify-end p-2.5 opacity-100 transition-opacity duration-150 sm:opacity-0 group-hover/screen:opacity-100 focus-visible:opacity-100"
           >
             <span className="rounded-full bg-surface-0/85 px-2.5 py-1 text-[11px] font-medium text-text-primary backdrop-blur">
               {playing ? "Pause" : "Play"}
@@ -131,7 +134,15 @@ function Screen({
   );
 }
 
-function Figure({ item, index }: { item: Item; index: number }) {
+function Figure({
+  item,
+  index,
+  withTransition,
+}: {
+  item: Item;
+  index: number;
+  withTransition: boolean;
+}) {
   const pair = item.captures.length > 1;
   // A cropped detail is wider than it is tall, so it needs more column to read.
   const detail = item.captures.some((c) => c.frame === "detail");
@@ -147,8 +158,8 @@ function Figure({ item, index }: { item: Item; index: number }) {
           <Screen
             key={c.poster}
             capture={c}
-            priority={index === 0 && i === 0}
-            viewTransitionName={index === 0 && i === 0 ? "project-getirfinans-ai-cover" : undefined}
+            priority={withTransition && index === 0 && i === 0}
+            viewTransitionName={withTransition && index === 0 && i === 0 ? "project-getirfinans-ai-cover" : undefined}
           />
         ))}
       </div>
@@ -161,11 +172,17 @@ function Figure({ item, index }: { item: Item; index: number }) {
   );
 }
 
-export default function Gallery({ items }: { items: Item[] }) {
+export default function Gallery({
+  items,
+  withTransition = true,
+}: {
+  items: Item[];
+  withTransition?: boolean;
+}) {
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2">
       {items.map((item, i) => (
-        <Figure key={item.title} item={item} index={i} />
+        <Figure key={item.title} item={item} index={i} withTransition={withTransition} />
       ))}
     </div>
   );

@@ -131,3 +131,11 @@
 
 ## Project-Specific Notes
 <!-- Notes specific to this portfolio project -->
+
+- **Use “fintech” for public-facing GetirFinans positioning.**
+  (Correction, 2026-09-16.)
+
+- **Never infer a product decision from synthesized notes or a recording.**
+  State only the visible behavior until the decision owner confirms the
+  rationale, especially for AI waiting and answer states. (Correction,
+  2026-09-16.)

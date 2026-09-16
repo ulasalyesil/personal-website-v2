@@ -93,7 +93,7 @@ const hoverContent: Record<HoverKey, HoverContentItem> = {
     component: () => (
       <LinkPeek
         title="getirfinans"
-        note="Turkey's leading service banking app, and the product every system decision below had to survive."
+        note="Turkey's leading fintech app, and the product every system decision below had to survive."
         host="getirfinans.com"
       />
     ),
@@ -221,7 +221,7 @@ const HoverableWord = ({
 
 const paragraphs = [
   "I’m a product designer in Istanbul, open to remote work and relocation. I work with product and engineering teams to turn complex financial journeys into clear, testable interfaces.",
-  "At getirfinans, I design banking and AI experiences and lead design-system work. The current migration paired a semantic color foundation with the core development team, so dark mode could ship across the app ahead of its standalone release.",
+  "At getirfinans, I design fintech and AI experiences and lead design-system work. The current migration paired a semantic color foundation with the core development team, so dark mode could ship across the app ahead of its standalone release.",
   "My process moves between product decisions and working prototypes. I use Figma to make the system legible, then SwiftUI or React to test the states that a static frame cannot explain.",
   "Outside product work, I make music and generative visuals. The same attention to pacing, clarity, and feedback carries into the interfaces I ship.",
 ];

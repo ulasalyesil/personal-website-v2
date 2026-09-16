@@ -88,9 +88,9 @@ export const LAB_ITEMS: LabItem[] = [
     tag: "system",
     date: "feb 2026",
     summary:
-      "A live banking app\u2019s colour foundation rebuilt so modes resolve at the semantic layer, not by inverting hex.",
+      "A live fintech app\u2019s colour foundation rebuilt so modes resolve at the semantic layer, not by inverting hex.",
     blurb:
-      "Rebuilt the color foundation of a live banking app as a two-tier token system, primitives carrying values, semantics carrying intent, so modes resolve at the semantic layer instead of a 1:1 hex inversion. Brand purple stays a fixed anchor across both modes, status colors range-switch instead of inverting, same screen, one design file.",
+      "Rebuilt the color foundation of a live fintech app as a two-tier token system, primitives carrying values, semantics carrying intent, so modes resolve at the semantic layer instead of a 1:1 hex inversion. Brand purple stays a fixed anchor across both modes, status colors range-switch instead of inverting, same screen, one design file.",
     media: {
       src: "/images/lab/dark-mode.webp",
       alt: "getirfinans home screen shown side by side in light and dark mode",

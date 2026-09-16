@@ -27,6 +27,8 @@ interface CaseStudyLayoutProps {
   platforms?: string;
   tier?: CaseStudyTier;
   customComponents?: Record<string, React.ReactNode>;
+  /** Optional evidence-led visual shown above the case-study title. */
+  visualLead?: React.ReactNode;
 }
 
 /** A table of contents earns its space above this much page. */
@@ -37,7 +39,7 @@ const NEXT_STUDIES: Record<string, { title: string; href: string; description: s
   "getirfinans-ai": {
     title: "Shipping app-wide dark mode at GetirFinans",
     href: "/getirfinans-design-system",
-    description: "See the system work that supported the banking product.",
+    description: "See the system work that supported the fintech product.",
   },
   "getirfinans-design-system": {
     title: "Jotform | QuickBooks Integration",
@@ -52,7 +54,7 @@ const NEXT_STUDIES: Record<string, { title: string; href: string; description: s
   wisecareai: {
     title: "GetirFinans AI",
     href: "/getirfinans-ai",
-    description: "Return to current banking product work.",
+    description: "Return to current fintech product work.",
   },
 };
 
@@ -155,6 +157,7 @@ export default function CaseStudyLayout({
   platforms,
   tier = "case-study",
   customComponents,
+  visualLead,
 }: CaseStudyLayoutProps) {
   // The hero image keeps the view transition that carries it in from the grid.
   const heroKey = (() => {
@@ -414,6 +417,7 @@ export default function CaseStudyLayout({
       {showToc && <CaseStudyNav sections={sections} />}
 
       <article className="min-w-0">
+        {visualLead && <div className="mb-10">{visualLead}</div>}
         <CaseStudyTitle
           title={title}
           date={date}
