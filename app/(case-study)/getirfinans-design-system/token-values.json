@@ -1,0 +1,1667 @@
+{
+  "groups": [
+    {
+      "label": "Background",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#AA9CD5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#4B319B",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FAFAFA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#1A1A1A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.5
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.85
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFBFA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#501212",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#EDF7F0",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#003D12",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFF6E6",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#321E01",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#1A1A1A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#251A49",
+            "alpha": 0.9
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 0.9
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FAFAFA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#251A49",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FAFAFA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#1A1A1A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2B2933",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFDF0",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#342C09",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F9F7FF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.2
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.2
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.7
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.3
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.3
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.85
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.85
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.1
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.5
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.5
+          },
+          "fixed": true
+        }
+      ]
+    },
+    {
+      "label": "Icon",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#6E6E6E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#B4BAC5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#959595",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#8C96A4",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#AA9CD5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#6E6E6E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#4B319B",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#E8E8E8",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#AA9CD5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#606A7C",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#959595",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FF3939",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#008C29",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5CBB7A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#008C29",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5CBB7A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#959595",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#959595",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FF9900",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FF9900",
+            "alpha": 1
+          },
+          "fixed": true
+        }
+      ]
+    },
+    {
+      "label": "Text",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#AA9CD5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#B4BAC5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#606A7C",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#959595",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FF3939",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#008C29",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5CBB7A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#6E6E6E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#8C96A4",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#959595",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#8C96A4",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#B0B0B0",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FF3939",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#008C29",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7FC996",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#734503",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFAD2E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "fixed": true
+        }
+      ]
+    },
+    {
+      "label": "Border",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2B2933",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#222222",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E8E8E8",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E6E1F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.3
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E8E8E8",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#CA2121",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#CACACA",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E23737",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FF3939",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#008C29",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7FC996",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FF9900",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFAD2E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.2
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.2
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "fixed": true
+        }
+      ]
+    },
+    {
+      "label": "Gradient",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#251A49",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2B2933",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#4B319B",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3360",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2B2933",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E6E1F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2B2933",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#F3F0FE",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2B2933",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#D8D1EF",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#7849F7",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#2A2342",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#4B319B",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#1A1A1A",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#D6D6D6",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3E3E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E8E8E8",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#262626",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.2
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.2
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.7
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#251A49",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#251A49",
+            "alpha": 1
+          },
+          "fixed": true
+        }
+      ]
+    },
+    {
+      "label": "Chart",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#F5F5F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#222222",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#7C63C9",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E8E8E8",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#6E6E6E",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#E6E1F5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#3E3360",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#B4BAC5",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#606A7C",
+            "alpha": 1
+          },
+          "fixed": false
+        },
+        {
+          "light": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#5D3EBC",
+            "alpha": 1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "dark": {
+            "hex": "#FFD300",
+            "alpha": 1
+          },
+          "fixed": true
+        }
+      ]
+    },
+    {
+      "label": "Shadow",
+      "tokens": [
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.1
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.1
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.3
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.3
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#0E0E0E",
+            "alpha": 0.85
+          },
+          "dark": {
+            "hex": "#0E0E0E",
+            "alpha": 0.85
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.2
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.2
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.5
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.5
+          },
+          "fixed": true
+        },
+        {
+          "light": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "dark": {
+            "hex": "#FFFFFF",
+            "alpha": 0.7
+          },
+          "fixed": true
+        }
+      ]
+    }
+  ]
+}

@@ -384,9 +384,14 @@ export default function CaseStudyLayout({
 
       case "custom":
         return (
-          <div key={key} className={LANE[block.width ?? "wide"]}>
+          <figure key={key} className={LANE[block.width ?? "wide"]}>
             {customComponents?.[block.id]}
-          </div>
+            {block.caption && (
+              <figcaption className={cn(LANE.prose, "mt-3 text-caption text-text-tertiary")}>
+                {block.caption}
+              </figcaption>
+            )}
+          </figure>
         );
 
       default:

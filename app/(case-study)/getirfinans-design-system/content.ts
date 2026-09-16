@@ -1,6 +1,8 @@
 import type { ContentBlock } from "@/types";
 import darkModeCapture from "@/public/images/lab/dark-mode.webp";
 import tokenNaming from "@/public/images/getirfinans-design-system/docs-token-naming.webp";
+import buttonModes from "@/public/images/getirfinans-design-system/button-light-dark.webp";
+import checkboxModes from "@/public/images/getirfinans-design-system/checkbox-light-dark.webp";
 
 export const meta = {
   slug: "getirfinans-design-system",
@@ -16,7 +18,7 @@ export const meta = {
 export const contentBlocks: ContentBlock[] = [
   {
     type: "lead",
-    text: "GetirFinans needed dark mode across the whole app. Its colors were named after how they looked, so every dark screen turned into its own argument. I rebuilt the color foundation around what each color is for, wrote the documentation, and worked with the developers until it shipped.",
+    text: "GetirFinans needed dark mode across the whole app. Its colors were named after how they looked, which said nothing about what each one should become in the dark. I rebuilt the color foundation around what each color is for, wrote the documentation, and worked with the developers until it shipped.",
   },
   {
     type: "figure",
@@ -54,6 +56,37 @@ export const contentBlocks: ContentBlock[] = [
       {
         type: "text",
         text: "So we named roles instead: surface, content, border, action. A role keeps its meaning in both modes. Only the value underneath changes.",
+      },
+      {
+        type: "figure",
+        src: buttonModes,
+        alt: "Production buttons in light mode on the left and dark mode on the right: a filled purple primary button, an outlined secondary button, and a disabled primary button.",
+        caption:
+          "Buttons from the production component library, light and dark. The primary purple stays. The outline and the disabled state change.",
+        width: "wide",
+      },
+      {
+        type: "figure",
+        src: checkboxModes,
+        alt: "Production checkboxes in light mode on the left and dark mode on the right, in four states: unchecked, checked, checked and disabled, unchecked and disabled.",
+        caption:
+          "Checkboxes from the same library, in four states. The checked purple gets lighter in dark mode.",
+        width: "wide",
+      },
+      {
+        type: "text",
+        text: "In light mode the primary button and the checked box use the same purple. They are different roles, so dark mode treats them differently.",
+      },
+      {
+        type: "text",
+        text: "That purple appears in 23 tokens. In dark mode they resolve to six different values, and only five keep the purple. All six yellow tokens hold, and so does every shadow. Keeping a value is a decision too.",
+      },
+      {
+        type: "custom",
+        id: "token-values",
+        caption:
+          "Every color token in the shipped app, read from the production color catalog. Outlined swatches keep one value in both modes.",
+        width: "wide",
       },
       {
         type: "callout",
@@ -107,7 +140,7 @@ export const contentBlocks: ContentBlock[] = [
       },
       {
         type: "text",
-        text: "The system only held once naming, documentation and implementation moved together. Kept apart, any one of them would have stalled the release.",
+        text: "Naming, documentation and implementation moved together, and dark mode shipped with all three in place.",
       },
     ],
   },

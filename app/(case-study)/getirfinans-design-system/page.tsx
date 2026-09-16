@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import cover from "@/public/images/lab/dark-mode.webp";
 import { meta, contentBlocks } from "./content";
+import TokenValues from "./TokenValues";
 
 export const metadata: Metadata = {
   title: "GetirFinans Design System — Ulaş Alyeşil",
@@ -16,5 +17,11 @@ export const metadata: Metadata = {
 };
 
 export default function GetirFinansDesignSystemCase() {
-  return <CaseStudyLayout {...meta} contentBlocks={contentBlocks} />;
+  return (
+    <CaseStudyLayout
+      {...meta}
+      contentBlocks={contentBlocks}
+      customComponents={{ "token-values": <TokenValues /> }}
+    />
+  );
 }

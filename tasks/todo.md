@@ -1,5 +1,26 @@
 # Tasks Todo
 
+## Design-system case study: real figures (2026-09-16)
+
+Brief: vault `08-career/portfolio/design-system-case-study-enhance-init.md`.
+Decided with Ulaş: simulator captures, live build-time JSON token figure, typo stays out, copy grows a little around figures.
+
+Findings that change the brief:
+- Source of truth is the shipped catalog (`Colors.xcassets/tokens`), not the Figma export (which the GF repo flags as drifted). 148 tokens, 32 fixed. The brief's 34 ignored alpha.
+- Site repo is public, so committed data carries no token names or GF paths.
+
+- [x] Extraction script (`scripts/extract-token-values.mjs`, catalog path as argument) writes `token-values.json`: values only, no names.
+- [x] `TokenValues` custom block: 148 light-over-dark swatches by category, fixed ones outlined, counts from data.
+- [x] Capture harness in the scratchpad (package test target depending on GFComponents by path, `ImageRenderer`, Xcode 26.6; the Xcode 27 beta cannot compile the package). GF repo untouched.
+- [x] Pairs: `button-light-dark.webp`, `checkbox-light-dark.webp`. Button purple #5D3EBC in both; checked fill #5D3EBC -> #7C63C9.
+- [x] Vault markdown first (figures, framing, two overclaiming lines, notes, README mapping for `{{custom: id}}`), then ported. `CustomBlock` gained `caption`.
+- [x] Removed the unused `components.tsx` (old reconstructions, and it carried the internal docs URL).
+- [x] Verified with headless Chrome: desktop light and dark, 390px mobile. tsc clean, isolated `next build` clean, no token names in build output.
+
+### Review
+- Figures on the page: hero capture, button pair, checkbox pair, token figure, docs capture. All real.
+- Still open: Findeks and other full-width product captures from Ulaş; the internal docs URL survives in `tasks/archive/` and git history.
+
 ## Fintech case-study visuals (2026-09-16)
 
 - [x] Replace public-facing banking language with fintech across the portfolio.

@@ -112,6 +112,7 @@ export interface CustomBlock {
   type: "custom";
   id: string;
   width?: BlockWidth;
+  caption?: string;
 }
 
 /**
