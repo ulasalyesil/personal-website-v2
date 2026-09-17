@@ -35,8 +35,7 @@ interface CaseStudyLayoutProps {
 }
 
 /** A section bar earns its space above this much page. */
-const TOC_MIN_SECTIONS = 5;
-const TOC_MIN_WORDS = 1200;
+const TOC_MIN_SECTIONS = 3;
 
 /**
  * Lanes on the page grid. Prose holds a reading column, media starts where
@@ -81,29 +80,6 @@ function groupTopLevel(blocks: ContentBlock[]): TopLevelGroup[] {
     else groups.push({ kind: "run", blocks: [block] });
   }
   return groups;
-}
-
-/** Words of prose on the page, used only to decide whether a section bar is warranted. */
-function countWords(blocks: ContentBlock[]): number {
-  return blocks.reduce((total, block) => {
-    if (isSection(block)) return total + countWords(block.blocks);
-    if (
-      block.type === "text" ||
-      block.type === "lead" ||
-      block.type === "quote" ||
-      block.type === "callout"
-    ) {
-      return total + block.text.split(/\s+/).length;
-    }
-    if (block.type === "list") {
-      return total + block.items.join(" ").split(/\s+/).length;
-    }
-    if (block.type === "compare") {
-      const prose = [block.verdict, ...block.panes.map((p) => p.text)].filter(Boolean).join(" ");
-      return total + (prose ? prose.split(/\s+/).length : 0);
-    }
-    return total;
-  }, 0);
 }
 
 /**
@@ -174,8 +150,7 @@ export default function CaseStudyLayout({
 
   const showToc =
     tier === "case-study" &&
-    sections.length >= TOC_MIN_SECTIONS &&
-    countWords(contentBlocks) >= TOC_MIN_WORDS;
+    sections.length >= TOC_MIN_SECTIONS;
   const next = slug ? nextCaseStudy(slug) : undefined;
 
   function renderLeaf(block: LeafBlock, key: number, index: number) {
