@@ -44,14 +44,19 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   const close = useCallback(() => {
     setSelected(null);
     try {
-      history.pushState({}, "", "/lab");
+      if (history.state?.labModalEntry) history.back();
+      else history.replaceState(history.state, "", "/lab");
     } catch {}
   }, []);
 
   const open = useCallback((_: LabItem, index: number) => {
     setSelected(index);
     try {
-      history.pushState({}, "", `/lab/${LAB_ITEMS[index].slug}`);
+      history.pushState(
+        { ...history.state, labModalEntry: true },
+        "",
+        `/lab/${LAB_ITEMS[index].slug}`,
+      );
     } catch {}
   }, []);
 
@@ -74,75 +79,20 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   useEffect(() => {
     if (selected == null) return;
     try {
-      history.replaceState({}, "", `/lab/${LAB_ITEMS[selected].slug}`);
+      history.replaceState(history.state, "", `/lab/${LAB_ITEMS[selected].slug}`);
     } catch {}
   }, [selected]);
 
-  // Body scroll lock + keyboard/wheel/swipe cycling.
-  // Keyed on isOpen (not selected) so wheelLock/wheelAccum survive cycling.
+  // Reading gestures belong to the content. Navigation uses explicit buttons.
   const isOpen = selected != null;
   useEffect(() => {
     if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    let wheelLock = false;
-    let wheelAccum = 0;
-    let wheelResetTimer: ReturnType<typeof setTimeout> | null = null;
-    let wheelLockTimer: ReturnType<typeof setTimeout> | null = null;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      else if (["ArrowDown", "ArrowRight", "j"].includes(e.key)) {
-        e.preventDefault();
-        cycle("next");
-      } else if (["ArrowUp", "ArrowLeft", "k"].includes(e.key)) {
-        e.preventDefault();
-        cycle("prev");
-      }
-    };
-    const onWheel = (e: WheelEvent) => {
-      if (wheelLock) return;
-      // Prefer the larger axis so sideways trackpad swipes cycle too.
-      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      wheelAccum += delta;
-      if (wheelResetTimer) clearTimeout(wheelResetTimer);
-      wheelResetTimer = setTimeout(() => {
-        wheelAccum = 0;
-      }, 160);
-      if (Math.abs(wheelAccum) > 24) {
-        wheelLock = true;
-        cycle(wheelAccum > 0 ? "next" : "prev");
-        wheelAccum = 0;
-        wheelLockTimer = setTimeout(() => {
-          wheelLock = false;
-        }, 380);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("wheel", onWheel, { passive: true });
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("wheel", onWheel);
-      if (wheelResetTimer) clearTimeout(wheelResetTimer);
-      if (wheelLockTimer) clearTimeout(wheelLockTimer);
+      document.body.style.overflow = previousOverflow;
     };
-  }, [isOpen, cycle, close]);
-
-  const touchRef = useRef({ x: 0, y: 0, t: 0 });
-  const onTouchStart = (e: React.TouchEvent) => {
-    const t = e.touches[0];
-    touchRef.current = { x: t.clientX, y: t.clientY, t: performance.now() };
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const t = e.changedTouches[0];
-    const dy = t.clientY - touchRef.current.y;
-    const dx = t.clientX - touchRef.current.x;
-    const dt = performance.now() - touchRef.current.t;
-    if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx) && dt < 600) {
-      if (dy > 0 && Math.abs(dy) > 120 && dt < 300) close();
-      else cycle(dy < 0 ? "next" : "prev");
-    }
-  };
+  }, [isOpen]);
 
   const item = selected != null ? LAB_ITEMS[selected] : null;
 
@@ -174,14 +124,14 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
       <dialog
         ref={dialogRef}
         aria-label={item ? `${item.title} lab detail` : "Lab detail"}
-        onClose={() => {
-          setSelected(null);
-          try { history.pushState({}, "", "/lab"); } catch {}
+        onCancel={(event) => {
+          event.preventDefault();
+          close();
         }}
         className="m-0 h-dvh max-h-none w-full max-w-none border-0 bg-transparent p-0 backdrop:bg-black/45"
       >
         {item && (
-          <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="grid h-full place-items-center">
+          <div className="grid h-full place-items-center">
             <div className={isMobile ? "h-full w-full" : "lab-modal-enter"}>
               <LabModal
                 item={item}

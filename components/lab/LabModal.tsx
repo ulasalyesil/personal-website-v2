@@ -5,11 +5,11 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { LabItem } from "./data";
 import { LAB_SLIDE_SPRING } from "@/lib/animations";
 
-function slideVariants(direction: 1 | -1) {
+function slideVariants(direction: 1 | -1, reducedMotion: boolean) {
   return {
-    enter: { y: direction * 40, opacity: 0 },
+    enter: { y: reducedMotion ? 0 : direction * 40, opacity: 0 },
     center: { y: 0, opacity: 1 },
-    exit: { y: direction * -40, opacity: 0 },
+    exit: { y: reducedMotion ? 0 : direction * -40, opacity: 0 },
   };
 }
 
@@ -108,7 +108,8 @@ function DesktopModal({
   onNext: () => void;
   onClose: () => void;
 }) {
-  const variants = slideVariants(direction);
+  const reducedMotion = useReducedMotion();
+  const variants = slideVariants(direction, Boolean(reducedMotion));
   return (
     <div
       className="bg-surface-0 border border-border-subtle rounded-2xl overflow-hidden relative"
@@ -132,15 +133,15 @@ function DesktopModal({
       <AnimatePresence mode="popLayout" custom={direction} initial={false}>
         <motion.div
           key={item.slug}
-          className="grid h-full"
+          className="grid h-full min-h-0"
           style={{ gridTemplateColumns: "400px 1fr" }}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          transition={LAB_SLIDE_SPRING}
+          transition={reducedMotion ? { duration: 0 } : LAB_SLIDE_SPRING}
         >
-          <div className="px-9 py-10 flex flex-col justify-between gap-6 border-r border-border-subtle overflow-y-auto">
+          <div className="px-9 py-10 flex flex-col justify-between gap-6 border-r border-border-subtle min-h-0 overflow-y-auto overscroll-contain">
             <div>
               <p className="mb-6 text-[0.9375rem] tabular-nums text-text-tertiary">
                 {index + 1} of {total}
@@ -197,12 +198,13 @@ function MobileModal({
   onNext: () => void;
   onClose: () => void;
 }) {
-  const variants = slideVariants(direction);
+  const reducedMotion = useReducedMotion();
+  const variants = slideVariants(direction, Boolean(reducedMotion));
   return (
     <div
       className="fixed inset-0 z-[100] bg-surface-0 grid"
       style={{
-        gridTemplateRows: "env(safe-area-inset-top, 44px) 60px 1fr 34px",
+        gridTemplateRows: "env(safe-area-inset-top, 0px) 60px minmax(0, 1fr) max(24px, env(safe-area-inset-bottom, 0px))",
       }}
     >
       <div />
@@ -231,13 +233,13 @@ function MobileModal({
       <AnimatePresence mode="popLayout" custom={direction} initial={false}>
         <motion.div
           key={item.slug}
-          className="grid overflow-hidden"
-          style={{ gridTemplateRows: "1fr auto" }}
+          className="grid min-h-0 overflow-y-auto overscroll-contain"
+          style={{ gridTemplateRows: "minmax(120px, 1fr) auto" }}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          transition={LAB_SLIDE_SPRING}
+          transition={reducedMotion ? { duration: 0 } : LAB_SLIDE_SPRING}
         >
           <div className="overflow-hidden relative">
             <LabMediaView item={item} mode="mobile" />
@@ -254,8 +256,10 @@ function MobileModal({
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <TryLive item={item} />
-              <button type="button" onClick={onPrevious} className={NAV_BUTTON}>Previous</button>
-              <button type="button" onClick={onNext} className={NAV_BUTTON}>Next</button>
+              <div className="flex gap-2">
+                <button type="button" onClick={onPrevious} className={NAV_BUTTON}>Previous</button>
+                <button type="button" onClick={onNext} className={NAV_BUTTON}>Next</button>
+              </div>
             </div>
           </div>
         </motion.div>
