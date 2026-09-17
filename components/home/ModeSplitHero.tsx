@@ -2,6 +2,7 @@
 
 import { memo, useCallback, useEffect, useRef } from "react";
 import { EMAIL } from "@/lib/constants";
+import { NAV } from "@/lib/nav";
 import styles from "./ModeSplitHero.module.css";
 
 /**
@@ -13,13 +14,6 @@ import styles from "./ModeSplitHero.module.css";
  */
 
 type Mode = "light" | "dark";
-
-const NAV = [
-  { href: "/works", label: "Work" },
-  { href: "/lab", label: "Lab" },
-  { href: "/about", label: "About" },
-  { href: "/ulas-alyesil-resume.pdf", label: "Résumé" },
-];
 
 const HeroLayer = memo(function HeroLayer({ mode }: { mode: Mode }) {
   const isOverlay = mode === "dark";

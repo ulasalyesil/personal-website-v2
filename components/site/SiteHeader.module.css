@@ -1,0 +1,105 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  flex-wrap: wrap;
+  padding: clamp(1rem, 2vw, 1.5rem) var(--gutter);
+  color: var(--color-text-primary);
+}
+
+/* Case studies: fixed height, because the section rail and reading progress
+   hang off its bottom edge (3.5rem). */
+.header[data-variant="bar"] {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  flex-wrap: nowrap;
+  height: 3.5rem;
+  padding-block: 0;
+  background: color-mix(in srgb, var(--color-surface-0) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.identity {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-height: 44px;
+  align-content: center;
+  border-radius: 6px;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.role {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+}
+
+.nav {
+  display: flex;
+  margin-right: -0.75rem;
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  transition: color 150ms ease;
+}
+
+.link[aria-current="page"] {
+  color: var(--color-text-primary);
+}
+
+/* A short rule under the current page, in the accent. */
+.link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brand);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.link:focus-visible,
+.identity:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (max-width: 420px) {
+  .header[data-variant="bar"] .link {
+    padding: 0 0.5rem;
+  }
+  .header[data-variant="bar"] .link[aria-current="page"]::after {
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+  .header[data-variant="bar"] .nav {
+    margin-right: -0.5rem;
+  }
+}

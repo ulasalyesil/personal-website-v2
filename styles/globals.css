@@ -106,6 +106,10 @@ body {
 
 /* ─── Lab entrance + modal motion ─── */
 :root {
+  /* Page gutter. Every full-width block pads itself with this, so edges
+     line up from the header down to the footer. */
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --motion-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
   /* Strong ease-in-out, for things moving across the screen rather than
      entering or leaving it. */
@@ -183,22 +187,3 @@ body {
   }
 }
 
-/* Page entry: the same 12px rise the framer-motion `fadeUp` variant used, but
-   in CSS so it runs at first paint. Driven from JS, the content had to ship
-   server-rendered at opacity 0 and stayed invisible until the bundle
-   downloaded and React hydrated, which put LCP at 5.5s behind a 0.9s FCP. */
-@keyframes enter-rise {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
-}
-.enter-item {
-  animation: enter-rise 350ms ease-out both;
-  /* Capped so a long list never staggers for seconds. */
-  animation-delay: calc(min(var(--enter-index, 0), 8) * 80ms);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .enter-item {
-    animation: none;
-  }
-}

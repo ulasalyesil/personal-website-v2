@@ -3,6 +3,7 @@ import styles from "./Closing.module.css";
 
 const LINKS = [
   { href: "/ulas-alyesil-resume.pdf", label: "Résumé", external: false },
+  { href: "/bookmarks", label: "Collected", external: false },
   { href: SOCIAL_LINKS.linkedin, label: "LinkedIn", external: true },
   { href: SOCIAL_LINKS.github, label: "GitHub", external: true },
   { href: SOCIAL_LINKS.dribbble, label: "Dribbble", external: true },

@@ -6,11 +6,12 @@ import { triggerHaptic } from "@/lib/haptics";
 
 type ButtonVariant = "primary" | "secondary";
 
+const base =
+  "inline-flex min-h-12 items-center rounded-full px-5 text-[0.9375rem] font-[550] transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+
 const styles: Record<ButtonVariant, string> = {
-  primary:
-    "h-9 inline-flex items-center px-4 text-sm font-medium rounded-full bg-brand text-white hover:bg-brand-hover dark:text-[#171717] transition-colors duration-150",
-  secondary:
-    "h-9 inline-flex items-center px-4 text-sm font-medium rounded-full bg-surface-2 text-text-secondary border border-border-default hover:bg-surface-3 hover:text-text-primary transition-colors duration-150",
+  primary: `${base} bg-brand text-white hover:bg-brand-hover dark:text-[#0a0a0a]`,
+  secondary: `${base} border border-border-default text-text-primary hover:bg-surface-1`,
 };
 
 interface ButtonProps {

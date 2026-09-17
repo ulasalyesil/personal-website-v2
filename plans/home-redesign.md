@@ -50,3 +50,15 @@ CLOSE: open to remote work and relocation. hello@ulasalyesil.com (display size) 
 - View-transition names `project-{slug}-title|cover` kept so the route morph into studies still works.
 - Tap targets 44px minimum. Visible focus. No horizontal overflow at 360px.
 - Real copy only. Status lines come from existing case-study metadata.
+
+## Rest of the site (same branch)
+
+One visual language, no second style.
+
+- Chrome: `SiteHeader` (the hero's header on the page surface, active page underlined in the accent; a sticky 3.5rem bar with "All work" on case studies) and `Closing` as the footer everywhere. The slide-out menu is gone; Collected moved to the footer.
+- `PageIntro`: one word at display size, the count under it, the lede to the right.
+- Work: case studies as a ledger (`CaseStudyList`), then more projects and Elsewhere through `WorkIndex`. Featured studies live in `data/work.ts`, shared with home and the next-study footer.
+- About: server page (so it can export metadata), portrait and facts rail beside the hover-word statement, experience as a period, role, type ledger.
+- Lab: entries are real links to `/lab/{slug}` that open the modal in place, media on the entry's own tint, sides alternate. Modal uses body type, labels media as Recording or Screenshot, and "Try the prototype" handles internal paths.
+- Case studies: company and status, then the visual lead, then the display title and facts. Body on a 12-column grid: section labels in the rail (1 to 3), prose in 4 to 9, media from 4 to the edge, first image full width. The section list is a bar at every width. `NextStudy` ends every page with the next study's cover.
+- Removed motion that nobody triggers: the pinging status dots and the staggered page entry.

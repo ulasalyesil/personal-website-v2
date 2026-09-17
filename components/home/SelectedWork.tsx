@@ -1,21 +1,11 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
+import type { CaseStudy as WorkPiece } from "@/data/work";
 import { triggerHaptic } from "@/lib/haptics";
 import { isPlainClick, useRouteTransition } from "@/lib/useRouteTransition";
 import styles from "./SelectedWork.module.css";
-
-export type WorkPiece = {
-  slug: string;
-  title: string;
-  line: string;
-  role: string;
-  year: string;
-  status: string;
-  cover: StaticImageData;
-  alt: string;
-};
 
 /**
  * Four pieces, four different placements. Scale follows the strength of the
