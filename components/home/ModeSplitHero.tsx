@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { EMAIL } from "@/lib/constants";
 import { NAV } from "@/lib/nav";
 import styles from "./ModeSplitHero.module.css";
@@ -15,7 +15,7 @@ import styles from "./ModeSplitHero.module.css";
 
 type Mode = "light" | "dark";
 
-const HeroLayer = memo(function HeroLayer({ mode }: { mode: Mode }) {
+const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; focusedHref?: string }) {
   const isOverlay = mode === "dark";
   // Only the light copy is real content. The dark copy is a picture of it:
   // hidden from assistive tech, not focusable, and clicks fall through to
@@ -38,7 +38,7 @@ const HeroLayer = memo(function HeroLayer({ mode }: { mode: Mode }) {
           <ul className={styles.nav}>
             {NAV.map((item) => (
               <li key={item.href}>
-                <a className={styles.navLink} href={item.href}>
+                <a className={styles.navLink} href={item.href} data-focus-visible={(isOverlay && focusedHref === item.href) || undefined}>
                   {item.label}
                 </a>
               </li>
@@ -57,7 +57,7 @@ const HeroLayer = memo(function HeroLayer({ mode }: { mode: Mode }) {
           insurance at WiseCareAI and integrations at Jotform. I prototype the
           states a static frame can&apos;t explain.
         </p>
-        <a className={styles.cta} href={`mailto:${EMAIL}`}>
+        <a className={styles.cta} href={`mailto:${EMAIL}`} data-focus-visible={(isOverlay && focusedHref === `mailto:${EMAIL}`) || undefined}>
           Get in touch
         </a>
       </div>
@@ -72,6 +72,7 @@ const GRIP_INSET = 28;
 const LABEL_ROOM = 180;
 
 export default function ModeSplitHero() {
+  const [focusedHref, setFocusedHref] = useState<string>();
   const rootRef = useRef<HTMLElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLDivElement>(null);
@@ -179,14 +180,20 @@ export default function ModeSplitHero() {
   };
 
   return (
-    <section ref={rootRef} className={styles.hero} aria-label="Introduction">
+    <section ref={rootRef} className={styles.hero} aria-label="Introduction"
+      onFocusCapture={(event) => {
+        const target = event.target;
+        setFocusedHref(target instanceof HTMLAnchorElement && target.matches(":focus-visible") ? target.getAttribute("href") ?? undefined : undefined);
+      }}
+      onBlurCapture={() => setFocusedHref(undefined)}
+    >
       <HeroLayer mode="light" />
       <div
         ref={overlayRef}
         className={styles.overlay}
         style={{ clipPath: `inset(0 0 0 ${START}%)` }}
       >
-        <HeroLayer mode="dark" />
+        <HeroLayer mode="dark" focusedHref={focusedHref} />
       </div>
 
       <div

@@ -64,7 +64,7 @@
   padding: 0 0.5rem;
   border-radius: 999px;
   background: color-mix(in srgb, var(--color-brand) 12%, transparent);
-  color: var(--color-brand);
+  color: var(--color-text-primary);
   font-size: 0.75rem;
   line-height: 1.25rem;
 }
