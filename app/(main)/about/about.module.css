@@ -1,0 +1,85 @@
+.body {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+  row-gap: 3rem;
+  padding: clamp(2.5rem, 6vw, 5rem) var(--gutter) 0;
+}
+
+.rail {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--color-surface-1);
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.facts {
+  display: grid;
+  gap: 0.875rem;
+  font-size: 0.9375rem;
+}
+
+.facts dt {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+}
+
+.facts dd {
+  margin-top: 0.125rem;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.facts a {
+  display: inline-block;
+  padding-block: 0.75rem;
+  margin-block: -0.75rem;
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-default);
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 150ms ease, color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .facts a:hover {
+    color: var(--color-brand);
+    text-decoration-color: currentColor;
+  }
+}
+
+.facts a:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.text {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 900px) {
+  /* The rail stays beside the statement while it is read. */
+  .rail {
+    grid-column: 1 / span 3;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    position: sticky;
+    top: 2rem;
+  }
+  .text {
+    grid-column: 5 / -1;
+  }
+}

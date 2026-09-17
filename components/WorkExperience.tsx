@@ -1,68 +1,52 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/cn";
 import { triggerHaptic } from "@/lib/haptics";
-import Pill from "@/components/ui/Pill";
 import type { ExperienceItem } from "@/types";
+import styles from "./WorkExperience.module.css";
 
 interface WorkExperienceProps {
   items: ExperienceItem[];
 }
 
-interface PositionRowProps {
-  position: ExperienceItem["positions"][number];
-  isCurrentEmployer: boolean;
-}
+type Row = ExperienceItem["positions"][number] & {
+  company: string;
+  current: boolean;
+};
 
-function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
+function PositionRow({ row }: { row: Row }) {
   const [expanded, setExpanded] = useState(false);
+  const panelId = `experience-${row.id}`;
 
   return (
-    <div className="border-b border-border-subtle last:border-0">
+    <li className={styles.item}>
       <button
+        type="button"
+        className={styles.row}
+        aria-expanded={expanded}
+        aria-controls={panelId}
         onClick={() => {
           setExpanded((v) => !v);
           triggerHaptic("selection");
         }}
-        className="w-full flex items-center justify-between py-3 gap-4 text-left group"
-        aria-expanded={expanded}
       >
-        <div className="flex flex-col gap-0.5 min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-text-primary text-sm">
-              {position.title}
-            </span>
-            {isCurrentEmployer && (
-              <span className="relative flex size-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-brand" />
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-2 text-xs text-text-tertiary font-mono">
-            <span>{position.employmentPeriod}</span>
-            {position.employmentType && (
-              <>
-                <span>·</span>
-                <span>{position.employmentType}</span>
-              </>
-            )}
-          </div>
-        </div>
-        {/* Was lucide-react's ChevronDown, the only icon this app took from
-            that library. Inlined so the site carries one icon dependency
-            instead of two; same 16-unit path CaseStudyNav already draws. */}
+        <span className={styles.period}>{row.employmentPeriod}</span>
+        <span className={styles.what}>
+          <span className={styles.title}>{row.title}</span>
+          <span className={styles.company}>
+            {row.company}
+            {row.current && <span className={styles.now}>Now</span>}
+          </span>
+        </span>
+        <span className={styles.type}>{row.employmentType}</span>
         <svg
           width="16"
           height="16"
           viewBox="0 0 16 16"
           fill="none"
           aria-hidden="true"
-          className={cn(
-            "size-4 text-text-tertiary shrink-0 transition-transform duration-200",
-            expanded && "rotate-180"
-          )}
+          className={styles.chevron}
+          data-open={expanded || undefined}
         >
           <path
             d="M4 6l4 4 4-4"
@@ -74,67 +58,49 @@ function PositionRow({ position, isCurrentEmployer }: PositionRowProps) {
         </svg>
       </button>
 
-      {/* `grid-template-rows: 0fr → 1fr` is the one way to transition to
-          content-sized height without measuring it. The row stays mounted so
-          the transition has something to animate; `inert` keeps the collapsed
-          copy out of tab order and out of the accessibility tree. */}
+      {/* `grid-template-rows: 0fr → 1fr` transitions to content height without
+          measuring it. The panel stays mounted so there is something to
+          animate; `inert` keeps the collapsed copy out of tab order and out
+          of the accessibility tree. */}
       <div
-        className={cn(
-          "grid transition-[grid-template-rows,opacity] duration-200 ease-out",
-          expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        )}
+        id={panelId}
+        className={styles.panel}
+        data-open={expanded || undefined}
         inert={!expanded}
       >
-        <div className="overflow-hidden">
-          <div className="pb-4 space-y-3">
-            {/* Was <ReactMarkdown>. Every description in data/experience.ts is
-                plain prose: checked 2026-08-25, 0 of 5 contain any markdown
-                syntax, so the parser was there to render paragraphs. */}
-            {position.description && (
-              <p className="text-sm text-text-secondary font-mono leading-relaxed">
-                {position.description}
-              </p>
-            )}
-            {position.skills && position.skills.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {position.skills.map((skill) => (
-                  <Pill key={skill} label={skill} />
-                ))}
-              </div>
+        <div className={styles.panelInner}>
+          <div className={styles.detail}>
+            {row.description && <p>{row.description}</p>}
+            {row.skills && row.skills.length > 0 && (
+              <p className={styles.skills}>{row.skills.join(", ")}</p>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 }
 
+/** Newest first, one line per role; the detail opens in place. */
 export default function WorkExperience({ items }: WorkExperienceProps) {
+  const rows: Row[] = items.flatMap((item) =>
+    item.positions.map((position) => ({
+      ...position,
+      company: item.companyName,
+      current: item.isCurrentEmployer ?? false,
+    })),
+  );
+
   return (
-    <section className="mt-16">
-      <h2 className="text-xs font-mono uppercase tracking-wider text-text-tertiary mb-6">
-        Work Experience
+    <section className={styles.section} aria-labelledby="experience">
+      <h2 id="experience" className={styles.heading}>
+        Experience
       </h2>
-      <div className="flex flex-col gap-8">
-        {items.map((item) => (
-          <div key={item.id}>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-medium text-text-primary">
-                {item.companyName}
-              </span>
-            </div>
-            <div className="border border-border-subtle rounded-lg px-4 divide-y divide-border-subtle">
-              {item.positions.map((position) => (
-                <PositionRow
-                  key={position.id}
-                  position={position}
-                  isCurrentEmployer={item.isCurrentEmployer ?? false}
-                />
-              ))}
-            </div>
-          </div>
+      <ol className={styles.list}>
+        {rows.map((row) => (
+          <PositionRow key={row.id} row={row} />
         ))}
-      </div>
+      </ol>
     </section>
   );
 }
