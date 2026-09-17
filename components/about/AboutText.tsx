@@ -215,10 +215,11 @@ const HoverableWord = ({
   </Link>
 );
 
+// Source of truth: vault 03-projects/personal-website/content/pages/about.md
 const paragraphs = [
-  "I’m a product designer in Istanbul, open to remote work and relocation. I work with product and engineering teams to turn complex financial journeys into clear, testable interfaces.",
-  "At getirfinans, I design fintech and AI experiences and lead design-system work. The current migration paired a semantic color foundation with the core development team, so dark mode could ship across the app ahead of its standalone release.",
-  "My process moves between product decisions and working prototypes. I use Figma to make the system legible, then SwiftUI or React to test the states that a static frame cannot explain.",
+  "I’m a product designer in Istanbul, open to remote work and relocation. I design products and prototype how they behave, so a decision gets tested on something that moves before it ships.",
+  "The work has crossed fintech, health insurance, form tools and data integration. At getirfinans, I designed the AI assistant end to end and rebuilt the color foundation of the design system, so dark mode could ship across the app. Before that, I was the founding product designer at WiseCareAI and designed the QuickBooks integration at Jotform.",
+  "I use Figma to make a system legible, then build interactive prototypes in SwiftUI or React for what a static frame can’t show: timing, gestures, and the states between screens.",
   "Outside product work, I make music and generative visuals. The same attention to pacing, clarity, and feedback carries into the interfaces I ship.",
 ];
 
