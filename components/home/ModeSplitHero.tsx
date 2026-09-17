@@ -54,13 +54,14 @@ const HeroLayer = memo(function HeroLayer({ mode }: { mode: Mode }) {
       </header>
 
       <p className={styles.statement}>
-        I design financial products and the systems behind them.
+        I design products and prototype how they behave.
       </p>
 
       <div className={styles.foot}>
         <p className={styles.now}>
-          At GetirFinans, I work on fintech and AI experiences, lead
-          design-system work, and prototype interactions in SwiftUI and React.
+          Most recently fintech and AI at GetirFinans, before that health
+          insurance at WiseCareAI and integrations at Jotform. I prototype the
+          states a static frame can&apos;t explain.
         </p>
         <a className={styles.cta} href={`mailto:${EMAIL}`}>
           Get in touch
