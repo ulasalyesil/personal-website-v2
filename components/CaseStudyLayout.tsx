@@ -2,6 +2,8 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import CaseStudyTitle from "@/components/CaseStudyTitle";
 import CaseStudyNav, { type NavSection } from "@/components/CaseStudyNav";
+import NextStudy from "@/components/NextStudy";
+import { nextCaseStudy } from "@/data/work";
 import { cn } from "@/lib/cn";
 import type {
   BlockWidth,
@@ -11,6 +13,7 @@ import type {
   LeafBlock,
   SectionBlock,
 } from "@/types";
+import styles from "./CaseStudyLayout.module.css";
 
 interface CaseStudyLayoutProps {
   title: string;
@@ -27,41 +30,24 @@ interface CaseStudyLayoutProps {
   platforms?: string;
   tier?: CaseStudyTier;
   customComponents?: Record<string, React.ReactNode>;
-  /** Optional evidence-led visual shown above the case-study title. */
+  /** Optional evidence-led visual, shown between the project label and the title. */
   visualLead?: React.ReactNode;
 }
 
-/** A table of contents earns its space above this much page. */
+/** A section bar earns its space above this much page. */
 const TOC_MIN_SECTIONS = 5;
 const TOC_MIN_WORDS = 1200;
 
-const NEXT_STUDIES: Record<string, { title: string; href: string; description: string }> = {
-  "getirfinans-ai": {
-    title: "Shipping app-wide dark mode at GetirFinans",
-    href: "/getirfinans-design-system",
-    description: "See the system work that supported the fintech product.",
-  },
-  "getirfinans-design-system": {
-    title: "Jotform | QuickBooks Integration",
-    href: "/jotform-integrations",
-    description: "See a workflow design case built with research and engineering.",
-  },
-  "jotform-integrations": {
-    title: "WiseCareAI",
-    href: "/wisecareai",
-    description: "See founding product design for a market-ready health-insurance platform.",
-  },
-  wisecareai: {
-    title: "GetirFinans AI",
-    href: "/getirfinans-ai",
-    description: "Return to current fintech product work.",
-  },
-};
+/**
+ * Lanes on the page grid. Prose holds a reading column, media starts where
+ * the prose starts and runs to the right edge, `full` takes the whole row.
+ */
+type Lane = "prose" | "wide" | "full" | "bleed";
 
-const LANE: Record<BlockWidth, string> = {
-  prose: "max-w-measure",
-  wide: "w-full",
-  bleed: "relative left-1/2 w-screen max-w-none -translate-x-1/2",
+const WIDTH_TO_LANE: Record<BlockWidth, Lane> = {
+  prose: "prose",
+  wide: "wide",
+  bleed: "bleed",
 };
 
 const CALLOUT_STYLE = {
@@ -97,7 +83,7 @@ function groupTopLevel(blocks: ContentBlock[]): TopLevelGroup[] {
   return groups;
 }
 
-/** Words of prose on the page, used only to decide whether a TOC is warranted. */
+/** Words of prose on the page, used only to decide whether a section bar is warranted. */
 function countWords(blocks: ContentBlock[]): number {
   return blocks.reduce((total, block) => {
     if (isSection(block)) return total + countWords(block.blocks);
@@ -139,9 +125,25 @@ const STANDOFF = new Set([
 
 function spacing(previous: LeafBlock | undefined, block: LeafBlock): string {
   if (!previous) return "";
-  if (block.type === "heading") return "mt-10";
-  if (STANDOFF.has(block.type) || STANDOFF.has(previous.type)) return "mt-8";
+  if (block.type === "heading") return "mt-12";
+  if (STANDOFF.has(block.type) || STANDOFF.has(previous.type)) return "mt-10";
   return "mt-5";
+}
+
+function laneOf(block: LeafBlock): Lane {
+  switch (block.type) {
+    case "figure":
+      return WIDTH_TO_LANE[block.width ?? "wide"];
+    case "custom":
+      return WIDTH_TO_LANE[block.width ?? "wide"];
+    case "image":
+    case "gallery":
+    case "metrics":
+    case "compare":
+      return "wide";
+    default:
+      return "prose";
+  }
 }
 
 export default function CaseStudyLayout({
@@ -174,15 +176,17 @@ export default function CaseStudyLayout({
     tier === "case-study" &&
     sections.length >= TOC_MIN_SECTIONS &&
     countWords(contentBlocks) >= TOC_MIN_WORDS;
-  const nextStudy = slug ? NEXT_STUDIES[slug] : undefined;
+  const next = slug ? nextCaseStudy(slug) : undefined;
 
   function renderLeaf(block: LeafBlock, key: number, index: number) {
+    const isHero = Boolean(slug) && index === heroKey && !visualLead;
+
     switch (block.type) {
       case "heading":
         return (
           <h3
             key={key}
-            className={cn(LANE.prose, "text-subsection font-semibold tracking-tight text-text-primary text-balance")}
+            className="max-w-measure text-subsection font-semibold tracking-tight text-text-primary text-balance"
           >
             {block.text}
           </h3>
@@ -190,28 +194,31 @@ export default function CaseStudyLayout({
 
       case "lead":
         return (
-          <p key={key} className={cn(LANE.prose, "text-lead text-text-primary text-pretty")}>
+          <p
+            key={key}
+            className="max-w-[40rem] text-[clamp(1.25rem,1.9vw,1.625rem)] leading-[1.4] tracking-[-0.01em] text-text-primary text-pretty"
+          >
             {block.text}
           </p>
         );
 
       case "text":
         return (
-          <p key={key} className={cn(LANE.prose, "text-pretty")}>
+          <p key={key} className="max-w-measure text-pretty">
             {block.text}
           </p>
         );
 
       case "list":
         return (
-          <div key={key} className={LANE.prose}>
+          <div key={key} className="max-w-measure">
             {block.lead && <p className="mb-3 text-pretty">{block.lead}</p>}
             {block.ordered ? (
               <ol className="space-y-2.5">
                 {block.items.map((item, i) => (
                   <li key={i} className="flex gap-3 text-pretty">
-                    <span className="shrink-0 font-mono text-caption tabular-nums leading-[1.7] text-text-tertiary">
-                      {String(i + 1).padStart(2, "0")}
+                    <span className="w-5 shrink-0 text-caption tabular-nums leading-[1.9] text-text-tertiary">
+                      {i + 1}
                     </span>
                     {item}
                   </li>
@@ -223,7 +230,7 @@ export default function CaseStudyLayout({
                   <li key={i} className="flex gap-3 text-pretty">
                     <span
                       aria-hidden="true"
-                      className="mt-[0.6em] h-1 w-1 shrink-0 rounded-full bg-text-tertiary"
+                      className="mt-[0.7em] h-px w-3 shrink-0 bg-text-tertiary"
                     />
                     {item}
                   </li>
@@ -235,15 +242,15 @@ export default function CaseStudyLayout({
 
       case "image":
       case "figure": {
-        const width = block.type === "figure" ? (block.width ?? "wide") : "wide";
+        const bleed = block.type === "figure" && block.width === "bleed";
         const caption = block.type === "figure" ? block.caption : undefined;
         const screen = block.type === "figure" && block.radius === "screen";
         return (
-          <figure key={key} className={LANE[width]}>
+          <figure key={key}>
             <div
               className={cn(
                 "overflow-hidden bg-surface-1",
-                width === "bleed" ? "rounded-none" : "rounded-lg",
+                bleed ? "rounded-none" : "rounded-xl",
                 // Device screens round at about 3.6% of their width; 4% covers the anti-aliased edge.
                 screen && "rounded-[4%/6.4%]",
               )}
@@ -253,10 +260,16 @@ export default function CaseStudyLayout({
                   : undefined
               }
             >
-              <Image src={block.src} alt={block.alt || ""} className="w-full" />
+              <Image
+                src={block.src}
+                alt={block.alt || ""}
+                className="w-full"
+                sizes={isHero ? "100vw" : "(max-width: 1024px) 100vw, 75vw"}
+                priority={isHero}
+              />
             </div>
             {caption && (
-              <figcaption className={cn(LANE.prose, "mt-3 text-caption text-text-tertiary")}>
+              <figcaption className="mt-3 max-w-measure text-caption text-text-tertiary">
                 {caption}
               </figcaption>
             )}
@@ -266,7 +279,7 @@ export default function CaseStudyLayout({
 
       case "gallery":
         return (
-          <figure key={key} className="w-full">
+          <figure key={key}>
             <div
               className={cn(
                 "grid gap-3",
@@ -278,13 +291,18 @@ export default function CaseStudyLayout({
               )}
             >
               {block.items.map((img: GalleryItem, i: number) => (
-                <div key={i} className="overflow-hidden rounded-lg bg-surface-1">
-                  <Image src={img.src} alt={img.alt || ""} className="w-full" />
+                <div key={i} className="overflow-hidden rounded-xl bg-surface-1">
+                  <Image
+                    src={img.src}
+                    alt={img.alt || ""}
+                    className="w-full"
+                    sizes="(max-width: 640px) 50vw, 40vw"
+                  />
                 </div>
               ))}
             </div>
             {block.caption && (
-              <figcaption className={cn(LANE.prose, "mt-3 text-caption text-text-tertiary")}>
+              <figcaption className="mt-3 max-w-measure text-caption text-text-tertiary">
                 {block.caption}
               </figcaption>
             )}
@@ -295,18 +313,17 @@ export default function CaseStudyLayout({
         return (
           <dl
             key={key}
-            className="grid w-full grid-cols-1 gap-px overflow-hidden rounded-lg border border-border-subtle bg-border-subtle sm:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-x-8 gap-y-8 border-t border-border-default pt-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {block.items.map((metric, i) => (
-              <div key={i} className="bg-surface-0 p-5">
-                <dt className="text-kicker font-mono uppercase tracking-wide text-text-tertiary">
-                  {metric.label}
-                </dt>
-                <dd className="mt-2 text-section font-semibold tracking-tight tabular-nums text-text-primary">
+              // Label first for assistive tech; the value reads first on screen.
+              <div key={i} className="flex flex-col">
+                <dt className="order-2 mt-3 text-body text-text-secondary">{metric.label}</dt>
+                <dd className="order-1 text-[clamp(2.5rem,4.5vw,4rem)] font-[480] leading-none tracking-[-0.04em] tabular-nums text-text-primary">
                   {metric.value}
                 </dd>
                 {metric.note && (
-                  <dd className="mt-1.5 text-caption text-text-tertiary">{metric.note}</dd>
+                  <dd className="order-3 mt-1 text-caption text-text-tertiary">{metric.note}</dd>
                 )}
               </div>
             ))}
@@ -318,13 +335,12 @@ export default function CaseStudyLayout({
           <aside
             key={key}
             className={cn(
-              LANE.prose,
-              "rounded-lg border p-5",
+              "max-w-measure rounded-xl border p-5",
               CALLOUT_STYLE[block.variant ?? "principle"],
             )}
           >
             {block.label && (
-              <p className="mb-2 text-kicker font-mono uppercase tracking-wide text-text-tertiary">
+              <p className="mb-1.5 text-caption font-medium text-text-secondary">
                 {block.label}
               </p>
             )}
@@ -334,38 +350,46 @@ export default function CaseStudyLayout({
 
       case "quote":
         return (
-          <blockquote key={key} className={cn(LANE.prose, "border-l-2 border-brand pl-5")}>
-            <p className="text-lead text-pretty text-text-primary">{block.text}</p>
+          <blockquote key={key} className="max-w-[40rem]">
+            <p className="text-[clamp(1.375rem,2.4vw,2rem)] font-[480] leading-[1.25] tracking-[-0.02em] text-pretty text-text-primary">
+              {block.text}
+            </p>
             {block.attribution && (
-              <footer className="mt-2 text-caption text-text-tertiary">{block.attribution}</footer>
+              <footer className="mt-3 text-caption text-text-tertiary">{block.attribution}</footer>
             )}
           </blockquote>
         );
 
       case "compare":
         return (
-          <figure key={key} className="w-full">
-            <div className="grid gap-4 sm:grid-cols-2">
+          <figure key={key}>
+            <div className="grid gap-6 sm:grid-cols-2">
               {block.panes.map((pane, i) => (
                 <div key={i} className="flex min-w-0 flex-col gap-3">
-                  <p className="flex items-center gap-2 text-kicker font-mono uppercase tracking-wide text-text-tertiary">
+                  <p className="flex items-center gap-2 text-caption font-medium text-text-secondary">
                     {pane.tone && pane.tone !== "neutral" && (
                       <span
-                        aria-hidden="true"
                         className={cn(
-                          "leading-none",
-                          pane.tone === "shipped" ? "text-brand" : "text-text-tertiary",
+                          "rounded-full px-2 py-0.5 text-[0.75rem] leading-5",
+                          pane.tone === "shipped"
+                            ? "bg-brand/10 text-brand"
+                            : "bg-surface-2 text-text-tertiary",
                         )}
                       >
-                        {pane.tone === "shipped" ? "✓" : "✕"}
+                        {pane.tone === "shipped" ? "Shipped" : "Rejected"}
                       </span>
                     )}
                     {pane.label}
                   </p>
 
                   {pane.src && (
-                    <div className="overflow-hidden rounded-lg bg-surface-1">
-                      <Image src={pane.src} alt={pane.alt || ""} className="w-full" />
+                    <div className="overflow-hidden rounded-xl bg-surface-1">
+                      <Image
+                        src={pane.src}
+                        alt={pane.alt || ""}
+                        className="w-full"
+                        sizes="(max-width: 640px) 100vw, 40vw"
+                      />
                     </div>
                   )}
                   {pane.id && <div>{customComponents?.[pane.id]}</div>}
@@ -378,7 +402,7 @@ export default function CaseStudyLayout({
               ))}
             </div>
             {block.verdict && (
-              <figcaption className={cn(LANE.prose, "mt-5 border-l-2 border-brand pl-4 text-pretty")}>
+              <figcaption className="mt-6 max-w-measure border-l-2 border-brand pl-4 text-pretty">
                 {block.verdict}
               </figcaption>
             )}
@@ -387,10 +411,10 @@ export default function CaseStudyLayout({
 
       case "custom":
         return (
-          <figure key={key} className={LANE[block.width ?? "wide"]}>
+          <figure key={key}>
             {customComponents?.[block.id]}
             {block.caption && (
-              <figcaption className={cn(LANE.prose, "mt-3 text-caption text-text-tertiary")}>
+              <figcaption className="mt-3 max-w-measure text-caption text-text-tertiary">
                 {block.caption}
               </figcaption>
             )}
@@ -407,25 +431,23 @@ export default function CaseStudyLayout({
   function renderLeaves(blocks: LeafBlock[]) {
     return blocks.map((block, i) => {
       flatIndex += 1;
-      const node = renderLeaf(block, i, flatIndex);
+      const index = flatIndex;
+      const node = renderLeaf(block, i, index);
       if (!node) return null;
-      const gap = spacing(blocks[i - 1], block);
-      return gap ? (
-        <div key={i} className={gap}>
+      const lane: Lane = Boolean(slug) && index === heroKey && !visualLead ? "full" : laneOf(block);
+      return (
+        <div key={i} className={cn(styles[lane], spacing(blocks[i - 1], block))}>
           {node}
         </div>
-      ) : (
-        node
       );
     });
   }
 
   return (
-    <div className={cn(showToc && "xl:grid xl:grid-cols-[11rem_minmax(0,1fr)] xl:gap-10")}>
+    <>
       {showToc && <CaseStudyNav sections={sections} />}
 
-      <article className="min-w-0">
-        {visualLead && <div className="mb-10">{visualLead}</div>}
+      <article className={styles.article}>
         <CaseStudyTitle
           title={title}
           date={date}
@@ -436,71 +458,57 @@ export default function CaseStudyLayout({
           team={team}
           platforms={platforms}
           websiteUrl={websiteUrl}
-          tier={tier}
+          visual={visualLead}
         />
 
-        <div className="mt-12 text-body text-text-primary">
+        <div className={cn(styles.grid, "text-body text-text-primary")}>
           {groupTopLevel(contentBlocks).map((group, i) =>
             group.kind === "section" ? (
               <section
                 key={i}
                 id={group.section.id}
                 className={cn(
+                  styles.section,
                   "scroll-mt-28",
-                  i > 0 &&
-                    (tier === "project" ? "mt-16" : "mt-24 border-t border-border-subtle pt-10"),
+                  i > 0 && (tier === "project" ? "mt-20" : "mt-28 border-t border-border-subtle pt-10"),
                 )}
               >
-                <header className={cn(LANE.prose, "mb-6")}>
-                  {group.section.kicker && (
-                    <p className="mb-2 text-kicker font-mono uppercase tracking-wide text-text-tertiary">
-                      {group.section.kicker}
-                    </p>
+                {group.section.kicker && (
+                  <p className={cn(styles.kicker, "text-caption text-text-tertiary")}>
+                    {group.section.kicker}
+                  </p>
+                )}
+                <h2
+                  className={cn(
+                    styles.sectionTitle,
+                    "mb-8 text-[clamp(1.75rem,3.2vw,2.75rem)] font-[560] leading-[1.05] tracking-[-0.03em] text-text-primary text-balance",
                   )}
-                  <h2 className="text-section font-semibold tracking-tight text-text-primary text-balance">
-                    <a
-                      href={`#${group.section.id}`}
-                      className="transition-colors duration-150 hover:text-brand"
-                    >
-                      {group.section.title}
-                    </a>
-                  </h2>
-                </header>
+                >
+                  <a
+                    href={`#${group.section.id}`}
+                    className="rounded-sm transition-colors duration-150 hover:text-brand"
+                  >
+                    {group.section.title}
+                  </a>
+                </h2>
                 {renderLeaves(group.section.blocks)}
               </section>
             ) : (
-              <div key={i} className={i > 0 ? "mt-8" : undefined}>
+              <div key={i} className={cn(styles.section, i > 0 && "mt-10")}>
                 {renderLeaves(group.blocks)}
               </div>
             ),
           )}
 
           {websiteUrl && tier === "project" && (
-            <div className="pt-10">
-              <Button label="Visit Website" href={websiteUrl} type="primary" target="_blank" />
+            <div className={cn(styles.prose, "mt-12")}>
+              <Button label="Visit website" href={websiteUrl} type="primary" target="_blank" />
             </div>
           )}
-
-          {nextStudy && (
-            <footer className="mt-20 border-t border-border-subtle pt-8">
-              <p className="text-kicker font-mono uppercase tracking-wide text-text-tertiary">
-                Next case study
-              </p>
-              <h2 className="mt-2 text-section font-semibold text-balance text-text-primary">
-                {nextStudy.title}
-              </h2>
-              <p className="mt-2 max-w-measure text-pretty text-text-secondary">
-                {nextStudy.description}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Button label="Get in touch" href="mailto:hello@ulasalyesil.com" type="primary" />
-                <Button label="Read next study" href={nextStudy.href} type="secondary" />
-                <Button label="View résumé" href="/ulas-alyesil-resume.pdf" target="_blank" type="secondary" />
-              </div>
-            </footer>
-          )}
         </div>
+
+        {next && next.slug !== slug && <NextStudy study={next} />}
       </article>
-    </div>
+    </>
   );
 }

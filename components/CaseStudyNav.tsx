@@ -9,9 +9,10 @@ export interface NavSection {
 }
 
 /**
- * Section navigation for a long case study: a sticky rail at xl and up, a
- * compact expandable bar below that, and a reading-progress line pinned under
- * the page nav. Every part of it derives from the `section` blocks, so there is
+ * Section navigation for a long case study: a compact expandable bar that
+ * appears once the reader is inside the first section, and a reading-progress
+ * line pinned under the page nav. The left rail of the page belongs to the
+ * section labels now, so the list lives here at every width. Every part of it derives from the `section` blocks, so there is
  * no separate list to keep in sync.
  */
 export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
@@ -122,28 +123,30 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
       <div
         ref={progressRef}
         aria-hidden="true"
-        className="fixed left-0 top-[calc(3.5rem-2px)] z-20 h-0.5 bg-brand"
+        className="fixed left-0 top-[calc(3.5rem-2px)] z-40 h-0.5 bg-brand"
         style={{ width: 0 }}
       />
 
-      {/* Compact section bar, below xl. Fixed rather than sticky so that
-          appearing and disappearing never reflows the article. */}
+      {/* Fixed rather than sticky so that appearing and disappearing never
+          reflows the article. */}
       <div
         className={cn(
-          "fixed inset-x-0 top-14 z-10 bg-surface-0/90 backdrop-blur transition-[opacity,transform] duration-200 ease-out xl:hidden",
+          "fixed inset-x-0 top-14 z-20 bg-surface-0/90 backdrop-blur transition-[opacity,transform] duration-200 ease-out",
           engaged
             ? "translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-1 opacity-0"
         )}
         aria-hidden={!engaged}
+        inert={!engaged}
       >
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 border-b border-border-subtle px-4 py-3 text-left sm:px-6"
+          className="flex min-h-11 w-full items-center justify-between gap-3 border-b border-border-subtle px-[var(--gutter)] py-2.5 text-left"
         >
           <span className="truncate text-caption text-text-secondary">
+            <span className="text-text-tertiary">In this study: </span>
             {activeTitle}
           </span>
           <svg
@@ -167,22 +170,20 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           </svg>
         </button>
         {open && (
-          <ol className="mx-auto max-h-[60vh] w-full max-w-6xl overflow-y-auto border-b border-border-subtle bg-surface-0 px-4 py-2 sm:px-6">
+          <ol className="max-h-[60vh] w-full overflow-y-auto border-b border-border-subtle bg-surface-0 px-[var(--gutter)] py-2">
             {sections.map((section, i) => (
               <li key={section.id}>
                 <a
                   href={`#${section.id}`}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "flex gap-3 py-2 text-caption transition-colors duration-150",
+                    "flex min-h-11 items-center gap-3 py-2 text-caption transition-colors duration-150",
                     section.id === activeId
                       ? "text-text-primary"
                       : "text-text-secondary"
                   )}
                 >
-                  <span className="font-mono tabular-nums text-text-tertiary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="w-4 tabular-nums text-text-tertiary">{i + 1}</span>
                   {section.title}
                 </a>
               </li>
@@ -190,37 +191,6 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           </ol>
         )}
       </div>
-
-      {/* Sticky rail, xl and up. */}
-      <nav aria-label="Sections" className="hidden xl:block">
-        <ol className="sticky top-24 space-y-2.5">
-          {sections.map((section, i) => (
-            <li key={section.id}>
-              <a
-                href={`#${section.id}`}
-                className={cn(
-                  "flex gap-2.5 text-caption leading-snug transition-colors duration-150",
-                  section.id === activeId
-                    ? "text-text-primary"
-                    : "text-text-tertiary hover:text-text-secondary"
-                )}
-              >
-                <span
-                  className={cn(
-                    "font-mono tabular-nums",
-                    section.id === activeId
-                      ? "text-brand"
-                      : "text-text-tertiary"
-                  )}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-balance">{section.title}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
     </>
   );
 }

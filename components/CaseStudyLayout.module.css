@@ -1,0 +1,58 @@
+.article {
+  max-width: 90rem;
+  margin-inline: auto;
+}
+
+.grid,
+.section {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+  align-content: start;
+}
+
+.section {
+  grid-column: 1 / -1;
+}
+
+.prose,
+.wide,
+.full,
+.bleed,
+.kicker,
+.sectionTitle {
+  grid-column: 1 / -1;
+}
+
+.kicker {
+  margin-bottom: 0.5rem;
+}
+
+/* Edge to edge, whatever the container. */
+.bleed > * {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 1024px) {
+  /* Reading column in 4 to 9, media from 4 to the edge, labels in the rail. */
+  .prose {
+    grid-column: 4 / span 6;
+  }
+  .wide {
+    grid-column: 4 / -1;
+  }
+  .kicker {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    margin-bottom: 0;
+    padding-top: 0.55rem;
+  }
+  .sectionTitle {
+    grid-column: 4 / span 8;
+    grid-row: 1;
+  }
+}
