@@ -1,0 +1,76 @@
+.closing {
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(4rem, 10vw, 8rem) var(--gutter) 2rem;
+  border-top: 1px solid var(--color-border-default);
+}
+
+.lede {
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  color: var(--color-text-secondary);
+}
+
+/* Sized to fill the line on desktop without breaking the address. */
+.email {
+  display: inline-block;
+  margin: 0.25rem 0 calc(clamp(3rem, 8vw, 6rem) - 0.5rem);
+  padding: 0.5rem 0;
+  font-size: clamp(1.625rem, 6.4vw, 6.25rem);
+  font-weight: 560;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.12em;
+  text-decoration-color: var(--color-border-default);
+  transition: text-decoration-color 200ms ease, color 200ms ease;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.75rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  padding: 0 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  transition: color 150ms ease;
+}
+
+.small {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .email:hover {
+    color: var(--color-brand);
+    text-decoration-color: currentColor;
+  }
+  .link:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.email:focus-visible,
+.link:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
