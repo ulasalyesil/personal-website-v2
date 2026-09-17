@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import PageIntro from "@/components/site/PageIntro";
 import LabGrid from "./LabGrid";
 import LabModal from "./LabModal";
 import { LAB_ITEMS, type LabItem } from "./data";
@@ -153,24 +154,20 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   }, [item]);
 
   return (
-    <section>
-      {/* The intro copy was doing the work of a headline at the size of a
-          caption. Promoted, so the page has something to anchor the eye. */}
-      <div className="mb-12 flex items-baseline justify-between gap-6">
-        <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary">
-          Lab
-        </span>
-        <span className="font-mono text-xs tabular-nums text-text-tertiary">
-          {LAB_ITEMS.length} entries
-        </span>
-      </div>
-      <h1 className="text-section max-w-[24ch] font-medium text-text-primary text-balance">
-        Interaction studies and prototypes, built to answer the questions a
-        static frame can&apos;t.
-      </h1>
-      <p className="text-lead mt-3 mb-14 max-w-[52ch] text-text-tertiary text-pretty">
-        Some shipped, some didn&apos;t. One of them runs right here.
-      </p>
+    <>
+      <PageIntro
+        title="Lab"
+        aside={`${LAB_ITEMS.length} entries`}
+        lede={
+          <>
+            <p>
+              Interaction studies and prototypes, built to answer the questions
+              a static frame can&apos;t.
+            </p>
+            <p>Some shipped, some didn&apos;t. One of them runs right here.</p>
+          </>
+        }
+      />
 
       <LabGrid items={LAB_ITEMS} onOpen={open} />
 
@@ -200,6 +197,6 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
           </div>
         )}
       </dialog>
-    </section>
+    </>
   );
 }
