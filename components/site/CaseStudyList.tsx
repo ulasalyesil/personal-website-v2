@@ -6,6 +6,7 @@ import type { CaseStudy } from "@/data/work";
 import { triggerHaptic } from "@/lib/haptics";
 import { isPlainClick, useRouteTransition } from "@/lib/useRouteTransition";
 import { Caption, Marks } from "@/components/hud";
+import Crosshair from "@/components/hud/Crosshair";
 import styles from "./CaseStudyList.module.css";
 
 /** The studies as a ledger: one row each, cover on the left, the claim beside it. */
@@ -46,6 +47,7 @@ export default function CaseStudyList({ studies }: { studies: CaseStudy[] }) {
                   className={styles.image}
                 />
                 <Marks kind="select" />
+                <Crosshair />
                 <Caption at="top">
                   {String(i + 1).padStart(3, "0")} · {study.year}
                 </Caption>

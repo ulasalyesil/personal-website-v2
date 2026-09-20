@@ -269,6 +269,15 @@ export default function ModeSplitHero() {
         <HeroLayer mode="dark" focusedHref={focusedHref} />
       </div>
 
+      {/* Construction geometry. It converges on the one control in the
+          hero rather than sitting behind the type as decoration: the
+          horizontal line marks the axis the boundary slides along, and the
+          ring marks the thing you can grab. Drawn above both layers so a
+          single set of lines crosses the mode boundary. */}
+      <div className={styles.construction} aria-hidden>
+        <span className={styles.axis} />
+      </div>
+
       <div
         ref={handleRef}
         className={styles.handle}
@@ -287,6 +296,7 @@ export default function ModeSplitHero() {
         onKeyDown={onKeyDown}
       >
         <span className={styles.rule} aria-hidden />
+        <span className={styles.ring} aria-hidden />
         <span className={styles.readout} aria-hidden>
           <span className={styles.token} data-side="light">
             surface-0 <b>{PALETTE.light.surface.toUpperCase()}</b>{" "}

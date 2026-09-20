@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CaseStudy as WorkPiece } from "@/data/work";
 import { Caption, Marks } from "@/components/hud";
+import Crosshair from "@/components/hud/Crosshair";
 import { triggerHaptic } from "@/lib/haptics";
 import { isPlainClick, useRouteTransition } from "@/lib/useRouteTransition";
 import styles from "./SelectedWork.module.css";
@@ -70,6 +71,7 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
                   currently picked out on a canvas. The float label states
                   the one fact the text below does not repeat. */}
               <Marks kind="select" />
+              <Crosshair />
               <Caption at="top">{PAD(i)} · {piece.year}</Caption>
             </div>
             <div className={styles.text}>

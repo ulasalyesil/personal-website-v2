@@ -9,6 +9,13 @@
   --gutter: clamp(1.25rem, 3.5vw, 3rem);
   --hud-inset: clamp(0.75rem, 1.6vw, 1.25rem);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* The grip's centre is one radius above the readout's baseline. The axis
+     and the ring are both placed from this, so moving the readout moves the
+     geometry with it instead of leaving it behind at an old offset. */
+  --grip: 44px;
+  --readout-inset: calc(1.25rem + env(safe-area-inset-bottom));
+  --grip-center: calc(var(--readout-inset) + var(--grip) / 2);
+  --construction-line: #8a8a8a;
 }
 
 .overlay {
@@ -192,6 +199,49 @@
   outline-offset: 2px;
 }
 
+/* ─── Construction ─── */
+
+.construction {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.axis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--grip-center);
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--construction-line) 0 4px,
+    transparent 4px 10px
+  );
+  opacity: 0.45;
+}
+
+.ring {
+  position: absolute;
+  bottom: var(--grip-center);
+  left: 0;
+  width: 132px;
+  height: 132px;
+  transform: translate(-50%, 50%);
+  border: 1px dashed var(--construction-line);
+  border-radius: 50%;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .ring {
+    width: 92px;
+    height: 92px;
+  }
+}
+
 /* ─── Handle ─── */
 
 .handle {
@@ -243,7 +293,7 @@
 
 .readout {
   position: absolute;
-  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  bottom: var(--readout-inset);
   left: 0;
   display: flex;
   align-items: center;
@@ -255,8 +305,8 @@
 .grip {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: var(--grip);
+  height: var(--grip);
   flex: none;
   /* Square, like the crop marks: a pill grip read as a pasted-on control
      against a frame made of straight registration lines. */
@@ -289,7 +339,12 @@
     0 0 0 4px #c94200;
 }
 
+/* The readouts sit ON the axis, so each one knocks the dashed line out
+   behind it with its own side's surface. That is what makes them read as
+   measurements on a construction line rather than text the line runs
+   through. */
 .token {
+  padding: 0.25rem 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.04em;
@@ -303,6 +358,7 @@
 }
 
 .token[data-side="light"] {
+  background: #ffffff;
   color: #525252;
 }
 
@@ -311,6 +367,7 @@
 }
 
 .token[data-side="dark"] {
+  background: #0a0a0a;
   color: #a3a3a3;
 }
 
