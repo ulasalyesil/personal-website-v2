@@ -3,6 +3,8 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { EMAIL } from "@/lib/constants";
 import { NAV } from "@/lib/nav";
+import { BUILD, grade, ratio } from "@/lib/system-facts";
+import HudFrame from "./HudFrame";
 import styles from "./ModeSplitHero.module.css";
 
 /**
@@ -11,9 +13,23 @@ import styles from "./ModeSplitHero.module.css";
  * left, so dragging the handle moves the boundary between the two modes.
  * That is the design-system work in one gesture: the same layout, the same
  * semantic token, two resolved values.
+ *
+ * The chrome around it reports that system rather than decorating it. Every
+ * readout on screen is derived from the palette below or measured at build
+ * time, so the panel cannot drift out of step with what it describes.
  */
 
 type Mode = "light" | "dark";
+
+/** Both resolved palettes, in one place. The CSS reads these as custom
+ *  properties and the readouts compute their ratios from the same strings,
+ *  so there is exactly one copy of each value on the page. */
+const PALETTE = {
+  light: { surface: "#ffffff", ink: "#171717", muted: "#525252", accent: "#c94200", line: "#e5e5e5" },
+  dark: { surface: "#0a0a0a", ink: "#f5f5f5", muted: "#a3a3a3", accent: "#ff6b22", line: "#262626" },
+} as const;
+
+const PAD = (n: number) => String(n + 1).padStart(3, "0");
 
 const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; focusedHref?: string }) {
   const isOverlay = mode === "dark";
@@ -21,6 +37,7 @@ const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; f
   // hidden from assistive tech, not focusable, and clicks fall through to
   // the identical light layout underneath.
   const Name = isOverlay ? "p" : "h1";
+  const p = PALETTE[mode];
 
   return (
     <div
@@ -29,16 +46,19 @@ const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; f
       aria-hidden={isOverlay || undefined}
       inert={isOverlay || undefined}
     >
+      <HudFrame />
+
       <header className={styles.header}>
         <div className={styles.identity}>
           <Name className={styles.name}>Ulaş Alyeşil</Name>
-          <span className={styles.role}>Product designer, Istanbul</span>
+          <span className={styles.role}>Product designer · Istanbul</span>
         </div>
         <nav aria-label={isOverlay ? undefined : "Primary"}>
           <ul className={styles.nav}>
-            {NAV.map((item) => (
+            {NAV.map((item, i) => (
               <li key={item.href}>
                 <a className={styles.navLink} href={item.href} data-focus-visible={(isOverlay && focusedHref === item.href) || undefined}>
+                  <span className={styles.navIndex} aria-hidden>{PAD(i)}</span>
                   {item.label}
                 </a>
               </li>
@@ -47,9 +67,52 @@ const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; f
         </nav>
       </header>
 
-      <p className={styles.statement}>
-        I design products and prototype how they behave.
-      </p>
+      <div className={styles.body}>
+        {/* Not a console: a spec sheet for the half of the screen it sits on.
+            Hidden from assistive tech because the same facts read as noise in
+            a linear pass, and none of them are needed to use the page. */}
+        <dl className={styles.telemetry} aria-hidden>
+          <div>
+            <dt>mode</dt>
+            <dd>{mode}</dd>
+          </div>
+          <div>
+            <dt>surface-0</dt>
+            <dd>{p.surface.toUpperCase()}</dd>
+          </div>
+          <div>
+            <dt>text-primary</dt>
+            <dd>{p.ink.toUpperCase()}</dd>
+          </div>
+          <div>
+            <dt>contrast</dt>
+            <dd>
+              {ratio(p.ink, p.surface)} <mark className={styles.pass}>{grade(p.ink, p.surface)}</mark>
+            </dd>
+          </div>
+          {BUILD.tokens ? (
+            <div>
+              <dt>tokens</dt>
+              <dd>
+                {BUILD.tokens}
+                {BUILD.overrides ? ` · ${BUILD.overrides} dark` : ""}
+              </dd>
+            </div>
+          ) : null}
+          {BUILD.ref ? (
+            <div>
+              <dt>build</dt>
+              <dd>
+                {BUILD.branch} @ {BUILD.ref}
+              </dd>
+            </div>
+          ) : null}
+        </dl>
+
+        <p className={styles.statement}>
+          I design products and prototype how they behave.
+        </p>
+      </div>
 
       <div className={styles.foot}>
         <p className={styles.now}>
@@ -58,7 +121,7 @@ const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; f
           states a static frame can&apos;t explain.
         </p>
         <a className={styles.cta} href={`mailto:${EMAIL}`} data-focus-visible={(isOverlay && focusedHref === `mailto:${EMAIL}`) || undefined}>
-          Get in touch
+          <span aria-hidden>[</span>Get in touch<span aria-hidden>]</span>
         </a>
       </div>
     </div>
@@ -181,6 +244,18 @@ export default function ModeSplitHero() {
 
   return (
     <section ref={rootRef} className={styles.hero} aria-label="Introduction"
+      style={{
+        "--light-surface": PALETTE.light.surface,
+        "--light-ink": PALETTE.light.ink,
+        "--light-muted": PALETTE.light.muted,
+        "--light-accent": PALETTE.light.accent,
+        "--light-line": PALETTE.light.line,
+        "--dark-surface": PALETTE.dark.surface,
+        "--dark-ink": PALETTE.dark.ink,
+        "--dark-muted": PALETTE.dark.muted,
+        "--dark-accent": PALETTE.dark.accent,
+        "--dark-line": PALETTE.dark.line,
+      } as React.CSSProperties}
       onFocusCapture={(event) => {
         const target = event.target;
         setFocusedHref(target instanceof HTMLAnchorElement && target.matches(":focus-visible") ? target.getAttribute("href") ?? undefined : undefined);
@@ -216,7 +291,8 @@ export default function ModeSplitHero() {
         <span className={styles.rule} aria-hidden />
         <span className={styles.readout} aria-hidden>
           <span className={styles.token} data-side="light">
-            surface-0 <b>#FFFFFF</b>
+            surface-0 <b>{PALETTE.light.surface.toUpperCase()}</b>{" "}
+            {ratio(PALETTE.light.ink, PALETTE.light.surface)}
           </span>
           <span className={styles.grip}>
             <svg viewBox="0 0 20 20" width="20" height="20">
@@ -224,7 +300,8 @@ export default function ModeSplitHero() {
             </svg>
           </span>
           <span className={styles.token} data-side="dark">
-            surface-0 <b>#0A0A0A</b>
+            surface-0 <b>{PALETTE.dark.surface.toUpperCase()}</b>{" "}
+            {ratio(PALETTE.dark.ink, PALETTE.dark.surface)}
           </span>
         </span>
       </div>

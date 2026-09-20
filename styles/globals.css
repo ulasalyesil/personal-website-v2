@@ -1,10 +1,19 @@
 @import "tailwindcss";
 @import "@fontsource-variable/geist/index.css";
 @import "@fontsource-variable/geist-mono/index.css";
+@import "@fontsource/instrument-serif/400.css";
 @import "tw-animate-css";
 
 /* Light mode (default) */
 @theme {
+  /* ─── Faces ───
+     Mono is the system voice: it carries the chrome, the readouts and the
+     body, the chrome and the readouts. The serif is the title face and
+     nothing else: it names things, mono describes them. Keeping that split
+     absolute is what stops the page reading as a terminal. */
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", monospace;
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+
   --color-brand: #c94200;
   --color-brand-hover: #a93700;
 

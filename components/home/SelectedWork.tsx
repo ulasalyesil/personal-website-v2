@@ -14,6 +14,9 @@ import styles from "./SelectedWork.module.css";
  */
 const PLACEMENT = ["lead", "counter", "pairA", "pairB"] as const;
 
+/** Card numbers, so four pieces read as an indexed set rather than a grid. */
+const PAD = (n: number) => String(n + 1).padStart(3, "0");
+
 export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
   const navigate = useRouteTransition();
 
@@ -21,10 +24,13 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
     <section className={styles.section} aria-labelledby="selected-work">
       <div className={styles.head}>
         <h2 id="selected-work" className={styles.heading}>
+          <span className={styles.hash} aria-hidden>
+            #
+          </span>
           Selected work
         </h2>
         <Link href="/works" className={styles.all}>
-          All projects
+          <span aria-hidden>[</span>All projects<span aria-hidden>]</span>
         </Link>
       </div>
 
@@ -61,6 +67,9 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
               />
             </div>
             <div className={styles.text}>
+              <span className={styles.index} aria-hidden>
+                {PAD(i)}
+              </span>
               <h3
                 className={styles.title}
                 style={{ viewTransitionName: `project-${piece.slug}-title` }}
