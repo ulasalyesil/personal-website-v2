@@ -17,6 +17,16 @@
   --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", monospace;
   --font-display: "Syne Variable", ui-sans-serif, system-ui, sans-serif;
 
+  /* ─── Label scale ───
+     Every piece of chrome on the site is one of these two sizes. Labels name
+     a thing (nav, section markers, buttons); micro annotates one (meta rows,
+     readouts, indices). The tracking is part of the token because mono at
+     these sizes closes up without it. */
+  --text-label: 0.75rem;
+  --text-micro: 0.6875rem;
+  --tracking-label: 0.08em;
+  --tracking-micro: 0.04em;
+
   --color-brand: #c94200;
   --color-brand-hover: #a93700;
 

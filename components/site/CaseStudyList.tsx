@@ -14,6 +14,9 @@ export default function CaseStudyList({ studies }: { studies: CaseStudy[] }) {
   return (
     <section className={styles.section} aria-labelledby="case-studies">
       <h2 id="case-studies" className={styles.heading}>
+        <span className={styles.hash} aria-hidden>
+          #
+        </span>
         Case studies
       </h2>
       <ul>

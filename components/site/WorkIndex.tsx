@@ -66,6 +66,9 @@ export default function WorkIndex({
   return (
     <section className={styles.section} aria-labelledby={id}>
       <h2 id={id} className={styles.heading}>
+        <span className={styles.hash} aria-hidden>
+          #
+        </span>
         {heading}
       </h2>
 

@@ -50,26 +50,31 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1.25rem;
-  font-size: 0.9375rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
   color: var(--color-text-tertiary);
 }
 
 .title {
   margin-top: 0.75rem;
-  font-size: clamp(2.25rem, 4.8vw, 4.5rem);
-  font-weight: 560;
-  line-height: 0.96;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   color: var(--color-text-primary);
   text-wrap: balance;
   transition: color 150ms ease;
 }
 
 .summary {
-  max-width: 28rem;
+  max-width: 46ch;
   margin-top: 1rem;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
-  line-height: 1.45;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: 1.6;
   color: var(--color-text-secondary);
   text-wrap: pretty;
 }
@@ -80,15 +85,15 @@
   align-items: center;
   gap: 0.75rem 1.25rem;
   margin-top: 1.5rem;
-  font-size: 0.9375rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
 }
 
 .open {
-  color: var(--color-text-primary);
-  text-decoration: underline;
-  text-decoration-color: var(--color-border-default);
-  text-underline-offset: 0.3em;
-  transition: text-decoration-color 150ms ease;
+  color: var(--color-brand);
+  transition: opacity 150ms ease;
 }
 
 .live {

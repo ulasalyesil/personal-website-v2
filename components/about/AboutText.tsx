@@ -304,7 +304,10 @@ export default function AboutText() {
       : null;
 
   return (
-    <div className="relative space-y-[0.9em] text-[clamp(1.375rem,2.4vw,2.125rem)] leading-[1.28] tracking-[-0.018em] text-text-primary">
+    // Short enough to set in mono: four paragraphs is a statement, not an
+    // essay, so it can take the system's own voice. Case-study prose stays
+    // in the sans, where ten screens of mono would punish the reader.
+    <div className="relative space-y-[1.1em] font-mono text-[clamp(0.9375rem,1.3vw,1.125rem)] leading-[1.65] tracking-[0.01em] text-text-primary">
       {paragraphs.map((text, index) => (
         <p key={index} className="text-pretty">
           {processText(

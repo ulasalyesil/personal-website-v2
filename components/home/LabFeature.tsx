@@ -70,7 +70,7 @@ export default function LabFeature() {
 
       <div className={styles.copy}>
         <h2 id="lab-feature" className={styles.kicker}>
-          From the Lab
+          <span aria-hidden>#</span> From the Lab
         </h2>
         <p className={styles.headline}>A range, not a point.</p>
         <p className={styles.summary}>{item.summary}</p>
@@ -86,10 +86,11 @@ export default function LabFeature() {
             {playing ? "Pause recording" : "Play recording"}
           </button>
           <Link href={`/lab/${item.slug}`} className={styles.link}>
-            How it works
+            <span aria-hidden>[</span>How it works<span aria-hidden>]</span>
           </Link>
           <Link href="/lab" className={styles.link}>
-            All {LAB_ITEMS.length} Lab entries
+            <span aria-hidden>[</span>All {LAB_ITEMS.length} entries
+            <span aria-hidden>]</span>
           </Link>
         </div>
       </div>

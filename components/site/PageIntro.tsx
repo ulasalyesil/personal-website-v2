@@ -9,13 +9,20 @@ type Props = {
 };
 
 /**
- * Every inner page opens the way the home page does: one word at display
- * size, and the sentence that explains it set against its baseline.
+ * Every inner page opens the way the home page does: a section marker, the
+ * name of the page in the display face, and the sentence that explains it
+ * set against its baseline. The marker is what makes four different pages
+ * read as sections of one document.
  */
 export default function PageIntro({ title, lede, aside }: Props) {
   return (
     <header className={styles.intro}>
-      <h1 className={styles.title}>{title}</h1>
+      <h1 className={styles.title}>
+        <span className={styles.hash} aria-hidden>
+          #
+        </span>
+        {title}
+      </h1>
       {(lede || aside) && (
         <div className={styles.side}>
           {aside && <p className={styles.aside}>{aside}</p>}

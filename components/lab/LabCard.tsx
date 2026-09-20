@@ -95,7 +95,9 @@ export default function LabCard({ item, index, onOpen }: Props) {
         <h2 className={styles.title}>{item.title}</h2>
         <p className={styles.summary}>{item.summary}</p>
         <p className={styles.actions}>
-          <span className={styles.open}>Open entry</span>
+          <span className={styles.open}>
+            <span aria-hidden>[</span>Open entry<span aria-hidden>]</span>
+          </span>
           {item.url && <span className={styles.live}>Runs in the browser</span>}
         </p>
       </div>

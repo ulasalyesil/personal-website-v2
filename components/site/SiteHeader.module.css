@@ -34,19 +34,23 @@
 }
 
 .name {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
 }
 
 .role {
-  font-size: 0.9375rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-micro);
   color: var(--color-text-secondary);
 }
 
 .nav {
   display: flex;
-  margin-right: -0.75rem;
+  margin-right: -0.625rem;
 }
 
 .link {
@@ -54,12 +58,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   min-height: 44px;
   min-width: 44px;
-  padding: 0 0.75rem;
-  font-size: 0.9375rem;
+  padding: 0 0.625rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
   color: var(--color-text-secondary);
   transition: color 150ms ease;
+}
+
+.index {
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The bar variant is 3.5rem of height shared with the section rail, so the
+   indices come off rather than wrap the labels. */
+.header[data-variant="bar"] .index {
+  display: none;
 }
 
 .link[aria-current="page"] {

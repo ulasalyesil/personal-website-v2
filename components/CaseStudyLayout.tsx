@@ -449,20 +449,33 @@ export default function CaseStudyLayout({
                 )}
               >
                 {group.section.kicker && (
-                  <p className={cn(styles.kicker, "text-caption text-text-tertiary")}>
+                  <p
+                    className={cn(
+                      styles.kicker,
+                      "font-mono text-micro uppercase tracking-micro text-text-tertiary",
+                    )}
+                  >
                     {group.section.kicker}
                   </p>
                 )}
+                {/* The `#` is the marker the rest of the site navigates by,
+                    and here it doubles as what it already was: the anchor. */}
                 <h2
                   className={cn(
                     styles.sectionTitle,
-                    "mb-8 text-[clamp(1.75rem,3.2vw,2.75rem)] font-[560] leading-[1.05] tracking-[-0.03em] text-text-primary text-balance",
+                    "mb-8 font-display text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-text-primary text-balance",
                   )}
                 >
                   <a
                     href={`#${group.section.id}`}
-                    className="rounded-sm transition-colors duration-150 hover:text-brand"
+                    className="group/anchor rounded-sm transition-colors duration-150 hover:text-brand"
                   >
+                    <span
+                      aria-hidden
+                      className="mr-2 font-mono text-[0.5em] font-normal text-text-tertiary transition-colors duration-150 group-hover/anchor:text-brand"
+                    >
+                      #
+                    </span>
                     {group.section.title}
                   </a>
                 </h2>

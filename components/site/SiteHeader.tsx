@@ -25,13 +25,13 @@ export default function SiteHeader({ back }: Props) {
       ) : (
         <Link href="/" className={styles.identity}>
           <span className={styles.name}>Ulaş Alyeşil</span>
-          <span className={styles.role}>Product designer, Istanbul</span>
+          <span className={styles.role}>Product designer · Istanbul</span>
         </Link>
       )}
 
       <nav aria-label="Primary">
         <ul className={styles.nav}>
-          {NAV.map((item) => {
+          {NAV.map((item, i) => {
             const current =
               pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
@@ -42,6 +42,11 @@ export default function SiteHeader({ back }: Props) {
                   aria-current={current ? "page" : undefined}
                   target={item.href.endsWith(".pdf") ? "_blank" : undefined}
                 >
+                  {/* The index is the same one the hero prints, so the nav
+                      reads as one numbered contents list across the site. */}
+                  <span className={styles.index} aria-hidden>
+                    {String(i + 1).padStart(3, "0")}
+                  </span>
                   {item.label}
                 </Link>
               </li>
