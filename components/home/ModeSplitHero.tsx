@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { EMAIL } from "@/lib/constants";
 import { NAV } from "@/lib/nav";
 import { BUILD, grade, ratio } from "@/lib/system-facts";
-import HudFrame from "./HudFrame";
+import { BlockLabel, Cursor, Marks, Readout } from "@/components/hud";
 import styles from "./ModeSplitHero.module.css";
 
 /**
@@ -46,7 +46,7 @@ const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; f
       aria-hidden={isOverlay || undefined}
       inert={isOverlay || undefined}
     >
-      <HudFrame />
+      <Marks kind="frame" ticks />
 
       <header className={styles.header}>
         <div className={styles.identity}>
@@ -68,49 +68,47 @@ const HeroLayer = memo(function HeroLayer({ mode, focusedHref }: { mode: Mode; f
       </header>
 
       <div className={styles.body}>
-        {/* Not a console: a spec sheet for the half of the screen it sits on.
-            Hidden from assistive tech because the same facts read as noise in
-            a linear pass, and none of them are needed to use the page. */}
-        <dl className={styles.telemetry} aria-hidden>
-          <div>
-            <dt>mode</dt>
-            <dd>{mode}</dd>
-          </div>
-          <div>
-            <dt>surface-0</dt>
-            <dd>{p.surface.toUpperCase()}</dd>
-          </div>
-          <div>
-            <dt>text-primary</dt>
-            <dd>{p.ink.toUpperCase()}</dd>
-          </div>
-          <div>
-            <dt>contrast</dt>
-            <dd>
-              {ratio(p.ink, p.surface)} <mark className={styles.pass}>{grade(p.ink, p.surface)}</mark>
-            </dd>
-          </div>
-          {BUILD.tokens ? (
-            <div>
-              <dt>tokens</dt>
-              <dd>
-                {BUILD.tokens}
-                {BUILD.overrides ? ` · ${BUILD.overrides} dark` : ""}
-              </dd>
-            </div>
-          ) : null}
-          {BUILD.ref ? (
-            <div>
-              <dt>build</dt>
-              <dd>
-                {BUILD.branch} @ {BUILD.ref}
-              </dd>
-            </div>
-          ) : null}
-        </dl>
+        {/* A spec sheet for the half of the screen it sits on, in the shape
+            a console prints: a heading, its rule, then bracketed values. */}
+        <div className={styles.console}>
+          <BlockLabel>System</BlockLabel>
+          <Readout
+            items={[
+              { key: "mode", value: mode },
+              { key: "surface-0", value: p.surface.toUpperCase() },
+              { key: "text-primary", value: p.ink.toUpperCase() },
+              {
+                key: "contrast",
+                value: `${ratio(p.ink, p.surface)} ${grade(p.ink, p.surface)}`,
+                accent: true,
+              },
+              ...(BUILD.tokens
+                ? [
+                    {
+                      key: "tokens",
+                      value: BUILD.overrides
+                        ? `${BUILD.tokens} · ${BUILD.overrides} dark`
+                        : BUILD.tokens,
+                    },
+                  ]
+                : []),
+              ...(BUILD.ref
+                ? [{ key: "build", value: `${BUILD.branch} @ ${BUILD.ref}` }]
+                : []),
+            ]}
+          />
+        </div>
 
         <p className={styles.statement}>
           I design products and prototype how they behave.
+        </p>
+
+        {/* The comment line the reference opens with, carrying a real fact
+            rather than a greeting. */}
+        <p className={styles.comment}>
+          <span aria-hidden>{"// "}</span>
+          Open to remote work and relocation
+          <Cursor />
         </p>
       </div>
 

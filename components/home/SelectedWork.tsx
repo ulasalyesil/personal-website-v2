@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CaseStudy as WorkPiece } from "@/data/work";
+import { Caption, Marks } from "@/components/hud";
 import { triggerHaptic } from "@/lib/haptics";
 import { isPlainClick, useRouteTransition } from "@/lib/useRouteTransition";
 import styles from "./SelectedWork.module.css";
@@ -65,11 +66,13 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
                 fetchPriority={i === 0 ? "high" : undefined}
                 className={styles.image}
               />
+              {/* Selection marks, not a border: the cover reads as the thing
+                  currently picked out on a canvas. The float label states
+                  the one fact the text below does not repeat. */}
+              <Marks kind="select" />
+              <Caption at="top">{PAD(i)} · {piece.year}</Caption>
             </div>
             <div className={styles.text}>
-              <span className={styles.index} aria-hidden>
-                {PAD(i)}
-              </span>
               <h3
                 className={styles.title}
                 style={{ viewTransitionName: `project-${piece.slug}-title` }}

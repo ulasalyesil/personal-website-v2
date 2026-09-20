@@ -85,16 +85,22 @@
   color: var(--color-text-primary);
 }
 
-/* A short rule under the current page, in the accent. */
+/* The current page is bracketed rather than underlined. Brackets are how
+   every other active thing in this language marks itself, and unlike a rule
+   they survive being read aloud as punctuation around the label. */
+.link[aria-current="page"]::before,
 .link[aria-current="page"]::after {
-  content: "";
-  position: absolute;
-  left: 0.75rem;
-  right: 0.75rem;
-  bottom: 8px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--color-brand);
+  color: var(--color-brand);
+}
+
+.link[aria-current="page"]::before {
+  content: "[";
+  margin-right: 0.25em;
+}
+
+.link[aria-current="page"]::after {
+  content: "]";
+  margin-left: 0.25em;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -113,10 +119,6 @@
 @media (max-width: 420px) {
   .header[data-variant="bar"] .link {
     padding: 0 0.5rem;
-  }
-  .header[data-variant="bar"] .link[aria-current="page"]::after {
-    left: 0.5rem;
-    right: 0.5rem;
   }
   .header[data-variant="bar"] .nav {
     margin-right: -0.5rem;

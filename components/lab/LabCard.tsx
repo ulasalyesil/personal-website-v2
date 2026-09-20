@@ -7,6 +7,7 @@ import { triggerHaptic } from "@/lib/haptics";
 import { isPlainClick } from "@/lib/useRouteTransition";
 import DeviceFrame from "./DeviceFrame";
 import type { LabItem } from "./data";
+import { Caption, Marks } from "@/components/hud";
 import styles from "./LabCard.module.css";
 
 type Props = {
@@ -85,6 +86,13 @@ export default function LabCard({ item, index, onOpen }: Props) {
             />
           </div>
         )}
+        <Marks kind="select" />
+        {/* The float label says what the entry IS, which the tag row below
+            states in prose: interaction, prototype, system. */}
+        <Caption at="top">
+          {String(index + 1).padStart(3, "0")} ·{" "}
+          {item.wip ? "in progress" : item.date}
+        </Caption>
       </div>
 
       <div className={styles.text}>

@@ -1,4 +1,8 @@
 .intro {
+  position: relative;
+  --hud-inset: 0px;
+  --mark-size: 12px;
+  --hud-line: var(--color-border-default);
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(1rem, 2vw, 2rem);

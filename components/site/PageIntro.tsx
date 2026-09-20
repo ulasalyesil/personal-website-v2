@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Marks } from "@/components/hud";
 import styles from "./PageIntro.module.css";
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
 export default function PageIntro({ title, lede, aside }: Props) {
   return (
     <header className={styles.intro}>
+      <Marks kind="frame" />
       <h1 className={styles.title}>
         <span className={styles.hash} aria-hidden>
           #

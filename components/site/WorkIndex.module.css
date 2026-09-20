@@ -43,13 +43,28 @@
   margin-bottom: 1rem;
 }
 
+.yearLabel::before {
+  content: "[";
+  margin-right: 0.15em;
+  opacity: 0.55;
+}
+
+.yearLabel::after {
+  content: "]";
+  margin-left: 0.15em;
+  opacity: 0.55;
+}
+
 .rows {
   grid-column: 1 / -1;
 }
 
+/* A console row: a caret column that only fills on hover, then the fields.
+   The caret is what a selected line looks like in a terminal, and it does
+   the job the old hover colour change was doing, with less noise. */
 .row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1.25rem 1fr auto;
   gap: 0.125rem 1rem;
   align-items: baseline;
   min-height: 56px;
@@ -58,11 +73,28 @@
   transition: color 150ms ease;
 }
 
+.row::before {
+  content: ">";
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--color-brand);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.row:hover::before,
+.row:focus-visible::before {
+  opacity: 1;
+}
+
 .rows li:last-child .row {
   border-bottom: 0;
 }
 
 .title {
+  grid-column: 2;
   font-family: var(--font-mono);
   font-size: var(--text-label);
   text-transform: uppercase;
@@ -72,6 +104,7 @@
 }
 
 .role {
+  grid-column: 2;
   grid-row: 2;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
@@ -111,12 +144,14 @@
     grid-column: 5 / -1;
   }
   .row {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(7rem, auto);
+    grid-template-columns: 1.25rem minmax(0, 1.2fr) minmax(0, 1fr) minmax(7rem, auto);
   }
   .role {
+    grid-column: 3;
     grid-row: auto;
   }
   .kind {
+    grid-column: 4;
     grid-row: auto;
     text-align: right;
   }

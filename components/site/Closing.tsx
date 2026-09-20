@@ -1,4 +1,6 @@
+import { BlockLabel, Cursor, Readout } from "@/components/hud";
 import { EMAIL, SOCIAL_LINKS } from "@/lib/constants";
+import { BUILD } from "@/lib/system-facts";
 import styles from "./Closing.module.css";
 
 const LINKS = [
@@ -13,7 +15,11 @@ const LINKS = [
 export default function Closing() {
   return (
     <footer className={styles.closing}>
-      <p className={styles.lede}>Open to remote work and relocation.</p>
+      <BlockLabel className={styles.label}>Contact</BlockLabel>
+      <p className={styles.lede}>
+        <span aria-hidden>{"// "}</span>Open to remote work and relocation
+        <Cursor />
+      </p>
       <a className={styles.email} href={`mailto:${EMAIL}`}>
         {EMAIL}
       </a>
@@ -35,6 +41,18 @@ export default function Closing() {
         </ul>
         <p className={styles.small}>© {new Date().getFullYear()} Ulaş Alyeşil</p>
       </div>
+
+      {/* The build the reader is actually looking at. It belongs at the end
+          of the page for the same reason a colophon does. */}
+      {BUILD.ref && (
+        <Readout
+          className={styles.build}
+          items={[
+            { key: "build", value: `${BUILD.branch} @ ${BUILD.ref}` },
+            ...(BUILD.tokens ? [{ key: "tokens", value: BUILD.tokens }] : []),
+          ]}
+        />
+      )}
     </footer>
   );
 }
