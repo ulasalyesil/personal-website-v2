@@ -1,0 +1,78 @@
+.intro {
+  position: relative;
+  --hud-inset: 0px;
+  --mark-size: 12px;
+  --hud-line: var(--color-border-default);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+  row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: end;
+  padding: clamp(2.5rem, 8vw, 6rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* One word in the display face, at a size that states the page rather than
+   shouting it. The `#` carries the document grammar the rest of the page is
+   set in, and is the only ornament here. */
+.title {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.hash {
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.side {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 1rem;
+}
+
+.aside {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.lede {
+  max-width: 48ch;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.lede p + p {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  /* The count sits under the title's first letters, the lede to the right. */
+  .side {
+    grid-template-columns: subgrid;
+    align-items: end;
+  }
+  .aside {
+    grid-column: 1 / span 4;
+  }
+  .lede {
+    grid-column: 7 / -1;
+  }
+}

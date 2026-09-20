@@ -5,27 +5,65 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { LabItem } from "./data";
 import { LAB_SLIDE_SPRING } from "@/lib/animations";
 
-function slideVariants(direction: 1 | -1) {
+function slideVariants(direction: 1 | -1, reducedMotion: boolean) {
   return {
-    enter: { y: direction * 40, opacity: 0 },
+    enter: { y: reducedMotion ? 0 : direction * 40, opacity: 0 },
     center: { y: 0, opacity: 1 },
-    exit: { y: direction * -40, opacity: 0 },
+    exit: { y: reducedMotion ? 0 : direction * -40, opacity: 0 },
   };
 }
 
-function Pill({ label }: { label: string }) {
+const TAG_LABEL: Record<string, string> = {
+  prototype: "Prototype",
+  interaction: "Interaction study",
+  system: "System",
+};
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function Meta({ item }: { item: LabItem }) {
   return (
-    <span className="h-6 inline-flex items-center px-2.5 border border-border-default rounded-full font-mono tabular-nums text-text-tertiary" style={{ fontSize: 11 }}>
-      {label}
-    </span>
+    <p className="flex flex-wrap gap-x-4 gap-y-1 text-[0.9375rem] text-text-tertiary">
+      <span>{TAG_LABEL[item.tag] ?? capitalize(item.tag)}</span>
+      <span>{item.wip ? "In progress" : capitalize(item.date)}</span>
+    </p>
   );
 }
+
+/** Internal prototypes are paths on this site; external ones get a scheme. */
+function liveHref(url: string): string {
+  return url.startsWith("/") ? url : `https://${url.replace(/^https?:\/\//, "")}`;
+}
+
+function TryLive({ item }: { item: LabItem }) {
+  if (!item.url) return null;
+  return (
+    <a
+      href={liveHref(item.url)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex min-h-11 items-center gap-2 self-start rounded-full bg-brand px-4 text-[0.9375rem] font-[550] text-white transition-transform duration-150 active:scale-[0.97] dark:text-[#0a0a0a]"
+    >
+      Try the prototype
+      <span className="sr-only">(opens in a new tab)</span>
+    </a>
+  );
+}
+
+const NAV_BUTTON =
+  "inline-flex min-h-11 items-center rounded-full border border-border-default px-4 text-[0.9375rem] text-text-primary transition-[background-color,transform] duration-150 hover:bg-surface-1 active:scale-[0.97]";
+
+const ICON_BUTTON =
+  "grid size-11 place-items-center rounded-full border border-border-default bg-surface-0 text-lg text-text-primary transition-[background-color,transform] duration-150 hover:bg-surface-1 active:scale-[0.97]";
 
 function LabMediaView({ item, mode }: { item: LabItem; mode: "desktop" | "mobile" }) {
   const reducedMotion = useReducedMotion();
   const pad = mode === "mobile" ? "p-4" : "p-8";
   return (
     <div className={`relative w-full h-full overflow-hidden bg-surface-1 grid place-items-center ${pad}`}>
+      <span className="absolute left-4 top-4 z-10 rounded-full bg-surface-0/90 px-2.5 text-[0.8125rem] leading-6 text-text-secondary">
+        {item.media.video ? "Recording" : "Screenshot"}
+      </span>
       {item.media.video ? (
         <video
           src={item.media.video}
@@ -36,7 +74,7 @@ function LabMediaView({ item, mode }: { item: LabItem; mode: "desktop" | "mobile
           loop
           playsInline
           aria-label={item.media.alt}
-          className="max-w-full max-h-full object-contain rounded-md border border-border-subtle"
+          className="max-w-full max-h-full object-contain rounded-lg"
         />
       ) : (
         <Image
@@ -45,7 +83,7 @@ function LabMediaView({ item, mode }: { item: LabItem; mode: "desktop" | "mobile
           width={1600}
           height={1000}
           sizes="(max-width: 768px) 100vw, 820px"
-          className="max-w-full max-h-full w-auto h-auto object-contain rounded-md border border-border-subtle"
+          className="max-w-full max-h-full w-auto h-auto object-contain rounded-lg"
           priority
         />
       )}
@@ -70,10 +108,11 @@ function DesktopModal({
   onNext: () => void;
   onClose: () => void;
 }) {
-  const variants = slideVariants(direction);
+  const reducedMotion = useReducedMotion();
+  const variants = slideVariants(direction, Boolean(reducedMotion));
   return (
     <div
-      className="bg-surface-0 border border-border-subtle rounded-xl overflow-hidden relative"
+      className="bg-surface-0 border border-border-subtle rounded-2xl overflow-hidden relative"
       style={{
         width: "min(1200px, calc(100vw - 64px))",
         height: "min(720px, calc(100vh - 80px))",
@@ -83,7 +122,7 @@ function DesktopModal({
       <button
         onClick={onClose}
         aria-label="Close"
-        className="absolute top-4 right-4 z-10 w-8 h-8 grid place-items-center rounded-full bg-surface-0 border border-border-subtle text-text-primary cursor-pointer"
+        className={`absolute top-4 right-4 z-10 cursor-pointer ${ICON_BUTTON}`}
       >
         ×
       </button>
@@ -94,52 +133,42 @@ function DesktopModal({
       <AnimatePresence mode="popLayout" custom={direction} initial={false}>
         <motion.div
           key={item.slug}
-          className="grid h-full"
-          style={{ gridTemplateColumns: "380px 1fr" }}
+          className="grid h-full min-h-0"
+          style={{ gridTemplateColumns: "400px 1fr" }}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          transition={LAB_SLIDE_SPRING}
+          transition={reducedMotion ? { duration: 0 } : LAB_SLIDE_SPRING}
         >
-          <div className="px-9 py-10 flex flex-col justify-between border-r border-border-subtle overflow-hidden">
+          <div className="px-9 py-10 flex flex-col justify-between gap-6 border-r border-border-subtle min-h-0 overflow-y-auto overscroll-contain">
             <div>
-              <div className="font-mono uppercase tracking-wider text-text-tertiary tabular-nums" style={{ fontSize: 11, marginBottom: 24 }}>
-                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-              </div>
-              <h2 className="text-text-primary font-medium tracking-tight text-balance m-0" style={{ fontSize: 20 }}>
+              <p className="mb-6 text-[0.9375rem] tabular-nums text-text-tertiary">
+                {index + 1} of {total}
+              </p>
+              <h2 className="m-0 text-[2.5rem] font-[560] leading-[0.98] tracking-[-0.04em] text-text-primary text-balance">
                 {item.title}
               </h2>
-              <div className="flex gap-1.5 flex-wrap mt-2.5">
-                <Pill label={item.date} />
-                <Pill label={item.tag} />
-                {item.wip && <Pill label="wip" />}
+              <div className="mt-3">
+                <Meta item={item} />
               </div>
-              <p className="font-mono text-text-secondary text-pretty mt-7" style={{ fontSize: 13, lineHeight: 1.6 }}>
+              <p className="mt-6 text-[1rem] leading-[1.6] text-text-secondary text-pretty">
                 {item.blurb}
               </p>
-              {item.url && (
-                <a
-                  href={`https://${item.url.replace(/^https?:\/\//, "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-text-tertiary hover:text-text-primary transition-colors duration-150 mt-5 inline-block underline underline-offset-4"
-                  style={{ fontSize: 12 }}
-                >
-                  open live ↗
-                </a>
-              )}
+              <div className="mt-6 flex">
+                <TryLive item={item} />
+              </div>
             </div>
             <div className="flex items-center justify-between gap-3">
               <div className="flex gap-2">
-                <button type="button" onClick={onPrevious} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary">
+                <button type="button" onClick={onPrevious} className={NAV_BUTTON}>
                   Previous
                 </button>
-                <button type="button" onClick={onNext} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary transition-colors duration-150 hover:text-text-primary">
+                <button type="button" onClick={onNext} className={NAV_BUTTON}>
                   Next
                 </button>
               </div>
-              <div className="font-mono text-text-tertiary" style={{ fontSize: 11 }}>Esc closes</div>
+              <p className="text-[0.8125rem] text-text-tertiary">Esc closes</p>
             </div>
           </div>
 
@@ -169,12 +198,13 @@ function MobileModal({
   onNext: () => void;
   onClose: () => void;
 }) {
-  const variants = slideVariants(direction);
+  const reducedMotion = useReducedMotion();
+  const variants = slideVariants(direction, Boolean(reducedMotion));
   return (
     <div
       className="fixed inset-0 z-[100] bg-surface-0 grid"
       style={{
-        gridTemplateRows: "env(safe-area-inset-top, 44px) 52px 1fr 34px",
+        gridTemplateRows: "env(safe-area-inset-top, 0px) 60px minmax(0, 1fr) max(24px, env(safe-area-inset-bottom, 0px))",
       }}
     >
       <div />
@@ -182,17 +212,17 @@ function MobileModal({
         <button
           onClick={onClose}
           aria-label="Back"
-          className="w-9 h-9 rounded-full border border-border-subtle bg-surface-0 text-text-primary grid place-items-center"
+          className={ICON_BUTTON}
         >
           ←
         </button>
-        <div className="font-mono text-text-tertiary tabular-nums" style={{ fontSize: 12 }}>
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-        </div>
+        <p className="text-[0.9375rem] tabular-nums text-text-tertiary">
+          {index + 1} of {total}
+        </p>
         <button
           onClick={onClose}
           aria-label="Close"
-          className="w-9 h-9 rounded-full border border-border-subtle bg-surface-0 text-text-primary grid place-items-center"
+          className={ICON_BUTTON}
         >
           ×
         </button>
@@ -203,36 +233,33 @@ function MobileModal({
       <AnimatePresence mode="popLayout" custom={direction} initial={false}>
         <motion.div
           key={item.slug}
-          className="grid overflow-hidden"
-          style={{ gridTemplateRows: "1fr auto" }}
+          className="grid min-h-0 overflow-y-auto overscroll-contain"
+          style={{ gridTemplateRows: "minmax(120px, 1fr) auto" }}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          transition={LAB_SLIDE_SPRING}
+          transition={reducedMotion ? { duration: 0 } : LAB_SLIDE_SPRING}
         >
           <div className="overflow-hidden relative">
             <LabMediaView item={item} mode="mobile" />
           </div>
-          <div className="px-5 py-3 border-t border-border-subtle relative overflow-hidden">
-            <div className="flex justify-between items-baseline gap-3">
-              <div className="font-medium text-text-primary tracking-tight" style={{ fontSize: 16 }}>
-                {item.title}
-              </div>
-              <div className="font-mono text-text-tertiary" style={{ fontSize: 11 }}>
-                {item.date}
-              </div>
+          <div className="px-5 py-4 border-t border-border-subtle relative overflow-hidden">
+            <h2 className="text-[1.75rem] font-[560] leading-none tracking-[-0.035em] text-text-primary">
+              {item.title}
+            </h2>
+            <div className="mt-2">
+              <Meta item={item} />
             </div>
-            <p className="font-mono text-text-secondary mt-2 text-pretty" style={{ fontSize: 12, lineHeight: 1.55 }}>
+            <p className="mt-3 max-h-[28vh] overflow-y-auto text-[0.9375rem] leading-[1.55] text-text-secondary text-pretty">
               {item.blurb}
             </p>
-            <div className="flex gap-1.5 mt-3">
-              <Pill label={item.tag} />
-              {item.wip && <Pill label="wip" />}
-            </div>
-            <div className="mt-3 flex gap-2">
-              <button type="button" onClick={onPrevious} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary">Previous</button>
-              <button type="button" onClick={onNext} className="rounded-full border border-border-subtle px-3 py-1.5 text-xs text-text-secondary">Next</button>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <TryLive item={item} />
+              <div className="flex gap-2">
+                <button type="button" onClick={onPrevious} className={NAV_BUTTON}>Previous</button>
+                <button type="button" onClick={onNext} className={NAV_BUTTON}>Next</button>
+              </div>
             </div>
           </div>
         </motion.div>

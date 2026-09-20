@@ -1,0 +1,126 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  flex-wrap: wrap;
+  padding: clamp(1rem, 2vw, 1.5rem) var(--gutter);
+  color: var(--color-text-primary);
+}
+
+/* Case studies: fixed height, because the section rail and reading progress
+   hang off its bottom edge (3.5rem). */
+.header[data-variant="bar"] {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  flex-wrap: nowrap;
+  height: 3.5rem;
+  padding-block: 0;
+  background: color-mix(in srgb, var(--color-surface-0) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.identity {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-height: 44px;
+  align-content: center;
+  border-radius: 6px;
+}
+
+.name {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+}
+
+.role {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-secondary);
+}
+
+.nav {
+  display: flex;
+  margin-right: -0.625rem;
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 0.625rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-secondary);
+  transition: color 150ms ease;
+}
+
+.index {
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The bar variant is 3.5rem of height shared with the section rail, so the
+   indices come off rather than wrap the labels. */
+.header[data-variant="bar"] .index {
+  display: none;
+}
+
+.link[aria-current="page"] {
+  color: var(--color-text-primary);
+}
+
+/* The current page is bracketed rather than underlined. Brackets are how
+   every other active thing in this language marks itself, and unlike a rule
+   they survive being read aloud as punctuation around the label. */
+.link[aria-current="page"]::before,
+.link[aria-current="page"]::after {
+  color: var(--color-brand);
+}
+
+.link[aria-current="page"]::before {
+  content: "[";
+  margin-right: 0.25em;
+}
+
+.link[aria-current="page"]::after {
+  content: "]";
+  margin-left: 0.25em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.link:focus-visible,
+.identity:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (max-width: 420px) {
+  .header[data-variant="bar"] .link {
+    padding: 0 0.5rem;
+  }
+  .header[data-variant="bar"] .nav {
+    margin-right: -0.5rem;
+  }
+}

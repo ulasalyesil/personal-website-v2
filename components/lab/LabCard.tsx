@@ -4,8 +4,12 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { triggerHaptic } from "@/lib/haptics";
+import { isPlainClick } from "@/lib/useRouteTransition";
 import DeviceFrame from "./DeviceFrame";
 import type { LabItem } from "./data";
+import { Caption, Marks } from "@/components/hud";
+import Crosshair from "@/components/hud/Crosshair";
+import styles from "./LabCard.module.css";
 
 type Props = {
   item: LabItem;
@@ -13,10 +17,18 @@ type Props = {
   onOpen: (labItem: LabItem, itemIndex: number) => void;
 };
 
+const TAG_LABEL: Record<string, string> = {
+  prototype: "Prototype",
+  interaction: "Interaction study",
+  system: "System",
+};
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
 /**
- * One entry, one row. The media is the card — no frame around it, sized big
- * enough that a screenshot actually resolves, on a colour field taken from
- * the work so the set doesn't read as four grey rectangles.
+ * One entry, one row, alternating sides. The media sits on a colour field
+ * taken from the work, so the set doesn't read as four grey rectangles. The
+ * row is a real link to the entry's own URL; a plain click opens it in place.
  */
 export default function LabCard({ item, index, onOpen }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -33,35 +45,29 @@ export default function LabCard({ item, index, onOpen }: Props) {
   };
 
   return (
-    <button
-      type="button"
-      onClick={() => {
+    <a
+      href={`/lab/${item.slug}`}
+      data-side={index % 2 ? "end" : "start"}
+      data-device={inDevice || undefined}
+      className={styles.card}
+      onClick={(e) => {
         triggerHaptic("light");
+        if (!isPlainClick(e)) return;
+        e.preventDefault();
         onOpen(item, index);
       }}
       onMouseEnter={hasVideo ? play : undefined}
       onMouseLeave={hasVideo ? stop : undefined}
       onFocus={hasVideo ? play : undefined}
       onBlur={hasVideo ? stop : undefined}
-      className={`group grid w-full cursor-pointer grid-cols-1 gap-5 text-left lg:gap-10 ${
-        inDevice
-          ? "items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)]"
-          : "items-start lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]"
-      }`}
-      aria-label={`Open ${item.title}`}
     >
       <div
-        className={`relative w-full overflow-hidden rounded-xl transition-transform duration-300 ease-out group-hover:-translate-y-0.5 ${
-          inDevice ? "aspect-[4/5]" : "aspect-[16/10]"
-        }`}
-        style={{ backgroundColor: inDevice ? item.tint : undefined }}
+        className={styles.media}
+        style={{ "--tint": item.tint } as React.CSSProperties}
       >
         {inDevice ? (
-          /* A phone is portrait. Forcing it into a landscape card meant cutting
-             it, and every crop landed as a flat line straight across the
-             device. The box follows the shape of the work instead: whole
-             device, nothing sliced, colour field behind it. */
-          <div className="absolute inset-0 flex items-center justify-center py-[5%]">
+          /* A phone is portrait: the whole device, nothing sliced. */
+          <div className={styles.device}>
             <DeviceFrame
               ref={videoRef}
               src={item.media.video!}
@@ -70,55 +76,41 @@ export default function LabCard({ item, index, onOpen }: Props) {
             />
           </div>
         ) : (
-          <div className="relative h-full w-full overflow-hidden bg-surface-2">
+          <div className={styles.shot}>
             <Image
               src={item.media.src}
               alt={item.media.alt}
-              className="object-cover"
               fill
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              sizes="(max-width: 900px) 100vw, 55vw"
               priority={index === 0}
+              className={styles.image}
             />
           </div>
         )}
+        <Marks kind="select" />
+        <Crosshair />
+        {/* The float label says what the entry IS, which the tag row below
+            states in prose: interaction, prototype, system. */}
+        <Caption at="top">
+          {String(index + 1).padStart(3, "0")} ·{" "}
+          {item.wip ? "in progress" : item.date}
+        </Caption>
       </div>
 
-      <div className="lg:pt-2">
-        {/* the colour identity lives here rather than as a mat around the
-            media, which fought the backgrounds already in the captures */}
-        <span
-          aria-hidden
-          className="mb-4 block h-[2px] w-8 rounded-full"
-          style={{ backgroundColor: item.tint }}
-        />
-        <div className="flex items-baseline gap-3">
-          <h3 className="text-subsection font-medium text-text-primary text-balance">
-            {item.title}
-          </h3>
-          <span className="font-mono text-xs text-text-tertiary tabular-nums whitespace-nowrap">
-            {item.wip ? "wip" : item.date}
-          </span>
-        </div>
-
-        <p className="text-body mt-2 text-text-secondary text-pretty">
-          {item.summary}
+      <div className={styles.text}>
+        <p className={styles.meta}>
+          <span>{TAG_LABEL[item.tag] ?? capitalize(item.tag)}</span>
+          <span>{item.wip ? "In progress" : capitalize(item.date)}</span>
         </p>
-
-        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span className="font-mono text-xs uppercase tracking-wider text-text-tertiary">
-            {item.tag}
+        <h2 className={styles.title}>{item.title}</h2>
+        <p className={styles.summary}>{item.summary}</p>
+        <p className={styles.actions}>
+          <span className={styles.open}>
+            <span aria-hidden>[</span>Open entry<span aria-hidden>]</span>
           </span>
-          {item.url && (
-            <span
-              className="inline-flex items-center gap-1 rounded-full border border-border-default px-2 py-1 font-mono text-xs uppercase tracking-wider text-text-secondary"
-              title="This one runs in the browser"
-            >
-              <span aria-hidden>&#8599;</span>
-              live
-            </span>
-          )}
-        </div>
+          {item.url && <span className={styles.live}>Runs in the browser</span>}
+        </p>
       </div>
-    </button>
+    </a>
   );
 }

@@ -129,14 +129,14 @@ export default function GetirFinansAICase() {
       platforms="iOS"
       status="Assistant streaming shipped · related work under evaluation"
       visualLead={
-        <figure className="overflow-hidden rounded-lg border border-border-subtle bg-surface-1">
+        <figure className="overflow-hidden rounded-xl bg-surface-1">
           <div style={{ viewTransitionName: "project-getirfinans-ai-cover" }}>
             <Image
               src={cover}
               alt="GetirFinans AI shown across assistant and search surfaces."
               className="w-full"
               priority
-              sizes="(max-width: 768px) 100vw, 1152px"
+              sizes="(max-width: 1440px) 100vw, 1440px"
             />
           </div>
           <figcaption className="px-4 py-3 text-caption text-text-tertiary">

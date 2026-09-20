@@ -1,18 +1,18 @@
-import BackLink from "@/components/BackLink";
-import Footer from "@/components/Footer";
+import SiteHeader from "@/components/site/SiteHeader";
+import Closing from "@/components/site/Closing";
 
 export default function CaseStudyGroupLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col overflow-x-clip">
-      <nav className="sticky top-0 z-10 bg-surface-0 border-b border-border-subtle">
-        <div className="mx-auto flex h-14 max-w-6xl items-center px-4 sm:px-6">
-          <BackLink href="/works" label="All work" />
-        </div>
-      </nav>
-      <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-6xl flex-1 px-4 py-12 sm:px-6">
+      <SiteHeader back={{ href: "/works", label: "All work" }} />
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="w-full flex-1 px-[var(--gutter)] pb-24 outline-none"
+      >
         {children}
       </main>
-      <Footer />
+      <Closing />
     </div>
   );
 }

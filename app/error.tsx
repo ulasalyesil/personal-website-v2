@@ -13,19 +13,19 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 px-4">
-      <div className="flex flex-col items-center gap-2">
-        <h1 className="text-6xl font-bold text-text-primary">Oops!</h1>
-        <h2 className="text-xl font-medium text-text-secondary">
-          Something went wrong
-        </h2>
-      </div>
-      <p className="text-text-tertiary text-center max-w-md text-pretty">
+    <div className="px-[var(--gutter)] py-[clamp(4rem,12vw,9rem)]">
+      <h1 className="text-[clamp(3.5rem,12vw,10rem)] font-[560] leading-[0.85] tracking-[-0.06em] text-text-primary">
+        Oops!
+      </h1>
+      <h2 className="mt-8 text-[clamp(1.5rem,3vw,2.5rem)] font-[560] tracking-[-0.03em] text-text-primary">
+        Something went wrong
+      </h2>
+      <p className="mt-3 max-w-md text-[1.0625rem] text-text-secondary text-pretty">
         An unexpected error occurred while loading this page. Please try again.
       </p>
       <button
         onClick={() => reset()}
-        className="px-6 py-3 bg-brand text-white rounded-full hover:bg-brand-hover transition-colors duration-150 font-medium"
+        className="mt-8 inline-flex min-h-12 items-center rounded-full bg-brand px-5 text-[0.9375rem] font-[550] text-white transition-[background-color,transform] duration-150 hover:bg-brand-hover active:scale-[0.97] dark:text-[#0a0a0a]"
       >
         Try again
       </button>

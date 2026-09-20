@@ -1,0 +1,300 @@
+/* The chrome vocabulary, as four components rather than four hundred
+   declarations scattered through the page modules. Everything here inherits
+   `--line` and `--muted` from whatever it is dropped into, so one set of
+   marks works on the light half of the hero, the dark half, and every page
+   surface in between. */
+
+/* ─── Marks ───
+   Corner brackets. `frame` insets them from the edges of a panel;
+   `select` clamps them to the corners of a thing, the way a canvas tool
+   draws a selection. */
+
+.marks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.corner {
+  position: absolute;
+  width: var(--mark-size, 14px);
+  height: var(--mark-size, 14px);
+  border: 0 solid var(--mark-color, var(--hud-line, var(--color-border-default)));
+}
+
+.marks[data-kind="frame"] {
+  --mark-inset: var(--hud-inset, 10px);
+}
+
+/* Inside the box on purpose: media clips its own corners, so a selection
+   drawn on the edge would lose exactly the part that makes it read as one. */
+.marks[data-kind="select"] {
+  --mark-inset: 8px;
+  --mark-size: 12px;
+  --mark-color: rgb(255 255 255 / 0.85);
+}
+
+.corner[data-at="tl"] {
+  top: var(--mark-inset);
+  left: var(--mark-inset);
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.corner[data-at="tr"] {
+  top: var(--mark-inset);
+  right: var(--mark-inset);
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.corner[data-at="bl"] {
+  bottom: var(--mark-inset);
+  left: var(--mark-inset);
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.corner[data-at="br"] {
+  bottom: var(--mark-inset);
+  right: var(--mark-inset);
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.tick {
+  position: absolute;
+  background: var(--mark-color, var(--hud-line, var(--color-border-default)));
+}
+
+.tick[data-at="left"],
+.tick[data-at="right"] {
+  top: 50%;
+  width: 9px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.tick[data-at="left"] {
+  left: var(--mark-inset);
+}
+.tick[data-at="right"] {
+  right: var(--mark-inset);
+}
+
+.tick[data-at="top"],
+.tick[data-at="bottom"] {
+  left: 50%;
+  width: 1px;
+  height: 9px;
+  transform: translateX(-50%);
+}
+
+.tick[data-at="top"] {
+  top: var(--mark-inset);
+}
+.tick[data-at="bottom"] {
+  bottom: var(--mark-inset);
+}
+
+@media (max-width: 640px) {
+  .tick {
+    display: none;
+  }
+}
+
+/* ─── Caption ───
+   The float readout pinned beside a selection: what a measurement label is
+   in a canvas tool, used here to state a real fact about the thing framed. */
+
+.caption {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--caption-ink, var(--color-text-secondary));
+  background: var(--caption-bg, var(--color-surface-0));
+  pointer-events: none;
+}
+
+.caption[data-at="top"] {
+  top: 8px;
+  left: 8px;
+}
+
+.caption[data-at="bottom"] {
+  bottom: 8px;
+  right: 8px;
+}
+
+/* ─── Readout ───
+   `LABEL [value]`. The brackets are the tell: they mark the value as
+   something the page measured rather than wrote. */
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, max-content));
+  gap: 0.25rem 2.5rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+}
+
+.readout[data-layout="stack"] {
+  grid-template-columns: max-content;
+}
+
+.pair {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.key {
+  color: var(--muted, var(--color-text-tertiary));
+  text-transform: uppercase;
+}
+
+.value {
+  margin: 0;
+  color: var(--ink, var(--color-text-primary));
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.bracket {
+  color: var(--muted, var(--color-text-tertiary));
+}
+
+.accent {
+  color: var(--accent, var(--color-brand));
+}
+
+/* ─── Block label ───
+   A console heading: the name, then the dashed rule that runs under it.
+   The rule is drawn with a repeating gradient so it keeps its rhythm at
+   any width, which a border-style dashed line does not. */
+
+.blockLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink, var(--color-text-primary));
+}
+
+.blockRule {
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--muted, var(--color-text-tertiary)) 0 4px,
+    transparent 4px 8px
+  );
+  opacity: 0.5;
+}
+
+/* ─── Cursor ───
+   A block caret. It marks where a list would continue, and it is the only
+   thing on the page that moves on its own. */
+
+.cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 0.125em;
+  background: var(--accent, var(--color-brand));
+  transform: translateY(0.125em);
+  animation: blink 1.1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* ─── Crosshair ───
+   Pointer-tracked construction lines inside a box. Dashed, hairline, and
+   drawn in the accent so they read as a tool rather than as a border the
+   card grew on hover. */
+
+.crosshair {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+  /* Until the first pointer-move lands, park the lines off the box rather
+     than at 0,0, where they would flash along the top-left edge. Declared
+     here, not on the pseudos: a declaration on the pseudo-element would
+     beat the inline value the pointer handler writes to this element. */
+  --cx: -100px;
+  --cy: -100px;
+}
+
+.crosshair[data-on] {
+  opacity: 0.55;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content: "";
+  position: absolute;
+}
+
+.crosshair::before {
+  left: 0;
+  right: 0;
+  top: var(--cy);
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--crosshair-color, var(--color-brand)) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+.crosshair::after {
+  top: 0;
+  bottom: 0;
+  left: var(--cx);
+  width: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--crosshair-color, var(--color-brand)) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crosshair {
+    transition: none;
+  }
+}

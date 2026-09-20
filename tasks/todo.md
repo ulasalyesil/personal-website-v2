@@ -1,5 +1,23 @@
 # Tasks Todo
 
+## Redesign interaction fixes (2026-09-17)
+
+- [x] Preserve visible hero focus in both palettes and repair label contrast.
+- [x] Make Lab navigation explicit, history-safe and reduced-motion aware.
+- [x] Enable section navigation for image-rich case studies.
+- [x] Run project checks and verify affected production flows.
+
+### Review
+
+- Hero mirrors keyboard focus into the inert dark layer. Real tab targets remain single.
+- Lab uses explicit Previous/Next controls; content scrolling and video keys are no longer intercepted. Close returns through the owned history entry, while direct-link close replaces its URL. Back/Forward and Escape focus restoration verified in the production browser.
+- Reduced-motion Lab variants have no translation and zero duration. Preference-enabled runtime verification remains unavailable.
+- Case studies with at least three sections receive navigation regardless of prose word count. Menu expansion and section jumps verified on the design-system study.
+- Lab kicker contrast: 5.20:1. Now badge contrast: 15.08:1 light, 15.98:1 dark (computed composited colours).
+- Typecheck, lint and production build pass. Existing lint warnings remain. Test command exits successfully but there are no test files.
+- Browser checks: visible hero focus on the settled dark half; Lab history, cycling, Escape and direct-link close; description scrolling at 1024×900; mobile controls at 360×640 with Previous/Next on the same row and no page overflow.
+- No commit or deployment. Original review report preserved as the pre-fix record.
+
 ## Design-system case study: real figures (2026-09-16)
 
 Brief: vault `08-career/portfolio/design-system-case-study-enhance-init.md`.

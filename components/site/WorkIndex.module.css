@@ -1,0 +1,158 @@
+.section {
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(4rem, 10vw, 8rem) var(--gutter) clamp(2rem, 6vw, 4rem);
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.hash {
+  color: var(--color-text-tertiary);
+}
+
+.year {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-default);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+/* The year is the index. It stays the largest thing in its row, but in mono
+   and at a size that reads as a marker rather than a headline. */
+.yearLabel {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-tertiary);
+  margin-bottom: 1rem;
+}
+
+.yearLabel::before {
+  content: "[";
+  margin-right: 0.15em;
+  opacity: 0.55;
+}
+
+.yearLabel::after {
+  content: "]";
+  margin-left: 0.15em;
+  opacity: 0.55;
+}
+
+.rows {
+  grid-column: 1 / -1;
+}
+
+/* A console row: a caret column that only fills on hover, then the fields.
+   The caret is what a selected line looks like in a terminal, and it does
+   the job the old hover colour change was doing, with less noise. */
+.row {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr auto;
+  gap: 0.125rem 1rem;
+  align-items: baseline;
+  min-height: 56px;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: color 150ms ease;
+}
+
+.row::before {
+  content: ">";
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--color-brand);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.row:hover::before,
+.row:focus-visible::before {
+  opacity: 1;
+}
+
+.rows li:last-child .row {
+  border-bottom: 0;
+}
+
+.title {
+  grid-column: 2;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-primary);
+}
+
+.role {
+  grid-column: 2;
+  grid-row: 2;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-tertiary);
+}
+
+.kind {
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover .title {
+    color: var(--color-brand);
+  }
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (min-width: 900px) {
+  .yearLabel {
+    grid-column: 1 / span 4;
+    margin-bottom: 0;
+  }
+  .rows {
+    grid-column: 5 / -1;
+  }
+  .row {
+    grid-template-columns: 1.25rem minmax(0, 1.2fr) minmax(0, 1fr) minmax(7rem, auto);
+  }
+  .role {
+    grid-column: 3;
+    grid-row: auto;
+  }
+  .kind {
+    grid-column: 4;
+    grid-row: auto;
+    text-align: right;
+  }
+}

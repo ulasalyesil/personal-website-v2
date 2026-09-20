@@ -1,0 +1,201 @@
+.section {
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(4rem, 10vw, 8rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+/* Section headings are markers, not billboards: the `#` borrows the grammar
+   of the document the rest of the page is set as. */
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.hash {
+  color: var(--color-text-tertiary);
+}
+
+.all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  transition: color 150ms ease;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+  row-gap: clamp(3.5rem, 9vw, 9rem);
+}
+
+.piece {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 1.25rem;
+  border-radius: 14px;
+  outline-offset: 6px;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  background: var(--color-surface-1);
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* The display face is the title face across the site, so it repeats by
+   design here. It is the only face that ever names a thing; mono describes
+   them. */
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.line {
+  max-width: 44ch;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.meta {
+  display: grid;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--color-border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+}
+
+.meta > div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
+}
+
+.meta dt {
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+}
+
+.meta dd {
+  color: var(--color-text-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .piece:hover .image {
+    transform: scale(1.025);
+  }
+  .all:hover {
+    color: var(--color-text-primary);
+    text-decoration-color: currentColor;
+  }
+}
+
+.piece:focus-visible {
+  outline: 2px solid var(--color-brand);
+}
+
+.piece:active .media {
+  transform: scale(0.995);
+}
+
+@media (min-width: 900px) {
+  /* Lead: image wide on the left, the text set against its bottom edge. */
+  .piece[data-place="lead"] {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: inherit;
+    align-items: end;
+  }
+  .piece[data-place="lead"] .media {
+    grid-column: 1 / span 8;
+  }
+  .piece[data-place="lead"] .text {
+    grid-column: 9 / -1;
+  }
+
+  /* Counter: mirrored and pushed right, the text hanging from the top. */
+  .piece[data-place="counter"] {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: inherit;
+    align-items: start;
+  }
+  .piece[data-place="counter"] .media {
+    grid-column: 5 / -1;
+    grid-row: 1;
+    aspect-ratio: 16 / 9;
+  }
+  .piece[data-place="counter"] .text {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    padding-top: clamp(2rem, 6vw, 6rem);
+  }
+
+  /* The pair: unequal widths, the second one dropped. */
+  .piece[data-place="pairA"] {
+    grid-column: 1 / span 5;
+  }
+  .piece[data-place="pairA"] .media {
+    aspect-ratio: 4 / 3;
+  }
+  .piece[data-place="pairB"] {
+    grid-column: 7 / -1;
+    margin-top: clamp(4rem, 12vw, 12rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
+}
