@@ -77,12 +77,13 @@
   gap: 0.75rem;
 }
 
-/* The serif is the title face across the site, so it repeats by design here.
-   It is the only face that ever names a thing; mono describes them. */
+/* The display face is the title face across the site, so it repeats by
+   design here. It is the only face that ever names a thing; mono describes
+   them. */
 .title {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 2.8vw, 2.5rem);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.05;
   text-wrap: balance;
