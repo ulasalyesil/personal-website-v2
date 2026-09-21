@@ -9,7 +9,7 @@ import assetBreakdownModes from "@/public/images/getirfinans-design-system/asset
 
 export const meta = {
   slug: "getirfinans-design-system",
-  title: "Shipping app-wide dark mode at GetirFinans",
+  title: "Rebuilding GetirFinans's color system around intent",
   date: "November 2025 — Present",
   company: "GetirFinans",
   role: "Product Design, Design Systems",

@@ -8,7 +8,7 @@ export const experience: ExperienceItem[] = [
     positions: [
       {
         id: "getir-product-designer",
-        title: "Product Designer",
+        title: "UI Designer, Design Systems",
         employmentPeriod: "November 2025 — Present",
         employmentType: "Full-time",
         description:
