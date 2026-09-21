@@ -50,7 +50,6 @@
   text-decoration: underline;
   text-decoration-color: var(--color-border-default);
   text-underline-offset: 0.25em;
-  transition: text-decoration-color 150ms ease, color 150ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {

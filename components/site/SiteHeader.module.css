@@ -67,7 +67,6 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
   color: var(--color-text-secondary);
-  transition: color 150ms ease;
 }
 
 .index {

@@ -84,7 +84,6 @@
   font-size: 13px;
   font-family: inherit;
   cursor: pointer;
-  transition: color 150ms ease, background-color 150ms ease;
 }
 
 .root[data-compact] .navItem {

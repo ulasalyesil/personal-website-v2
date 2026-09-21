@@ -39,6 +39,17 @@
   transition: transform 160ms var(--ease-out-strong);
 }
 
+/* Inset edge so light captures keep their shape on light surfaces. */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--color-image-outline);
+  pointer-events: none;
+}
+
 .image {
   object-fit: cover;
   transition: transform 500ms var(--ease-out-strong);

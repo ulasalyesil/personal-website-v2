@@ -30,6 +30,7 @@
   --color-surface-0: #ffffff;
   --color-surface-1: #f5f5f5;
   --color-surface-2: #e5e5e5;
+  --color-image-outline: rgb(0 0 0 / 0.1);
   --color-surface-3: #d4d4d4;
 
   --color-text-primary: #171717;
@@ -80,6 +81,7 @@
     --color-surface-0: #0a0a0a;
     --color-surface-1: #111111;
     --color-surface-2: #1a1a1a;
+    --color-image-outline: rgb(255 255 255 / 0.1);
     --color-surface-3: #242424;
 
     --color-text-primary: #f5f5f5;
@@ -98,6 +100,7 @@
 
 html {
   color-scheme: light dark;
+  background-color: var(--color-surface-0);
   font-family: "Geist Variable", sans-serif;
   font-size: 16px;
   line-height: 1.5;

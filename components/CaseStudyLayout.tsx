@@ -266,7 +266,7 @@ export default function CaseStudyLayout({
               )}
             >
               {block.items.map((img: GalleryItem, i: number) => (
-                <div key={i} className="overflow-hidden rounded-xl bg-surface-1">
+                <div key={i} className="relative overflow-hidden rounded-xl bg-surface-1 after:pointer-events-none after:absolute after:inset-0 after:z-1 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-image-outline)]">
                   <Image
                     src={img.src}
                     alt={img.alt || ""}
@@ -358,7 +358,7 @@ export default function CaseStudyLayout({
                   </p>
 
                   {pane.src && (
-                    <div className="overflow-hidden rounded-xl bg-surface-1">
+                    <div className="relative overflow-hidden rounded-xl bg-surface-1 after:pointer-events-none after:absolute after:inset-0 after:z-1 after:rounded-[inherit] after:shadow-[inset_0_0_0_1px_var(--color-image-outline)]">
                       <Image
                         src={pane.src}
                         alt={pane.alt || ""}
@@ -468,11 +468,11 @@ export default function CaseStudyLayout({
                 >
                   <a
                     href={`#${group.section.id}`}
-                    className="group/anchor rounded-sm transition-colors duration-150 hover:text-brand"
+                    className="group/anchor rounded-sm hover:text-brand"
                   >
                     <span
                       aria-hidden
-                      className="mr-2 font-mono text-[0.5em] font-normal text-text-tertiary transition-colors duration-150 group-hover/anchor:text-brand"
+                      className="mr-2 font-mono text-[0.5em] font-normal text-text-tertiary group-hover/anchor:text-brand"
                     >
                       #
                     </span>

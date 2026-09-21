@@ -40,7 +40,6 @@
   text-decoration-thickness: 0.04em;
   text-underline-offset: 0.12em;
   text-decoration-color: var(--color-border-default);
-  transition: text-decoration-color 200ms ease, color 200ms ease;
 }
 
 .bottom {
@@ -69,7 +68,6 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
   color: var(--color-text-secondary);
-  transition: color 150ms ease;
 }
 
 .small {

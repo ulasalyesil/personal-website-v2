@@ -19,7 +19,7 @@ export default function BackLink({ href = "/", label = "Back" }: { href?: string
         e.preventDefault();
         navigate(href);
       }}
-      className="-ml-1 inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-md px-1 text-[0.9375rem] text-text-secondary transition-colors duration-150 hover:text-text-primary focus-visible:outline-2 focus-visible:outline-brand"
+      className="-ml-1 inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-md px-1 text-[0.9375rem] text-text-secondary hover:text-text-primary focus-visible:outline-2 focus-visible:outline-brand"
     >
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path

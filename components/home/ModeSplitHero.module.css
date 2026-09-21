@@ -101,7 +101,6 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink);
-  transition: color 150ms ease;
 }
 
 /* The index numbers are the nav's spine: they make four links read as a
@@ -109,7 +108,6 @@
 .navIndex {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
-  transition: color 150ms ease;
 }
 
 .body {
