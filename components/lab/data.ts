@@ -65,6 +65,24 @@ export const LAB_ITEMS: LabItem[] = [
     tint: "#2f6f52",
   },
   {
+    slug: "feature-area",
+    title: "Feature Area",
+    tag: "interaction",
+    date: "aug 2026",
+    summary:
+      "A carousel card that stays still while only its contents move, rebuilt from a spec measured off a screen recording.",
+    blurb:
+      "The actual problem: the shipped carousel got its transition wrong, and the only reference for the right one was a screen recording of a prototype. So the motion was measured off the video frame by frame, fitting each frame as a window onto two pages to separate travel from opacity. The rebuild keeps the card still and moves only what is inside it: the text slides one card width over an illustration that stays pinned and cross-dissolves in place. Every pose is a pure function of one page fraction, so any frame can be frozen and checked against the spec, and a swipe takes over mid-transition from wherever the motion is.",
+    media: {
+      src: "/images/lab/feature-area.webp",
+      video: "/video/lab/feature-area.mp4",
+      poster: "/video/lab/feature-area-poster.jpg",
+      device: "iphone",
+      alt: "A feature promotion card whose text slides one card width while the illustration cross-dissolves in place, with a live readout of the transition below",
+    },
+    tint: "#5d3ebc",
+  },
+  {
     slug: "campaigns",
     title: "Campaigns",
     tag: "prototype",
