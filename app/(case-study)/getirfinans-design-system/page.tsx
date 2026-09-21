@@ -7,7 +7,7 @@ import TokenValues from "./TokenValues";
 export const metadata: Metadata = {
   title: "GetirFinans Design System — Ulaş Alyeşil",
   description:
-    "A two-tier color token system rebuilt under a live banking app, with the documentation and engineering delivery that shipped app-wide dark mode on top of it.",
+    "Token foundations, components and governance rebuilt under a live banking app: a two-tier color system that shipped app-wide dark mode, the product's first spacing and radius tokens, contract-based components, and audits that keep Figma and code in step.",
   openGraph: {
     title: "GetirFinans Design System — Ulaş Alyeşil",
     description:

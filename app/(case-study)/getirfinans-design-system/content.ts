@@ -9,19 +9,19 @@ import assetBreakdownModes from "@/public/images/getirfinans-design-system/asset
 
 export const meta = {
   slug: "getirfinans-design-system",
-  title: "Rebuilding GetirFinans's color system around intent",
+  title: "Rebuilding GetirFinans's design system around intent",
   date: "November 2025 — Present",
   company: "GetirFinans",
   role: "Product Design, Design Systems",
   team: "The core development team, iOS and Android",
   platforms: "iOS and Android, plus a documentation site",
-  status: "Dark mode shipped, the rest still in progress",
+  status: "Dark mode shipped; spacing, radius and size published; type still open",
 } as const;
 
 export const contentBlocks: ContentBlock[] = [
   {
     type: "lead",
-    text: "GetirFinans needed dark mode across the whole app. Its colors were named after how they looked, which said nothing about what each one should become in the dark. I rebuilt the color foundation around what each color is for, wrote the documentation, and worked with the developers until it shipped.",
+    text: "GetirFinans needed dark mode across the whole app. Its colors were named after how they looked, which said nothing about what each one should become in the dark. I rebuilt the color foundation around what each color is for, wrote the documentation, and worked with the developers until it shipped. Then the same approach went into spacing, into components, and into the checks that keep Figma and the code in step.",
   },
   {
     type: "figure",
@@ -153,17 +153,79 @@ export const contentBlocks: ContentBlock[] = [
   },
   {
     type: "section",
-    id: "reflection",
-    kicker: "What remains",
-    title: "Color first, the rest unproven",
+    id: "beyond-color",
+    kicker: "Beyond color",
+    title: "Spacing had to be supplied, not synced",
     blocks: [
       {
         type: "text",
-        text: "Color was the urgent layer: the release needed it, and it shows on every screen. Spacing, sizing and components need the same proof in real work before they become rules.",
+        text: "Production had four radii, two border widths and one spacing value. Everything else was a number typed inline. There was no ladder to reconcile with, so the spacing, radius and size tokens we published are the first the product has had.",
       },
       {
         type: "text",
-        text: "Naming, documentation and implementation moved together, and dark mode shipped with all three in place.",
+        text: "Each one is scoped to the properties it may bind to. A gap token only appears where Figma offers a gap, a radius token only on corners. The primitives underneath stay unpublished, so a designer can reach a role but never a raw number.",
+      },
+    ],
+  },
+  {
+    type: "section",
+    id: "components",
+    kicker: "Components",
+    title: "A component is a contract",
+    blocks: [
+      {
+        type: "text",
+        text: "Feature Area promotes features people already have but haven't found. It is three components: an illustration, a content block, and the master that composes them. The content block only exposes valid combinations, three entries at most with the active one inside the range, so a designer cannot build a state the app cannot show.",
+      },
+      {
+        type: "text",
+        text: "Its motion never lived in Figma. I measured the reference recording frame by frame, marked every value as measured or chosen, and checked it against a SwiftUI prototype before engineering picked it up. It corrected a transition the app had shipped wrong.",
+      },
+      {
+        type: "list",
+        lead: "Two rules came out of the component work:",
+        items: [
+          "Fix it at the source. The page indicator only worked on purple, so designers repainted it screen by screen. It now has a color variant for purple, gray and light surfaces, driven by tokens.",
+          "Extend, never detach. When a kit component needs content it doesn't expose, use its slots and swap its hidden instances. A detached copy stops receiving the kit's updates, once for every place it was pasted.",
+        ],
+      },
+    ],
+  },
+  {
+    type: "section",
+    id: "governance",
+    kicker: "Governance",
+    title: "Measure the drift before arguing about it",
+    blocks: [
+      {
+        type: "text",
+        text: "I read the production iOS component package against the Figma library: 165 components and 252 color sets. All 102 color primitives matched exactly, and 126 of 134 semantics. That made the call simple. Production is the record, and the eight differences became a list with one decision each, not a rewrite.",
+      },
+      {
+        type: "text",
+        text: "The same habit went into the library. A script walked every component through the Figma Plugin API and counted bindings that skipped the semantic layer: 3,177, most of them color. The button sets went first, 288 bindings rebound with no visual change.",
+      },
+      {
+        type: "callout",
+        variant: "principle",
+        label: "Design decision",
+        text: "Count the drift before deciding what to do about it. A number turns a standing argument into a list of choices.",
+      },
+    ],
+  },
+  {
+    type: "section",
+    id: "reflection",
+    kicker: "What remains",
+    title: "Type is still forked",
+    blocks: [
+      {
+        type: "text",
+        text: "Production's type ladder and ours share four sizes. Adopting production's would regress every screen already drawn against ours; keeping ours needs someone on the engineering side to own the migration. That call is still open.",
+      },
+      {
+        type: "text",
+        text: "So is the icon rebuild: 447 icons audited and a naming convention written, not yet applied.",
       },
     ],
   },

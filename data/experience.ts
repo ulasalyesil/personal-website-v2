@@ -12,8 +12,8 @@ export const experience: ExperienceItem[] = [
         employmentPeriod: "November 2025 — Present",
         employmentType: "Full-time",
         description:
-          "Own the design system for Turkey's leading fintech app: rebuilt the color foundation and shipped dark mode via a two-tier token system. Designed the AI assistant end to end, conversation UI, thinking states, and motion.",
-        skills: ["Product Design", "Design Systems", "AI/UX", "Figma", "Dark Mode"],
+          "Lead the design system for a live banking app: two-tier tokens for color, spacing, radius and size, app-wide dark mode, published components with property contracts, and audits that keep Figma and production code in step. Designed the AI assistant end to end, conversation UI, thinking states, and motion.",
+        skills: ["Design Systems", "Design Tokens", "Components", "Product Design", "AI/UX", "Figma"],
       },
     ],
   },

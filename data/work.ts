@@ -35,7 +35,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "getirfinans-design-system",
     title: "GetirFinans Design System",
-    line: "A semantic color foundation, proven by shipping app-wide dark mode.",
+    line: "Tokens, components and governance under a live banking app, proven by shipping dark mode.",
     role: "Design systems",
     year: "2026",
     status: "Dark mode shipped app-wide",
