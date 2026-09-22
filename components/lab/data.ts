@@ -31,6 +31,24 @@ export type LabItem = {
 
 export const LAB_ITEMS: LabItem[] = [
   {
+    slug: "brand-layers",
+    title: "Brand Layers",
+    tag: "system",
+    date: "sep 2026",
+    summary:
+      "One card, never edited, resolving under three brands, two modes, five sentiments and four states.",
+    blurb:
+      "The actual problem: a group running several differently branded banks wants one component library, and the default answer is to copy the system once per brand. This builds the other thing: one card that is never edited, resolving from five token layers, primitives, brand, mode, sentiment and state. Status colours stay shared across brands so a warning means the same thing everywhere; only proposition and neutral follow the brand. Every token traces back to the primitive it came from, every rendered pair is contrast-checked across all thirty combinations, and a flat system would need 1,800 values where the layers define 180.",
+    media: {
+      src: "/images/lab/brand-layers.webp",
+      video: "/video/lab/brand-layers.mp4",
+      poster: "/video/lab/brand-layers-poster.jpg",
+      alt: "A prompt card with token labels wired to each part, re-resolving across three brands, light and dark, and five sentiments",
+    },
+    tint: "#4a3f7a",
+    url: "/brand-layers",
+  },
+  {
     slug: "common-ground",
     title: "Common Ground",
     tag: "prototype",

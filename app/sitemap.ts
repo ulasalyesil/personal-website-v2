@@ -4,7 +4,14 @@ import { LAB_ITEMS } from "@/components/lab/data";
 const BASE = "https://ulasalyesil.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/works", "/bookmarks", "/lab"];
+  const staticRoutes = [
+    "",
+    "/about",
+    "/works",
+    "/bookmarks",
+    "/lab",
+    "/brand-layers",
+  ];
   const caseStudies = [
     "/commodore",
     "/full-spectrum-insights",

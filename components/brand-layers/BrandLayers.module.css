@@ -1,0 +1,516 @@
+/* ─── Page frame (site tokens) ─── */
+
+.root {
+  padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
+  align-items: end;
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--color-border-default);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.segment {
+  position: relative;
+}
+
+/* The radio stays in the accessibility tree and takes focus; only its dot is hidden. */
+.segment input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.segment span {
+  display: block;
+  padding: 0.4rem 0.8rem;
+  min-height: 32px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.segment input:checked + span {
+  background: var(--color-text-primary);
+  color: var(--color-surface-0);
+}
+
+.segment input:focus-visible + span {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.select {
+  min-height: 40px;
+  padding: 0 2.25rem 0 0.9rem;
+  border: 1px solid var(--color-border-default);
+  border-radius: 999px;
+  background: var(--color-surface-0);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.select:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.status {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-tertiary);
+}
+
+/* ─── Stage ───
+   Its own light or dark, set by the Mode control, independent of the site's
+   theme. The chip and line chrome is lab furniture, not part of the token
+   system, so it is plain values keyed to the stage mode. */
+
+.frame {
+  container-type: inline-size;
+}
+
+.stageBox {
+  position: relative;
+  margin-inline: auto;
+}
+
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  border-radius: 20px;
+  background: var(--bl-background-page-default);
+  overflow: hidden;
+}
+
+.stage[data-mode="light"],
+.narrowCard[data-mode="light"] {
+  --chip-bg: #ffffff;
+  --chip-border: rgb(0 0 0 / 0.09);
+  --chip-text: #1d1d1f;
+  --chip-muted: #636366;
+  --line: #1d1d1f;
+}
+
+.stage[data-mode="dark"],
+.narrowCard[data-mode="dark"] {
+  --chip-bg: #1f1f22;
+  --chip-border: rgb(255 255 255 / 0.1);
+  --chip-text: #f2f2f2;
+  --chip-muted: #a1a1a6;
+  --line: #e8e8e8;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  color: var(--line);
+  pointer-events: none;
+}
+
+.lines line {
+  stroke: currentColor;
+  stroke-width: 1.5;
+  opacity: 0.45;
+}
+
+.lines circle {
+  fill: currentColor;
+  opacity: 0.6;
+}
+
+.lines .lineOn line,
+.lines .lineOn circle {
+  opacity: 1;
+}
+
+.lines .lineOn line {
+  stroke-width: 2;
+}
+
+.cardSlot {
+  position: absolute;
+  left: 330px;
+  top: 130px;
+}
+
+.chipSlot {
+  position: absolute;
+}
+
+.chipSlot[data-side="left"] {
+  transform: translate(calc(-100% - 8px), -50%);
+}
+.chipSlot[data-side="right"] {
+  transform: translate(8px, -50%);
+}
+.chipSlot[data-side="top"] {
+  transform: translate(-50%, calc(-100% - 8px));
+}
+.chipSlot[data-side="bottom"] {
+  transform: translate(-50%, 8px);
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 34px;
+  padding: 0 0.8rem 0 0.5rem;
+  border: 1px solid var(--chip-border);
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chip[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--chip-text);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+}
+
+.swatch {
+  flex: none;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.14);
+}
+
+.chipHex {
+  color: var(--chip-muted);
+}
+
+.stateTag {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--chip-muted);
+}
+
+/* ─── The card ───
+   Reads global tokens only. Its internal geometry is fixed so the leader
+   lines, drawn in stage coordinates, land on the parts they name. */
+
+.card {
+  box-sizing: border-box;
+  width: 440px;
+  max-width: 100%;
+  padding: 22px 22px 20px;
+  border-radius: 24px;
+  background: var(--bl-background-surface-default);
+  color: var(--bl-content-primary-default);
+  font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+.cardHead {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 32px;
+  column-gap: 16px;
+  min-height: 88px;
+  margin-bottom: 24px;
+  align-items: start;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--bl-icon-emphasis-default);
+  color: var(--bl-icon-on-emphasis-default);
+}
+
+.cardText {
+  min-width: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.cardBody {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.cardLink {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--bl-content-link-default);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dismiss,
+.secondary,
+.primary {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dismiss:disabled,
+.secondary:disabled,
+.primary:disabled {
+  cursor: not-allowed;
+}
+
+.dismiss:focus-visible,
+.secondary:focus-visible,
+.primary:focus-visible {
+  outline: 2px solid var(--bl-content-primary-default);
+  outline-offset: 2px;
+}
+
+.dismiss {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  color: var(--bl-content-primary-default);
+  background: var(--bl-interactive-control-default);
+}
+.dismiss[data-state="hover"] {
+  background: var(--bl-interactive-control-hover);
+}
+.dismiss[data-state="active"] {
+  background: var(--bl-interactive-control-active);
+}
+.dismiss[data-state="disabled"] {
+  background: var(--bl-interactive-control-disabled);
+  color: var(--bl-interactive-on-secondary-disabled);
+}
+
+.secondary,
+.primary {
+  display: block;
+  width: 100%;
+  height: 48px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.secondary {
+  margin-bottom: 10px;
+  background: var(--bl-interactive-secondary-default);
+  color: var(--bl-interactive-on-secondary-default);
+}
+.secondary[data-state="hover"] {
+  background: var(--bl-interactive-secondary-hover);
+  color: var(--bl-interactive-on-secondary-hover);
+}
+.secondary[data-state="active"] {
+  background: var(--bl-interactive-secondary-active);
+  color: var(--bl-interactive-on-secondary-active);
+}
+.secondary[data-state="disabled"] {
+  background: var(--bl-interactive-secondary-disabled);
+  color: var(--bl-interactive-on-secondary-disabled);
+}
+
+.primary {
+  background: var(--bl-interactive-primary-default);
+  color: var(--bl-interactive-on-primary-default);
+}
+.primary[data-state="hover"] {
+  background: var(--bl-interactive-primary-hover);
+  color: var(--bl-interactive-on-primary-hover);
+}
+.primary[data-state="active"] {
+  background: var(--bl-interactive-primary-active);
+  color: var(--bl-interactive-on-primary-active);
+}
+.primary[data-state="disabled"] {
+  background: var(--bl-interactive-primary-disabled);
+  color: var(--bl-interactive-on-primary-disabled);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card,
+  .badge,
+  .dismiss,
+  .secondary,
+  .primary,
+  .cardLink,
+  .stage,
+  .swatch {
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+}
+
+/* ─── Narrow: the card alone, chips as the list below ─── */
+
+.narrowCard {
+  display: none;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  border-radius: 20px;
+  background: var(--bl-background-page-default);
+}
+
+@container (max-width: 879px) {
+  .stageBox {
+    display: none;
+  }
+  .narrowCard {
+    display: flex;
+  }
+}
+
+/* ─── Trace and token list (site tokens) ─── */
+
+.lower {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 1rem;
+}
+
+.lowerHeading {
+  margin: 0 0 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.traceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.traceStep {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.traceLayer {
+  color: var(--color-text-tertiary);
+}
+
+.traceText {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.traceStep[data-layer="global"] .traceText {
+  font-weight: 600;
+}
+
+.note {
+  margin: 1rem 0 0;
+  max-width: var(--container-measure);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  color: var(--color-text-secondary);
+}
+
+.tokens {
+  --chip-bg: var(--color-surface-0);
+  --chip-border: var(--color-border-default);
+  --chip-text: var(--color-text-primary);
+  --chip-muted: var(--color-text-secondary);
+}
+
+.tokenList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.rowChip {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.rowChip .chipHex {
+  margin-left: auto;
+}
+
+.rowChip .stateTag {
+  position: static;
+  transform: none;
+}
