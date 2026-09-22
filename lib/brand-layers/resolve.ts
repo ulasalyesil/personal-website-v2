@@ -142,8 +142,8 @@ export type ContrastCheck = {
 
 /**
  * The pairs that actually render on the card, with the WCAG threshold each
- * one owes: 4.5:1 for text, 3:1 for icons and for the primary control's
- * boundary. Disabled controls are exempt under WCAG, so they are not checked.
+ * one owes: 4.5:1 for text (the status word sits on the emphasis panel), 3:1
+ * for icons and for the primary control's boundary. Disabled controls are exempt under WCAG, so they are not checked.
  */
 const PAIRS: {
   fg: TokenName;
@@ -158,7 +158,7 @@ const PAIRS: {
     stateful: false,
   },
   { fg: "content/link", bg: "background/surface", min: 4.5, stateful: false },
-  { fg: "icon/on-emphasis", bg: "icon/emphasis", min: 3, stateful: false },
+  { fg: "icon/on-emphasis", bg: "icon/emphasis", min: 4.5, stateful: false },
   {
     fg: "interactive/on-primary",
     bg: "interactive/primary",

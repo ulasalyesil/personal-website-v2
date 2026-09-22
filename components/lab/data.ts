@@ -35,15 +35,14 @@ export const LAB_ITEMS: LabItem[] = [
     title: "Brand Layers",
     tag: "system",
     date: "sep 2026",
-    summary:
-      "One card, never edited, resolving under three brands, two modes, five sentiments and four states.",
+    summary: "A brand as a layer of decisions, not a copy of the system.",
     blurb:
-      "The actual problem: a group running several differently branded banks wants one component library, and the default answer is to copy the system once per brand. This builds the other thing: one card that is never edited, resolving from five token layers, primitives, brand, mode, sentiment and state. Status colours stay shared across brands so a warning means the same thing everywhere; only proposition and neutral follow the brand. Every token traces back to the primitive it came from, every rendered pair is contrast-checked across all thirty combinations, and a flat system would need 1,800 values where the layers define 180.",
+      "The idea: a brand is not a second design system, it is a set of decisions about the one you already have. Take those decisions out of the components and a component stops knowing which bank it belongs to. It asks for intent, the surface, the primary action, the thing to emphasise, and the layers answer: the brand gives it a voice, the mode gives it light or dark, the sentiment says what the moment means, the state says what the hand is doing. Some decisions refuse to be branded on purpose. An overdue payment looks overdue in every bank, because a meaning that changes with the logo is no longer a meaning. The ticket here is never edited; everything that changes is the system answering the same question differently.",
     media: {
       src: "/images/lab/brand-layers.webp",
       video: "/video/lab/brand-layers.mp4",
       poster: "/video/lab/brand-layers-poster.jpg",
-      alt: "A prompt card with token labels wired to each part, re-resolving across three brands, light and dark, and five sentiments",
+      alt: "A payment ticket with token labels wired to each part, re-resolving across three brands, light and dark, and five payment states",
     },
     tint: "#4a3f7a",
     url: "/brand-layers",

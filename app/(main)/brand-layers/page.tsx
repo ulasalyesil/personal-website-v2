@@ -13,7 +13,7 @@ export default function BrandLayersPage() {
       <PageIntro
         title="Brand Layers"
         aside="3 brands · 2 modes · 5 sentiments · 4 states"
-        lede="One component, never edited. Switch the brand, the mode, the sentiment or the state and it resolves again from the token layers underneath. Select any token to see how it got its value."
+        lede="One payment ticket, never edited. Switch the brand, the mode, the sentiment or the state and it resolves again from the token layers underneath. Select any token to see how it got its value."
       />
       <BrandLayers />
     </>

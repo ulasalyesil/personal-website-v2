@@ -24,16 +24,16 @@ import {
   type State,
   type TokenName,
 } from "@/lib/brand-layers/resolve";
-import PromptCard, { type Part } from "./PromptCard";
+import PaymentTicket, { type Part } from "./PaymentTicket";
 import styles from "./BrandLayers.module.css";
 
 /* ─── Stage geometry ───
-   One fixed coordinate space, 1100×520. The card, the chips and the leader
+   One fixed coordinate space, 1100×540. The card, the chips and the leader
    lines all live in it, so a line is two numbers, not a DOM measurement. The
    stage scales as one piece down to 0.8; narrower than that it gives way to
    the list, because smaller would put chip labels under 11px. */
 const STAGE_W = 1100;
-const STAGE_H = 520;
+const STAGE_H = 540;
 const MIN_SCALE = 0.8;
 
 type Side = "left" | "right" | "top" | "bottom";
@@ -41,44 +41,44 @@ type Pt = [number, number];
 type ChipDef = { token: TokenName; side: Side; anchor: Pt; to: Pt };
 
 const CHIPS: ChipDef[] = [
-  { token: "icon/emphasis", side: "left", anchor: [292, 158], to: [362, 158] },
-  { token: "content/link", side: "left", anchor: [292, 208], to: [410, 208] },
+  { token: "icon/emphasis", side: "left", anchor: [292, 176], to: [346, 176] },
   {
-    token: "background/surface",
+    token: "icon/on-emphasis",
     side: "left",
-    anchor: [292, 254],
-    to: [340, 254],
+    anchor: [292, 247],
+    to: [362, 247],
   },
-  {
-    token: "interactive/secondary",
-    side: "left",
-    anchor: [292, 304],
-    to: [362, 304],
-  },
-  { token: "content/primary", side: "top", anchor: [480, 84], to: [480, 150] },
+  { token: "content/primary", side: "top", anchor: [500, 84], to: [500, 150] },
   {
     token: "interactive/control",
     side: "right",
     anchor: [792, 168],
-    to: [754, 168],
+    to: [752, 168],
   },
+  { token: "content/link", side: "right", anchor: [792, 256], to: [754, 256] },
   {
-    token: "interactive/on-secondary",
+    token: "background/surface",
     side: "right",
-    anchor: [792, 288],
-    to: [612, 288],
+    anchor: [792, 294],
+    to: [760, 294],
   },
   {
     token: "interactive/primary",
     side: "right",
-    anchor: [792, 346],
-    to: [738, 346],
+    anchor: [792, 344],
+    to: [750, 344],
+  },
+  {
+    token: "interactive/secondary",
+    side: "bottom",
+    anchor: [523, 436],
+    to: [523, 358],
   },
   {
     token: "interactive/on-primary",
     side: "bottom",
-    anchor: [550, 436],
-    to: [550, 362],
+    anchor: [677, 478],
+    to: [677, 358],
   },
 ];
 
@@ -281,7 +281,11 @@ export default function BrandLayers() {
             }}
           >
             <div className={styles.cardSlot}>
-              <PromptCard sentiment={sentiment} states={states} bind={bind} />
+              <PaymentTicket
+                sentiment={sentiment}
+                states={states}
+                bind={bind}
+              />
             </div>
 
             <svg
@@ -341,7 +345,7 @@ export default function BrandLayers() {
 
         {/* Below the stage's scale floor, the card stands alone and the chips become the list. */}
         <div className={styles.narrowCard} data-mode={mode} style={vars}>
-          <PromptCard sentiment={sentiment} states={states} bind={bind} />
+          <PaymentTicket sentiment={sentiment} states={states} bind={bind} />
         </div>
       </div>
 
