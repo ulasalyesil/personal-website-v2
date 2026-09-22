@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import PageIntro from "@/components/site/PageIntro";
 import AboutText from "@/components/about/AboutText";
 import WorkExperience from "@/components/WorkExperience";
 import { experience } from "@/data/experience";
 import { EMAIL } from "@/lib/constants";
-import { RESUME_PATH } from "@/lib/nav";
 import picture from "@/public/images/picture.jpeg";
 import styles from "./about.module.css";
 
@@ -48,14 +46,6 @@ export default function About() {
               <dt>Contact</dt>
               <dd>
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-              </dd>
-            </div>
-            <div>
-              <dt>Résumé</dt>
-              <dd>
-                <Link href={RESUME_PATH} target="_blank">
-                  Download the PDF
-                </Link>
               </dd>
             </div>
           </dl>
