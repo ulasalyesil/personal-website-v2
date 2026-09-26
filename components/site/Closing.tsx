@@ -1,6 +1,8 @@
 import { BlockLabel, Cursor, Readout } from "@/components/hud";
 import { EMAIL, SOCIAL_LINKS } from "@/lib/constants";
 import { BUILD } from "@/lib/system-facts";
+import CopyEmail from "./CopyEmail";
+import LocalClock from "./LocalClock";
 import styles from "./Closing.module.css";
 
 const LINKS = [
@@ -19,9 +21,12 @@ export default function Closing() {
         <span aria-hidden>{"// "}</span>Open to remote work and relocation
         <Cursor />
       </p>
-      <a className={styles.email} href={`mailto:${EMAIL}`}>
-        {EMAIL}
-      </a>
+      <div className={styles.address}>
+        <a className={styles.email} href={`mailto:${EMAIL}`}>
+          {EMAIL}
+        </a>
+        <CopyEmail email={EMAIL} />
+      </div>
       <div className={styles.bottom}>
         <ul className={styles.links}>
           {LINKS.map((l) => (
@@ -41,17 +46,20 @@ export default function Closing() {
         <p className={styles.small}>© {new Date().getFullYear()} Ulaş Alyeşil</p>
       </div>
 
-      {/* The build the reader is actually looking at. It belongs at the end
-          of the page for the same reason a colophon does. */}
-      {BUILD.ref && (
-        <Readout
-          className={styles.build}
-          items={[
-            { key: "build", value: `${BUILD.branch} @ ${BUILD.ref}` },
-            ...(BUILD.tokens ? [{ key: "tokens", value: BUILD.tokens }] : []),
-          ]}
-        />
-      )}
+      {/* The build the reader is actually looking at, and the time where it
+          was made. They belong at the end of the page for the same reason a
+          colophon does. */}
+      <div className={styles.build}>
+        {BUILD.ref && (
+          <Readout
+            items={[
+              { key: "build", value: `${BUILD.branch} @ ${BUILD.ref}` },
+              ...(BUILD.tokens ? [{ key: "tokens", value: BUILD.tokens }] : []),
+            ]}
+          />
+        )}
+        <LocalClock />
+      </div>
     </footer>
   );
 }

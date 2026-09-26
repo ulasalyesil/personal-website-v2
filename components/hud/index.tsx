@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import Rolling from "./Rolling";
 import styles from "./Hud.module.css";
 
 const CORNERS = ["tl", "tr", "bl", "br"] as const;
@@ -94,7 +95,11 @@ export function Readout({
           <dt className={styles.key}>{item.key}</dt>
           <dd className={cn(styles.value, item.accent && styles.accent)}>
             <span className={styles.bracket}>[</span>
-            {item.value}
+            {typeof item.value === "string" || typeof item.value === "number" ? (
+              <Rolling value={String(item.value)} />
+            ) : (
+              item.value
+            )}
             <span className={styles.bracket}>]</span>
           </dd>
         </div>

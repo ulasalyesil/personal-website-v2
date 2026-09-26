@@ -118,6 +118,13 @@ body {
   color: var(--color-text-primary);
 }
 
+/* Selected text takes the accent, the one colour on the site that means
+   "picked out". Mixed down so body text stays readable through it. */
+::selection {
+  background: color-mix(in srgb, var(--color-brand) 22%, transparent);
+  color: var(--color-text-primary);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

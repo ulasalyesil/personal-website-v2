@@ -3,6 +3,8 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import InspectLayer from "@/components/inspect/InspectLayer";
+import Keymap from "@/components/site/Keymap";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ulasalyesil.com"),
@@ -38,6 +40,8 @@ export default function RootLayout({
           Skip to content
         </a>
         <ErrorBoundary>{children}</ErrorBoundary>
+        <InspectLayer />
+        <Keymap />
         <Analytics />
         {gaId ? <GoogleAnalytics measurementId={gaId} /> : null}
       </body>
