@@ -1,4 +1,4 @@
-import ModeSplitHero from "@/components/home/ModeSplitHero";
+import Hero from "@/components/home/Hero";
 import SelectedWork from "@/components/home/SelectedWork";
 import LabFeature from "@/components/home/LabFeature";
 import WorkIndex from "@/components/site/WorkIndex";
@@ -9,7 +9,7 @@ import projectsData from "@/public/data/projects.json";
 export default function HomePage() {
   return (
     <>
-      <ModeSplitHero />
+      <Hero />
       <main id="main-content" tabIndex={-1} className="outline-none">
         <SelectedWork pieces={CASE_STUDIES} />
         <LabFeature />
