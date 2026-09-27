@@ -12,6 +12,12 @@
     "target": "/getirfinans-design-system",
     "hidden": false
   },
+  "consiligiere": {
+    "title": "Consiligiere",
+    "role": "Product Design, Visual Direction",
+    "date": "December, 2025",
+    "target": "/consiligiere"
+  },
   "jotform": {
     "title": "Jotform",
     "role": "Product Design",
