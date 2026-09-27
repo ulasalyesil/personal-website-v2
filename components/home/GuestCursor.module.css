@@ -1,0 +1,51 @@
+/* Parked in the hero's empty right half; hidden where the statement would reach it. */
+.guest {
+  --guest: #ff5fa2;
+  position: absolute;
+  top: 58%;
+  right: 20%;
+  display: none;
+  align-items: flex-start;
+  gap: 0.25rem;
+  color: #0b0b0c;
+  text-decoration: none;
+}
+
+@media (min-width: 64rem) {
+  .guest {
+    display: flex;
+  }
+}
+
+.arrow {
+  overflow: visible;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.18));
+}
+
+.tag {
+  margin-top: 0.875rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 2px;
+  background: var(--guest);
+  box-shadow: 0 0 0 1px #fff;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: var(--tracking-micro);
+  white-space: nowrap;
+}
+
+/* The destination shows only when the reader reaches for it. */
+.host {
+  display: none;
+}
+
+.guest:hover .host,
+.guest:focus-visible .host {
+  display: inline;
+}
+
+.guest:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+}

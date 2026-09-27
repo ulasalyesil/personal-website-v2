@@ -1,5 +1,6 @@
 import { Cursor, Marks } from "@/components/hud";
 import InspectInvite from "@/components/inspect/InspectInvite";
+import GuestCursor from "./GuestCursor";
 import { EMAIL } from "@/lib/constants";
 import { NAV } from "@/lib/nav";
 import styles from "./Hero.module.css";
@@ -20,6 +21,7 @@ export default function Hero() {
   return (
     <section className={styles.hero} aria-label="Introduction">
       <Marks kind="frame" ticks />
+      <GuestCursor />
 
       <header className={styles.header}>
         <div className={styles.identity}>
