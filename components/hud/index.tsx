@@ -124,7 +124,7 @@ export function BlockLabel({
   );
 }
 
-/** A block caret. The only thing on the page that moves by itself. */
+/** A block caret, blinking; the hero's multiplayer cursors are the only other self-moving things. */
 export function Cursor() {
   return <span className={styles.cursor} aria-hidden />;
 }

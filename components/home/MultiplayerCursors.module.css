@@ -1,0 +1,109 @@
+/* Both cursors live in the hero's empty right half and drift within it,
+   never far enough to reach the statement. Hidden below 64rem, where the
+   statement fills the width. */
+.cursor {
+  --own: #ff6b22;
+  --guest: #ff5fa2;
+  position: absolute;
+  display: none;
+  align-items: flex-start;
+  gap: 0.25rem;
+  color: #0b0b0c;
+  text-decoration: none;
+}
+
+@media (min-width: 64rem) {
+  .cursor {
+    display: flex;
+  }
+}
+
+.own {
+  top: 64%;
+  right: 8%;
+  pointer-events: none;
+}
+
+.guest {
+  top: 58%;
+  right: 22%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .own {
+    animation: drift-own 17s ease-in-out infinite;
+  }
+
+  .guest {
+    animation: drift-guest 13s ease-in-out infinite;
+  }
+}
+
+/* The guest has to be catchable to be clicked. */
+.guest:hover,
+.guest:focus-visible {
+  animation-play-state: paused;
+}
+
+@keyframes drift-own {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  35% {
+    transform: translate(-60px, -30px);
+  }
+  70% {
+    transform: translate(20px, 25px);
+  }
+}
+
+@keyframes drift-guest {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(60px, -40px);
+  }
+  65% {
+    transform: translate(-50px, 30px);
+  }
+}
+
+.arrow {
+  overflow: visible;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.18));
+}
+
+.tag {
+  margin-top: 0.875rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 2px;
+  background: var(--own);
+  box-shadow: 0 0 0 1px #fff;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: var(--tracking-micro);
+  white-space: nowrap;
+}
+
+.guest .tag {
+  background: var(--guest);
+}
+
+/* The destination shows only when the reader reaches for it. */
+.host {
+  display: none;
+}
+
+.guest:hover .host,
+.guest:focus-visible .host {
+  display: inline;
+}
+
+.guest:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+}
