@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 
 import gfAiCover from "@/public/images/getirfinans-ai/cover.webp";
 import gfDesignSystemCover from "@/public/images/lab/dark-mode.webp";
+import consiligiereCover from "@/public/images/consiligiere/cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
 import wisecareCover from "@/public/images/wisecare/wisecare_cover.webp";
 
@@ -17,7 +18,7 @@ export type CaseStudy = {
 };
 
 /**
- * The four studies the site leads with, in reading order. Home, Work and the
+ * The five studies the site leads with, in reading order. Home, Work and the
  * next-study footer all read from here, so a title or cover changes once.
  * Status lines only restate what each study already establishes.
  */
@@ -43,14 +44,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     alt: "The GetirFinans home screen in light mode beside the same screen in dark mode",
   },
   {
-    slug: "jotform-integrations",
-    title: "Jotform | QuickBooks",
-    line: "A guided flow for mapping form submissions to QuickBooks customers and invoices.",
-    role: "Product design",
-    year: "2023",
-    status: "Launched in Jotform",
-    cover: qbCover,
-    alt: "Jotform's integration settings, mapping form fields to a QuickBooks invoice",
+    slug: "consiligiere",
+    title: "Consiligiere",
+    line: "A marketplace for verified professionals, from brief to both sides of the app.",
+    role: "Product design, visual direction",
+    year: "2025 to 2026",
+    status: "Investor concept, designed with Eylül",
+    cover: consiligiereCover,
+    alt: "Four Consiligiere customer app screens: two home pages, search results, and a provider profile with a booking picker",
   },
   {
     slug: "wisecareai",
@@ -61,6 +62,16 @@ export const CASE_STUDIES: CaseStudy[] = [
     status: "Taken to a market-ready product",
     cover: wisecareCover,
     alt: "WiseCareAI comparing two Medicare Advantage plans, with an AI summary of which fits the member",
+  },
+  {
+    slug: "jotform-integrations",
+    title: "Jotform | QuickBooks",
+    line: "A guided flow for mapping form submissions to QuickBooks customers and invoices.",
+    role: "Product design",
+    year: "2023",
+    status: "Launched in Jotform",
+    cover: qbCover,
+    alt: "Jotform's integration settings, mapping form fields to a QuickBooks invoice",
   },
 ];
 
