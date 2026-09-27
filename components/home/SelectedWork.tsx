@@ -10,13 +10,14 @@ import { isPlainClick, useRouteTransition } from "@/lib/useRouteTransition";
 import styles from "./SelectedWork.module.css";
 
 /**
- * Four pieces, four different placements. Scale follows the strength of the
- * evidence, not a slot count: the two GetirFinans studies get the width,
- * the earlier work sits as a staggered pair.
+ * Scale follows the strength of the evidence, not a slot count: the two
+ * GetirFinans studies get the width, the earlier work cascades in staggered
+ * pairs, newest first. A fifth piece falls back to pairA and starts the next
+ * pair on the left.
  */
 const PLACEMENT = ["lead", "counter", "pairA", "pairB"] as const;
 
-/** Card numbers, so four pieces read as an indexed set rather than a grid. */
+/** Card numbers, so the pieces read as an indexed set rather than a grid. */
 const PAD = (n: number) => String(n + 1).padStart(3, "0");
 
 export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
