@@ -41,7 +41,7 @@ export const contentBlocks: ContentBlock[] = [
     blocks: [
       {
         type: "text",
-        text: "The brief came as an AI-generated PRD. It named the palette (deep navy and antique gold) and the typefaces (Cinzel and Playfair), and said “Clean Luxury”. We treated it as input, not as a spec, and tested it before building on it.",
+        text: "The brief came as a PRD. It named the palette (deep navy and antique gold) and the typefaces (Cinzel and Playfair), and said “Clean Luxury”. We treated it as input, not as a spec, and tested it before building on it.",
       },
       {
         type: "figure",
@@ -147,8 +147,8 @@ export const contentBlocks: ContentBlock[] = [
       {
         type: "figure",
         src: providerWeb,
-        alt: "The provider dashboard on the web: pending revenue and active mandates in a navy panel, quick actions, and a table of active cases with status and fee.",
-        caption: "The same dashboard on the web, where the table can show fees and payment state.",
+        alt: "The provider dashboard on the web: pending revenue and active mandates, rating and tier, a table of active cases with their status, and recent customers.",
+        caption: "The same dashboard on the web, with room for the full case list.",
         width: "wide",
       },
       {
