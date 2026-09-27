@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Ulaş Alyeşil | Product Designer",
   description:
     "Product designer focused on clear interfaces, useful tools, and creative technology.",
+  appleWebApp: { capable: true, title: "ulaş", statusBarStyle: "default" },
 };
 
 export const viewport = {
