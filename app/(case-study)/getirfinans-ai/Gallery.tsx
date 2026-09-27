@@ -33,8 +33,9 @@ export type Item = {
   meta: string;
 };
 
-/** Phone-scale frame. The capture is the screen, so the mask supplies the corners. */
-function Screen({
+/** Phone-scale frame. The capture is the screen, so the mask supplies the corners.
+ *  Also carries the page's hero film, as a `detail` frame at 16:9. */
+export function Screen({
   capture,
   priority,
   viewTransitionName,

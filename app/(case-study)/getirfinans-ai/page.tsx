@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
-import Gallery, { type Item } from "./Gallery";
-import cover from "@/public/images/getirfinans-ai/cover.webp";
+import Gallery, { Screen, type Item } from "./Gallery";
 
 export const metadata: Metadata = {
   title: "GetirFinans AI — Ulaş Alyeşil",
@@ -129,18 +127,25 @@ export default function GetirFinansAICase() {
       platforms="iOS"
       status="Assistant streaming shipped · related work under evaluation"
       visualLead={
-        <figure className="overflow-hidden rounded-xl bg-surface-1">
-          <div style={{ viewTransitionName: "project-getirfinans-ai-cover" }}>
-            <Image
-              src={cover}
-              alt="GetirFinans AI shown across assistant and search surfaces."
-              className="w-full"
-              priority
-              sizes="(max-width: 1440px) 100vw, 1440px"
-            />
-          </div>
+        // The process film: research, the decisions and their measurements,
+        // rebuilt from the SwiftUI prototype code rather than recorded. It
+        // carries the cover's transition name so the home card still morphs
+        // into it.
+        <figure>
+          <Screen
+            capture={{
+              video: `${V}/intro.mp4`,
+              poster: `${I}/intro-poster.jpg`,
+              alt: "Process film: voice research, the listening-state passes, the input limit, routing, and the thinking-to-answer handoff with its measured timing.",
+              frame: "detail",
+              w: 1920,
+              h: 1080,
+            }}
+            priority
+            viewTransitionName="project-getirfinans-ai-cover"
+          />
           <figcaption className="px-4 py-3 text-caption text-text-tertiary">
-            GetirFinans AI across assistant and search surfaces.
+            The process behind the assistant, rebuilt from the prototype code.
           </figcaption>
         </figure>
       }
