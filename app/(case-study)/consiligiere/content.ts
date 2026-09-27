@@ -16,7 +16,7 @@ export const meta = {
   date: "December 2025 — January 2026",
   company: "Consiligiere (freelance)",
   role: "Product Design, Visual Direction",
-  team: "With Eylül (eyluldeniz.com), for the founder",
+  team: "With Eylül Deniz Kızılay (eyluldeniz.com), for the founder",
   platforms: "Landing page, customer app (iOS), provider app (iOS and web)",
   status: "Investor concept, not launched",
 } as const;
