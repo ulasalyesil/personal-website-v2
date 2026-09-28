@@ -1,4 +1,3 @@
-import GoogleAnalytics from "@bradgarropy/next-google-analytics/";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import "../styles/globals.css";
@@ -26,11 +25,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Without this guard an unset id still rendered the tag, which fetched 87KB
-  // of gtag.js from googletagmanager.com for a measurement id of "" and left a
-  // 404 in the console on every page.
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-
   return (
     <html lang="en">
       <body className="bg-surface-0 text-text-primary antialiased">
@@ -44,7 +38,6 @@ export default function RootLayout({
         <InspectLayer />
         <Keymap />
         <Analytics />
-        {gaId ? <GoogleAnalytics measurementId={gaId} /> : null}
       </body>
     </html>
   );
