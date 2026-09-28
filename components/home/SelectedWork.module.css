@@ -192,8 +192,12 @@
   }
 
   /* The pair: unequal widths, the second one dropped. */
+  /* Start, not stretch: pairB's drop makes the shared row taller than pairA,
+     and a stretched card spreads that height into its own rows, opening a
+     gap under the fixed-ratio cover. */
   .piece[data-place="pairA"] {
     grid-column: 1 / span 5;
+    align-self: start;
   }
   .piece[data-place="pairA"] .media {
     aspect-ratio: 4 / 3;
