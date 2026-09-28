@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 
 import gfAiCover from "@/public/images/getirfinans-ai/cover.webp";
-import gfDesignSystemCover from "@/public/images/lab/dark-mode.webp";
+import gfDesignSystemCover from "@/public/images/getirfinans-design-system/home-cover.webp";
 import consiligiereCover from "@/public/images/consiligiere/cover.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
 import wisecareCover from "@/public/images/wisecare/wisecare_cover.webp";
@@ -41,7 +41,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     status: "Dark mode shipped app-wide",
     cover: gfDesignSystemCover,
-    alt: "The GetirFinans home screen in light mode beside the same screen in dark mode",
+    alt: "The GetirFinans home screen split diagonally between light and dark mode, with each marked color's light value on the left and dark value on the right",
   },
   {
     slug: "consiligiere",
