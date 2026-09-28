@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero";
+import SiteHeader from "@/components/site/SiteHeader";
 import SelectedWork from "@/components/home/SelectedWork";
 import LabFeature from "@/components/home/LabFeature";
 import WorkIndex from "@/components/site/WorkIndex";
@@ -9,6 +10,7 @@ import projectsData from "@/public/data/projects.json";
 export default function HomePage() {
   return (
     <>
+      <SiteHeader home />
       <Hero />
       <main id="main-content" tabIndex={-1} className="outline-none">
         <SelectedWork pieces={CASE_STUDIES} />

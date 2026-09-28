@@ -65,9 +65,8 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
       ticking.current = false;
       const { tops, scrollable } = layout.current;
       const scrollY = window.scrollY;
-      // The nav line sits 96px down, so a section counts as reached once its
-      // top has passed that line. Same threshold the rect test used.
-      const line = scrollY + 96;
+      // Match the shared header and section bar at each viewport width.
+      const line = scrollY + (window.innerWidth >= 768 ? 100 : 164);
 
       let current = -1;
       for (let i = 0; i < tops.length; i++) {
@@ -123,7 +122,7 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
       <div
         ref={progressRef}
         aria-hidden="true"
-        className="fixed left-0 top-[calc(3.5rem-2px)] z-40 h-0.5 bg-brand"
+        className="fixed left-0 top-[calc(var(--site-header-height)-2px)] z-40 h-0.5 bg-brand"
         style={{ width: 0 }}
       />
 
@@ -131,7 +130,7 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           reflows the article. */}
       <div
         className={cn(
-          "fixed inset-x-0 top-14 z-20 bg-surface-0/90 backdrop-blur transition-[opacity,transform] duration-200 ease-out",
+          "fixed inset-x-0 top-[var(--site-header-height)] z-20 bg-surface-0/90 backdrop-blur transition-[opacity,transform] duration-200 ease-out",
           engaged
             ? "translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-1 opacity-0"

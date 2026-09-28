@@ -138,6 +138,7 @@ body {
   /* Page gutter. Every full-width block pads itself with this, so edges
      line up from the header down to the footer. */
   --gutter: clamp(1rem, 3vw, 2.5rem);
+  --site-header-height: 7.5rem;
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --motion-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
   /* Strong ease-in-out, for things moving across the screen rather than
@@ -149,6 +150,12 @@ body {
   --motion-duration-modal: 260ms;
   --motion-duration-entrance: 420ms;
   --motion-duration-route: 280ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --site-header-height: 3.5rem;
+  }
 }
 
 /* ─── Route transitions ───
@@ -215,4 +222,3 @@ body {
     animation-duration: 0.01ms !important;
   }
 }
-

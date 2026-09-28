@@ -1,9 +1,8 @@
 .hero {
-  --gutter: clamp(1.25rem, 3.5vw, 3rem);
   --hud-inset: clamp(0.75rem, 1.6vw, 1.25rem);
   position: relative;
   display: grid;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto;
   min-height: 0;
   padding: clamp(1.25rem, 2.6vw, 2.25rem) var(--gutter) clamp(1.25rem, 2.6vw, 2.25rem);
   /* Mono is the hero's default voice. Only the statement opts out. */
@@ -12,62 +11,6 @@
   line-height: 1.5;
   color: var(--color-text-primary);
   background: var(--color-surface-0);
-}
-
-.header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  flex-wrap: wrap;
-  padding-bottom: 0.875rem;
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.identity {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.name {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.role {
-  font-size: var(--text-label);
-  letter-spacing: var(--tracking-micro);
-  color: var(--color-text-secondary);
-}
-
-.nav {
-  display: flex;
-  gap: 0.125rem;
-  margin-right: -0.625rem;
-  flex-wrap: wrap;
-}
-
-.navLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 44px;
-  padding: 0 0.625rem;
-  font-size: var(--text-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-primary);
-}
-
-/* The index numbers are the nav's spine, and since 1, 2 and 3 now go
-   there from the keyboard, they are also the shortcut printed in place. */
-.navIndex {
-  color: var(--color-text-tertiary);
-  font-variant-numeric: tabular-nums;
 }
 
 .body {
@@ -133,14 +76,6 @@
   color: var(--color-text-tertiary);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .navLink:hover,
-  .navLink:hover .navIndex {
-    color: var(--color-brand);
-  }
-}
-
-.navLink:focus-visible,
 .cta:focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;

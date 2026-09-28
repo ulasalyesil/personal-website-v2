@@ -449,7 +449,7 @@ export default function CaseStudyLayout({
                 id={group.section.id}
                 className={cn(
                   styles.section,
-                  "scroll-mt-28",
+                  "scroll-mt-44 md:scroll-mt-28",
                   i > 0 && (tier === "project" ? "mt-20" : "mt-28 border-t border-border-subtle pt-10"),
                 )}
               >

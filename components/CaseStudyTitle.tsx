@@ -1,4 +1,5 @@
 import styles from "./CaseStudyTitle.module.css";
+import BackLink from "@/components/BackLink";
 
 interface CaseStudyTitleProps {
   title: string;
@@ -54,6 +55,7 @@ export default function CaseStudyTitle({
 
   return (
     <header className={styles.header}>
+      <div className={styles.back}><BackLink href="/works" label="All work" /></div>
       <p className={styles.label}>
         <span className={styles.company}>{company}</span>
         {status && <span className={styles.status}>{status}</span>}

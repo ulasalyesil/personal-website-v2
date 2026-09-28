@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import Image from "next/image";
@@ -14,7 +14,7 @@ import picture from "@/public/images/picture.jpeg";
 // and with it the timezone correctness plans/README chose not to trade away.
 const TimeZoneCard = dynamic(() => import("@/components/TimeZoneCard"), {
   ssr: false,
-  loading: () => <div className="w-contain h-32" aria-hidden="true" />,
+  loading: () => <div className="w-[290px] h-32" aria-hidden="true" />,
 });
 
 const ProfileImage = () => (
@@ -162,8 +162,6 @@ interface HoverableWordProps {
   contentType: HoverKey;
   onHover: (key: HoverKey) => void;
   onLeave: () => void;
-  onPeek: (key: HoverKey) => void;
-  peekedKey: HoverKey | null;
   link: string;
   tint: Tint;
 }
@@ -173,8 +171,6 @@ const HoverableWord = ({
   contentType,
   onHover,
   onLeave,
-  onPeek,
-  peekedKey,
   link,
   tint,
 }: HoverableWordProps) => (
@@ -188,18 +184,6 @@ const HoverableWord = ({
     onMouseLeave={onLeave}
     onFocus={() => onHover(contentType)}
     onBlur={onLeave}
-    onClick={(e) => {
-      // Touch (hover-none) devices: first tap peeks, second tap follows the
-      // link. Mouse users hover first, so click-through stays native.
-      if (
-        window.matchMedia("(hover: none)").matches &&
-        peekedKey !== contentType
-      ) {
-        e.preventDefault();
-        onHover(contentType);
-        onPeek(contentType);
-      }
-    }}
   >
     {/* The resting mark: visible, so the term reads as something to try. */}
     <span
@@ -226,9 +210,7 @@ const paragraphs = [
 function processText(
   text: string,
   onWordHover: (key: HoverKey) => void,
-  onWordLeave: () => void,
-  onWordPeek: (key: HoverKey) => void,
-  peekedKey: HoverKey | null
+  onWordLeave: () => void
 ): React.ReactNode[] {
   const words = (Object.keys(hoverContent) as HoverKey[]).sort(
     (a, b) => b.length - a.length
@@ -253,8 +235,6 @@ function processText(
           tint={hoverContent[matchedWord].tint}
           onHover={onWordHover}
           onLeave={onWordLeave}
-          onPeek={onWordPeek}
-          peekedKey={peekedKey}
         />
       );
       return tail ? (
@@ -272,31 +252,14 @@ function processText(
   });
 }
 
-/** The about statement: marked terms preview where they lead on hover or first tap. */
+/** The about statement: marked terms preview on hover and follow on tap. */
 export default function AboutText() {
   const [activeContentType, setActiveContentType] = useState<HoverKey | null>(
     null
   );
-  const [peeked, setPeeked] = useState<HoverKey | null>(null);
-
   const handleWordHover = (contentType: HoverKey) =>
     setActiveContentType(contentType);
   const handleWordLeave = () => setActiveContentType(null);
-  const handleWordPeek = (contentType: HoverKey) => setPeeked(contentType);
-
-  // While a word is peeked (touch), tapping anywhere outside a hover word
-  // dismisses the card and resets the peek.
-  useEffect(() => {
-    if (peeked == null) return;
-    const onPointerDown = (e: PointerEvent) => {
-      if (!(e.target as Element | null)?.closest?.("[data-hover-word]")) {
-        setPeeked(null);
-        setActiveContentType(null);
-      }
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, [peeked]);
 
   const ContentComponent =
     activeContentType && hoverContent[activeContentType]
@@ -313,15 +276,13 @@ export default function AboutText() {
           {processText(
             text,
             handleWordHover,
-            handleWordLeave,
-            handleWordPeek,
-            peeked
+            handleWordLeave
           )}
         </p>
       ))}
 
       {ContentComponent && (
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-base leading-normal tracking-normal">
+        <div className="pointer-events-none fixed bottom-4 right-4 z-20 text-base leading-normal tracking-normal">
           <ContentComponent />
         </div>
       )}

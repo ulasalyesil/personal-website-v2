@@ -4,7 +4,7 @@ import Closing from "@/components/site/Closing";
 export default function CaseStudyGroupLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col overflow-x-clip">
-      <SiteHeader back={{ href: "/works", label: "All work" }} />
+      <SiteHeader caseStudy />
       <main
         id="main-content"
         tabIndex={-1}

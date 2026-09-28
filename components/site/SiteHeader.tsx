@@ -2,26 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import BackLink from "@/components/BackLink";
 import { NAV } from "@/lib/nav";
 import styles from "./SiteHeader.module.css";
 
 type Props = {
-  /** Case studies: a slim sticky bar that leads with the way back. */
-  back?: { href: string; label: string };
+  home?: boolean;
+  caseStudy?: boolean;
 };
 
-/**
- * The same header the home hero draws, on the page's own surface. Work, Lab
- * and About are always one click away.
- */
-export default function SiteHeader({ back }: Props) {
+/** One identity and navigation layout across home, pages, and case studies. */
+export default function SiteHeader({ home = false, caseStudy = false }: Props) {
   const pathname = usePathname();
 
   return (
-    <header className={styles.header} data-variant={back ? "bar" : "page"}>
-      {back ? (
-        <BackLink href={back.href} label={back.label} />
+    <header className={styles.header} data-case-study={caseStudy || undefined}>
+      {home ? (
+        <div className={styles.identity}>
+          <h1 className={styles.name}>Ulaş Alyeşil</h1>
+          <span className={styles.role}>Product designer · Istanbul</span>
+        </div>
       ) : (
         <Link href="/" className={styles.identity}>
           <span className={styles.name}>Ulaş Alyeşil</span>
@@ -42,8 +41,7 @@ export default function SiteHeader({ back }: Props) {
                   aria-current={current ? "page" : undefined}
                   target={item.href.endsWith(".pdf") ? "_blank" : undefined}
                 >
-                  {/* The index is the same one the hero prints, so the nav
-                      reads as one numbered contents list across the site. */}
+                  {/* The index keeps the nav as one numbered contents list. */}
                   <span className={styles.index} aria-hidden>
                     {String(i + 1).padStart(3, "0")}
                   </span>

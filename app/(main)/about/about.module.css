@@ -69,6 +69,21 @@
   grid-column: 1 / -1;
 }
 
+@media (max-width: 359px) {
+  .rail {
+    grid-template-columns: 1fr;
+  }
+  .portrait {
+    width: 9rem;
+  }
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .facts > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 900px) {
   /* The rail stays beside the statement while it is read. */
   .rail {
