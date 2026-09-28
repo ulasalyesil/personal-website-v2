@@ -42,6 +42,10 @@ export const contentBlocks: ContentBlock[] = [
         text: "Two months with the core development team, finished before the standalone app went out. Every screen got light and dark, not a handful of them.",
       },
       {
+        type: "text",
+        text: "No banner promoted it. By September 2026, 8.5% of users run the app in dark mode and 11% of screen views are dark, and the share has grown every month. Of the people who set a theme by hand, 54.5% pick dark.",
+      },
+      {
         type: "figure",
         src: findeksModes,
         alt: "The Findeks reports screen in light mode on the left and dark mode on the right, with a credit score gauge and a row of past reports.",
@@ -176,6 +180,10 @@ export const contentBlocks: ContentBlock[] = [
       {
         type: "text",
         text: "Feature Area promotes features people already have but haven't found. It is three components: an illustration, a content block, and the master that composes them. The content block only exposes valid combinations, three entries at most with the active one inside the range, so a designer cannot build a state the app cannot show.",
+      },
+      {
+        type: "text",
+        text: "After automatic payments got a slot, the share of payments-dashboard users who reach it went from 2.4% to 5.6%. The other promoted features did not move. A slot surfaces a feature people want. It does not create the want.",
       },
       {
         type: "text",

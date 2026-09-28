@@ -215,6 +215,10 @@ export default function GetirFinansAICase() {
               type: "text",
               text: "Dictation and typing share a composer, so a person does not have to learn a second place to compose. At the input boundary, the field preserves the draft and gives a local response.",
             },
+            {
+              type: "text",
+              text: "Mic use doubled in the two months after launch, from 1.4% to 2.9% of chat users, and about 4% of chat opens tap it.",
+            },
             { type: "custom", id: "composerGallery" },
           ],
         },
@@ -226,7 +230,15 @@ export default function GetirFinansAICase() {
           blocks: [
             {
               type: "text",
-              text: "Assistant streaming is shipped. Suggestion impressions, inline search routing, and dictation completion are the next evidence to collect.",
+              text: "Assistant streaming is shipped. Prompt suggestions carry 31% of every message sent, steady over three months. People who close the assistant before asking anything fell from 46.6% of closes in June to 34.0% in September.",
+            },
+            {
+              type: "text",
+              text: "The same data points at the next job. As the median wait grew from 3.7 to 6.4 seconds, closes during the wait rose from 0.5% to 3.6%. That is the case for a composer that stays live while the assistant works, with a Stop in the send slot. The deposit calculator entry is the other gap: 38% of those opens send a message, against 63% overall.",
+            },
+            {
+              type: "text",
+              text: "Dictation completion and inline search routing are not instrumented yet. They are the next evidence to collect.",
             },
           ],
         },
