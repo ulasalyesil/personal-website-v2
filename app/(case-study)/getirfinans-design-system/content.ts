@@ -4,7 +4,7 @@ import tokenNaming from "@/public/images/getirfinans-design-system/docs-token-na
 import buttonModes from "@/public/images/getirfinans-design-system/button-light-dark.webp";
 import checkboxModes from "@/public/images/getirfinans-design-system/checkbox-light-dark.webp";
 import findeksModes from "@/public/images/getirfinans-design-system/findeks-light-dark.webp";
-import appointmentModes from "@/public/images/getirfinans-design-system/appointment-light-dark.webp";
+import videoCallModes from "@/public/images/getirfinans-design-system/video-call-light-dark.webp";
 import assetBreakdownModes from "@/public/images/getirfinans-design-system/asset-breakdown-light-dark.webp";
 
 export const meta = {
@@ -55,10 +55,10 @@ export const contentBlocks: ContentBlock[] = [
       },
       {
         type: "figure",
-        src: appointmentModes,
-        alt: "An appointment confirmation screen in light mode on the left and dark mode on the right, with a yellow date pill under the message.",
+        src: videoCallModes,
+        alt: "The video call handoff screen in light mode on the left and dark mode on the right: a phone illustration with a camera badge, the message that a representative is being connected, and a security note with a blue shield.",
         caption:
-          "An appointment confirmation. The yellow date pill is the same in both modes.",
+          "The video call handoff. The illustration has its own dark version: the camera badge turns from purple to grey. The blue shield keeps its value.",
         width: "wide",
       },
     ],

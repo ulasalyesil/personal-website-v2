@@ -64,6 +64,21 @@ export const LAB_ITEMS: LabItem[] = [
     url: "/common-ground",
   },
   {
+    slug: "pre-approval-concept",
+    title: "Pre-approval concept",
+    tag: "concept",
+    date: "sep 2026",
+    summary:
+      "Concept work, not shipped: the pre-approved limit screen with a Liquid Glass button and a soft 3D illustration.",
+    blurb:
+      "Concept work, not shipped. The screen tells a new customer their limit is pre-approved and asks them to continue. Three things are being tried here. The button is the iOS 27 Liquid Glass prominent style instead of a flat fill. The illustration follows the direction the team set for the new system: lit objects with a cast shadow, a checked document, a stack of gold and a lira coin, drawn for dark mode from the first frame rather than inverted after. The offer badge sits on the card's edge, so the offer reads as attached to the card instead of as another line of text.",
+    media: {
+      src: "/images/lab/getirfinansli-ol-concept.webp",
+      alt: "Concept screens for a pre-approved limit, light mode beside dark: a soft 3D illustration of a checked document, gold and a lira coin, an offer card with a badge on its edge, and a Liquid Glass continue button",
+    },
+    tint: "#7849f7",
+  },
+  {
     slug: "fx-chart-range",
     title: "FX chart range",
     tag: "interaction",
