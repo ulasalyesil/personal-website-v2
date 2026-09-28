@@ -92,10 +92,6 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
                   <dt>Year</dt>
                   <dd>{piece.year}</dd>
                 </div>
-                <div>
-                  <dt>Status</dt>
-                  <dd>{piece.status}</dd>
-                </div>
               </dl>
             </div>
           </Link>
