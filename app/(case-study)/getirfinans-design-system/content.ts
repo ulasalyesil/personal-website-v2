@@ -1,5 +1,5 @@
 import type { ContentBlock } from "@/types";
-import darkModeCapture from "@/public/images/lab/dark-mode.webp";
+import heroModeResolution from "@/public/images/getirfinans-design-system/hesap-mode-resolution.webp";
 import tokenNaming from "@/public/images/getirfinans-design-system/docs-token-naming.webp";
 import buttonModes from "@/public/images/getirfinans-design-system/button-light-dark.webp";
 import checkboxModes from "@/public/images/getirfinans-design-system/checkbox-light-dark.webp";
@@ -21,9 +21,10 @@ export const meta = {
 export const contentBlocks: ContentBlock[] = [
   {
     type: "figure",
-    src: darkModeCapture,
-    alt: "GetirFinans account screens in light and dark mode, shown side by side.",
-    caption: "The same account and credit card screens, light and dark.",
+    src: heroModeResolution,
+    alt: "The GetirFinans home screen split diagonally, light mode on the left and dark on the right. Five elements are marked, with their light values in a column on the left and dark values on the right: the account card gradient, an icon and the page background change; the yellow rate pill and the purple pay button sit on the split and keep one value in both modes.",
+    caption:
+      "One screen, split by mode. The card, the icon and the page resolve to new values. The rate pill and the pay button sit on the split and keep theirs.",
     width: "wide",
     radius: "screen",
   },
