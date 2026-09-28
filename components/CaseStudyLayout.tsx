@@ -243,6 +243,7 @@ export default function CaseStudyLayout({
                 alt={block.alt || ""}
                 className="w-full"
                 sizes={isHero ? "100vw" : "(max-width: 1024px) 100vw, 75vw"}
+                quality={isHero ? 90 : undefined}
                 priority={isHero}
               />
             </div>
