@@ -923,3 +923,17 @@ modal + deep links kept.
 
 Owed: real experiments + captures into `public/images/lab/` and
 `public/video/lab/`. Grid ships empty by design.
+
+# Portfolio evidence experiment (2026-09-28)
+
+Review branch: `codex/portfolio-evidence`, based on `content/case-study-numbers`. The comparison and rationale live in the vault at `08-career/portfolio/2026-09-28-portfolio-evidence-plan.md`.
+
+- [x] Put selected work in the first desktop viewport by shortening the hero and section gap.
+- [x] Lead the first two cards with observed usage figures and keep the existing visual language.
+- [x] Put result summaries before process in the GetirFinans AI and design-system studies.
+- [x] Audit the remaining three featured cases for problem, role, artifact, shipped state and result.
+- [x] Verify typecheck, build and rendered desktop/mobile pages; review the diff and metric wording.
+
+## Review
+
+At 1000 × 700, the first GetirFinans artifact and its observed usage claim are visible without scrolling. At 390 × 844, the first artifact is visible and the title begins at the fold. The AI and design-system cases show measured results before process, then distinguish shipped captures from prototypes. TypeScript check, 26 tests and production build passed. Existing unrelated lint warnings remain. Consiligiere, WiseCareAI and Jotform were audited in the vault plan; no unsupported outcome claim was added. Awaiting Ulaş's review before merge.

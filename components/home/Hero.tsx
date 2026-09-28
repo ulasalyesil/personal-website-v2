@@ -47,9 +47,8 @@ export default function Hero() {
       <div className={styles.body}>
         <p className={styles.statement}>I design products and prototype how they behave.</p>
         <p className={styles.now}>
-          Most recently fintech and AI at GetirFinans, before that health insurance at
-          WiseCareAI and integrations at Jotform. I prototype the states a static frame
-          can&apos;t explain.
+          At GetirFinans, I work across fintech and AI, from product decisions
+          to SwiftUI builds.
         </p>
         <a className={styles.cta} href={`mailto:${EMAIL}`}>
           <span aria-hidden>[</span>Get in touch<span aria-hidden>]</span>

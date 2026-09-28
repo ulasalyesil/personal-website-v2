@@ -6,12 +6,13 @@ interface CaseStudyTitleProps {
   company: string;
   role: string;
   status?: string;
+  summary?: string;
   team?: string;
   platforms?: string;
   websiteUrl?: string;
   /** Pairs the title with the card or row it was opened from, for the route morph. */
   slug?: string;
-  /** Evidence shown between the project label and the title. */
+  /** Evidence shown after the title and project facts. */
   visual?: React.ReactNode;
 }
 
@@ -24,9 +25,8 @@ function hostname(url: string): string {
 }
 
 /**
- * Who it was for and where it stands, then the picture, then the claim.
- * The facts row answers the three things a reviewer checks before reading
- * on: role, timeline, team.
+ * The title and observed result establish the claim before the visual.
+ * The facts row gives the reviewer role, timeline and team context.
  */
 export default function CaseStudyTitle({
   title,
@@ -34,6 +34,7 @@ export default function CaseStudyTitle({
   company,
   role,
   status,
+  summary,
   team,
   platforms,
   websiteUrl,
@@ -58,14 +59,14 @@ export default function CaseStudyTitle({
         {status && <span className={styles.status}>{status}</span>}
       </p>
 
-      {visual && <div className={styles.visual}>{visual}</div>}
-
       <h1
         className={styles.title}
         style={slug ? { viewTransitionName: `project-${slug}-title` } : undefined}
       >
         {title}
       </h1>
+
+      {summary && <p className={styles.summary}>{summary}</p>}
 
       <dl className={styles.facts}>
         {facts.map((fact) => (
@@ -84,6 +85,8 @@ export default function CaseStudyTitle({
           </div>
         ))}
       </dl>
+
+      {visual && <div className={styles.visual}>{visual}</div>}
     </header>
   );
 }

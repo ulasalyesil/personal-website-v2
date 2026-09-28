@@ -26,7 +26,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "getirfinans-ai",
     title: "GetirFinans AI",
-    line: "Helping people move from questions to useful next actions in a fintech app.",
+    line: "Suggested prompts account for 31% of assistant messages.",
     role: "Product design, prototyping",
     year: "2026",
     status: "Shipped on iOS, with SwiftUI prototypes",
@@ -36,7 +36,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "getirfinans-design-system",
     title: "GetirFinans Design System",
-    line: "Tokens, components and governance under a live banking app, proven by shipping dark mode.",
+    line: "App-wide dark mode reached 8.5% of users without promotion.",
     role: "Design systems",
     year: "2026",
     status: "Dark mode shipped app-wide",

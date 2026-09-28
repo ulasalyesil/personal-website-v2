@@ -126,6 +126,7 @@ export default function GetirFinansAICase() {
       team="Product and iOS engineering"
       platforms="iOS"
       status="Assistant streaming shipped · related work under evaluation"
+      summary="Suggested prompts account for 31% of assistant messages. The share of closes before a question fell from 46.6% in June to 34.0% in September."
       visualLead={
         // The blueprint film: one screen, five decisions drawn as guides and
         // dimensions, rebuilt from the SwiftUI prototype code rather than

@@ -24,13 +24,15 @@ interface CaseStudyLayoutProps {
   websiteUrl?: string;
   slug?: string;
   status?: string;
+  /** Observed result or delivery claim shown before the process. */
+  summary?: string;
   /** Who else was involved. Shown in the header grid on case studies. */
   team?: string;
   /** Where the work shipped. Shown in the header grid on case studies. */
   platforms?: string;
   tier?: CaseStudyTier;
   customComponents?: Record<string, React.ReactNode>;
-  /** Optional evidence-led visual, shown between the project label and the title. */
+  /** Optional evidence-led visual, shown after the title and project facts. */
   visualLead?: React.ReactNode;
 }
 
@@ -131,6 +133,7 @@ export default function CaseStudyLayout({
   websiteUrl,
   slug,
   status,
+  summary,
   team,
   platforms,
   tier = "case-study",
@@ -429,6 +432,7 @@ export default function CaseStudyLayout({
           company={company}
           role={role}
           status={status}
+          summary={summary}
           slug={slug}
           team={team}
           platforms={platforms}

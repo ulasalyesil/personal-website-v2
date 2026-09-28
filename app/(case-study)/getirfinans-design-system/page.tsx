@@ -20,6 +20,7 @@ export default function GetirFinansDesignSystemCase() {
   return (
     <CaseStudyLayout
       {...meta}
+      summary="Dark mode shipped across the app in two months. By September 2026, 8.5% of users had adopted it without a promotion."
       contentBlocks={contentBlocks}
       customComponents={{ "token-values": <TokenValues /> }}
     />

@@ -20,16 +20,16 @@ export const meta = {
 
 export const contentBlocks: ContentBlock[] = [
   {
-    type: "lead",
-    text: "GetirFinans needed dark mode across the whole app. Its colors were named after how they looked, which said nothing about what each one should become in the dark. I rebuilt the color foundation around what each color is for, wrote the documentation, and worked with the developers until it shipped. Then the same approach went into spacing, into components, and into the checks that keep Figma and the code in step.",
-  },
-  {
     type: "figure",
     src: darkModeCapture,
     alt: "GetirFinans account screens in light and dark mode, shown side by side.",
     caption: "The same account and credit card screens, light and dark.",
     width: "wide",
     radius: "screen",
+  },
+  {
+    type: "lead",
+    text: "The old colors were named after how they looked, which said nothing about what each one should become in the dark. I rebuilt the foundation around what each color is for, documented it, and worked with engineering until dark mode shipped across the app.",
   },
   {
     type: "section",

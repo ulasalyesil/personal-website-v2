@@ -1,6 +1,6 @@
 .section {
   --gutter: clamp(1rem, 3vw, 2.5rem);
-  padding: clamp(4rem, 10vw, 8rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  padding: clamp(2rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
 }
 
 .head {
@@ -8,7 +8,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
 /* Section headings are markers, not billboards: the `#` borrows the grammar
@@ -116,6 +116,13 @@
   text-wrap: pretty;
 }
 
+.piece[data-place="lead"] .line,
+.piece[data-place="counter"] .line {
+  max-width: 34ch;
+  font-size: clamp(0.875rem, 1.3vw, 1rem);
+  color: var(--color-text-primary);
+}
+
 .meta {
   display: grid;
   gap: 0.375rem;
@@ -161,17 +168,17 @@
 }
 
 @media (min-width: 900px) {
-  /* Lead: image wide on the left, the text set against its bottom edge. */
+  /* Lead: the result is readable beside the first artifact on arrival. */
   .piece[data-place="lead"] {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: inherit;
-    align-items: end;
+    align-items: start;
   }
   .piece[data-place="lead"] .media {
-    grid-column: 1 / span 8;
+    grid-column: 1 / span 7;
   }
   .piece[data-place="lead"] .text {
-    grid-column: 9 / -1;
+    grid-column: 8 / -1;
   }
 
   /* Counter: mirrored and pushed right, the text hanging from the top. */
