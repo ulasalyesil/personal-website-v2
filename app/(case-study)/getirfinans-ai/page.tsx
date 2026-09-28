@@ -127,16 +127,16 @@ export default function GetirFinansAICase() {
       platforms="iOS"
       status="Assistant streaming shipped · related work under evaluation"
       visualLead={
-        // The process film: research, the decisions and their measurements,
-        // rebuilt from the SwiftUI prototype code rather than recorded. It
-        // carries the cover's transition name so the home card still morphs
-        // into it.
+        // The blueprint film: one screen, five decisions drawn as guides and
+        // dimensions, rebuilt from the SwiftUI prototype code rather than
+        // recorded. It carries the cover's transition name so the home card
+        // still morphs into it.
         <figure>
           <Screen
             capture={{
-              video: `${V}/intro.mp4`,
-              poster: `${I}/intro-poster.jpg`,
-              alt: "Process film: voice research, the listening-state passes, the input limit, routing, and the thinking-to-answer handoff with its measured timing.",
+              video: `${V}/blueprint.mp4`,
+              poster: `${I}/blueprint-poster.jpg`,
+              alt: "Blueprint film of the assistant screen: the composer as the listening surface, the 200-character cap, routing on curated nouns, the thinking-to-answer handoff, and the measured stream timing.",
               frame: "detail",
               w: 1920,
               h: 1080,
@@ -145,7 +145,12 @@ export default function GetirFinansAICase() {
             viewTransitionName="project-getirfinans-ai-cover"
           />
           <figcaption className="px-4 py-3 text-caption text-text-tertiary">
-            The process behind the assistant, rebuilt from the prototype code.
+            Five decisions on one screen, rebuilt from the prototype code.
+            Blueprint format after{" "}
+            <a href="https://github.com/moguzbulbul/blueprint-animation" className="underline underline-offset-2">
+              Oğuz
+            </a>
+            .
           </figcaption>
         </figure>
       }
