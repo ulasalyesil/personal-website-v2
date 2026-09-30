@@ -6,7 +6,7 @@ import LocalClock from "./LocalClock";
 import styles from "./Closing.module.css";
 
 const LINKS = [
-  { href: "/bookmarks", label: "Collected", external: false },
+  { href: "/collected", label: "Collected", external: false },
   { href: SOCIAL_LINKS.linkedin, label: "LinkedIn", external: true },
   { href: SOCIAL_LINKS.github, label: "GitHub", external: true },
   { href: SOCIAL_LINKS.dribbble, label: "Dribbble", external: true },

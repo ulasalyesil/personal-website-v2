@@ -3,7 +3,7 @@ import BookmarkIndex from "@/components/bookmarks/BookmarkIndex";
 import PageIntro from "@/components/site/PageIntro";
 import type { BookmarkData } from "@/lib/bookmarks";
 import bookmarks from "@/data/bookmarks.json";
-import styles from "./bookmarks.module.css";
+import styles from "./collected.module.css";
 
 const data = bookmarks as BookmarkData;
 
@@ -12,11 +12,11 @@ const DESCRIPTION = `${data.count} design resources, sorted into ${data.shelves.
 export const metadata: Metadata = {
   title: "Collected — Ulaş Alyeşil",
   description: DESCRIPTION,
-  alternates: { canonical: "/bookmarks" },
+  alternates: { canonical: "/collected" },
   openGraph: {
     title: "Collected",
     description: DESCRIPTION,
-    url: "/bookmarks",
+    url: "/collected",
   },
   twitter: { title: "Collected", description: DESCRIPTION },
 };

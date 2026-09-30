@@ -67,6 +67,13 @@ module.exports = {
         destination: "/getirfinans-design-system",
         permanent: true,
       },
+      // The index was /bookmarks until it was named for what it is. Query
+      // strings carry over, so shared filtered views still land filtered.
+      {
+        source: "/bookmarks",
+        destination: "/collected",
+        permanent: true,
+      },
     ];
   },
 };
