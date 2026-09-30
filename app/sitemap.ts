@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/collected",
     "/lab",
     "/brand-layers",
+    "/elastic-type",
   ];
   const caseStudies = [
     "/commodore",
