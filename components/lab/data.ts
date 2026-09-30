@@ -31,6 +31,21 @@ export type LabItem = {
 
 export const LAB_ITEMS: LabItem[] = [
   {
+    slug: "elastic-type",
+    title: "Elastic type",
+    tag: "interaction",
+    date: "sep 2026",
+    summary: "A React recreation of ElevenLabs' elastic text selector.",
+    blurb:
+      "Recreation of ElevenLabs' elastic text selector, built in React. Drag the list to browse, then release to snap to a word. The text bends with the gesture and straightens as it settles. Supports clicking, keyboard selection, and reduced motion. Original interaction by ElevenLabs.",
+    media: {
+      src: "/images/lab/elastic-type.png",
+      alt: "An elastic vertical list of words on warm paper, with Elastic selected between vermilion brackets",
+    },
+    tint: "#c36a50",
+    url: "/elastic-type",
+  },
+  {
     slug: "brand-layers",
     title: "Brand Layers",
     tag: "system",

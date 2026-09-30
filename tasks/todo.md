@@ -1,5 +1,22 @@
 # Tasks Todo
 
+## Elastic type selector study (2026-09-30)
+
+Built locally on `codex/lab-interaction-study`. A React recreation of ElevenLabs' elastic text selector, with nine words. Full brief and website copy are in the vault. Copy corrected on 2026-09-30: direct descriptions and explicit source attribution. Lab will collect attributed recreations, with a React component library as a possible later outcome.
+
+- [ ] Hands-on feel review on a touch device and with OS reduced motion enabled.
+- [ ] Capture a motion clip after the feel review (real screenshot already integrated).
+- [x] Inspect the reference and choose the ribbon direction.
+- [x] Create an isolated worktree from `origin/main` at `b0f04a1`.
+- [x] Implement drag, bounded deformation, flick-to-snap, interruption, and end resistance.
+- [x] Verify keyboard navigation, drag/release, repeated drags, mobile layout, and button targets in a visible browser.
+- [x] Add `/elastic-type`, the Lab entry, real poster, and sitemap route.
+- [x] Pass production build, TypeScript, targeted lint, and three physics tests.
+
+### Review
+
+Production preview: `http://localhost:3107/elastic-type`. The production Lab detail loads its poster and prototype link. No runtime errors observed. Reduced motion is implemented; actual OS-mode and touch-device checks remain manual. Existing lint warnings are outside this change. At 320px the existing HUD's long branch name overflows, while the new specimen fits. No commit or deployment.
+
 ## Redesign interaction fixes (2026-09-17)
 
 - [x] Preserve visible hero focus in both palettes and repair label contrast.

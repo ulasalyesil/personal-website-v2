@@ -132,6 +132,12 @@
 ## Project-Specific Notes
 <!-- Notes specific to this portfolio project -->
 
+- **Credit interaction recreations directly and describe their behavior plainly.**
+  For the ElevenLabs selector, say it is a recreation and name ElevenLabs.
+  Avoid poetic copy and wording that implies an original interaction design.
+  Lab may become a React component resource; keep source attribution with each
+  recreation. (Correction, 2026-09-30.)
+
 - **Use “fintech” for public-facing GetirFinans positioning.**
   (Correction, 2026-09-16.)
 
