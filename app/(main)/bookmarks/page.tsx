@@ -1,32 +1,45 @@
+import type { Metadata } from "next";
+import BookmarkIndex from "@/components/bookmarks/BookmarkIndex";
 import PageIntro from "@/components/site/PageIntro";
+import type { BookmarkData } from "@/lib/bookmarks";
+import bookmarks from "@/data/bookmarks.json";
 import styles from "./bookmarks.module.css";
 
-export const metadata = { title: "Collected — Ulaş Alyeşil" };
+const data = bookmarks as BookmarkData;
 
-const LINKS = [
+const DESCRIPTION = `${data.count} design resources, sorted into ${data.shelves.length} shelves: galleries, type, color, icons, motion, code, UX patterns, tools and reading. Filter, share a view, open anything.`;
+
+export const metadata: Metadata = {
+  title: "Collected — Ulaş Alyeşil",
+  description: DESCRIPTION,
+  alternates: { canonical: "/bookmarks" },
+  openGraph: {
+    title: "Collected",
+    description: DESCRIPTION,
+    url: "/bookmarks",
+  },
+  twitter: { title: "Collected", description: DESCRIPTION },
+};
+
+/** Boards that live on other services, kept apart from the index. */
+const ELSEWHERE = [
   {
     href: "https://ulasalyesil.notion.site/Design-Resources-33f5823050a34db0946a836c603b6544?pvs=4",
     title: "Design Resources",
     where: "Notion",
-    description: "Collecting anything related to design here",
+    description: "The older design resources board",
   },
   {
     href: "https://www.cosmos.so/ulasalyesil/objekte",
     title: "_objekte",
     where: "Cosmos",
-    description: "Collecting objects in Cosmos",
+    description: "Objects",
   },
   {
     href: "https://www.cosmos.so/ulasalyesil/haus",
     title: "haus",
     where: "Cosmos",
-    description: "Collecting interior inspirations in Cosmos",
-  },
-  {
-    href: "https://www.cosmos.so/ulasalyesil/haus",
-    title: "grafik",
-    where: "Cosmos",
-    description: "Collecting graphic design inspirations in Cosmos",
+    description: "Interiors",
   },
 ];
 
@@ -35,28 +48,43 @@ export default function Bookmarks() {
     <>
       <PageIntro
         title="Collected"
-        aside={`${LINKS.length} collections`}
-        lede="Where references end up: design resources, objects, interiors and graphics."
+        aside={`${data.count} links · ${data.shelves.length} shelves · updated ${data.updated}`}
+        lede={
+          <p>
+            Everything I keep coming back to for design work, from galleries to
+            font foundries to UX pattern write-ups. Free to use. Press / or ⌘K
+            to filter.
+          </p>
+        }
       />
-      <ul className={styles.list}>
-        {LINKS.map((link) => (
-          <li key={link.title}>
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.row}
-            >
-              <span className={styles.title}>{link.title}</span>
-              <span className={styles.description}>{link.description}</span>
-              <span className={styles.where}>
-                {link.where} <span aria-hidden>↗</span>
-                <span className="sr-only">(opens in a new tab)</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <BookmarkIndex data={data} />
+      <section className={styles.elsewhere} aria-labelledby="elsewhere">
+        <h2 id="elsewhere" className={styles.heading}>
+          <span className={styles.hash} aria-hidden>
+            #
+          </span>
+          Elsewhere
+        </h2>
+        <ul>
+          {ELSEWHERE.map((link) => (
+            <li key={link.title}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.row}
+              >
+                <span className={styles.title}>{link.title}</span>
+                <span className={styles.description}>{link.description}</span>
+                <span className={styles.where}>
+                  {link.where} <span aria-hidden>↗</span>
+                  <span className="sr-only">(opens in a new tab)</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 }

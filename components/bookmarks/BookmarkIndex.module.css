@@ -1,0 +1,594 @@
+/* The index reads as one instrument: shelves down the left like a file
+   tree, a query line pinned over the results, and results set as console
+   rows. Everything is mono and one size step apart; the accent marks only
+   what is selected, the caret and the picks. */
+
+.index {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  font-family: var(--font-mono);
+}
+
+/* ─── Shelves ───
+   Below 900px they are one scrolling row of chips above the query line. */
+
+.rail {
+  min-width: 0;
+}
+
+.shelves {
+  display: flex;
+  gap: 0.375rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+.shelves::-webkit-scrollbar {
+  display: none;
+}
+
+.shelf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 36px;
+  padding: 0.5rem 0.75rem;
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-micro);
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.count {
+  font-size: var(--text-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-tertiary);
+}
+
+.shelf[aria-pressed="true"] {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+}
+
+.shelf[aria-pressed="true"] .count {
+  color: var(--color-brand);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .shelf:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.shelf:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.star {
+  color: var(--color-brand);
+}
+
+/* ─── Query line ─── */
+
+.main {
+  min-width: 0;
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  padding: 0.75rem 0;
+  background: var(--color-surface-0);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.field {
+  flex: 1 1 18rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  padding-inline: 0.875rem;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  cursor: text;
+  transition: border-color 150ms ease;
+}
+
+.field:focus-within {
+  border-color: var(--color-brand);
+}
+
+.prompt {
+  font-size: var(--text-label);
+  color: var(--color-brand);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.kbd {
+  display: grid;
+  place-items: center;
+  min-width: 1.375rem;
+  height: 1.375rem;
+  font: inherit;
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: 3px;
+}
+
+.field:focus-within .kbd {
+  visibility: hidden;
+}
+
+/* No keyboard to press it on. */
+@media (hover: none) {
+  .kbd {
+    display: none;
+  }
+}
+
+.meta {
+  min-width: 9rem;
+  font-size: var(--text-micro);
+}
+
+.copied {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-brand);
+}
+
+/* ─── Results ─── */
+
+.group {
+  padding-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.groupLabel {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  font-size: var(--text-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.hash,
+.bracketed {
+  color: var(--color-text-tertiary);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-micro);
+}
+
+/* A console row, the same one the work index uses: a caret column that
+   fills when the row is hovered or focused, then the fields. */
+.row {
+  display: grid;
+  grid-template-columns: 1rem 2.75rem minmax(0, 1fr);
+  column-gap: 0.5rem;
+  align-items: baseline;
+  min-height: 48px;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.row::before {
+  content: ">";
+  grid-column: 1;
+  grid-row: 1;
+  font-size: var(--text-micro);
+  color: var(--color-brand);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.row:hover::before,
+.row:focus-visible::before {
+  opacity: 1;
+}
+
+.rows li:last-child .row {
+  border-bottom: 0;
+}
+
+.num {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-tertiary);
+}
+
+.title {
+  grid-column: 3;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  text-wrap: pretty;
+}
+
+.title .star {
+  margin-right: 0.5em;
+}
+
+.note {
+  grid-column: 3;
+  margin-top: 0.25rem;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.domain {
+  grid-column: 3;
+  margin-top: 0.25rem;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover .title {
+    color: var(--color-brand);
+  }
+}
+
+.row:focus-visible {
+  outline: none;
+  background: var(--color-surface-1);
+}
+
+.row:focus-visible .title {
+  color: var(--color-brand);
+}
+
+/* ─── View toggle ───
+   Two words in a bordered pair, the pressed one inked. Same weight as the
+   shelves, so it reads as a setting of the index, not an action. */
+
+.views {
+  display: flex;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+}
+
+.view {
+  min-width: 3.5rem;
+  min-height: 36px;
+  padding: 0 0.75rem;
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.view + .view {
+  border-left: 1px solid var(--color-border-subtle);
+}
+
+.view[aria-pressed="true"] {
+  color: var(--color-text-primary);
+  background: var(--color-surface-1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .view:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.view:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* ─── Grid ───
+   Thumbnails for recognising a site by sight. The frame is the HUD
+   selection: on hover or focus its corner marks close in on the image, the
+   way a canvas tool selects a layer. */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.5rem);
+  padding-top: 1.25rem;
+}
+
+.card {
+  display: grid;
+  gap: 0.375rem;
+  border-radius: 4px;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 8 / 5;
+  margin-bottom: 0.375rem;
+  overflow: hidden;
+  background: var(--color-surface-1);
+  border-radius: 4px;
+  outline: 1px solid var(--color-image-outline);
+  outline-offset: -1px;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* A page with no preview image gets its address set like a blank frame's
+   label, not a broken image. */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  overflow-wrap: anywhere;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 6px,
+    color-mix(in srgb, var(--color-border-subtle) 60%, transparent) 6px 7px
+  );
+}
+
+.cardMarks {
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+}
+
+.card:hover .cardMarks,
+.card:focus-visible .cardMarks {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* The HUD draws media selections in white, which disappears on the many
+   white screenshots here. The accent reads on any image, and it is already
+   the colour that means "picked out". */
+.thumb .cardMarks {
+  --mark-color: var(--color-brand);
+}
+
+.cardTitle {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  text-wrap: pretty;
+}
+
+.cardTitle .star {
+  margin-right: 0.5em;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 0.75rem;
+  min-width: 0;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-tertiary);
+}
+
+.cardDomain {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .cardTitle {
+    color: var(--color-brand);
+  }
+}
+
+.card:focus-visible {
+  outline: none;
+}
+
+.card:focus-visible .cardTitle {
+  color: var(--color-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardMarks {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ─── Empty ─── */
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  padding: clamp(2rem, 6vw, 4rem) 0;
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+}
+
+.term {
+  color: var(--color-text-primary);
+}
+
+.clear {
+  min-height: 36px;
+  padding: 0.5rem 0.875rem;
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.clear:hover {
+  border-color: var(--color-text-primary);
+}
+
+.clear:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+  }
+
+  .index {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 2rem);
+  }
+
+  .rail {
+    grid-column: 1 / span 3;
+    align-self: start;
+    position: sticky;
+    top: 0.75rem;
+  }
+
+  .shelves {
+    flex-direction: column;
+    gap: 0;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* In the rail a shelf is a line in a tree, not a chip: no box, a rule
+     under each, and the pressed one carries the caret. */
+  .shelf {
+    width: 100%;
+    min-height: 40px;
+    padding: 0.625rem 0 0.625rem 1rem;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0;
+    position: relative;
+    text-align: left;
+  }
+
+  .shelf::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    font-size: var(--text-micro);
+    color: var(--color-brand);
+    opacity: 0;
+  }
+
+  .shelf[aria-pressed="true"]::before {
+    opacity: 1;
+  }
+
+  .shelf[aria-pressed="true"] {
+    border-color: var(--color-border-subtle);
+  }
+
+  .pickItem {
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  .main {
+    grid-column: 4 / -1;
+  }
+
+  .bar {
+    padding-top: 0;
+  }
+
+  /* Title and note share a column; the domain gets its own, right-aligned,
+     so the eye can run down the sources. */
+  .row {
+    grid-template-columns: 1rem 2.75rem minmax(0, 1fr) minmax(0, 13rem);
+    column-gap: 0.75rem;
+  }
+
+  .domain {
+    grid-column: 4;
+    grid-row: 1;
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .note {
+    -webkit-line-clamp: 1;
+  }
+}
