@@ -4,6 +4,8 @@ import "../styles/globals.css";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import InspectLayer from "@/components/inspect/InspectLayer";
 import Keymap from "@/components/site/Keymap";
+import JsonLd from "@/components/site/JsonLd";
+import { personJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ulasalyesil.com"),
@@ -38,6 +40,7 @@ export default function RootLayout({
         <InspectLayer />
         <Keymap />
         <Analytics />
+        <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ import commodore4 from '@/public/images/commodoreImages/commodore4.jpg';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/commodore" },
   title: 'Commodore Z Glass — Ulaş Alyeşil',
   description:
     'Rebranding Commodore for a concept product: logo, color, typography, web design, posters, and motion graphics.',

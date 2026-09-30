@@ -4,6 +4,7 @@ import fsiWeb from "@/public/images/fsi/fsi_web.webp";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/full-spectrum-insights" },
   title: "Full Spectrum Insights — Ulaş Alyeşil",
   description:
     "Web design and Framer development for an AI-focused consultancy.",

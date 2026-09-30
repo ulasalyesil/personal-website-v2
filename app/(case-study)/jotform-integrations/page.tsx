@@ -7,6 +7,7 @@ import createCustomer from '@/public/images/quickbooks/createCustomer.webp';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/jotform-integrations" },
   title: 'Jotform | QuickBooks Integration — Ulaş Alyeşil',
   description:
     'Product design for Jotform’s QuickBooks integration: automating invoices and customer records without setup friction.',

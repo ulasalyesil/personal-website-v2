@@ -62,6 +62,13 @@ module.exports = {
   },
   async redirects() {
     return [
+      // One host. www served the same pages as a second, duplicate site.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.ulasalyesil.com" }],
+        destination: "https://ulasalyesil.com/:path*",
+        permanent: true,
+      },
       {
         source: "/getirfinans-dark-mode",
         destination: "/getirfinans-design-system",

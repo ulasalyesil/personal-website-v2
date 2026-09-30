@@ -13,6 +13,8 @@ import type {
   LeafBlock,
   SectionBlock,
 } from "@/types";
+import JsonLd from "@/components/site/JsonLd";
+import { caseStudyJsonLd } from "@/lib/structured-data";
 import styles from "./CaseStudyLayout.module.css";
 
 interface CaseStudyLayoutProps {
@@ -424,6 +426,7 @@ export default function CaseStudyLayout({
 
   return (
     <>
+      <JsonLd data={caseStudyJsonLd({ title, slug, company, role, date, summary })} />
       {showToc && <CaseStudyNav sections={sections} />}
 
       <article className={styles.article}>

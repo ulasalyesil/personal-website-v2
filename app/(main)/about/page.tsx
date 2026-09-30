@@ -6,15 +6,19 @@ import WorkExperience from "@/components/WorkExperience";
 import { experience } from "@/data/experience";
 import { EMAIL } from "@/lib/constants";
 import picture from "@/public/images/picture.jpeg";
+import JsonLd from "@/components/site/JsonLd";
+import { profilePageJsonLd } from "@/lib/structured-data";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About — Ulaş Alyeşil",
+  alternates: { canonical: "/about" },
 };
 
 export default function About() {
   return (
     <>
+      <JsonLd data={profilePageJsonLd("/about")} />
       <PageIntro title="About" aside="Product designer, Istanbul" />
 
       <section className={styles.body} aria-label="Introduction">
@@ -46,6 +50,12 @@ export default function About() {
               <dt>Contact</dt>
               <dd>
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              </dd>
+            </div>
+            <div>
+              <dt>CV</dt>
+              <dd>
+                <a href="/cv">/cv</a>
               </dd>
             </div>
           </dl>

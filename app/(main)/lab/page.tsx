@@ -1,6 +1,7 @@
 import LabApp from "@/components/lab/LabApp";
 
 export const metadata = {
+  alternates: { canonical: "/lab" },
   title: "Lab — Ulaş Alyeşil",
   description:
     "Scraps, sketches, and half-finished experiments that wouldn't fit anywhere else.",

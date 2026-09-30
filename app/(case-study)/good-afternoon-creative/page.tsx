@@ -6,6 +6,7 @@ import type { TextBlock } from "@/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/good-afternoon-creative" },
   title: "Good Afternoon Creative — Ulaş Alyeşil",
   description:
     "Web design and development for an Istanbul brand-design agency building its online presence and portfolio.",

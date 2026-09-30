@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
 import SiteHeader from "@/components/site/SiteHeader";
 import SelectedWork from "@/components/home/SelectedWork";
@@ -6,6 +7,10 @@ import WorkIndex from "@/components/site/WorkIndex";
 import Closing from "@/components/site/Closing";
 import { CASE_STUDIES } from "@/data/work";
 import projectsData from "@/public/data/projects.json";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   return (

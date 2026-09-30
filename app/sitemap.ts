@@ -12,9 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/lab",
     "/brand-layers",
     "/elastic-type",
+    "/cv",
+    // Static prototype served from public/ by a rewrite in next.config.js.
+    "/common-ground",
   ];
   const caseStudies = [
     "/commodore",
+    "/consiligiere",
     "/full-spectrum-insights",
     "/genesis",
     "/getirfinans-ai",

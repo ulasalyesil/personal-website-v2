@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { wisecareai, cover } from "./content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/wisecareai" },
   title: "WiseCareAI — Ulaş Alyeşil",
   description:
     "End-to-end product design for a US health-insurance platform: design system, agent tools, and AI-augmented enrollment workflows.",

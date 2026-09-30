@@ -7,7 +7,10 @@ import type { ProjectsData } from "@/types";
 import projectsData from "@/public/data/projects.json";
 import otherData from "@/public/data/others.json";
 
-export const metadata = { title: "Works — Ulaş Alyeşil" };
+export const metadata = {
+  title: "Works — Ulaş Alyeşil",
+  alternates: { canonical: "/works" },
+};
 
 const studyPaths = CASE_STUDIES.map((c) => `/${c.slug}`);
 

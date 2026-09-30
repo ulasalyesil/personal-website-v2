@@ -4,6 +4,7 @@ import cover from "@/public/images/consiligiere/customer-app.webp";
 import { meta, contentBlocks } from "./content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/consiligiere" },
   title: "Consiligiere — Ulaş Alyeşil",
   description:
     "Visual direction, landing page and both sides of a marketplace for verified professionals: the customer app and the provider tools, designed with Eylül Deniz Kızılay for an investment round.",

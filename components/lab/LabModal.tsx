@@ -146,9 +146,9 @@ function DesktopModal({
               <p className="mb-6 text-[0.9375rem] tabular-nums text-text-tertiary">
                 {index + 1} of {total}
               </p>
-              <h2 className="m-0 text-[2.5rem] font-[560] leading-[0.98] tracking-[-0.04em] text-text-primary text-balance">
+              <h1 className="m-0 text-[2.5rem] font-[560] leading-[0.98] tracking-[-0.04em] text-text-primary text-balance">
                 {item.title}
-              </h2>
+              </h1>
               <div className="mt-3">
                 <Meta item={item} />
               </div>
@@ -245,9 +245,9 @@ function MobileModal({
             <LabMediaView item={item} mode="mobile" />
           </div>
           <div className="px-5 py-4 border-t border-border-subtle relative overflow-hidden">
-            <h2 className="text-[1.75rem] font-[560] leading-none tracking-[-0.035em] text-text-primary">
+            <h1 className="text-[1.75rem] font-[560] leading-none tracking-[-0.035em] text-text-primary">
               {item.title}
-            </h2>
+            </h1>
             <div className="mt-2">
               <Meta item={item} />
             </div>

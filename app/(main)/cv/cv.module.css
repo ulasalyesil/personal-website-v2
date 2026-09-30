@@ -1,0 +1,73 @@
+/* A document, not a layout: one reading column, labelled fields, no chrome
+   beyond the site's own. */
+
+.cv {
+  display: grid;
+  gap: 3rem;
+  max-width: var(--container-measure);
+  padding: clamp(2rem, 5vw, 4rem) var(--gutter) 6rem;
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+}
+
+.cv h2 {
+  margin-bottom: 1rem;
+  font-size: var(--text-kicker);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.cv h3 {
+  font-weight: 560;
+  color: var(--color-text-primary);
+}
+
+.cv p {
+  margin-top: 0.5rem;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.cv a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-default);
+  text-underline-offset: 3px;
+}
+
+.cv a:hover {
+  text-decoration-color: currentColor;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+  gap: 0.25rem 1rem;
+  margin-top: 0.5rem;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+}
+
+.facts dt {
+  color: var(--color-text-tertiary);
+}
+
+.facts dd {
+  color: var(--color-text-secondary);
+}
+
+.pair {
+  display: contents;
+}
+
+.entries {
+  display: grid;
+  gap: 2rem;
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}

@@ -2,6 +2,7 @@ import PageIntro from "@/components/site/PageIntro";
 import BrandLayers from "@/components/brand-layers/BrandLayers";
 
 export const metadata = {
+  alternates: { canonical: "/brand-layers" },
   title: "Brand Layers — Ulaş Alyeşil",
   description:
     "One component, never edited, resolving correctly under three brands, two modes, five sentiments and four interaction states. Every colour traced back through the token layers.",

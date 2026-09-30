@@ -106,6 +106,7 @@ export default function LabApp({ initialSlug }: { initialSlug?: string }) {
   return (
     <>
       <PageIntro
+        as={item ? "h2" : "h1"}
         title="Lab"
         aside={`${LAB_ITEMS.length} entries`}
         lede={

@@ -7,6 +7,8 @@ type Props = {
   lede?: ReactNode;
   /** A short fact set against the title's baseline, like a count. */
   aside?: ReactNode;
+  /** h2 when something else on the page is its subject, like an open lab entry. */
+  as?: "h1" | "h2";
 };
 
 /**
@@ -15,16 +17,16 @@ type Props = {
  * set against its baseline. The marker is what makes four different pages
  * read as sections of one document.
  */
-export default function PageIntro({ title, lede, aside }: Props) {
+export default function PageIntro({ title, lede, aside, as: Heading = "h1" }: Props) {
   return (
     <header className={styles.intro}>
       <Marks kind="frame" />
-      <h1 className={styles.title}>
+      <Heading className={styles.title}>
         <span className={styles.hash} aria-hidden>
           #
         </span>
         {title}
-      </h1>
+      </Heading>
       {(lede || aside) && (
         <div className={styles.side}>
           {aside && <p className={styles.aside}>{aside}</p>}

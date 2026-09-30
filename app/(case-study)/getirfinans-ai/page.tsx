@@ -3,6 +3,7 @@ import CaseStudyLayout from "@/components/CaseStudyLayout";
 import Gallery, { Screen, type Item } from "./Gallery";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/getirfinans-ai" },
   title: "GetirFinans AI — Ulaş Alyeşil",
   description:
     "Designing answers and useful next actions in a fintech app, across shipped iOS captures and SwiftUI prototypes.",

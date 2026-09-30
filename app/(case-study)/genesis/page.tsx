@@ -15,6 +15,7 @@ import img12 from '@/public/images/genesis/12.webp';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/genesis" },
   title: 'Genesis: Digital Revolution — Ulaş Alyeşil',
   description:
     'Art direction for an audio-visual live show concept: generative visuals created from sonic data for a Sonar × DGTL collaboration.',
