@@ -28,7 +28,7 @@ export default function CommodoreCase() {
       slug="commodore"
       title="Commodore Z Glass"
       date="June, 2022"
-      company="Bahcesehir University"
+      company="Bahçeşehir University (student project)"
       role="Designer"
       contentBlocks={[
         ...CommodoreContent.paragraphs.map((text): TextBlock => ({

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/genesis" },
   title: 'Genesis: Digital Revolution — Ulaş Alyeşil',
   description:
-    'Art direction for an audio-visual live show concept: generative visuals created from sonic data for a Sonar × DGTL collaboration.',
+    'Art direction for an audio-visual live show: generative visuals created from sonic data. A student concept for a Sonar × DGTL collaboration.',
   openGraph: {
     title: 'Genesis: Digital Revolution — Ulaş Alyeşil',
     description: 'Audio-visual live show concept with generative visuals from sonic data.',
@@ -32,13 +32,13 @@ export default function GenesisCase() {
       tier="project"
       slug="genesis"
       title="Genesis: Digital Revolution"
-      date="January, 2021"
-      company="Bahcesehir University"
+      date="February, 2022"
+      company="Bahçeşehir University (student project)"
       role="Designer"
       contentBlocks={[
         {
           type: 'text',
-          text: 'GENESIS is an art project/sub-brand born from a collaboration between two leading festivals; Sonar and DGTL.',
+          text: 'A student concept: GENESIS is an art project and sub-brand imagined as a collaboration between two leading festivals, Sonar and DGTL.',
         },
         {
           type: 'text',

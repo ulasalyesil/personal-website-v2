@@ -40,7 +40,7 @@ export default function About() {
             </div>
             <div>
               <dt>Currently</dt>
-              <dd>Product designer at GetirFinans</dd>
+              <dd>UI Designer, Design Systems at getirfinans</dd>
             </div>
             <div>
               <dt>Open to</dt>
