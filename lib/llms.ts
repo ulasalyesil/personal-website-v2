@@ -31,6 +31,8 @@ export function buildLlmsTxt(): string {
     "",
     "## Case studies",
     "",
+    "These are selected projects, not complete accounts of each role.",
+    "",
     ...CASE_STUDIES.map(
       (c) =>
         `- [${c.title}](${SITE_URL}/${c.slug}): ${c.line} Role: ${c.role}. ${c.year}. ${c.status}.`

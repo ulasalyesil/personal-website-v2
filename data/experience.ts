@@ -75,8 +75,8 @@ export const experience: ExperienceItem[] = [
         employmentPeriod: "2022 — 2023",
         employmentType: "Full-time",
         description:
-          "Designed accessible, responsive interfaces for a global user base in the millions. Designed a QuickBooks integration automating invoice and customer creation from form submissions. Streamlined design-to-development handoff.",
-        skills: ["Product Design", "Accessibility", "Figma"],
+          "Designed accessible, responsive interfaces across Jotform products for a global user base in the millions and contributed to the design system. The QuickBooks integration was one project: a flow for creating invoices and customer records from form submissions. Streamlined design-to-development handoff.",
+        skills: ["Product Design", "Design Systems", "Accessibility", "Figma"],
       },
     ],
   },

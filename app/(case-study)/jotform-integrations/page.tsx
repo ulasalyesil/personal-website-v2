@@ -30,7 +30,7 @@ export default function QuickBooksIntegrationCase() {
       contentBlocks={[
         {
           type: 'text',
-          text: 'As part of Jotform’s integrations team, I designed a QuickBooks connection that lets form submissions create customer records and invoices.',
+          text: 'This is one case study from my broader Jotform role, which included work across product interfaces and the design system. As part of the integrations team, I designed a QuickBooks connection that lets form submissions create customer records and invoices.',
         },
         {
           type: 'image',

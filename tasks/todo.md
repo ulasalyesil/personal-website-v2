@@ -1,5 +1,15 @@
 # Tasks Todo
 
+## Agent-readable portfolio scope (2026-10-01)
+
+- [x] State the broader Jotform role on About and distinguish the QuickBooks case study from the full role.
+- [x] Confirm /cv and /llms.txt inherit the corrected experience description.
+- [x] Verify typecheck, tests, build, and the rendered routes.
+
+### Review
+
+Typecheck, 41 tests, and production build passed. The local production server served the updated Jotform copy on /about, /cv, /jotform-integrations, and /llms.txt. Existing lint warnings remain outside this copy change. Google Search Console indexing is handled separately by the site owner.
+
 ## Elastic type selector study (2026-09-30)
 
 Built locally on `codex/lab-interaction-study`. A React recreation of ElevenLabs' elastic text selector, with nine words. Full brief and website copy are in the vault. Copy corrected on 2026-09-30: direct descriptions and explicit source attribution. Lab will collect attributed recreations, with a React component library as a possible later outcome.
