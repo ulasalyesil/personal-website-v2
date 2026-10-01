@@ -3,6 +3,8 @@
 ## Patterns & Rules
 <!-- Document patterns and rules learned from corrections -->
 
+- **A selected case study must not stand in for an entire role.** State the breadth of the role in the experience summary and describe the case study as one example, especially when the project title contains the employer name.
+
 - **Never run `npm run build` while the dev server is running** — they share
   `.next/`, and the build clobbers the dev server's compiled chunks
   (MODULE_NOT_FOUND on vendor-chunks). Stop the preview server before
