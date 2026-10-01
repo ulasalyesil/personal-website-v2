@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageIntro from "@/components/site/PageIntro";
 import JsonLd from "@/components/site/JsonLd";
+import Button from "@/components/ui/Button";
 import { experience } from "@/data/experience";
 import { PROFILE } from "@/data/profile";
 import { CASE_STUDIES } from "@/data/work";
@@ -27,6 +28,15 @@ export default function CvPage() {
       <PageIntro title="CV" aside={PROFILE.name} />
 
       <article className={styles.cv}>
+        <div>
+          <Button
+            href={PROFILE.cvPdf}
+            download="Ulas-Alyesil-CV.pdf"
+            label="Download PDF"
+            type="secondary"
+          />
+        </div>
+
         <section aria-labelledby="cv-profile">
           <h2 id="cv-profile">Profile</h2>
           <dl className={styles.facts}>

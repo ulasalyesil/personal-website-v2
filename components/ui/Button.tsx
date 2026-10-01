@@ -20,6 +20,8 @@ interface ButtonProps {
   href: string;
   target?: string;
   className?: string;
+  /** Downloads the file instead of navigating: a plain anchor, not a route. */
+  download?: string;
 }
 
 export default function Button({
@@ -28,7 +30,20 @@ export default function Button({
   href,
   target,
   className,
+  download,
 }: ButtonProps) {
+  if (download) {
+    return (
+      <a
+        href={href}
+        download={download}
+        className={cn(styles[type], className)}
+        onClick={() => triggerHaptic("light")}
+      >
+        {label}
+      </a>
+    );
+  }
   return (
     <Link
       href={href}

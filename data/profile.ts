@@ -16,6 +16,8 @@ export const PROFILE = {
   employer: current?.companyName,
   location: { city: "Istanbul", country: "TR", label: "Istanbul, Türkiye" },
   openTo: "Remote work and relocation",
+  /** The downloadable CV. Replace the file in public/ to update it; the name stays. */
+  cvPdf: "/ulas-alyesil-cv.pdf",
   email: EMAIL,
   url: SITE_URL,
   sameAs: [
@@ -34,7 +36,7 @@ export const PROFILE = {
   languages: [
     { name: "Turkish", code: "tr", level: "Native" },
     { name: "English", code: "en", level: "Fluent" },
-    { name: "German", code: "de", level: "Beginner" },
+    { name: "German", code: "de", level: "Elementary (A2)" },
   ],
   knowsAbout: [
     "Design systems",
