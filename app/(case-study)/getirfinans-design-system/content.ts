@@ -191,6 +191,13 @@ export const contentBlocks: ContentBlock[] = [
         text: "Its motion never lived in Figma. I measured the reference recording frame by frame, marked every value as measured or chosen, and checked it against a SwiftUI prototype before engineering picked it up. It corrected a transition the app had shipped wrong.",
       },
       {
+        type: "custom",
+        id: "feature-area-recording",
+        width: "wide",
+        caption:
+          "Feature Area in the SwiftUI prototype. The card stays still while its text slides and the illustration dissolves in place.",
+      },
+      {
         type: "list",
         lead: "Two rules came out of the component work:",
         items: [

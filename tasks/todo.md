@@ -10,6 +10,23 @@
 
 Typecheck, 41 tests, and production build passed. The local production server served the updated Jotform copy on /about, /cv, /jotform-integrations, and /llms.txt. Existing lint warnings remain outside this copy change. Google Search Console indexing is handled separately by the site owner.
 
+## Lab gallery and detail redesign (2026-10-01)
+
+Approved direction and full build spec: vault `03-projects/personal-website/lab/lab-experience-direction.md`.
+
+- [x] Build compact gallery and standalone detail routes for all eight entries.
+- [x] Embed Elastic Type and Brand Layers; preserve standalone prototypes.
+- [x] Verify playback, keyboard use, return navigation and mobile layouts.
+- [x] Run typecheck, existing tests, targeted lint and production build.
+- [x] Record final browser evidence and limitations.
+
+
+### Review
+
+Local production preview: http://localhost:3112/lab. Eight standalone entry routes replace the modal; Elastic Type and Brand Layers run inline. Production build, TypeScript and 41 tests pass; existing lint warnings remain. Verified entry metadata/404s, prototype URLs, responsive overflow checks, keyboard interaction, FX playback and gallery return behavior. No runtime errors observed in the final browser session.
+
+Physical touch-device feel, OS reduced motion, 200% zoom and full cross-browser/theme checks remain manual. Unrelated ds-stepper files untouched. No commit or deployment.
+
 ## Elastic type selector study (2026-09-30)
 
 Built locally on `codex/lab-interaction-study`. A React recreation of ElevenLabs' elastic text selector, with nine words. Full brief and website copy are in the vault. Copy corrected on 2026-09-30: direct descriptions and explicit source attribution. Lab will collect attributed recreations, with a React component library as a possible later outcome.

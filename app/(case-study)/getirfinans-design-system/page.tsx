@@ -23,7 +23,24 @@ export default function GetirFinansDesignSystemCase() {
       {...meta}
       summary="Dark mode shipped across the app in two months. By September 2026, 8.5% of users had adopted it without a promotion."
       contentBlocks={contentBlocks}
-      customComponents={{ "token-values": <TokenValues /> }}
+      customComponents={{
+        "token-values": <TokenValues />,
+        "feature-area-recording": (
+          <div className="flex justify-center rounded-xl bg-surface-1 px-4 py-6 sm:py-10">
+            <video
+              controls
+              muted
+              playsInline
+              preload="metadata"
+              poster="/video/lab/feature-area-poster.jpg"
+              aria-label="SwiftUI Feature Area prototype: the card stays still while its contents transition between promotions"
+              className="aspect-[24/11] w-full max-w-[44rem] rounded-xl object-cover object-[center_23%]"
+            >
+              <source src="/video/lab/feature-area.mp4" type="video/mp4" />
+            </video>
+          </div>
+        ),
+      }}
     />
   );
 }

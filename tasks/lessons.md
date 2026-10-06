@@ -134,6 +134,16 @@
 ## Project-Specific Notes
 <!-- Notes specific to this portfolio project -->
 
+- **Keep the project name as the display moment in the kit feature.** Set its
+  supporting sentence in smaller, regular-weight Geist type, with the same
+  visual measure as the description.
+  (Correction, 2026-10-07.)
+
+- **Reuse the homepage's existing CTA style for new homepage links.** The
+  `[ Get in touch ]` link sets the bracket, color, spacing, and interaction
+  pattern. Check it before adding a new CTA treatment. (Correction,
+  2026-10-07.)
+
 - **Credit interaction recreations directly and describe their behavior plainly.**
   For the ElevenLabs selector, say it is a recreation and name ElevenLabs.
   Avoid poetic copy and wording that implies an original interaction design.
@@ -153,3 +163,5 @@
   screens on the page are shipped. Do not frame shown work as unfinished; check
   any "still in progress" or "unproven" line against what the page shows.
   (Correction, 2026-09-16.)
+
+- **Lab previews need a background and a separate foreground work.** Do not use a saturated tint behind a full-container contain image: mismatched ratios turn it into colored letterboxing. Keep intrinsic asset dimensions, deliberate inset space on every side, and a quiet stage independent of the media. (Correction, 2026-10-01.)

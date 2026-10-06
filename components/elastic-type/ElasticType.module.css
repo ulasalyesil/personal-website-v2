@@ -259,3 +259,19 @@
     transition: none;
   }
 }
+
+.embedded {
+  min-width: 0;
+}
+.embedded .stage {
+  height: clamp(340px, 48svh, 540px);
+}
+@media (max-width: 600px) {
+  .embedded .stage {
+    height: 380px;
+  }
+  .embedded .sheetFooter {
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+}

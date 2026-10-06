@@ -25,11 +25,12 @@ type Props = {
   poster?: string;
   /** decorative — the entry's own copy describes it */
   label: string;
+  onError?: () => void;
 };
 
 const DeviceFrame = forwardRef<HTMLVideoElement, Props>(function DeviceFrame(
-  { src, poster, label },
-  ref,
+  { src, poster, label, onError },
+  ref
 ) {
   return (
     <div
@@ -43,7 +44,8 @@ const DeviceFrame = forwardRef<HTMLVideoElement, Props>(function DeviceFrame(
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
+        onError={onError}
         aria-label={label}
         className="absolute object-cover"
         style={{ ...SCREEN, borderRadius: "6%/2.8%" }}

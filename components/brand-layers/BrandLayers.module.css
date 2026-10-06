@@ -577,3 +577,7 @@
   position: static;
   transform: none;
 }
+
+.embedded {
+  padding: 0;
+}

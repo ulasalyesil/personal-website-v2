@@ -13,7 +13,7 @@ import landingFinal from "@/public/images/consiligiere/landing-final.webp";
 export const meta = {
   slug: "consiligiere",
   title: "A marketplace for verified professionals, from brief to both sides",
-  date: "December 2025 — January 2026",
+  date: "2025",
   company: "Consiligiere (freelance)",
   role: "Product Design, Visual Direction",
   team: "With Eylül Deniz Kızılay (eyluldeniz.com), for the founder",

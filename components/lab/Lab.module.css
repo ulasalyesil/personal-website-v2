@@ -1,0 +1,127 @@
+.page {
+  padding: 0 var(--gutter) clamp(56px, 8vw, 112px);
+}
+.intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(36px, 5vw, 64px) 0 36px;
+}
+.intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.intro p {
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.detailHeading {
+  padding: 28px 0 24px;
+}
+.detailHeading a,
+.description a,
+.next > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.detailHeading a {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+.detailHeading h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.mediaError {
+  position: absolute;
+  bottom: 12px;
+  margin: 0 12px;
+  padding: 8px 12px;
+  background: var(--color-surface-0);
+  font-size: 13px;
+}
+.description {
+  max-width: 60ch;
+  margin: 32px 0 56px;
+}
+.description > p:not(.meta) {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.description a {
+  margin-top: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 14px;
+}
+.meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+.next {
+  border-top: 1px solid var(--color-border-default);
+  padding-top: 24px;
+}
+.next a {
+  gap: 24px;
+  text-decoration: none;
+}
+.next strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.next a:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.page a:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 5px;
+}
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .intro {
+    display: block;
+    padding: 32px 0 28px;
+  }
+  .intro h1 {
+    font-size: 36px;
+  }
+  .intro p {
+    margin-top: 16px;
+  }
+  .next a {
+    gap: 16px;
+  }
+  .next strong {
+    font-size: 18px;
+  }
+}

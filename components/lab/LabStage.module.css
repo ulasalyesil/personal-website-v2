@@ -1,0 +1,129 @@
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 6px;
+  background: color-mix(
+    in srgb,
+    var(--lab-accent) 9%,
+    var(--color-surface-1, #eeece8)
+  );
+}
+/* Light belongs to the stage. Its edges never depend on the artwork ratio. */
+.stage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -15%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 24% 12%,
+      rgb(255 255 255 / 0.48),
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 40%,
+      color-mix(in srgb, var(--lab-accent) 9%, transparent)
+    );
+  transform: translate3d(-1%, -1%, 0);
+  transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.stage[data-format="preview"],
+.stage[data-format="thumbnail"] {
+  aspect-ratio: 4 / 3;
+}
+.work {
+  position: absolute;
+  inset: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.work > img,
+.work > video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow:
+    0 16px 34px -16px rgb(0 0 0 / 0.32),
+    0 1px 3px rgb(0 0 0 / 0.07);
+}
+.stage[data-phone] .work {
+  inset: 8%;
+}
+.stage[data-phone] .work > video {
+  height: 100%;
+  border-radius: 18px;
+}
+.stage[data-format="detail"] {
+  height: 70svh;
+  min-height: 320px;
+}
+.stage[data-format="detail"] .work {
+  inset: 6%;
+}
+.stage[data-format="interactive"] {
+  padding: clamp(16px, 3vw, 44px);
+}
+.stage[data-format="interactive"] .work {
+  position: relative;
+  inset: auto;
+  display: block;
+}
+.stage[data-format="interactive"] .work > section {
+  padding: clamp(16px, 2vw, 28px);
+  border-radius: 4px;
+  background: var(--color-surface-0);
+}
+.stage[data-format="thumbnail"] {
+  width: 160px;
+  flex-shrink: 0;
+}
+.stage[data-format="thumbnail"] .work {
+  inset: 12%;
+}
+@media (hover: hover) and (pointer: fine) {
+  a:hover .stage::before,
+  .stage:hover::before {
+    transform: translate3d(3%, 2%, 0);
+  }
+}
+a:focus-visible .stage::before,
+.stage:focus-within::before {
+  transform: translate3d(3%, 2%, 0);
+}
+@media (max-width: 899px) {
+  .stage[data-format="detail"] {
+    height: auto;
+    min-height: 0;
+  }
+  .stage[data-format="detail"] .work {
+    position: relative;
+    inset: auto;
+    padding: 8%;
+  }
+  .stage[data-format="detail"] .work > img {
+    width: 100%;
+  }
+  .stage[data-format="detail"] .work > video {
+    width: auto;
+    height: auto;
+    max-height: 75svh;
+  }
+  .stage[data-format="thumbnail"] {
+    width: 96px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage::before {
+    transition: none;
+    transform: none !important;
+  }
+}

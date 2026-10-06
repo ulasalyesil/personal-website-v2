@@ -1,7 +1,9 @@
 export type LabMedia = {
   /** Still frame — /images/lab/<slug>.webp */
   src: string;
-  /** Optional muted loop — plays on hover in the grid, autoplays in the modal. */
+  width: number;
+  height: number;
+  /** Optional muted loop — plays on hover in the grid, plays on request in the detail page. */
   video?: string;
   /** Poster for the video's resting state. */
   poster?: string;
@@ -40,6 +42,8 @@ export const LAB_ITEMS: LabItem[] = [
       "Recreation of ElevenLabs' elastic text selector, built in React. Drag the list to browse, then release to snap to a word. The text bends with the gesture and straightens as it settles. Supports clicking, keyboard selection, and reduced motion. Original interaction by ElevenLabs.",
     media: {
       src: "/images/lab/elastic-type.png",
+      width: 816,
+      height: 694,
       alt: "An elastic vertical list of words on warm paper, with Elastic selected between vermilion brackets",
     },
     tint: "#c36a50",
@@ -52,9 +56,11 @@ export const LAB_ITEMS: LabItem[] = [
     date: "sep 2026",
     summary: "A brand as a layer of decisions, not a copy of the system.",
     blurb:
-      "The idea: a brand is not a second design system, it is a set of decisions about the one you already have. Take those decisions out of the components and a component stops knowing which bank it belongs to. It asks for intent, the surface, the primary action, the thing to emphasise, and the layers answer: the brand gives it a voice, the mode gives it light or dark, the sentiment says what the moment means, the state says what the hand is doing. Some decisions refuse to be branded on purpose. An overdue payment looks overdue in every bank, because a meaning that changes with the logo is no longer a meaning. The ticket here is never edited; everything that changes is the system answering the same question differently.",
+      "One payment ticket, unchanged across three brands, two modes and five payment states. Switch the controls to see how each layer resolves the same component. Brand gives it a voice; semantic tokens preserve its meaning, so an overdue payment still reads as overdue in every brand.",
     media: {
       src: "/images/lab/brand-layers.webp",
+      width: 1600,
+      height: 1000,
       video: "/video/lab/brand-layers.mp4",
       poster: "/video/lab/brand-layers-poster.jpg",
       alt: "A payment ticket with token labels wired to each part, re-resolving across three brands, light and dark, and five payment states",
@@ -70,9 +76,11 @@ export const LAB_ITEMS: LabItem[] = [
     summary:
       "Three people, three AIs, and a typed model of what the team knows \u2014 instead of a shared chat.",
     blurb:
-      "The actual problem: put three people and three AIs on one project and the default answer is a shared chat, which flattens everything anyone believes into a transcript nobody rereads. This builds the other thing, a typed model of what the team knows, assumes, disputes and has decided, where every card carries whether a person said it, a model inferred it, or the team accepted it. Private threads stay private; moving something out of one is a deliberate act with four different destinations, and proposing it as truth opens a review instead of writing it. Disagreements sit side by side rather than getting summarized away, and the model's confidence number is shown last, under the evidence, because a number raises trust in a wrong answer even when it means nothing.",
+      "A shared model of what a team knows, assumes, disputes and has decided. Private AI threads stay private. Moving an insight into the shared model is deliberate, and proposing it as truth opens a review. Disagreements remain visible beside each other.",
     media: {
       src: "/images/lab/common-ground.webp",
+      width: 1600,
+      height: 1000,
       alt: "A private AI thread open over a shared knowledge model, offering four ways to move an insight out of the private context",
     },
     tint: "#4a4a7d",
@@ -86,9 +94,11 @@ export const LAB_ITEMS: LabItem[] = [
     summary:
       "Concept work, not shipped: the pre-approved limit screen with a Liquid Glass button and a soft 3D illustration.",
     blurb:
-      "Concept work, not shipped. The screen tells a new customer their limit is pre-approved and asks them to continue. Three things are being tried here. The button is the iOS 27 Liquid Glass prominent style instead of a flat fill. The illustration follows the direction the team set for the new system: lit objects with a cast shadow, a checked document, a stack of gold and a lira coin, drawn for dark mode from the first frame rather than inverted after. The offer badge sits on the card's edge, so the offer reads as attached to the card instead of as another line of text.",
+      "Concept work, not shipped. A pre-approved limit screen exploring a Liquid Glass button, a soft 3D illustration built for light and dark, and an offer badge attached to the card’s edge.",
     media: {
       src: "/images/lab/getirfinansli-ol-concept.webp",
+      width: 3200,
+      height: 2000,
       alt: "Concept screens for a pre-approved limit, light mode beside dark: a soft 3D illustration of a checked document, gold and a lira coin, an offer card with a badge on its edge, and a Liquid Glass continue button",
     },
     tint: "#7849f7",
@@ -104,6 +114,8 @@ export const LAB_ITEMS: LabItem[] = [
       "The actual problem: two fingers on the chart should select a range, not a point, and SwiftUI gestures only ever expose one touch. A bare UIView underneath reports raw multi-touch instead, so the chart owns the gesture, recolors the band by direction, and swaps the hero to a two-date delta while the rest of the screen is locked from scrolling out from under it.",
     media: {
       src: "/images/lab/fx-chart-range.webp",
+      width: 1600,
+      height: 1000,
       video: "/video/lab/fx-chart-range.mp4",
       poster: "/video/lab/fx-chart-range-poster.jpg",
       device: "iphone",
@@ -119,9 +131,11 @@ export const LAB_ITEMS: LabItem[] = [
     summary:
       "A carousel card that stays still while only its contents move, rebuilt from a spec measured off a screen recording.",
     blurb:
-      "The actual problem: the shipped carousel got its transition wrong, and the only reference for the right one was a screen recording of a prototype. So the motion was measured off the video frame by frame, fitting each frame as a window onto two pages to separate travel from opacity. The rebuild keeps the card still and moves only what is inside it: the text slides one card width over an illustration that stays pinned and cross-dissolves in place. Every pose is a pure function of one page fraction, so any frame can be frozen and checked against the spec, and a swipe takes over mid-transition from wherever the motion is.",
+      "A carousel rebuilt from motion measured frame by frame off a reference recording. The card stays still: text slides one card width while the illustration cross-dissolves in place. A swipe can take over mid-transition, and any frame can be frozen to check against the spec.",
     media: {
       src: "/images/lab/feature-area.webp",
+      width: 1600,
+      height: 1000,
       video: "/video/lab/feature-area.mp4",
       poster: "/video/lab/feature-area-poster.jpg",
       device: "iphone",
@@ -140,6 +154,8 @@ export const LAB_ITEMS: LabItem[] = [
       "Hero carousel that zooms into the campaign it was showing, so the card you tapped is the page you land on rather than a new screen that replaces it. Artwork drives the backdrop, and the entrance choreography runs once per launch instead of on every return.",
     media: {
       src: "/images/lab/campaigns.webp",
+      width: 1600,
+      height: 1000,
       video: "/video/lab/campaigns.mp4",
       poster: "/video/lab/campaigns-poster.jpg",
       device: "iphone",
@@ -158,6 +174,8 @@ export const LAB_ITEMS: LabItem[] = [
       "Rebuilt the color foundation of a live fintech app as a two-tier token system, primitives carrying values, semantics carrying intent, so modes resolve at the semantic layer instead of a 1:1 hex inversion. Brand purple stays a fixed anchor across both modes, status colors range-switch instead of inverting, same screen, one design file.",
     media: {
       src: "/images/lab/dark-mode.webp",
+      width: 1600,
+      height: 1000,
       alt: "getirfinans home screen shown side by side in light and dark mode",
     },
     tint: "#6b4f9e",

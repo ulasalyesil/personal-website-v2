@@ -48,7 +48,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: "Consiligiere",
     line: "A marketplace for verified professionals, from brief to both sides of the app.",
     role: "Product design, visual direction",
-    year: "2025 to 2026",
+    year: "2025",
     status: "Investor concept, designed with Eylül",
     cover: consiligiereCover,
     alt: "Four Consiligiere customer app screens: two home pages, search results, and a provider profile with a booking picker",

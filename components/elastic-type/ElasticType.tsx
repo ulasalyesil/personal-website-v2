@@ -6,7 +6,11 @@ import type { KeyboardEvent, PointerEvent } from "react";
 import { clamp, INITIAL, landing, LAST, pose, resist, WORDS } from "./physics";
 import styles from "./ElasticType.module.css";
 
-export default function ElasticType() {
+export default function ElasticType({
+  embedded = false,
+}: {
+  embedded?: boolean;
+}) {
   const [selected, setSelected] = useState(INITIAL);
   const [dragging, setDragging] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -215,20 +219,22 @@ export default function ElasticType() {
   }
 
   return (
-    <article className={styles.page}>
-      <header className={styles.heading}>
-        <div>
-          <Link className={styles.back} href="/lab">
-            ← Lab
-          </Link>
-          <h1>Elastic type</h1>
-        </div>
-        <p>
-          A React recreation of
-          <br />
-          ElevenLabs&apos; text selector.
-        </p>
-      </header>
+    <article className={embedded ? styles.embedded : styles.page}>
+      {!embedded && (
+        <header className={styles.heading}>
+          <div>
+            <Link className={styles.back} href="/lab">
+              ← Lab
+            </Link>
+            <h1>Elastic type</h1>
+          </div>
+          <p>
+            A React recreation of
+            <br />
+            ElevenLabs&apos; text selector.
+          </p>
+        </header>
+      )}
       <section
         className={styles.sheet}
         aria-label="Elastic type interaction study"
@@ -306,10 +312,14 @@ export default function ElasticType() {
           </div>
         </footer>
       </section>
-      <footer className={styles.notes}>
-        <p>Original interaction by ElevenLabs.</p>
-        <span>{reduced ? "Reduced motion" : "React · Pointer + keyboard"}</span>
-      </footer>
+      {!embedded && (
+        <footer className={styles.notes}>
+          <p>Original interaction by ElevenLabs.</p>
+          <span>
+            {reduced ? "Reduced motion" : "React · Pointer + keyboard"}
+          </span>
+        </footer>
+      )}
     </article>
   );
 }

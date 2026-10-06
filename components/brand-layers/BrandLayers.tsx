@@ -103,7 +103,11 @@ const LAYER_LABEL = {
   primitive: "Primitive",
 } as const;
 
-export default function BrandLayers() {
+export default function BrandLayers({
+  embedded = false,
+}: {
+  embedded?: boolean;
+}) {
   const [brand, setBrand] = useState<BrandId>("a");
   const [mode, setMode] = useState<Mode>("light");
   const [sentiment, setSentiment] = useState<SentimentId>("proposition");
@@ -215,7 +219,10 @@ export default function BrandLayers() {
   };
 
   return (
-    <section className={styles.root} aria-label="Brand Layers">
+    <section
+      className={`${styles.root} ${embedded ? styles.embedded : ""}`}
+      aria-label="Brand Layers"
+    >
       <div className={styles.controls}>
         <Radios
           legend="Brand"
