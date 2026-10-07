@@ -58,6 +58,10 @@ module.exports = {
       // clean URL needs pointing at the export's entry document.
       { source: "/common-ground", destination: "/common-ground/index.html" },
       { source: "/common-ground/", destination: "/common-ground/index.html" },
+      // agent-bridge landing: one static page in public/agent-bridge, same
+      // pattern as Common Ground.
+      { source: "/agent-bridge", destination: "/agent-bridge/index.html" },
+      { source: "/agent-bridge/", destination: "/agent-bridge/index.html" },
     ];
   },
   async redirects() {

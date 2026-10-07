@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>agent-bridge</title>
+<meta name="description" content="One inbox for two people's agents. Messages, decisions and full-res files, synced over a folder on your two Macs.">
+<link rel="canonical" href="https://ulasalyesil.com/agent-bridge">
+<meta property="og:title" content="agent-bridge">
+<meta property="og:description" content="One inbox for two people's agents. Messages, decisions and full-res files, synced over a folder on your two Macs.">
+<meta property="og:url" content="https://ulasalyesil.com/agent-bridge">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: one stage (two Macs + the folder between them) that changes as you scroll; text is one line per step. Signal blue = something crossing. */
+:root {
+  --bg: #c3c5c9;
+  --panel: #d3d5d8;
+  --panel-hi: #e2e3e6;
+  --ink: #131416;
+  --muted: #474a52;
+  --rule: rgba(19, 20, 22, .17);
+  --signal: #1f35ff;
+  --signal-ink: #ffffff;
+  --ok: #156b3c;
+  --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 4px;
+  --r-lg: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17181a; --panel: #1f2023; --panel-hi: #292a2e; --ink: #e7e8ea; --muted: #a0a3ab;
+    --rule: rgba(231, 232, 234, .13); --signal: #7d8aff; --signal-ink: #0b0c12; --ok: #5ccf90;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17181a; --panel: #1f2023; --panel-hi: #292a2e; --ink: #e7e8ea; --muted: #a0a3ab;
+  --rule: rgba(231, 232, 234, .13); --signal: #7d8aff; --signal-ink: #0b0c12; --ok: #5ccf90;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--display); font-size: 16px; line-height: 1.5;
+  padding-inline: clamp(16px, 3vw, 40px); padding-block: 0;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1240px; margin-inline: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; border-radius: 2px; }
+h1, h2, p { margin: 0; }
+h1, h2 { font-weight: 500; text-wrap: balance; }
+.label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+
+.key {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding-inline: 4px;
+  font-family: var(--mono); font-size: 9.5px; line-height: 1; border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 52%, var(--bg)); color: var(--bg);
+}
+
+/* header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 500; letter-spacing: -.01em; text-decoration: none; }
+.mark { position: relative; width: 30px; height: 10px; flex: none; }
+.mark::before, .mark::after { content: ""; position: absolute; top: 1px; width: 8px; height: 8px; background: var(--ink); border-radius: 1px; }
+.mark::before { left: 0; } .mark::after { right: 0; }
+.mark i { position: absolute; left: 8px; right: 8px; top: 4.5px; height: 1px; background: var(--signal); }
+.nav { display: flex; align-items: center; gap: 18px; }
+.nav a { font-family: var(--mono); font-size: 11px; text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.theme-btn { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding-inline: 8px 6px; border: 0; border-radius: var(--r); background: var(--panel-hi); color: var(--ink); cursor: pointer; }
+.theme-btn .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-block: clamp(32px, 7vh, 72px) 40px; }
+.hero h1 { grid-column: 1 / span 8; min-width: 0; font-size: clamp(44px, 7.4vw, 108px); line-height: .92; letter-spacing: -.045em; }
+.hero h1 em { font-style: normal; color: var(--signal); }
+.intro { grid-column: 9 / span 4; min-width: 0; background: var(--panel); border-radius: var(--r-lg); padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.intro p { font-size: 15px; line-height: 1.45; }
+.actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; height: 36px; padding-inline: 12px 8px;
+  border: 0; border-radius: var(--r); font-family: var(--display); font-size: 13.5px; font-weight: 500;
+  cursor: pointer; text-decoration: none; background: var(--ink); color: var(--bg);
+  transition: transform .12s ease;
+}
+.btn:active { transform: scale(.96); }
+.btn .key { background: color-mix(in srgb, var(--bg) 30%, var(--ink)); color: var(--ink); }
+.btn .slot { display: inline-grid; }
+.btn .slot > span { grid-area: 1 / 1; transition: opacity .15s ease; }
+.btn .slot .done { opacity: 0; }
+.btn.copied .slot .idle { opacity: 0; }
+.btn.copied .slot .done { opacity: 1; }
+.link { font-size: 13.5px; font-weight: 500; }
+@media (max-width: 960px) {
+  .hero h1, .intro { grid-column: 1 / -1; }
+  .intro { max-width: 560px; }
+}
+
+/* story: captions scroll past a sticky stage */
+.story { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; border-top: 1px solid var(--rule); }
+.captions { grid-column: 1 / span 4; list-style: none; margin: 0; padding: 0; }
+.captions li { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; gap: 10px; transition: opacity .3s ease; }
+.captions li:first-child { min-height: 60vh; }
+.story.live .captions li:not(.cur) { opacity: .28; }
+.captions .n { font-family: var(--mono); font-size: 11px; color: var(--signal); }
+.captions h2 { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.08; letter-spacing: -.025em; }
+.soon { align-self: flex-start; font-family: var(--mono); font-size: 10px; letter-spacing: .05em; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 2px 6px; }
+.stage-col { grid-column: 5 / span 8; min-width: 0; }
+.stage {
+  position: sticky; top: calc(50vh - 220px);
+  display: grid; grid-template-columns: minmax(0, 1fr) 112px minmax(0, 1fr); align-items: stretch;
+  margin-block: 12vh;
+}
+
+.mac { background: var(--panel-hi); border: 1px solid var(--rule); border-radius: var(--r-lg); overflow: hidden; min-width: 0; display: flex; flex-direction: column; }
+.mac-bar { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+.lights { display: flex; gap: 5px; }
+.lights i { width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 22%, transparent); }
+.mac-bar .who { font-family: var(--mono); font-size: 10.5px; }
+.mac-bar .who b { font-weight: 500; }
+.mac-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 360px; }
+.mac-body .push { margin-top: auto; }
+
+.it { transition: opacity .4s ease, transform .4s ease; }
+.stage .it:not(.on) { opacity: 0; transform: translateY(6px); }
+.say { font-family: var(--mono); font-size: 11px; line-height: 1.55; }
+.say::before { content: "› "; color: var(--muted); }
+.box { border: 1px solid var(--rule); border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 8px; background: var(--bg); }
+.row { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 10.5px; }
+.row span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.row .m { color: var(--muted); flex: none; }
+.row .ok { color: var(--ok); flex: none; }
+.row .closed { color: var(--signal); flex: none; }
+.stamp { align-self: flex-start; font-family: var(--mono); font-size: 10px; color: var(--ok); border: 1px solid var(--ok); border-radius: 3px; padding: 2px 6px; }
+.done-line { font-family: var(--mono); font-size: 11px; color: var(--ok); }
+
+.seam { position: relative; display: flex; justify-content: center; }
+.seam::before { content: ""; position: absolute; top: 34px; bottom: 34px; left: 50%; border-left: 1px dashed color-mix(in srgb, var(--ink) 35%, transparent); }
+.seam .label { position: absolute; top: 8px; left: 0; right: 0; text-align: center; font-size: 9.5px; }
+.packet {
+  position: absolute; left: 50%; font-family: var(--mono); font-size: 10px; white-space: nowrap;
+  padding: 5px 8px; border-radius: 3px; background: var(--signal); color: var(--signal-ink);
+  transition: transform .9s cubic-bezier(.5, 0, .2, 1), opacity .4s ease;
+}
+.packet.p-out { top: 46%; }
+.packet.p-back { top: 76%; }
+/* three states: before (at sender, hidden), on (crossing done, at receiver edge), with a trace */
+.packet.p-out { transform: translateX(calc(-50% - 90px)); opacity: 0; }
+.packet.p-out.on { transform: translateX(calc(-50% + 0px)); opacity: 1; }
+.packet.p-back { transform: translateX(calc(-50% + 90px)); opacity: 0; }
+.packet.p-back.on { transform: translateX(calc(-50% + 0px)); opacity: 1; }
+
+@media (max-width: 860px) {
+  .story { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .stage-col { grid-area: 1 / 1; position: relative; z-index: 2; pointer-events: none; }
+  .captions { grid-area: 1 / 1; padding-top: var(--stage-h, 440px); }
+  .stage {
+    top: 8px; z-index: 2; margin-block: 16px 0;
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 40px auto;
+    background: var(--bg); padding-bottom: 8px;
+  }
+  .mac-body { min-height: 0; padding: 10px; gap: 8px; }
+  .mac-a .mac-body { height: 178px; }
+  .mac-b .mac-body { height: 104px; }
+  .seam::before { top: 50%; bottom: auto; left: 24px; right: 24px; border-left: 0; border-top: 1px dashed color-mix(in srgb, var(--ink) 35%, transparent); }
+  .seam .label { top: 50%; left: 0; right: auto; transform: translateY(-50%); background: var(--bg); padding-right: 6px; text-align: left; }
+  .packet.p-out, .packet.p-back { top: 50%; left: 62%; }
+  .packet.p-out { transform: translate(-50%, calc(-50% - 26px)); }
+  .packet.p-out.on { transform: translate(-50%, -50%); }
+  .packet.p-back { left: 38%; transform: translate(-50%, calc(-50% + 26px)); }
+  .packet.p-back.on { transform: translate(-50%, -50%); }
+  .captions li, .captions li:first-child { min-height: 46vh; justify-content: flex-start; padding-top: 24px; }
+  .captions li:last-child { min-height: 60vh; }
+  .say { font-size: 10.5px; }
+}
+
+/* install */
+.install { border-top: 1px solid var(--rule); padding-block: 72px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.install h2 { grid-column: 1 / span 4; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.02; letter-spacing: -.03em; }
+.install .box2 { grid-column: 5 / span 8; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.prompt {
+  font-family: var(--mono); font-size: 12px; line-height: 1.7; background: var(--panel);
+  border-radius: var(--r-lg); padding: 16px 18px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0;
+}
+.pairs { display: flex; flex-wrap: wrap; gap: 8px; }
+.pair { font-family: var(--mono); font-size: 10.5px; padding: 5px 8px; border-radius: 3px; background: var(--panel); color: var(--muted); }
+.pair b { color: var(--signal); font-weight: 400; }
+@media (max-width: 860px) { .install h2, .install .box2 { grid-column: 1 / -1; } .install { padding-block: 56px; } }
+
+footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"><i></i></span>agent-bridge</a>
+    <nav class="nav" aria-label="Links">
+      <a href="https://github.com/ulasalyesil/agent-bridge">GitHub ↗</a>
+      <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch light or dark theme"><span class="dot" aria-hidden="true"></span><span class="key" aria-hidden="true">T</span></button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <h1>Stop relaying between your <em>agents.</em></h1>
+      <div class="intro">
+        <p>One inbox for two people’s agents. Messages, decisions and full‑res files, synced over a folder on your two Macs.</p>
+        <div class="actions">
+          <button class="btn copy-btn" type="button"><span class="slot"><span class="idle">Copy install prompt</span><span class="done">Copied</span></span><span class="key" aria-hidden="true">C</span></button>
+          <a class="link" href="#install">How to install</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="story" id="story" aria-label="How a handoff works">
+      <ol class="captions" id="captions">
+        <li data-step="1"><span class="n">01</span><h2>Ask your agent to send it.</h2></li>
+        <li data-step="2"><span class="n">02</span><h2>See exactly what leaves your Mac.</h2><span class="soon">next release</span></li>
+        <li data-step="3"><span class="n">03</span><h2>It crosses a folder you both share. No server.</h2></li>
+        <li data-step="4"><span class="n">04</span><h2>Their agent checks every file and opens nothing risky.</h2></li>
+        <li data-step="5"><span class="n">05</span><h2>Their reply is your receipt.</h2></li>
+      </ol>
+
+      <div class="stage-col">
+        <div class="stage" id="stage" aria-hidden="true">
+          <div class="mac mac-a">
+            <div class="mac-bar"><span class="lights"><i></i><i></i><i></i></span><span class="who"><b>Ada</b> · Claude Code</span></div>
+            <div class="mac-body">
+              <p class="it say" data-at="1">send Mert the loop and the scene</p>
+              <div class="it box" data-at="2">
+                <span class="label">Leaving your Mac</span>
+                <div class="row"><span>led_loop_v03.mov</span><span class="m num">212 MB</span></div>
+                <div class="row"><span>stage_scene.toe</span><span class="m num">18 MB</span></div>
+                <span class="stamp">✓ approved</span>
+              </div>
+              <p class="it done-line push" data-at="5">✓ Mert: starting color tonight</p>
+            </div>
+          </div>
+
+          <div class="seam">
+            <span class="label">shared folder</span>
+            <span class="packet p-out" data-at="3" data-until="9">2 files →</span>
+            <span class="packet p-back" data-at="5">← reply</span>
+          </div>
+
+          <div class="mac mac-b">
+            <div class="mac-bar"><span class="lights"><i></i><i></i><i></i></span><span class="who"><b>Mert</b> · Codex</span></div>
+            <div class="mac-body">
+              <div class="it box" data-at="4">
+                <span class="label">From Ada</span>
+                <div class="row"><span>led_loop_v03.mov</span><span class="ok">sha256 ✓</span></div>
+                <div class="row"><span>stage_scene.toe</span><span class="closed">left closed</span></div>
+              </div>
+              <p class="it say push" data-at="5">tell Ada I’m starting color tonight</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="install" id="install">
+      <h2>Paste one prompt into your agent.</h2>
+      <div class="box2">
+        <pre class="prompt" id="prompt">Install agent-bridge from https://github.com/ulasalyesil/agent-bridge, read INSTALL.md and follow it. Ask me before every install or config change.</pre>
+        <div class="actions">
+          <button class="btn copy-btn" type="button"><span class="slot"><span class="idle">Copy prompt</span><span class="done">Copied</span></span><span class="key" aria-hidden="true">C</span></button>
+          <span class="label">~15 min per Mac · asks before every change</span>
+        </div>
+        <div class="pairs">
+          <span class="pair">Claude Code <b>⇄</b> Codex</span>
+          <span class="pair">Claude Code <b>⇄</b> Claude Code</span>
+          <span class="pair">Codex <b>⇄</b> Codex</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>agent-bridge · macOS · free</span><a href="https://github.com/ulasalyesil/agent-bridge">Source on GitHub ↗</a></footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  var saved = store('ab-theme');
+  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  function toggleTheme() {
+    var cur = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next); store('ab-theme', next);
+  }
+  document.getElementById('theme-btn').addEventListener('click', toggleTheme);
+
+  var promptText = document.getElementById('prompt').textContent;
+  function copy(btn) {
+    function ok() { btn.classList.add('copied'); setTimeout(function () { btn.classList.remove('copied'); }, 1600); }
+    function fallback() {
+      var el = document.getElementById('prompt'); el.scrollIntoView({ block: 'center' });
+      var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+    try { navigator.clipboard.writeText(promptText).then(ok, fallback); } catch (e) { fallback(); }
+  }
+  var btns = document.querySelectorAll('.copy-btn');
+  btns.forEach(function (b) { b.addEventListener('click', function () { copy(b); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 't' || e.key === 'T') toggleTheme();
+    if (e.key === 'c' || e.key === 'C') copy(btns[0]);
+  });
+
+  /* scroll-driven stage: the caption nearest the trigger line sets the step */
+  var story = document.getElementById('story');
+  var caps = Array.prototype.slice.call(document.querySelectorAll('#captions li'));
+  var items = Array.prototype.slice.call(document.querySelectorAll('#stage [data-at]'));
+  function setStep(n) {
+    items.forEach(function (el) { el.classList.toggle('on', +el.dataset.at <= n); });
+    caps.forEach(function (c) { c.classList.toggle('cur', +c.dataset.step === n); });
+  }
+  setStep(5); /* complete at rest */
+  function update() {
+    var mobile = innerWidth <= 860;
+    var line = innerHeight * (mobile ? 0.78 : 0.5);
+    var r = story.getBoundingClientRect();
+    if (r.top > line || r.bottom < line) { story.classList.remove('live'); setStep(5); return; }
+    story.classList.add('live');
+    var step = 1;
+    caps.forEach(function (c) { if (c.getBoundingClientRect().top <= line) step = +c.dataset.step; });
+    setStep(step);
+  }
+  addEventListener('scroll', update, { passive: true });
+  var stageEl = document.getElementById('stage');
+  function measure() { story.style.setProperty('--stage-h', (innerWidth <= 860 ? stageEl.offsetHeight + 24 : 0) + 'px'); update(); }
+  addEventListener('resize', measure);
+  measure();
+  update();
+})();
+</script>
+</body>
+</html>
