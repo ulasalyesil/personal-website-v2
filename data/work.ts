@@ -15,6 +15,7 @@ export type CaseStudy = {
   status: string;
   cover: StaticImageData;
   alt: string;
+  tint: string;
 };
 
 /**
@@ -25,6 +26,7 @@ export type CaseStudy = {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "getirfinans-ai",
+    tint: "#7849f7",
     title: "GetirFinans AI",
     line: "Suggested prompts account for 31% of assistant messages.",
     role: "Product design, prototyping",
@@ -35,6 +37,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "getirfinans-design-system",
+    tint: "#5d3ebc",
     title: "GetirFinans Design System",
     line: "App-wide dark mode reached 8.5% of users without promotion.",
     role: "Design systems",
@@ -45,6 +48,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "consiligiere",
+    tint: "#49796f",
     title: "Consiligiere",
     line: "A marketplace for verified professionals, from brief to both sides of the app.",
     role: "Product design, visual direction",
@@ -55,6 +59,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "wisecareai",
+    tint: "#47749a",
     title: "WiseCareAI",
     line: "Founding product design for a U.S. health-insurance platform, public site and internal tools.",
     role: "Founding product designer",
@@ -65,6 +70,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "jotform-integrations",
+    tint: "#43815b",
     title: "Jotform | QuickBooks",
     line: "A guided flow for mapping form submissions to QuickBooks customers and invoices.",
     role: "Product design",

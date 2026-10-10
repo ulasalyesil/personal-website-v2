@@ -9,27 +9,6 @@
     var(--color-surface-1, #eeece8)
   );
 }
-/* Light belongs to the stage. Its edges never depend on the artwork ratio. */
-.stage::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -15%;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 24% 12%,
-      rgb(255 255 255 / 0.48),
-      transparent 60%
-    ),
-    linear-gradient(
-      135deg,
-      transparent 40%,
-      color-mix(in srgb, var(--lab-accent) 9%, transparent)
-    );
-  transform: translate3d(-1%, -1%, 0);
-  transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
 .stage[data-format="preview"],
 .stage[data-format="thumbnail"] {
   aspect-ratio: 4 / 3;
@@ -89,16 +68,6 @@
 .stage[data-format="thumbnail"] .work {
   inset: 12%;
 }
-@media (hover: hover) and (pointer: fine) {
-  a:hover .stage::before,
-  .stage:hover::before {
-    transform: translate3d(3%, 2%, 0);
-  }
-}
-a:focus-visible .stage::before,
-.stage:focus-within::before {
-  transform: translate3d(3%, 2%, 0);
-}
 @media (max-width: 899px) {
   .stage[data-format="detail"] {
     height: auto;
@@ -119,11 +88,5 @@ a:focus-visible .stage::before,
   }
   .stage[data-format="thumbnail"] {
     width: 96px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .stage::before {
-    transition: none;
-    transform: none !important;
   }
 }

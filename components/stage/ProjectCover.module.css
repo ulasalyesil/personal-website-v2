@@ -1,0 +1,7 @@
+.artifact {
+  position: absolute;
+  inset: 7%;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 12px 28px -16px rgb(0 0 0 / 0.3);
+}

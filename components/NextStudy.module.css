@@ -45,7 +45,12 @@
   overflow: hidden;
   aspect-ratio: 16 / 10;
   border-radius: 12px;
-  background: var(--color-surface-1);
+  isolation: isolate;
+  background: color-mix(
+    in srgb,
+    var(--stage-accent) 9%,
+    var(--color-surface-1)
+  );
 }
 
 /* Inset edge so light captures keep their shape on light surfaces. */
