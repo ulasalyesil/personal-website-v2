@@ -1,5 +1,16 @@
 # Tasks Todo
 
+## Shared stage shaders (2026-10-10)
+
+- [x] Review Claude's lab shader implementation and extend it to project cover stages on Home, Work, and next-study links.
+- [x] Share one renderer; fix live reduced-motion switching, pause hidden tabs, and bound rendering resolution.
+- [x] Verify browser rendering in light/dark modes, narrow layouts, reduced motion, and no-WebGL fallback.
+- [x] Run typecheck, existing tests, targeted lint and production build; record the review.
+
+### Review
+
+Project covers on Home, Work and next-study links share the Lab renderer. Existing images remain intact inside a 7% inset. Browser checks passed for five project stages, nine lab stages, light/dark updates, 390px layouts, live reduced-motion stop/restart, offscreen idle stages, lab detail rendering, next-study cards, and no-WebGL fallback. No page errors observed. Typecheck, 41 tests, targeted lint and production build passed; existing unrelated build lint warnings remain. Preview: http://localhost:3001/works and /lab. Uncommitted, not deployed. Unrelated ds-stepper files untouched.
+
 ## Agent-readable portfolio scope (2026-10-01)
 
 - [x] State the broader Jotform role on About and distinguish the QuickBooks case study from the full role.

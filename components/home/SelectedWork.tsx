@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import ProjectCover from "@/components/stage/ProjectCover";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { CaseStudy as WorkPiece } from "@/data/work";
 import { Caption, Marks } from "@/components/hud";
@@ -53,27 +54,31 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
           >
             <div
               className={styles.media}
-              style={{ viewTransitionName: `project-${piece.slug}-cover` }}
+              style={
+                {
+                  viewTransitionName: `project-${piece.slug}-cover`,
+                  "--stage-accent": piece.tint,
+                } as CSSProperties
+              }
             >
-              <Image
-                src={piece.cover}
-                alt={piece.alt}
-                fill
+              <ProjectCover
+                study={piece}
                 sizes={
                   i < 2
                     ? "(max-width: 768px) 100vw, 66vw"
                     : "(max-width: 768px) 100vw, 45vw"
                 }
                 priority={i === 0}
-                fetchPriority={i === 0 ? "high" : undefined}
-                className={styles.image}
+                imageClassName={styles.image}
               />
               {/* Selection marks, not a border: the cover reads as the thing
                   currently picked out on a canvas. The float label states
                   the one fact the text below does not repeat. */}
               <Marks kind="select" />
               <Crosshair />
-              <Caption at="top">{PAD(i)} · {piece.year}</Caption>
+              <Caption at="top">
+                {PAD(i)} · {piece.year}
+              </Caption>
             </div>
             <div className={styles.text}>
               <h3

@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import ProjectCover from "@/components/stage/ProjectCover";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { CaseStudy } from "@/data/work";
 import { triggerHaptic } from "@/lib/haptics";
@@ -36,14 +37,18 @@ export default function NextStudy({ study }: { study: CaseStudy }) {
         </div>
         <div
           className={styles.media}
-          style={{ viewTransitionName: `project-${study.slug}-cover` }}
+          style={
+            {
+              viewTransitionName: `project-${study.slug}-cover`,
+              "--stage-accent": study.tint,
+            } as CSSProperties
+          }
         >
-          <Image
-            src={study.cover}
-            alt=""
-            fill
+          <ProjectCover
+            study={study}
+            decorative
             sizes="(max-width: 900px) 100vw, 50vw"
-            className={styles.image}
+            imageClassName={styles.image}
           />
         </div>
       </Link>
