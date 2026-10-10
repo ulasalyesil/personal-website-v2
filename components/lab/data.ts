@@ -33,6 +33,25 @@ export type LabItem = {
 
 export const LAB_ITEMS: LabItem[] = [
   {
+    slug: "flow",
+    title: "—flow",
+    tag: "prototype",
+    date: "oct 2026",
+    summary:
+      "Coded prototypes lost Figma's canvas. This puts every screen, in every state, back on one.",
+    blurb:
+      "A prototype built in code is a link you click through. There is no overview, no way to reach the error state without walking the whole flow, and nowhere to leave feedback on it. —flow lays each flow out as a canvas of live screens. Every node is one screen in one state, rendered from fixed sample data, so a failure is one click away. Comments pin to the exact state and viewport. Missing states shows what a screen should have but doesn't yet. Interface built on Arc by Elia Kuratli. Trailbook is a fictional app.",
+    media: {
+      src: "/images/lab/flow.webp",
+      width: 1600,
+      height: 1000,
+      video: "/video/lab/flow.mp4",
+      poster: "/video/lab/flow-poster.jpg",
+      alt: "A canvas of live Trailbook screens laid out by flow. One opens into a phone frame, jumps to its error state and takes a comment, then the canvas shows its missing states.",
+    },
+    tint: "#9d472f",
+  },
+  {
     slug: "elastic-type",
     title: "Elastic type",
     tag: "interaction",
