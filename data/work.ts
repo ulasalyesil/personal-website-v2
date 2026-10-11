@@ -1,8 +1,8 @@
 import type { StaticImageData } from "next/image";
 
-import gfAiCover from "@/public/images/getirfinans-ai/cover.webp";
-import gfDesignSystemCover from "@/public/images/getirfinans-design-system/home-cover.webp";
-import consiligiereCover from "@/public/images/consiligiere/cover.webp";
+import gfAiCover from "@/public/images/getirfinans-ai/cover-device.webp";
+import gfDesignSystemCover from "@/public/images/getirfinans-design-system/home-cover-device.webp";
+import consiligiereCover from "@/public/images/consiligiere/cover-device.webp";
 import qbCover from "@/public/images/quickbooks/qb_cover.webp";
 import wisecareCover from "@/public/images/wisecare/wisecare_cover.webp";
 
@@ -16,6 +16,11 @@ export type CaseStudy = {
   cover: StaticImageData;
   alt: string;
   tint: string;
+  /** Device covers are cut out and sit straight on the field; window
+   *  covers are full-bleed UI, framed and inset. Bleed is a single phone
+   *  crop, set large and run off the bottom edge so a short capture still
+   *  reads as a full-height device. */
+  frame: "device" | "window" | "bleed";
 };
 
 /**
@@ -26,6 +31,7 @@ export type CaseStudy = {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "getirfinans-ai",
+    frame: "device",
     tint: "#7849f7",
     title: "GetirFinans AI",
     line: "Suggested prompts account for 31% of assistant messages.",
@@ -37,6 +43,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "getirfinans-design-system",
+    frame: "bleed",
     tint: "#5d3ebc",
     title: "GetirFinans Design System",
     line: "App-wide dark mode reached 8.5% of users without promotion.",
@@ -48,6 +55,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "consiligiere",
+    frame: "device",
     tint: "#49796f",
     title: "Consiligiere",
     line: "A marketplace for verified professionals, from brief to both sides of the app.",
@@ -59,6 +67,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "wisecareai",
+    frame: "window",
     tint: "#47749a",
     title: "WiseCareAI",
     line: "Founding product design for a U.S. health-insurance platform, public site and internal tools.",
@@ -70,6 +79,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "jotform-integrations",
+    frame: "window",
     tint: "#43815b",
     title: "Jotform | QuickBooks",
     line: "A guided flow for mapping form submissions to QuickBooks customers and invoices.",

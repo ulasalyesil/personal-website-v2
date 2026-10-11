@@ -16,6 +16,7 @@ export default function LabStage({
     <div
       className={styles.stage}
       data-format={variant}
+      data-item={item.slug}
       data-phone={item.media.device === "iphone" || undefined}
       style={{ "--lab-accent": item.tint } as CSSProperties}
     >

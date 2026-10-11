@@ -3,7 +3,10 @@ import type { CaseStudy } from "@/data/work";
 import StageField from "./StageField";
 import styles from "./ProjectCover.module.css";
 
-/** Keep the captured artifact intact, with a quiet field around it. */
+/**
+ * The field is the only ground. Device covers are cut out and stand on it
+ * directly; window covers are full-bleed UI, so they get an inset frame.
+ */
 export default function ProjectCover({
   study,
   sizes,
@@ -20,7 +23,7 @@ export default function ProjectCover({
   return (
     <>
       <StageField seed={`project-${study.slug}`} tint={study.tint} />
-      <div className={styles.artifact}>
+      <div className={styles.artifact} data-frame={study.frame}>
         <Image
           src={study.cover}
           alt={decorative ? "" : study.alt}

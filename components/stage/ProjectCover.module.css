@@ -5,3 +5,26 @@
   border-radius: 6px;
   box-shadow: 0 12px 28px -16px rgb(0 0 0 / 0.3);
 }
+
+/* Cut-out devices carry their own composition and padding: no frame, and a
+   shadow that follows the device's shape rather than the image box. */
+.artifact[data-frame="device"] {
+  inset: 0;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 18px 28px rgb(0 0 0 / 0.28));
+}
+
+/* Pinned near the top and wider than the stage is tall, so the phone's
+   lower edge always falls outside the stage's clip. */
+.artifact[data-frame="bleed"] {
+  inset: 9% auto auto 50%;
+  width: 42%;
+  aspect-ratio: 958 / 1418;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 18px 28px rgb(0 0 0 / 0.28));
+}

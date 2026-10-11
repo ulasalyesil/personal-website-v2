@@ -165,3 +165,5 @@
   (Correction, 2026-09-16.)
 
 - **Lab previews need a background and a separate foreground work.** Do not use a saturated tint behind a full-container contain image: mismatched ratios turn it into colored letterboxing. Keep intrinsic asset dimensions, deliberate inset space on every side, and a quiet stage independent of the media. (Correction, 2026-10-01.)
+
+- Check Lab stills as well as work covers when removing baked backgrounds from shader stages. Pre-approval contains two screens on a lavender panel. (Correction, 2026-10-11.)
