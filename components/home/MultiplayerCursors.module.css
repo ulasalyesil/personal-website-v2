@@ -1,95 +1,69 @@
-/* Both cursors live in the hero's empty right half and drift within it,
-   never far enough to reach the statement. Hidden below 64rem, where the
-   statement fills the width. */
+/* A reserved grid column keeps both static cursors clear of the statement.
+   Below desktop there is no empty half to hold them, so they are hidden. */
+.cursors {
+  display: none;
+  min-width: 0;
+  padding: 8px;
+}
+
+@media (min-width: 64rem) {
+  .cursors {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-32);
+  }
+}
+
 .cursor {
   --own: #ff6b22;
   --guest: #ff5fa2;
-  position: absolute;
-  display: none;
+  display: flex;
   align-items: flex-start;
   gap: 0.25rem;
+  max-width: 100%;
   color: #0b0b0c;
   text-decoration: none;
 }
 
-@media (min-width: 64rem) {
-  .cursor {
-    display: flex;
-  }
-}
-
 .own {
-  top: 64%;
-  right: 8%;
+  align-self: flex-end;
+  justify-self: start;
   pointer-events: none;
 }
 
 .guest {
-  top: 58%;
-  right: 22%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .own {
-    animation: drift-own 17s ease-in-out infinite;
-  }
-
-  .guest {
-    animation: drift-guest 13s ease-in-out infinite;
-  }
-}
-
-/* The guest has to be catchable to be clicked. */
-.guest:hover,
-.guest:focus-visible {
-  animation-play-state: paused;
-}
-
-@keyframes drift-own {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  35% {
-    transform: translate(-60px, -30px);
-  }
-  70% {
-    transform: translate(20px, 25px);
-  }
-}
-
-@keyframes drift-guest {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  30% {
-    transform: translate(60px, -40px);
-  }
-  65% {
-    transform: translate(-50px, 30px);
-  }
+  align-self: flex-start;
+  justify-self: end;
+  min-height: 44px;
+  min-width: 44px;
 }
 
 .arrow {
   overflow: visible;
+  flex-shrink: 0;
   filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.18));
 }
 
 .tag {
-  margin-top: 0.875rem;
-  padding: 0.125rem 0.375rem;
+  min-width: 0;
+  margin-top: 1rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 2px;
   background: var(--own);
   box-shadow: 0 0 0 1px #fff;
   font-family: var(--font-mono);
-  font-size: var(--text-micro);
+  font-size: var(--text-label);
+  text-transform: uppercase;
   font-weight: 500;
   letter-spacing: var(--tracking-micro);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .guest .tag {
+  min-width: 0;
   background: var(--guest);
 }
 

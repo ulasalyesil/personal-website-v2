@@ -14,7 +14,7 @@ import styles from "./Hero.module.css";
  */
 export default function Hero() {
   return (
-    <section className={styles.hero} aria-label="Introduction">
+    <section className={`content-container ${styles.hero}`} aria-label="Introduction">
       <MultiplayerCursors />
 
       <div className={styles.body}>

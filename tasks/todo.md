@@ -1,5 +1,15 @@
 # Tasks Todo
 
+## Homepage simplicity (2026-10-11)
+
+- [x] Unify homepage labels, spacing, gutters and project media layout.
+- [x] Build isolated feature / tiles / none comparison slots and static cursors.
+- [x] Add capture manifest, run TypeScript and Vitest, and review the diff.
+
+### Review
+
+Default feature plays Flow once on request; tiles loop Flow, Brand Layers and Campaigns only in view, pause in hidden tabs, and use posters under reduced motion. None keeps the later Lab band with manual playback. Shared labels use 12px mono uppercase; section boundaries use 64px below 900px and 128px above, with 1280px content and clamp(24px, 4vw, 64px) gutters. Covers share a left media column and 16:9 ratio; DS bleed geometry and shader stages are preserved. TypeScript and all 42 Vitest tests pass. Capture manifest lists 12 URLs / viewport / theme combinations. Source security review found no new trust boundary: slot values select fixed local variants. Mechanical scan only flagged the existing Geist face. Browser playback, screenshots, DS crop, keyboard and visual reduced-motion checks remain for Claude; dev, build and Chrome were not run. Changes remain uncommitted.
+
 ## Shared stage shaders (2026-10-10)
 
 - [x] Review Claude's lab shader implementation and extend it to project cover stages on Home, Work, and next-study links.
@@ -992,3 +1002,20 @@ Review branch: `codex/portfolio-evidence`, based on `content/case-study-numbers`
 ## Review
 
 At 1000 × 700, the first GetirFinans artifact and its observed usage claim are visible without scrolling. At 390 × 844, the first artifact is visible and the title begins at the fold. The AI and design-system cases show measured results before process, then distinguish shipped captures from prototypes. TypeScript check, 26 tests and production build passed. Existing unrelated lint warnings remain. Consiligiere, WiseCareAI and Jotform were audited in the vault plan; no unsupported outcome claim was added. Ulaş approved the draft; it was merged to `main` as `215ef69` and verified live.
+
+## Shared page layout (2026-10-11)
+
+- [x] Preserve homepage work and feature/tiles content; remove the none slot.
+- [x] Share the 1280px container and responsive gutters across header, heroes, bodies and footer; reuse PageIntro for Lab.
+- [x] Contain static hero cursors and extend the capture list to subpages.
+- [x] Run TypeScript and Vitest; review the diff. No server, build or browser.
+
+Review: `npx tsc --noEmit` passed; `npx vitest run` passed all 42 tests in 6 files. Capture manifest checked for both slots and /works, /lab, /about at both sizes and themes. Focused security review found no changed trust boundary. Rendered layout, hover/focus appearance and screenshots remain unverified because no server, build or browser was run. Existing homepage changes preserved; no commits.
+
+## Tiles chosen (2026-10-11)
+
+- [x] Keep the tiles slot only; remove the feature variant, slot resolver, its test, the capture script and the orphaned LabFeature.
+- [x] Restore mobile regressions: cursors hidden below 64rem as on main; header identity back to one row on phones.
+- [x] Browser check at 1440 and 375 (home, works, lab, about): shared 80px/1360px edges, no horizontal overflow, two-row mobile header.
+
+Review: TypeScript, 41 tests and production build passed; `/` is static again. Tile loops pause while the tab is hidden, so in-view playback was verified in code only.

@@ -64,7 +64,7 @@ export default function WorkIndex({
   const years = [...new Set(rows.map((r) => r.year))];
 
   return (
-    <section className={styles.section} aria-labelledby={id}>
+    <section className={`content-container ${styles.section}`} aria-labelledby={id}>
       <h2 id={id} className={styles.heading}>
         <span className={styles.hash} aria-hidden>
           #

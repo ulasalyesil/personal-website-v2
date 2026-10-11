@@ -34,7 +34,7 @@ export default function LabDetail({
 }) {
   const Experiment = experiments[item.slug];
   return (
-    <article className={styles.page}>
+    <article className={`content-container ${styles.page}`}>
       <header className={styles.detailHeading}>
         <BackToLab />
         <h1>{item.title}</h1>

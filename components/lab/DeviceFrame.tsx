@@ -21,7 +21,7 @@ const SCREEN = {
 const FRAME_ASPECT = 1350 / 2760;
 
 type Props = {
-  src: string;
+  src?: string;
   poster?: string;
   /** decorative — the entry's own copy describes it */
   label: string;

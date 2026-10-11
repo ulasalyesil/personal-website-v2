@@ -92,7 +92,7 @@ export default function WorkExperience({ items }: WorkExperienceProps) {
   );
 
   return (
-    <section className={styles.section} aria-labelledby="experience">
+    <section className={`content-container ${styles.section}`} aria-labelledby="experience">
       <h2 id="experience" className={styles.heading}>
         Experience
       </h2>

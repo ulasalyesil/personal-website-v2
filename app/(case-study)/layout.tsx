@@ -8,7 +8,7 @@ export default function CaseStudyGroupLayout({ children }: { children: React.Rea
       <main
         id="main-content"
         tabIndex={-1}
-        className="w-full flex-1 px-[var(--gutter)] pb-24 outline-none"
+        className="w-full flex-1 pb-24 outline-none"
       >
         {children}
       </main>

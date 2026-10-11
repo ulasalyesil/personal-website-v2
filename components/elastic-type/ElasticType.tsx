@@ -219,7 +219,7 @@ export default function ElasticType({
   }
 
   return (
-    <article className={embedded ? styles.embedded : styles.page}>
+    <article className={embedded ? styles.embedded : `content-container ${styles.page}`}>
       {!embedded && (
         <header className={styles.heading}>
           <div>

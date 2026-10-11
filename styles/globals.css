@@ -20,6 +20,17 @@
      readouts, indices). The tracking is part of the token because mono at
      these sizes closes up without it. */
   --text-label: 0.75rem;
+  /* Homepage rhythm uses a four-pixel base. */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-128: 128px;
   --text-micro: 0.6875rem;
   --tracking-label: 0.08em;
   --tracking-micro: 0.04em;
@@ -137,7 +148,8 @@ body {
 :root {
   /* Page gutter. Every full-width block pads itself with this, so edges
      line up from the header down to the footer. */
-  --gutter: clamp(1rem, 3vw, 2.5rem);
+  --content-max: 1280px;
+  --gutter: clamp(24px, 4vw, 64px);
   --site-header-height: 7.5rem;
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --motion-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
@@ -180,4 +192,11 @@ body {
   ::view-transition-new(*) {
     animation: none !important;
   }
+}
+
+/* One content column for every route. Full-bleed bands wrap this utility. */
+.content-container {
+  width: calc(100% - 2 * var(--gutter));
+  max-width: var(--content-max);
+  margin-inline: auto;
 }

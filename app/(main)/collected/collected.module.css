@@ -2,7 +2,7 @@
    work index uses for its own "Elsewhere". */
 
 .elsewhere {
-  padding: 0 var(--gutter) clamp(3rem, 8vw, 6rem);
+  padding: 0 0 clamp(3rem, 8vw, 6rem);
   font-family: var(--font-mono);
 }
 

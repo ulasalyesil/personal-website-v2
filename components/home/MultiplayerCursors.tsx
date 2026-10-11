@@ -5,22 +5,35 @@ const PATH = "M1 1l5.5 14 2-6 6-2z";
 
 function Arrow({ color }: { color: string }) {
   return (
-    <svg className={styles.arrow} width="18" height="18" viewBox="0 0 16 16" aria-hidden>
-      <path d={PATH} fill="#fff" stroke="#fff" strokeWidth="3" strokeLinejoin="round" />
-      <path d={PATH} fill={color} stroke={color} strokeWidth="0.9" strokeLinejoin="round" />
+    <svg
+      className={styles.arrow}
+      width="18"
+      height="18"
+      viewBox="0 0 16 16"
+      aria-hidden
+    >
+      <path
+        d={PATH}
+        fill="#fff"
+        stroke="#fff"
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
+      <path
+        d={PATH}
+        fill={color}
+        stroke={color}
+        strokeWidth="0.9"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
-/**
- * The hero as a shared file: Ulaş's own cursor and Eylül's, drifting in
- * the empty right half. eyluldeniz.com hosts the same pair the other way
- * round, and each guest cursor links to its owner's site. The guest stops
- * on hover so it can be clicked.
- */
+/** The hero as a shared file: each guest cursor links to its owner's site. */
 export default function MultiplayerCursors() {
   return (
-    <>
+    <div className={styles.cursors}>
       <div className={`${styles.cursor} ${styles.own}`} aria-hidden>
         <Arrow color="var(--own)" />
         <span className={styles.tag}>ulaş</span>
@@ -37,6 +50,6 @@ export default function MultiplayerCursors() {
           eylül<span className={styles.host}> · eyluldeniz.com ↗</span>
         </span>
       </a>
-    </>
+    </div>
   );
 }

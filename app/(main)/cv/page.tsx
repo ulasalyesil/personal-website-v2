@@ -27,7 +27,7 @@ export default function CvPage() {
       <JsonLd data={profilePageJsonLd("/cv")} />
       <PageIntro title="CV" aside={PROFILE.name} />
 
-      <article className={styles.cv}>
+      <article className={`content-container ${styles.cv}`}>
         <div>
           <Button
             href={PROFILE.cvPdf}

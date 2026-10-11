@@ -10,14 +10,6 @@ import { triggerHaptic } from "@/lib/haptics";
 import { isPlainClick, useRouteTransition } from "@/lib/useRouteTransition";
 import styles from "./SelectedWork.module.css";
 
-/**
- * Scale follows the strength of the evidence, not a slot count: the two
- * GetirFinans studies get the width, the earlier work cascades in staggered
- * pairs, newest first. A fifth piece falls back to pairA and starts the next
- * pair on the left.
- */
-const PLACEMENT = ["lead", "counter", "pairA", "pairB"] as const;
-
 /** Card numbers, so the pieces read as an indexed set rather than a grid. */
 const PAD = (n: number) => String(n + 1).padStart(3, "0");
 
@@ -25,7 +17,7 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
   const navigate = useRouteTransition();
 
   return (
-    <section className={styles.section} aria-labelledby="selected-work">
+    <section className={`content-container ${styles.section}`} aria-labelledby="selected-work">
       <div className={styles.head}>
         <h2 id="selected-work" className={styles.heading}>
           <span className={styles.hash} aria-hidden>
@@ -43,7 +35,6 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
           <Link
             key={piece.slug}
             href={`/${piece.slug}`}
-            data-place={PLACEMENT[i] ?? "pairA"}
             className={styles.piece}
             onClick={(e) => {
               triggerHaptic("light");
@@ -63,11 +54,7 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
             >
               <ProjectCover
                 study={piece}
-                sizes={
-                  i < 2
-                    ? "(max-width: 768px) 100vw, 66vw"
-                    : "(max-width: 768px) 100vw, 45vw"
-                }
+                sizes="(max-width: 899px) calc(100vw - 48px), (max-width: 1440px) 55vw, 750px"
                 priority={i === 0}
                 imageClassName={styles.image}
               />

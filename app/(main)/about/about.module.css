@@ -3,7 +3,7 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(1rem, 2vw, 2rem);
   row-gap: 3rem;
-  padding: clamp(2.5rem, 6vw, 5rem) var(--gutter) 0;
+  padding: clamp(2.5rem, 6vw, 5rem) 0 0;
 }
 
 .rail {

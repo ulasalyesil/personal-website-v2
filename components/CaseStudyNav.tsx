@@ -142,7 +142,7 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="flex min-h-11 w-full items-center justify-between gap-3 border-b border-border-subtle px-[var(--gutter)] py-2.5 text-left"
+          className="content-container flex min-h-11 items-center justify-between gap-3 border-b border-border-subtle py-2.5 text-left"
         >
           <span className="truncate text-caption text-text-secondary">
             <span className="text-text-tertiary">In this study: </span>
@@ -169,7 +169,7 @@ export default function CaseStudyNav({ sections }: { sections: NavSection[] }) {
           </svg>
         </button>
         {open && (
-          <ol className="max-h-[60vh] w-full overflow-y-auto border-b border-border-subtle bg-surface-0 px-[var(--gutter)] py-2">
+          <ol className="content-container max-h-[60vh] overflow-y-auto border-b border-border-subtle bg-surface-0 py-2">
             {sections.map((section, i) => (
               <li key={section.id}>
                 <a

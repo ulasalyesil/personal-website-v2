@@ -1,7 +1,7 @@
 /* ─── Page frame (site tokens) ─── */
 
 .root {
-  padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 8vw, 6rem);
   display: grid;
   gap: 1.25rem;
 }

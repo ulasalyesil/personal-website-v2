@@ -15,7 +15,7 @@ export default function CaseStudyList({ studies }: { studies: CaseStudy[] }) {
   const navigate = useRouteTransition();
 
   return (
-    <section className={styles.section} aria-labelledby="case-studies">
+    <section className={`content-container ${styles.section}`} aria-labelledby="case-studies">
       <h2 id="case-studies" className={styles.heading}>
         <span className={styles.hash} aria-hidden>
           #

@@ -20,19 +20,21 @@ type Props = {
 export default function PageIntro({ title, lede, aside, as: Heading = "h1" }: Props) {
   return (
     <header className={styles.intro}>
-      <Marks kind="frame" />
-      <Heading className={styles.title}>
-        <span className={styles.hash} aria-hidden>
-          #
-        </span>
-        {title}
-      </Heading>
-      {(lede || aside) && (
-        <div className={styles.side}>
-          {aside && <p className={styles.aside}>{aside}</p>}
-          {lede && <div className={styles.lede}>{lede}</div>}
-        </div>
-      )}
+      <div className={`content-container ${styles.content}`}>
+        <Marks kind="frame" />
+        <Heading className={styles.title}>
+          <span className={styles.hash} aria-hidden>
+            #
+          </span>
+          {title}
+        </Heading>
+        {(lede || aside) && (
+          <div className={styles.side}>
+            {aside && <p className={styles.aside}>{aside}</p>}
+            {lede && <div className={styles.lede}>{lede}</div>}
+          </div>
+        )}
+      </div>
     </header>
   );
 }

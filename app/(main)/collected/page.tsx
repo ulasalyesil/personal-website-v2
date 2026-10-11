@@ -58,7 +58,7 @@ export default function Bookmarks() {
         }
       />
       <BookmarkIndex data={data} />
-      <section className={styles.elsewhere} aria-labelledby="elsewhere">
+      <section className={`content-container ${styles.elsewhere}`} aria-labelledby="elsewhere">
         <h2 id="elsewhere" className={styles.heading}>
           <span className={styles.hash} aria-hidden>
             #

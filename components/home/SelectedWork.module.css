@@ -1,6 +1,5 @@
 .section {
-  --gutter: clamp(1rem, 3vw, 2.5rem);
-  padding: clamp(2rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  min-width: 0;
 }
 
 .head {
@@ -8,7 +7,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: var(--space-32);
 }
 
 /* Section headings are markers, not billboards: the `#` borrows the grammar
@@ -18,7 +17,7 @@
   align-items: baseline;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-label);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -32,10 +31,10 @@
 .all {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: var(--space-8);
   min-height: 44px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-label);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-secondary);
@@ -43,15 +42,15 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   column-gap: clamp(1rem, 2vw, 2rem);
-  row-gap: clamp(3.5rem, 9vw, 9rem);
+  row-gap: var(--home-section-space);
 }
 
 .piece {
   grid-column: 1 / -1;
   display: grid;
-  gap: 1.25rem;
+  gap: var(--space-24);
   border-radius: 12px;
   outline-offset: 6px;
 }
@@ -59,7 +58,7 @@
 .media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
   isolation: isolate;
   background: color-mix(
@@ -67,7 +66,7 @@
     var(--stage-accent) 9%,
     var(--color-surface-1)
   );
-  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 160ms ease-out;
 }
 
 /* Inset edge so light captures keep their shape on light surfaces. */
@@ -83,7 +82,7 @@
 
 .image {
   object-fit: cover;
-  transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 160ms ease-out;
 }
 
 .text {
@@ -106,7 +105,7 @@
 
 .index {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: var(--text-label);
   letter-spacing: 0.1em;
   color: var(--color-text-tertiary);
   font-variant-numeric: tabular-nums;
@@ -121,22 +120,16 @@
   text-wrap: pretty;
 }
 
-.piece[data-place="lead"] .line,
-.piece[data-place="counter"] .line {
-  max-width: 34ch;
-  font-size: clamp(0.875rem, 1.3vw, 1rem);
-  color: var(--color-text-primary);
-}
-
 .meta {
   display: grid;
-  gap: 0.375rem;
+  gap: var(--space-8);
   margin-top: 0.5rem;
-  padding-top: 0.875rem;
+  padding-top: var(--space-16);
   border-top: 1px solid var(--color-border-subtle);
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
 }
 
 .meta > div {
@@ -173,55 +166,20 @@
 }
 
 @media (min-width: 900px) {
-  /* Lead: the result is readable beside the first artifact on arrival. */
-  .piece[data-place="lead"] {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: inherit;
+  .piece {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     align-items: start;
-  }
-  .piece[data-place="lead"] .media {
-    grid-column: 1 / span 7;
-  }
-  .piece[data-place="lead"] .text {
-    grid-column: 8 / -1;
-  }
-
-  /* Counter: mirrored and pushed right, the text hanging from the top. */
-  .piece[data-place="counter"] {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: inherit;
-    align-items: start;
-  }
-  .piece[data-place="counter"] .media {
-    grid-column: 5 / -1;
-    grid-row: 1;
-    aspect-ratio: 16 / 9;
-  }
-  .piece[data-place="counter"] .text {
-    grid-column: 1 / span 3;
-    grid-row: 1;
-    padding-top: clamp(2rem, 6vw, 6rem);
-  }
-
-  /* The pair: unequal widths, the second one dropped. */
-  /* Start, not stretch: pairB's drop makes the shared row taller than pairA,
-     and a stretched card spreads that height into its own rows, opening a
-     gap under the fixed-ratio cover. */
-  .piece[data-place="pairA"] {
-    grid-column: 1 / span 5;
-    align-self: start;
-  }
-  .piece[data-place="pairA"] .media {
-    aspect-ratio: 4 / 3;
-  }
-  .piece[data-place="pairB"] {
-    grid-column: 7 / -1;
-    margin-top: clamp(4rem, 12vw, 12rem);
+    gap: var(--space-32);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .image {
+  .image,
+  .media {
     transition: none;
+  }
+  .piece:hover .image,
+  .piece:active .media {
+    transform: none;
   }
 }

@@ -21,7 +21,7 @@ export default function About() {
       <JsonLd data={profilePageJsonLd("/about")} />
       <PageIntro title="About" aside="Product designer, Istanbul" />
 
-      <section className={styles.body} aria-label="Introduction">
+      <section className={`content-container ${styles.body}`} aria-label="Introduction">
         <aside className={styles.rail}>
           <div className={styles.portrait}>
             <Image

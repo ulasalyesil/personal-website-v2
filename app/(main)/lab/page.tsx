@@ -1,3 +1,4 @@
+import PageIntro from "@/components/site/PageIntro";
 import LabGrid from "@/components/lab/LabGrid";
 import { LAB_ITEMS } from "@/components/lab/data";
 import { GalleryRestore } from "@/components/lab/LabNavigation";
@@ -11,13 +12,15 @@ export const metadata = {
 
 export default function LabPage() {
   return (
-    <div className={styles.page}>
-      <header className={styles.intro}>
-        <h1>Lab</h1>
-        <p>Interaction studies, prototypes, and visual experiments.</p>
-      </header>
-      <GalleryRestore />
-      <LabGrid items={LAB_ITEMS} />
-    </div>
+    <>
+      <PageIntro
+        title="Lab"
+        lede="Interaction studies, prototypes, and visual experiments."
+      />
+      <div className={`content-container ${styles.page}`}>
+        <GalleryRestore />
+        <LabGrid items={LAB_ITEMS} />
+      </div>
+    </>
   );
 }

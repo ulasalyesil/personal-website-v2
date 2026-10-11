@@ -1,6 +1,5 @@
 .section {
-  --gutter: clamp(1rem, 3vw, 2.5rem);
-  padding: clamp(4rem, 10vw, 8rem) var(--gutter) clamp(2rem, 6vw, 4rem);
+  padding: clamp(4rem, 10vw, 8rem) 0 clamp(2rem, 6vw, 4rem);
 }
 
 .heading {
@@ -29,12 +28,11 @@
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-/* The year is the index. It stays the largest thing in its row, but in mono
-   and at a size that reads as a marker rather than a headline. */
+/* The year is the index; the homepage uses the same size as its other labels. */
 .yearLabel {
   grid-column: 1 / -1;
   font-family: var(--font-mono);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: var(--index-year-size, clamp(1.5rem, 3vw, 2.25rem));
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -65,7 +63,7 @@
 .row {
   display: grid;
   grid-template-columns: 1.25rem 1fr auto;
-  gap: 0.125rem 1rem;
+  gap: var(--space-4) var(--space-16);
   align-items: baseline;
   min-height: 56px;
   padding: 0.75rem 0;
@@ -78,6 +76,7 @@
   grid-row: 1;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
+  text-transform: var(--index-meta-case, none);
   color: var(--color-brand);
   opacity: 0;
   transition: opacity 150ms ease;
@@ -107,6 +106,7 @@
   grid-row: 2;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
+  text-transform: var(--index-meta-case, none);
   letter-spacing: var(--tracking-micro);
   color: var(--color-text-tertiary);
 }
@@ -116,6 +116,7 @@
   align-self: center;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
+  text-transform: var(--index-meta-case, none);
   letter-spacing: var(--tracking-micro);
   color: var(--color-text-secondary);
   font-variant-numeric: tabular-nums;
@@ -143,7 +144,10 @@
     grid-column: 5 / -1;
   }
   .row {
-    grid-template-columns: 1.25rem minmax(0, 1.2fr) minmax(0, 1fr) minmax(7rem, auto);
+    grid-template-columns: 1.25rem minmax(0, 1.2fr) minmax(0, 1fr) minmax(
+        7rem,
+        auto
+      );
   }
   .role {
     grid-column: 3;

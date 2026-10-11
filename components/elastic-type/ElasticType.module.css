@@ -1,7 +1,5 @@
 .page {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 48px clamp(20px, 5vw, 80px) 88px;
+  padding: 48px 0 88px;
 }
 .heading {
   display: flex;

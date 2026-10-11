@@ -9,7 +9,7 @@ const COMPONENTS = [
 
 export default function KitFeature() {
   return (
-    <section className={styles.section} aria-labelledby="kit-feature-heading">
+    <section className={`content-container ${styles.section}`} aria-labelledby="kit-feature-heading">
       <div className={styles.copy}>
         <p className={styles.kicker}>
           <span aria-hidden="true"># </span>Independent project

@@ -1,4 +1,8 @@
 .intro {
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.content {
   position: relative;
   --hud-inset: 0px;
   --mark-size: 12px;
@@ -8,8 +12,7 @@
   column-gap: clamp(1rem, 2vw, 2rem);
   row-gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: end;
-  padding: clamp(2.5rem, 8vw, 6rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
-  border-bottom: 1px solid var(--color-border-default);
+  padding: clamp(2.5rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
 }
 
 /* One word in the display face, at a size that states the page rather than

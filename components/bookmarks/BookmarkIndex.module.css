@@ -7,7 +7,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
-  padding: clamp(1.5rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(3rem, 8vw, 6rem);
   font-family: var(--font-mono);
 }
 

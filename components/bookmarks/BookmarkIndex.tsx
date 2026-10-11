@@ -206,7 +206,7 @@ export default function BookmarkIndex({ data }: { data: BookmarkData }) {
   const filtered = query.q.trim() !== "" || query.shelf !== null || query.picks;
 
   return (
-    <div className={styles.index}>
+    <div className={`content-container ${styles.index}`}>
       <nav className={styles.rail} aria-label="Shelves">
         <ul ref={chips} className={styles.shelves}>
           <li>

@@ -15,10 +15,8 @@ export default function DsStepperPage() {
         aside="Prototype · GetirFinans design system"
         lede="The color decision from the GetirFinans case study, played step by step. Every swatch is a token from the shipped app's color catalog."
       />
-      <div className="px-[var(--gutter)] pb-16">
-        <div className="mx-auto max-w-5xl">
-          <DsStepper />
-        </div>
+      <div className="content-container pb-16">
+        <DsStepper />
       </div>
     </>
   );

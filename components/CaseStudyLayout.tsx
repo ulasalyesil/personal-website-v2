@@ -429,7 +429,7 @@ export default function CaseStudyLayout({
       <JsonLd data={caseStudyJsonLd({ title, slug, company, role, date, summary })} />
       {showToc && <CaseStudyNav sections={sections} />}
 
-      <article className={styles.article}>
+      <article className="content-container">
         <CaseStudyTitle
           title={title}
           date={date}

@@ -4,10 +4,13 @@
 .cv {
   display: grid;
   gap: 3rem;
-  max-width: var(--container-measure);
-  padding: clamp(2rem, 5vw, 4rem) var(--gutter) 6rem;
+  padding: clamp(2rem, 5vw, 4rem) 0 6rem;
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
+}
+
+.cv > * {
+  max-width: var(--container-measure);
 }
 
 .cv h2 {

@@ -220,7 +220,7 @@ export default function BrandLayers({
 
   return (
     <section
-      className={`${styles.root} ${embedded ? styles.embedded : ""}`}
+      className={`${styles.root} ${embedded ? styles.embedded : "content-container"}`}
       aria-label="Brand Layers"
     >
       <div className={styles.controls}>

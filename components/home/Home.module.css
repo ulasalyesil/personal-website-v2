@@ -1,0 +1,29 @@
+.home {
+  --index-year-size: var(--text-label);
+  --index-meta-case: uppercase;
+  --hud-gap: var(--space-8);
+  --text-micro: var(--text-label);
+  --tracking-micro: var(--tracking-label);
+  --home-section-space: var(--space-64);
+}
+
+/* Each section owns the space after it; adjoining padding never doubles it. */
+.home > section,
+.home > main > section,
+.home > footer {
+  padding: 0 0 var(--home-section-space);
+}
+
+.home > section {
+  padding-top: clamp(48px, 6vw, 96px);
+}
+
+.home > footer {
+  border-top: 0;
+}
+
+@media (min-width: 900px) {
+  .home {
+    --home-section-space: var(--space-128);
+  }
+}
