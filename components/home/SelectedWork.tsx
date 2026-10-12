@@ -75,16 +75,6 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
                 {piece.title}
               </h3>
               <p className={styles.line}>{piece.line}</p>
-              <dl className={styles.meta}>
-                <div>
-                  <dt>Role</dt>
-                  <dd>{piece.role}</dd>
-                </div>
-                <div>
-                  <dt>Year</dt>
-                  <dd>{piece.year}</dd>
-                </div>
-              </dl>
             </div>
           </Link>
         ))}

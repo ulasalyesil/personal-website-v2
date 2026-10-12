@@ -120,33 +120,6 @@
   text-wrap: pretty;
 }
 
-.meta {
-  display: grid;
-  gap: var(--space-8);
-  margin-top: 0.5rem;
-  padding-top: var(--space-16);
-  border-top: 1px solid var(--color-border-subtle);
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-}
-
-.meta > div {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 1rem;
-}
-
-.meta dt {
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
-}
-
-.meta dd {
-  color: var(--color-text-primary);
-}
-
 @media (hover: hover) and (pointer: fine) {
   .piece:hover .image {
     transform: scale(1.025);
