@@ -1,6 +1,6 @@
 .section {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
   border-bottom: 1px solid var(--color-border-default);
@@ -158,6 +158,10 @@
 }
 
 @media (min-width: 900px) {
+  .section {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
   .copy {
     grid-column: 1 / span 5;
   }
