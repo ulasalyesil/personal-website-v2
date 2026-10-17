@@ -20,7 +20,7 @@ export default function LabStage({
       data-phone={item.media.device === "iphone" || undefined}
       style={{ "--lab-accent": item.tint } as CSSProperties}
     >
-      <StageField seed={item.slug} tint={item.tint} />
+      {variant !== "interactive" && <StageField seed={item.slug} tint={item.tint} />}
       <div className={styles.work}>{children}</div>
     </div>
   );

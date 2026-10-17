@@ -49,7 +49,8 @@
   inset: 6%;
 }
 .stage[data-format="interactive"] {
-  padding: clamp(16px, 3vw, 44px);
+  padding: 0;
+  background: var(--color-surface-0);
 }
 .stage[data-format="interactive"] .work {
   position: relative;

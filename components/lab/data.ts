@@ -28,12 +28,14 @@ export type LabItem = {
   tint: string;
   /** Live prototype. Present means the thing actually runs. */
   url?: string;
+  embed?: string;
   wip?: boolean;
 };
 
 export const LAB_ITEMS: LabItem[] = [
   {
     slug: "flow",
+    embed: "/prototypes/flow/index.html",
     title: "—flow",
     tag: "prototype",
     date: "oct 2026",
@@ -89,6 +91,7 @@ export const LAB_ITEMS: LabItem[] = [
   },
   {
     slug: "common-ground",
+    embed: "/common-ground/index.html",
     title: "Common Ground",
     tag: "prototype",
     date: "sep 2026",

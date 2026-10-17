@@ -262,7 +262,7 @@
   min-width: 0;
 }
 .embedded .stage {
-  height: clamp(340px, 48svh, 540px);
+  height: clamp(420px, 62svh, 760px);
 }
 @media (max-width: 600px) {
   .embedded .stage {

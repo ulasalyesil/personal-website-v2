@@ -33,8 +33,9 @@ export default function LabDetail({
   next?: LabItem;
 }) {
   const Experiment = experiments[item.slug];
+  const interactive = Boolean(Experiment || item.embed);
   return (
-    <article className={`content-container ${styles.page}`}>
+    <article className={`content-container ${styles.page} ${interactive ? styles.interactivePage : ""}`}>
       <header className={styles.detailHeading}>
         <BackToLab />
         <h1>{item.title}</h1>
@@ -42,6 +43,15 @@ export default function LabDetail({
       {Experiment ? (
         <LabStage item={item} variant="interactive">
           <Experiment embedded />
+        </LabStage>
+      ) : item.embed ? (
+        <LabStage item={item} variant="interactive">
+          <iframe
+            className={styles.prototype}
+            src={item.embed}
+            title={`${item.title} interactive prototype`}
+            allow="fullscreen"
+          />
         </LabStage>
       ) : (
         <LabMedia key={item.slug} item={item} />
@@ -52,7 +62,7 @@ export default function LabDetail({
           {item.wip ? "In progress" : item.date}
         </p>
         <p>{item.blurb}</p>
-        {item.url && (
+        {item.url && !interactive && (
           <a
             href={
               item.url.startsWith("/") || /^https?:\/\//.test(item.url)
@@ -60,7 +70,7 @@ export default function LabDetail({
                 : `https://${item.url}`
             }
           >
-            {Experiment ? "Open standalone" : "Open prototype"} ↗
+            Open prototype ↗
           </a>
         )}
       </div>
