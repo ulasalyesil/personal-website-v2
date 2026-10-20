@@ -18,18 +18,18 @@ export default function Hero() {
       <MultiplayerCursors />
 
       <div className={styles.body}>
-        <p className={styles.statement}>I design products and prototype how they behave.</p>
-        <p className={styles.now}>
+        <p className={`reveal ${styles.statement}`}>I design products and prototype how they behave.</p>
+        <p className={`reveal ${styles.now}`}>
           At GetirFinans, I work across fintech and AI, from product decisions
           to SwiftUI builds.
         </p>
-        <a className={styles.cta} href={`mailto:${EMAIL}`}>
+        <a className={`reveal ${styles.cta}`} href={`mailto:${EMAIL}`}>
           <span aria-hidden>[</span>Get in touch<span aria-hidden>]</span>
         </a>
       </div>
 
       <div className={styles.foot}>
-        <p className={styles.comment}>
+        <p className={`reveal ${styles.comment}`}>
           <span aria-hidden>{"// "}</span>
           Open to remote work and relocation
         </p>

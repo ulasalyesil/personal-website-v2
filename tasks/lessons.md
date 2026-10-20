@@ -81,6 +81,18 @@
 ## Mistakes to Avoid
 <!-- Track mistakes and their solutions -->
 
+- **Killing `npx next start` does not stop the server.** `npx` forks `sh -c
+  next start`, which forks `next-server`; killing the npx pid or a pid file
+  from `$!` leaves `next-server` holding the port. The next `next start` then
+  fails silently, `next build` replaces `.next` underneath the survivor, and it
+  keeps serving the old HTML whose CSS and JS hashes no longer exist on disk:
+  an unstyled page that looks like a layout bug (a `fill` image sized to the
+  viewport, Times New Roman titles) and measures a false LCP. Cost two rounds
+  of before/after numbers on 2026-10-20. Start with `setsid node
+  node_modules/next/dist/bin/next start`, kill the process group
+  (`kill -- -PID`), and before measuring, curl one `<link rel=stylesheet>` from
+  the served HTML and require a 200.
+
 - **If framer-motion animations "don't run" in the preview browser, check
   `document.visibilityState` and probe `requestAnimationFrame` FIRST** —
   before bisecting code. A hidden/minimized preview window pauses rAF

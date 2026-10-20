@@ -28,10 +28,24 @@
   text-decoration: none;
 }
 
+/* The cursors arrive after the text, the way guests join a file: each one
+   slides in along its own diagonal and settles. */
+@keyframes cursor-in {
+  from {
+    opacity: 0;
+    transform: translate(28px, 22px);
+  }
+}
+
+.cursor {
+  animation: cursor-in 520ms var(--ease-out-strong) both;
+}
+
 .own {
   align-self: flex-end;
   justify-self: start;
   pointer-events: none;
+  animation-delay: calc(3 * var(--motion-stagger));
 }
 
 .guest {
@@ -39,6 +53,13 @@
   justify-self: end;
   min-height: 44px;
   min-width: 44px;
+  animation-delay: calc(5 * var(--motion-stagger));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
 }
 
 .arrow {

@@ -1,5 +1,18 @@
 # Tasks Todo
 
+## Page reveal (2026-10-20)
+
+Vault note: `03-projects/personal-website/2026-10-20-page-reveal.md`.
+
+- [x] Review home, works, about, lab and a case study against the Web Interface Guidelines and the ui-ux-pro-max checklist.
+- [x] Add a CSS-only page reveal: `.reveal` (first paint, staggered by `--reveal-i`) and `.enter` (scroll-driven `view()` timeline) in globals; frame corners and hero cursors in their own modules.
+- [x] Keep the route morph as the entrance on soft navigation (`html[data-routing]` from `useRouteTransition`).
+- [x] Verify SSR HTML, reduced motion, soft-nav trace, LCP before and after, typecheck, tests, lint, build.
+
+### Review
+
+Hero, page intro, case-study header and about rail stagger in at first paint (420ms, 70ms steps); frame corners draw from their vertices; hero cursors arrive after the text; selected work, lab tiles, kit feature, works rows and lab grid rise as they scroll in. Case-study visual rises without fading so it stays an LCP candidate. HTML carries no inline opacity. Soft nav: title opacity stays 1 under the morph, summary rises after commit, flag clears with no snap. Reduced motion resolves every animation to none. LCP medians (prod, 4× CPU throttle): home 240 → 304ms, works 296 → 300ms, getirfinans-ai 308 → 328ms, within run noise. Typecheck, 41 tests, next lint and production build pass; nine touched files were already unformatted at HEAD and were not reformatted. Motion feel unjudged (headless): check in a visible window before merging. Committed on `site/page-reveal`.
+
 ## Homepage simplicity (2026-10-11)
 
 - [x] Unify homepage labels, spacing, gutters and project media layout.

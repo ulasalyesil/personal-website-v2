@@ -10,7 +10,7 @@ const COMPONENTS = [
 export default function KitFeature() {
   return (
     <section className={`content-container ${styles.section}`} aria-labelledby="kit-feature-heading">
-      <div className={styles.copy}>
+      <div className={`enter ${styles.copy}`}>
         <p className={styles.kicker}>
           <span aria-hidden="true"># </span>Independent project
         </p>
@@ -37,7 +37,7 @@ export default function KitFeature() {
         </a>
       </div>
 
-      <div className={styles.preview} aria-label="Three components in the kit">
+      <div className={`enter ${styles.preview}`} role="group" aria-label="Three components in the kit">
         <div className={styles.previewHeader}>
           <span className={styles.mark}>
             —kit

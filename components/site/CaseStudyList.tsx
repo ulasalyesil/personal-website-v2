@@ -24,7 +24,7 @@ export default function CaseStudyList({ studies }: { studies: CaseStudy[] }) {
       </h2>
       <ul>
         {studies.map((study, i) => (
-          <li key={study.slug} className={styles.item}>
+          <li key={study.slug} className={`enter ${styles.item}`}>
             <Link
               href={`/${study.slug}`}
               className={styles.row}

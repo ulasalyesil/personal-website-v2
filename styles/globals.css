@@ -162,6 +162,7 @@ body {
   --motion-duration-modal: 260ms;
   --motion-duration-entrance: 420ms;
   --motion-duration-route: 280ms;
+  --motion-stagger: 70ms;
 }
 
 @media (min-width: 768px) {
@@ -191,6 +192,42 @@ body {
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* ─── Page reveal ───
+   A page opens the way the rest of the site is drawn: the frame first,
+   then the lines settle into it, top to bottom. `.reveal` runs once at
+   first paint, in CSS, so the HTML never ships an inline opacity and
+   nothing waits on hydration (tasks/lessons.md, plan 013). `--reveal-i`
+   orders the lines; each module sets it on its own elements. `.enter` is
+   the same rise for blocks below the fold, driven by the scroll position
+   instead of a clock, so it is reversible and never runs on a timer. */
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.reveal {
+  animation: reveal-rise var(--motion-duration-entrance)
+    var(--motion-ease-standard) both;
+  animation-delay: calc(var(--reveal-i, 0) * var(--motion-stagger));
+}
+
+@supports (animation-timeline: view()) {
+  .enter {
+    animation: reveal-rise 1ms linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .enter {
+    animation: none;
   }
 }
 

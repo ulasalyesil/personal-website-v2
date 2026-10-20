@@ -34,7 +34,9 @@
   text-wrap: balance;
 }
 
+/* The reveal reads top to bottom: statement, context, the way in, the note. */
 .now {
+  --reveal-i: 1;
   max-width: 52ch;
   margin: 0;
   font-size: var(--text-label);
@@ -44,6 +46,7 @@
 }
 
 .cta {
+  --reveal-i: 2;
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
@@ -73,6 +76,7 @@
 }
 
 .comment {
+  --reveal-i: 3;
   margin: 0;
   font-size: var(--text-micro);
   letter-spacing: var(--tracking-micro);

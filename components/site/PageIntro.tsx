@@ -22,14 +22,14 @@ export default function PageIntro({ title, lede, aside, as: Heading = "h1" }: Pr
     <header className={styles.intro}>
       <div className={`content-container ${styles.content}`}>
         <Marks kind="frame" />
-        <Heading className={styles.title}>
+        <Heading className={`reveal ${styles.title}`}>
           <span className={styles.hash} aria-hidden>
             #
           </span>
           {title}
         </Heading>
         {(lede || aside) && (
-          <div className={styles.side}>
+          <div className={`reveal ${styles.side}`}>
             {aside && <p className={styles.aside}>{aside}</p>}
             {lede && <div className={styles.lede}>{lede}</div>}
           </div>

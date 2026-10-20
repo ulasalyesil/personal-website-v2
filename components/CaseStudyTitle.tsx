@@ -55,22 +55,22 @@ export default function CaseStudyTitle({
 
   return (
     <header className={styles.header}>
-      <div className={styles.back}><BackLink href="/works" label="All work" /></div>
-      <p className={styles.label}>
+      <div className={`reveal ${styles.back}`}><BackLink href="/works" label="All work" /></div>
+      <p className={`reveal ${styles.label}`}>
         <span className={styles.company}>{company}</span>
         {status && <span className={styles.status}>{status}</span>}
       </p>
 
       <h1
-        className={styles.title}
+        className={`reveal ${styles.title}`}
         style={slug ? { viewTransitionName: `project-${slug}-title` } : undefined}
       >
         {title}
       </h1>
 
-      {summary && <p className={styles.summary}>{summary}</p>}
+      {summary && <p className={`reveal ${styles.summary}`}>{summary}</p>}
 
-      <dl className={styles.facts}>
+      <dl className={`reveal ${styles.facts}`}>
         {facts.map((fact) => (
           <div key={fact.label}>
             <dt>{fact.label}</dt>
@@ -88,7 +88,7 @@ export default function CaseStudyTitle({
         ))}
       </dl>
 
-      {visual && <div className={styles.visual}>{visual}</div>}
+      {visual && <div className={`reveal ${styles.visual}`}>{visual}</div>}
     </header>
   );
 }

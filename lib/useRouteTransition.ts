@@ -16,6 +16,35 @@ import { useCallback, useEffect, useRef } from "react";
  */
 const SAFETY_MS = 700;
 
+/**
+ * `html[data-routing]` is set from the click until the next page has been on
+ * screen long enough for its reveal to have run. Elements that morph between
+ * the two pages (a case study title) must not also fade themselves in under
+ * the morph, and the attribute is what their CSS keys on. It is cleared a
+ * fixed time after the new route commits, not after the transition: a CSS
+ * animation takes its start time when it is created, so shortening it to 0s
+ * and restoring it only once it would have ended is a no-op, while restoring
+ * it earlier would play the remainder late. `ROUTING_MS` must exceed the
+ * longest reveal (delay plus duration); `FALLBACK_MS` clears it if the route
+ * never commits.
+ */
+const ROUTING_MS = 1200;
+const FALLBACK_MS = 8000;
+let routingTimer = 0;
+
+function setRouting(ms: number) {
+  if (!("routing" in document.documentElement.dataset)) return;
+  window.clearTimeout(routingTimer);
+  routingTimer = window.setTimeout(() => {
+    delete document.documentElement.dataset.routing;
+  }, ms);
+}
+
+function markRouting() {
+  document.documentElement.dataset.routing = "";
+  setRouting(FALLBACK_MS);
+}
+
 export function useRouteTransition() {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,6 +54,7 @@ export function useRouteTransition() {
   useEffect(() => {
     settle.current?.();
     settle.current = null;
+    setRouting(ROUTING_MS);
   }, [pathname]);
 
   return useCallback(
@@ -37,6 +67,7 @@ export function useRouteTransition() {
         return;
       }
 
+      markRouting();
       document.startViewTransition(
         () =>
           new Promise<void>((resolve) => {
