@@ -48,14 +48,10 @@
 /* The visual is the largest paint on the page. It rises with the sequence
    but never fades: an element at opacity 0 is not "painted" to the browser,
    so fading it would push the page's LCP by the length of the reveal. */
-@keyframes slide-in {
-  from {
-    transform: translateY(10px);
+@starting-style {
+  .header .visual {
+    opacity: 1;
   }
-}
-
-.header .visual {
-  animation-name: slide-in;
 }
 
 .title {
@@ -126,6 +122,6 @@
 /* Opened from a card or row, the title is carried in by the route morph, so
    it must not also rise underneath it. Everything around it still does. */
 :global(html[data-routing]) .title {
-  animation-duration: 0s;
-  animation-delay: 0s;
+  transition-duration: 0s;
+  transition-delay: 0s;
 }

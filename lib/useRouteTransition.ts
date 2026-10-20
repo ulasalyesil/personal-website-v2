@@ -17,18 +17,16 @@ import { useCallback, useEffect, useRef } from "react";
 const SAFETY_MS = 700;
 
 /**
- * `html[data-routing]` is set from the click until the next page has been on
- * screen long enough for its reveal to have run. Elements that morph between
- * the two pages (a case study title) must not also fade themselves in under
- * the morph, and the attribute is what their CSS keys on. It is cleared a
- * fixed time after the new route commits, not after the transition: a CSS
- * animation takes its start time when it is created, so shortening it to 0s
- * and restoring it only once it would have ended is a no-op, while restoring
- * it earlier would play the remainder late. `ROUTING_MS` must exceed the
- * longest reveal (delay plus duration); `FALLBACK_MS` clears it if the route
- * never commits.
+ * `html[data-routing]` is set from the click until just after the next route
+ * commits. Elements that morph between the two pages (a case study title)
+ * must not also fade themselves in under the morph, and the attribute is what
+ * their CSS keys on: it zeroes their `@starting-style` transition. A transition
+ * that has already finished does not replay when its duration is restored, so
+ * the attribute only has to outlive the new page's first style pass.
+ * `ROUTING_MS` leaves a margin past commit; `FALLBACK_MS` clears it if the
+ * route never commits.
  */
-const ROUTING_MS = 1200;
+const ROUTING_MS = 200;
 const FALLBACK_MS = 8000;
 let routingTimer = 0;
 

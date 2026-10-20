@@ -23,9 +23,14 @@ export default function Hero() {
           At GetirFinans, I work across fintech and AI, from product decisions
           to SwiftUI builds.
         </p>
-        <a className={`reveal ${styles.cta}`} href={`mailto:${EMAIL}`}>
-          <span aria-hidden>[</span>Get in touch<span aria-hidden>]</span>
-        </a>
+        {/* The link keeps its own press transition, so the reveal rides a
+            wrapper: a transition's delay outlives the entrance, and the
+            link must not inherit it on release. */}
+        <div className={`reveal ${styles.ctaSlot}`}>
+          <a className={styles.cta} href={`mailto:${EMAIL}`}>
+            <span aria-hidden>[</span>Get in touch<span aria-hidden>]</span>
+          </a>
+        </div>
       </div>
 
       <div className={styles.foot}>

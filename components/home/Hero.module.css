@@ -45,8 +45,11 @@
   text-wrap: pretty;
 }
 
-.cta {
+.ctaSlot {
   --reveal-i: 2;
+}
+
+.cta {
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);

@@ -29,23 +29,28 @@
 }
 
 /* The cursors arrive after the text, the way guests join a file: each one
-   slides in along its own diagonal and settles. */
-@keyframes cursor-in {
-  from {
+   slides in along its own diagonal and settles. 400ms is over the UI budget
+   on purpose: this is the hero on a first visit, the one place the delight
+   budget lives, and a cursor crossing 28px needs the travel to read as
+   arriving rather than appearing. */
+.cursor {
+  transition:
+    opacity 400ms var(--ease-out-strong),
+    transform 400ms var(--ease-out-strong);
+}
+
+@starting-style {
+  .cursor {
     opacity: 0;
     transform: translate(28px, 22px);
   }
-}
-
-.cursor {
-  animation: cursor-in 520ms var(--ease-out-strong) both;
 }
 
 .own {
   align-self: flex-end;
   justify-self: start;
   pointer-events: none;
-  animation-delay: calc(3 * var(--motion-stagger));
+  transition-delay: calc(3 * var(--motion-stagger));
 }
 
 .guest {
@@ -53,12 +58,18 @@
   justify-self: end;
   min-height: 44px;
   min-width: 44px;
-  animation-delay: calc(5 * var(--motion-stagger));
+  transition-delay: calc(5 * var(--motion-stagger));
 }
 
 @media (prefers-reduced-motion: reduce) {
   .cursor {
-    animation: none;
+    transition: opacity var(--motion-duration-reveal) ease;
+    transition-delay: 0s;
+  }
+  @starting-style {
+    .cursor {
+      transform: none;
+    }
   }
 }
 

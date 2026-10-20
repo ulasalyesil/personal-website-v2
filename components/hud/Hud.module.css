@@ -29,18 +29,19 @@
 }
 
 /* A frame is drawn before what it frames: each corner grows out of its own
-   vertex, just ahead of the text that rises inside it. Selection marks stay
+   vertex, in step with the text that rises inside it. Selection marks stay
    still, since the thing they sit on is already there. */
-@keyframes corner-in {
-  from {
+.marks[data-kind="frame"] .corner {
+  transition:
+    opacity var(--motion-duration-entrance) var(--ease-out-strong),
+    transform var(--motion-duration-entrance) var(--ease-out-strong);
+}
+
+@starting-style {
+  .marks[data-kind="frame"] .corner {
     opacity: 0;
     transform: scale(0.2);
   }
-}
-
-.marks[data-kind="frame"] .corner {
-  animation: corner-in var(--motion-duration-entrance)
-    var(--motion-ease-standard) both;
 }
 
 .corner[data-at="tl"] {
@@ -58,7 +59,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .marks[data-kind="frame"] .corner {
-    animation: none;
+    transition: opacity var(--motion-duration-reveal) ease;
+  }
+  @starting-style {
+    .marks[data-kind="frame"] .corner {
+      transform: none;
+    }
   }
 }
 
