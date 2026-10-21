@@ -5,6 +5,7 @@ import type { ComponentType } from "react";
 import { BackToLab } from "./LabNavigation";
 import LabStage from "./LabStage";
 import LabMedia from "./LabMedia";
+import PrototypeFrame from "./PrototypeFrame";
 import type { LabItem } from "./data";
 import styles from "./Lab.module.css";
 
@@ -23,6 +24,7 @@ const labels: Record<string, string> = {
   prototype: "Prototype",
   system: "System",
   concept: "Concept",
+  motion: "Motion study",
 };
 
 export default function LabDetail({
@@ -46,11 +48,10 @@ export default function LabDetail({
         </LabStage>
       ) : item.embed ? (
         <LabStage item={item} variant="interactive">
-          <iframe
-            className={styles.prototype}
+          <PrototypeFrame
             src={item.embed}
             title={`${item.title} interactive prototype`}
-            allow="fullscreen"
+            fit={item.embedFit}
           />
         </LabStage>
       ) : (

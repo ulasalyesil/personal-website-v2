@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR code icons</title>
+<style>
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ink: #5d3ebc;
+  --tile: #fafafa;
+  --bg: #fff;
+  --text: #1a1a1a;
+  --line: #f3f0fe;
+  --dim: #868686; /* the dashboard under the Dark Layer, behind the sheet */
+  --k: 1; /* time multiplier, 4 = quarter speed */
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+}
+/* close-ups first, the full sheet mockup under them */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 5vw, 56px);
+  padding: clamp(24px, 4vw, 56px) 16px;
+}
+
+/* the sheet as it ships, rendered from Figma, with live icons over the baked ones */
+.phone-slot { width: calc(375px * var(--s, 0.75)); height: calc(812px * var(--s, 0.75)); }
+.phone {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  overflow: hidden;
+  border-radius: 44px;
+  background: var(--dim);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06);
+  transform: scale(var(--s, 0.75));
+  transform-origin: top left;
+}
+.dash { position: absolute; top: 0; left: 0; display: block; width: 375px; height: 432px; }
+.sheet { position: absolute; top: 432px; left: 0; width: 375px; height: 380px; }
+.sheet > img { display: block; width: 375px; height: 380px; }
+.stile { position: absolute; left: 28px; width: 48px; height: 48px; padding: 8px; border-radius: 50%; background: var(--tile); }
+.stile svg { display: block; width: 32px; height: 32px; overflow: visible; }
+
+/* the same three icons, close up */
+.closeup {
+  width: min(100%, 760px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2.5vw, 32px);
+  align-items: center;
+  justify-items: center;
+}
+.cell { margin: 0; display: grid; gap: 16px; justify-items: center; }
+.tile {
+  width: min(100%, 220px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--tile);
+  padding: 16.667%; /* 8px of 48px */
+}
+.tile svg { display: block; width: 100%; height: 100%; overflow: visible; }
+figcaption { color: var(--ink); font-weight: 500; font-size: clamp(13px, 1.6vw, 18px); white-space: nowrap; }
+
+.controls { display: flex; gap: 8px; justify-content: center; margin-top: -8px; }
+button {
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 160ms var(--ease-out);
+}
+button:active { transform: scale(0.97); }
+button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+@media (hover: hover) and (pointer: fine) {
+  button:hover { background: var(--line); }
+  button[aria-pressed="true"]:hover { background: var(--ink); }
+}
+
+/* motion: transform, opacity, and stroke draw-on only. Nothing is positioned by layout.
+   Each part waits on its first frame until it scrolls into view (.play), and .reset restarts it. */
+.stage:not(.play) * { animation-play-state: paused !important; }
+.stage.reset * { animation: none !important; }
+.stage .sheet { animation: sheet calc(440ms * var(--k)) var(--ease-drawer) both; }
+.stage .tile { animation: tile calc(260ms * var(--k)) var(--ease-out) calc(var(--d) * var(--k)) both; }
+.stage svg * { transform-box: fill-box; transform-origin: center; }
+
+/* qr: corners draw on, the check pops, the code squares settle in */
+.stage .c { stroke-dasharray: 1 1; animation: draw calc(300ms * var(--k)) var(--ease-out) both; }
+.stage .c1 { animation-delay: calc((var(--d) + 0ms) * var(--k)); }
+.stage .c2 { animation-delay: calc((var(--d) + 40ms) * var(--k)); }
+.stage .c3 { animation-delay: calc((var(--d) + 80ms) * var(--k)); }
+.stage .ring { animation: pop calc(380ms * var(--k)) var(--ease-out) calc((var(--d) + 180ms) * var(--k)) both; }
+.stage .q { animation: pop-sm calc(240ms * var(--k)) var(--ease-out) both; }
+.stage .q1 { animation-delay: calc((var(--d) + 300ms) * var(--k)); }
+.stage .q2 { animation-delay: calc((var(--d) + 340ms) * var(--k)); }
+.stage .q3 { animation-delay: calc((var(--d) + 380ms) * var(--k)); }
+.stage .q4 { animation-delay: calc((var(--d) + 420ms) * var(--k)); }
+
+/* the slot settles in first */
+.stage .tray { animation: tray calc(260ms * var(--k)) var(--ease-out) calc(var(--d) * var(--k)) both; }
+/* withdraw: the banknote comes out of the slot, the arrow follows it out.
+   deposit: the arrow pushes the banknote up, into the slot. Both clipped at the slot edge. */
+.stage .withdraw .note { animation: note-out calc(380ms * var(--k)) var(--ease-out) calc((var(--d) + 80ms) * var(--k)) both; }
+.stage .withdraw .arrow { animation: arrow-out calc(380ms * var(--k)) var(--ease-out) calc((var(--d) + 240ms) * var(--k)) both; }
+.stage .deposit .note { animation: note-in calc(420ms * var(--k)) var(--ease-out) calc((var(--d) + 80ms) * var(--k)) both; }
+.stage .deposit .arrow { animation: arrow-in calc(420ms * var(--k)) var(--ease-out) calc((var(--d) + 120ms) * var(--k)) both; }
+
+@keyframes sheet { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes tile { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes draw { from { stroke-dashoffset: 1; opacity: 0; } 15% { opacity: 1; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes pop-sm { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+@keyframes tray { from { opacity: 0; transform: translateY(-3%); } to { opacity: 1; transform: translateY(0); } }
+/* note offsets in px = SVG user units (the note's visible part is 9.5 tall) */
+@keyframes note-out { from { transform: translateY(-9.5px); } to { transform: translateY(0); } }
+@keyframes note-in { from { opacity: 0; transform: translateY(4.75px); } 25% { opacity: 1; } to { opacity: 1; transform: translateY(0); } }
+@keyframes arrow-out { from { transform: translateY(-130%); } to { transform: translateY(0); } }
+@keyframes arrow-in { from { opacity: 0; transform: translateY(80%); } 30% { opacity: 1; } to { opacity: 1; transform: translateY(0); } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* reduced motion: keep the appearance, drop the movement */
+@media (prefers-reduced-motion: reduce) {
+  .stage .sheet, .stage .tile, .stage .c, .stage .ring, .stage .q, .stage .tray, .stage .note, .stage .arrow {
+    animation: fade calc(200ms * var(--k)) ease both;
+    animation-delay: 0ms;
+    stroke-dasharray: none;
+  }
+}
+
+/* still render for the close-up export */
+html.still * { animation: none !important; }
+html.still .controls, html.still .phone-slot { display: none; }
+html.still main { padding: 64px 48px; }
+html.still .closeup { width: auto; gap: 80px; grid-template-columns: repeat(3, auto); }
+html.still .tile { width: 400px; }
+html.still figcaption { font-size: 36px; }
+</style>
+</head>
+<body>
+<main>
+<div class="closeup stage">
+<figure class="cell qr" style="--d: 200ms">
+<div class="tile"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g class="corners" fill="none" stroke="#5D3EBC" stroke-width="2" stroke-linecap="round">
+<path class="c c1" pathLength="1" d="M12 6H8C6.89543 6 6 6.89543 6 8V12"/>
+<path class="c c2" pathLength="1" d="M20 6H24C25.1046 6 26 6.89543 26 8V12"/>
+<path class="c c3" pathLength="1" d="M12 26H8C6.89543 26 6 25.1046 6 24V20"/>
+</g>
+<path class="ring" fill="#5D3EBC" fill-rule="evenodd" clip-rule="evenodd" d="M16 22C19.3137 22 22 19.3137 22 16C22 12.6863 19.3137 10 16 10C12.6863 10 10 12.6863 10 16C10 19.3137 12.6863 22 16 22ZM18.7803 15.0303C19.0732 14.7374 19.0732 14.2626 18.7803 13.9697C18.4874 13.6768 18.0126 13.6768 17.7197 13.9697L15.25 16.4393L14.2803 15.4697C13.9874 15.1768 13.5126 15.1768 13.2197 15.4697C12.9268 15.7626 12.9268 16.2374 13.2197 16.5303L14.7197 18.0303C15.0126 18.3232 15.4874 18.3232 15.7803 18.0303L18.7803 15.0303Z"/>
+<g fill="#5D3EBC">
+<rect class="q q1" x="20.9" y="21.7266" width="2.55" height="2.55"/>
+<path class="q q2" d="M18.3501 24.2734H20.9001V26.8234H18.7751C18.5404 26.8234 18.3501 26.6332 18.3501 26.3984V24.2734Z"/>
+<path class="q q3" d="M23.4502 19.1719H25.5752C25.8099 19.1719 26.0002 19.3622 26.0002 19.5969V21.7219H23.4502V19.1719Z"/>
+<path class="q q4" d="M23.4502 24.2734H26.0002V26.3984C26.0002 26.6332 25.8099 26.8234 25.5752 26.8234H23.4502V24.2734Z"/>
+</g></svg></div>
+<figcaption>ödeme yap</figcaption>
+</figure>
+<figure class="cell withdraw" style="--d: 280ms">
+<div class="tile"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path class="tray" fill="#5D3EBC" d="M23 4C24.6568 4 25.9999 5.34326 26 7V9C26 9.55228 25.5523 10 25 10C24.4477 10 24 9.55228 24 9V7C23.9999 6.44783 23.5522 6 23 6H9C8.4478 6 8.00013 6.44783 8 7V9C8 9.55228 7.55228 10 7 10C6.44772 10 6 9.55228 6 9V7C6.00013 5.34326 7.34323 4 9 4H23Z"/>
+<clipPath id="wd-note"><rect x="0" y="6" width="32" height="30"/></clipPath>
+<g clip-path="url(#wd-note)"><path class="note" fill="#5D3EBC" fill-rule="evenodd" d="M9 -6H23V12C23 13.6569 21.6569 15 20 15H12C10.3431 15 9 13.6569 9 12V-6ZM12 6A4 4 0 1 0 20 6A4 4 0 1 0 12 6ZM14 6A2 2 0 1 0 18 6A2 2 0 1 0 14 6Z"/></g>
+<clipPath id="wd-clip"><rect x="0" y="15.5" width="32" height="20"/></clipPath>
+<g clip-path="url(#wd-clip)"><path class="arrow" fill="#5D3EBC" d="M14.75 18.25C14.75 17.5597 15.3096 17 16 17C16.6904 17 17.25 17.5597 17.25 18.25V23.9826L18.8663 22.3663C19.3544 21.8781 20.1457 21.8781 20.6339 22.3663C21.122 22.8545 21.122 23.6458 20.6339 24.1339L16.8838 27.884C16.6494 28.1184 16.3315 28.2502 16 28.2502C15.6685 28.2502 15.3506 28.1184 15.1162 27.884L11.3661 24.1339C10.878 23.6458 10.878 22.8545 11.3661 22.3663C11.8543 21.8781 12.6456 21.8781 13.1337 22.3663L14.75 23.9826V18.25Z"/></g></svg></div>
+<figcaption>para çek</figcaption>
+</figure>
+<figure class="cell deposit" style="--d: 360ms">
+<div class="tile"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path class="tray" fill="#5D3EBC" d="M23 4C24.6568 4 25.9999 5.34326 26 7V9C26 9.55228 25.5523 10 25 10C24.4477 10 24 9.55228 24 9V7C23.9999 6.44783 23.5522 6 23 6H9C8.4478 6 8.00013 6.44783 8 7V9C8 9.55228 7.55228 10 7 10C6.44772 10 6 9.55228 6 9V7C6.00013 5.34326 7.34323 4 9 4H23Z"/>
+<clipPath id="dp-note"><rect x="0" y="6" width="32" height="30"/></clipPath>
+<g clip-path="url(#dp-note)"><path class="note" fill="#5D3EBC" fill-rule="evenodd" d="M9 -6H23V12C23 13.6569 21.6569 15 20 15H12C10.3431 15 9 13.6569 9 12V-6ZM12 6A4 4 0 1 0 20 6A4 4 0 1 0 12 6ZM14 6A2 2 0 1 0 18 6A2 2 0 1 0 14 6Z"/></g>
+<path class="arrow" fill="#5D3EBC" d="M17.25 27C17.25 27.6903 16.6904 28.25 16 28.25C15.3096 28.25 14.75 27.6903 14.75 27L14.75 21.2674L13.1337 22.8837C12.6456 23.3719 11.8543 23.3719 11.3661 22.8837C10.878 22.3955 10.878 21.6042 11.3661 21.1161L15.1162 17.366C15.3506 17.1316 15.6685 16.9998 16 16.9998C16.3315 16.9998 16.6494 17.1316 16.8838 17.366L20.6339 21.1161C21.122 21.6042 21.122 22.3955 20.6339 22.8837C20.1457 23.3719 19.3544 23.3719 18.8663 22.8837L17.25 21.2674L17.25 27Z"/></svg></div>
+<figcaption>para yatır</figcaption>
+</figure>
+</div>
+<div class="controls">
+  <button id="replay" type="button">replay</button>
+  <button id="slow" type="button" aria-pressed="false">slow 4×</button>
+</div>
+<div class="phone-slot stage">
+  <div class="phone" role="img" aria-label="The karekod sheet in the GetirFinans app rising over the dimmed dashboard, its three icons animating as it lands">
+    <img class="dash" src="assets/dashboard.webp" alt="" width="375" height="432">
+    <div class="sheet">
+      <img src="assets/sheet.webp" alt="" width="375" height="380">
+<div class="stile qr" style="--d: 200ms; top: 92px"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g class="corners" fill="none" stroke="#5D3EBC" stroke-width="2" stroke-linecap="round">
+<path class="c c1" pathLength="1" d="M12 6H8C6.89543 6 6 6.89543 6 8V12"/>
+<path class="c c2" pathLength="1" d="M20 6H24C25.1046 6 26 6.89543 26 8V12"/>
+<path class="c c3" pathLength="1" d="M12 26H8C6.89543 26 6 25.1046 6 24V20"/>
+</g>
+<path class="ring" fill="#5D3EBC" fill-rule="evenodd" clip-rule="evenodd" d="M16 22C19.3137 22 22 19.3137 22 16C22 12.6863 19.3137 10 16 10C12.6863 10 10 12.6863 10 16C10 19.3137 12.6863 22 16 22ZM18.7803 15.0303C19.0732 14.7374 19.0732 14.2626 18.7803 13.9697C18.4874 13.6768 18.0126 13.6768 17.7197 13.9697L15.25 16.4393L14.2803 15.4697C13.9874 15.1768 13.5126 15.1768 13.2197 15.4697C12.9268 15.7626 12.9268 16.2374 13.2197 16.5303L14.7197 18.0303C15.0126 18.3232 15.4874 18.3232 15.7803 18.0303L18.7803 15.0303Z"/>
+<g fill="#5D3EBC">
+<rect class="q q1" x="20.9" y="21.7266" width="2.55" height="2.55"/>
+<path class="q q2" d="M18.3501 24.2734H20.9001V26.8234H18.7751C18.5404 26.8234 18.3501 26.6332 18.3501 26.3984V24.2734Z"/>
+<path class="q q3" d="M23.4502 19.1719H25.5752C25.8099 19.1719 26.0002 19.3622 26.0002 19.5969V21.7219H23.4502V19.1719Z"/>
+<path class="q q4" d="M23.4502 24.2734H26.0002V26.3984C26.0002 26.6332 25.8099 26.8234 25.5752 26.8234H23.4502V24.2734Z"/>
+</g></svg></div>
+<div class="stile withdraw" style="--d: 280ms; top: 180px"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path class="tray" fill="#5D3EBC" d="M23 4C24.6568 4 25.9999 5.34326 26 7V9C26 9.55228 25.5523 10 25 10C24.4477 10 24 9.55228 24 9V7C23.9999 6.44783 23.5522 6 23 6H9C8.4478 6 8.00013 6.44783 8 7V9C8 9.55228 7.55228 10 7 10C6.44772 10 6 9.55228 6 9V7C6.00013 5.34326 7.34323 4 9 4H23Z"/>
+<clipPath id="s-wd-note"><rect x="0" y="6" width="32" height="30"/></clipPath>
+<g clip-path="url(#s-wd-note)"><path class="note" fill="#5D3EBC" fill-rule="evenodd" d="M9 -6H23V12C23 13.6569 21.6569 15 20 15H12C10.3431 15 9 13.6569 9 12V-6ZM12 6A4 4 0 1 0 20 6A4 4 0 1 0 12 6ZM14 6A2 2 0 1 0 18 6A2 2 0 1 0 14 6Z"/></g>
+<clipPath id="s-wd-clip"><rect x="0" y="15.5" width="32" height="20"/></clipPath>
+<g clip-path="url(#s-wd-clip)"><path class="arrow" fill="#5D3EBC" d="M14.75 18.25C14.75 17.5597 15.3096 17 16 17C16.6904 17 17.25 17.5597 17.25 18.25V23.9826L18.8663 22.3663C19.3544 21.8781 20.1457 21.8781 20.6339 22.3663C21.122 22.8545 21.122 23.6458 20.6339 24.1339L16.8838 27.884C16.6494 28.1184 16.3315 28.2502 16 28.2502C15.6685 28.2502 15.3506 28.1184 15.1162 27.884L11.3661 24.1339C10.878 23.6458 10.878 22.8545 11.3661 22.3663C11.8543 21.8781 12.6456 21.8781 13.1337 22.3663L14.75 23.9826V18.25Z"/></g></svg></div>
+<div class="stile deposit" style="--d: 360ms; top: 276px"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path class="tray" fill="#5D3EBC" d="M23 4C24.6568 4 25.9999 5.34326 26 7V9C26 9.55228 25.5523 10 25 10C24.4477 10 24 9.55228 24 9V7C23.9999 6.44783 23.5522 6 23 6H9C8.4478 6 8.00013 6.44783 8 7V9C8 9.55228 7.55228 10 7 10C6.44772 10 6 9.55228 6 9V7C6.00013 5.34326 7.34323 4 9 4H23Z"/>
+<clipPath id="s-dp-note"><rect x="0" y="6" width="32" height="30"/></clipPath>
+<g clip-path="url(#s-dp-note)"><path class="note" fill="#5D3EBC" fill-rule="evenodd" d="M9 -6H23V12C23 13.6569 21.6569 15 20 15H12C10.3431 15 9 13.6569 9 12V-6ZM12 6A4 4 0 1 0 20 6A4 4 0 1 0 12 6ZM14 6A2 2 0 1 0 18 6A2 2 0 1 0 14 6Z"/></g>
+<path class="arrow" fill="#5D3EBC" d="M17.25 27C17.25 27.6903 16.6904 28.25 16 28.25C15.3096 28.25 14.75 27.6903 14.75 27L14.75 21.2674L13.1337 22.8837C12.6456 23.3719 11.8543 23.3719 11.3661 22.8837C10.878 22.3955 10.878 21.6042 11.3661 21.1161L15.1162 17.366C15.3506 17.1316 15.6685 16.9998 16 16.9998C16.3315 16.9998 16.6494 17.1316 16.8838 17.366L20.6339 21.1161C21.122 21.6042 21.122 22.3955 20.6339 22.8837C20.1457 23.3719 19.3544 23.3719 18.8663 22.8837L17.25 21.2674L17.25 27Z"/></svg></div>
+    </div>
+  </div>
+</div>
+</main>
+<script>
+var root = document.documentElement;
+if (location.hash === "#still") root.classList.add("still");
+var stages = [].slice.call(document.querySelectorAll(".stage"));
+
+// the phone shows at full size, shrinking only when the frame is narrower than it
+function fit() {
+  root.style.setProperty("--s", Math.min(1, (root.clientWidth - 32) / 375).toFixed(3));
+}
+
+fit();
+window.addEventListener("resize", fit);
+
+// Inside an iframe the default root is the top-level viewport, so this fires when the
+// part is actually on screen in the Lab page, not just inside the frame
+var io = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("play");
+    io.unobserve(entry.target);
+  });
+}, { threshold: 0.8 });
+stages.forEach(function (stage) { io.observe(stage); });
+
+function replay() {
+  stages.forEach(function (stage) { stage.classList.add("reset"); });
+  void document.body.offsetWidth;
+  stages.forEach(function (stage) {
+    stage.classList.remove("reset");
+    stage.classList.add("play");
+  });
+}
+document.getElementById("replay").addEventListener("click", replay);
+var slow = document.getElementById("slow");
+slow.addEventListener("click", function () {
+  var on = slow.getAttribute("aria-pressed") !== "true";
+  slow.setAttribute("aria-pressed", String(on));
+  root.style.setProperty("--k", on ? "4" : "1");
+  replay();
+});
+</script>
+</body>
+</html>

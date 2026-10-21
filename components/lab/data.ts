@@ -29,10 +29,31 @@ export type LabItem = {
   /** Live prototype. Present means the thing actually runs. */
   url?: string;
   embed?: string;
+  /** "content": the embed grows to its own height instead of the fixed frame. */
+  embedFit?: "content";
   wip?: boolean;
 };
 
 export const LAB_ITEMS: LabItem[] = [
+  {
+    slug: "qr-code-icons",
+    embed: "/prototypes/qr-code-icons/index.html",
+    embedFit: "content",
+    title: "QR code icons",
+    tag: "motion",
+    date: "oct 2026",
+    summary:
+      "Three icons for the QR code sheet, and the motion that shows what each one does when the sheet opens.",
+    blurb:
+      "The QR code sheet in the GetirFinans app offers three actions: pay at a POS, withdraw cash, deposit cash. I drew one icon for each on a 32px grid, in a single weight with the same rounded caps, so the set reads as one family. The motion lets each icon explain itself. Pay scans: the corners draw on, the check lands, the code squares settle in. Withdraw dispenses: the banknote slides out of the slot and the arrow follows it. Deposit mirrors it: the arrow pushes the banknote up into the slot. The icons start once the sheet is mostly up, 80ms apart, and each finishes inside 600ms. With reduced motion on, the icons fade in and nothing travels.",
+    media: {
+      src: "/images/lab/qr-code-icons.webp",
+      width: 1600,
+      height: 1000,
+      alt: "Three purple icons on light grey circles: a QR scan frame with a check for paying, an ATM slot with a down arrow for withdrawing, and the same slot with an up arrow for depositing",
+    },
+    tint: "#5d3ebc",
+  },
   {
     slug: "flow",
     embed: "/prototypes/flow/index.html",
