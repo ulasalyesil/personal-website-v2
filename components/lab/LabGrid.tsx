@@ -7,7 +7,7 @@ export default function LabGrid({ items }: { items: LabItem[] }) {
   return (
     <ul className={styles.grid}>
       {items.map((item, index) => (
-        <li key={item.slug}>
+        <li key={item.slug} className="enter">
           <LabCard item={item} index={index} />
         </li>
       ))}

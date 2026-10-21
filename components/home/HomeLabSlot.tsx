@@ -175,7 +175,7 @@ export default function HomeLabSlot() {
           const item = LAB_ITEMS.find((entry) => entry.slug === slug);
           if (!item) return null;
           return (
-            <article key={item.slug} className={styles.tile}>
+            <article key={item.slug} className={`enter ${styles.tile}`}>
               <h3 className={styles.label}>
                 LAB-0{index + 1} / {item.slug === "flow" ? "Flow" : item.title}
               </h3>

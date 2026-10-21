@@ -35,7 +35,7 @@ export default function SelectedWork({ pieces }: { pieces: WorkPiece[] }) {
           <Link
             key={piece.slug}
             href={`/${piece.slug}`}
-            className={styles.piece}
+            className={`enter ${styles.piece}`}
             onClick={(e) => {
               triggerHaptic("light");
               if (!isPlainClick(e)) return;

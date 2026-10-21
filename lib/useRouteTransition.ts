@@ -16,6 +16,33 @@ import { useCallback, useEffect, useRef } from "react";
  */
 const SAFETY_MS = 700;
 
+/**
+ * `html[data-routing]` is set from the click until just after the next route
+ * commits. Elements that morph between the two pages (a case study title)
+ * must not also fade themselves in under the morph, and the attribute is what
+ * their CSS keys on: it zeroes their `@starting-style` transition. A transition
+ * that has already finished does not replay when its duration is restored, so
+ * the attribute only has to outlive the new page's first style pass.
+ * `ROUTING_MS` leaves a margin past commit; `FALLBACK_MS` clears it if the
+ * route never commits.
+ */
+const ROUTING_MS = 200;
+const FALLBACK_MS = 8000;
+let routingTimer = 0;
+
+function setRouting(ms: number) {
+  if (!("routing" in document.documentElement.dataset)) return;
+  window.clearTimeout(routingTimer);
+  routingTimer = window.setTimeout(() => {
+    delete document.documentElement.dataset.routing;
+  }, ms);
+}
+
+function markRouting() {
+  document.documentElement.dataset.routing = "";
+  setRouting(FALLBACK_MS);
+}
+
 export function useRouteTransition() {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,6 +52,7 @@ export function useRouteTransition() {
   useEffect(() => {
     settle.current?.();
     settle.current = null;
+    setRouting(ROUTING_MS);
   }, [pathname]);
 
   return useCallback(
@@ -37,6 +65,7 @@ export function useRouteTransition() {
         return;
       }
 
+      markRouting();
       document.startViewTransition(
         () =>
           new Promise<void>((resolve) => {

@@ -6,7 +6,8 @@
   place-items: center;
   padding: 16px;
   background: color-mix(in srgb, var(--color-surface-0) 60%, transparent);
-  animation: keymap-in var(--motion-duration-reveal) ease-out both;
+  /* Opened by a key, so it opens instantly: motion on a keyboard-initiated
+     surface only makes it feel late. */
 }
 
 .panel {
@@ -51,16 +52,4 @@
   font-family: inherit;
   color: var(--color-text-primary);
   border: 1px solid var(--color-border-default);
-}
-
-@keyframes keymap-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scrim {
-    animation: none;
-  }
 }

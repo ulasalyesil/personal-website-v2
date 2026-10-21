@@ -22,7 +22,7 @@ export default function About() {
       <PageIntro title="About" aside="Product designer, Istanbul" />
 
       <section className={`content-container ${styles.body}`} aria-label="Introduction">
-        <aside className={styles.rail}>
+        <aside className={`reveal ${styles.rail}`}>
           <div className={styles.portrait}>
             <Image
               src={picture}
@@ -61,7 +61,7 @@ export default function About() {
           </dl>
         </aside>
 
-        <div className={styles.text}>
+        <div className={`reveal ${styles.text}`}>
           <AboutText />
         </div>
       </section>

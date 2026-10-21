@@ -41,10 +41,21 @@
 }
 
 .visual {
+  --reveal-i: 4;
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 
+/* The visual is the largest paint on the page. It rises with the sequence
+   but never fades: an element at opacity 0 is not "painted" to the browser,
+   so fading it would push the page's LCP by the length of the reveal. */
+@starting-style {
+  .header .visual {
+    opacity: 1;
+  }
+}
+
 .title {
+  --reveal-i: 1;
   max-width: 22ch;
   margin-top: clamp(1.5rem, 3vw, 2rem);
   font-family: var(--font-display);
@@ -57,6 +68,7 @@
 }
 
 .summary {
+  --reveal-i: 2;
   max-width: 52ch;
   margin-top: clamp(1.25rem, 2vw, 1.75rem);
   font-family: var(--font-display);
@@ -67,6 +79,7 @@
 }
 
 .facts {
+  --reveal-i: 3;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem clamp(1rem, 2vw, 2rem);
@@ -104,4 +117,11 @@
   .facts {
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   }
+}
+
+/* Opened from a card or row, the title is carried in by the route morph, so
+   it must not also rise underneath it. Everything around it still does. */
+:global(html[data-routing]) .title {
+  transition-duration: 0s;
+  transition-delay: 0s;
 }

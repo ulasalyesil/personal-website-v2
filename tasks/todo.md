@@ -1,5 +1,19 @@
 # Tasks Todo
 
+## Page reveal (2026-10-20)
+
+Emil Kowalski's skills in order: find-animation-opportunities → animate → review-animations. Vault note: `03-projects/personal-website/2026-10-20-page-reveal.md`.
+
+- [x] Sweep the site for motion seams, gate each candidate, record rejections.
+- [x] Add a CSS-only page reveal: `.reveal` (`@starting-style` transition, 300ms `--ease-out-strong`, 50ms stagger by `--reveal-i`) and `.enter` (scroll-driven `view()` timeline) in globals; frame corners and hero cursors in their own modules.
+- [x] Keep the route morph as the entrance on soft navigation (`html[data-routing]` from `useRouteTransition`).
+- [x] Review the diff against the animation standards; apply findings (duration, tool, reduced motion, keymap fade, CTA wrapper).
+- [x] Verify SSR HTML, per-frame traces with and without reduced motion, soft-nav trace, LCP before and after, typecheck, tests, lint, build.
+
+### Review
+
+Hero, page intro, case-study header and about rail stagger in from `@starting-style` (300ms, 8px, 50ms steps); frame corners scale from their vertices; hero cursors arrive after the text (400ms, stated reason); selected work, lab tiles, kit feature, works rows and lab grid rise as they scroll in. Case-study visual rises without fading so LCP is unaffected. Reduced motion keeps a 200ms fade with no movement. The `?` keymap dialog no longer animates (keyboard-initiated). HTML carries no inline opacity. Soft nav: title opacity stays 1 under the morph, summary rises after commit, flag clears at +200ms with no replay. LCP medians (prod, 4× CPU throttle): home 240 → 232ms, works 296 → 244ms, getirfinans-ai 308 → 312ms. Typecheck, 41 tests, next lint and production build pass; nine touched files were already unformatted at HEAD and were not reformatted. Flagged, not changed: 500ms cover hover in CaseStudyList and NextStudy, built-in ease-out on Button and the compact nav. Motion feel unjudged (headless): check in a visible window before merging. Committed on `site/page-reveal`.
+
 ## Homepage simplicity (2026-10-11)
 
 - [x] Unify homepage labels, spacing, gutters and project media layout.
