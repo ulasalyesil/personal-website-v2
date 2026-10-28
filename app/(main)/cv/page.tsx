@@ -3,6 +3,7 @@ import PageIntro from "@/components/site/PageIntro";
 import JsonLd from "@/components/site/JsonLd";
 import Button from "@/components/ui/Button";
 import { experience } from "@/data/experience";
+import { FREELANCE } from "@/data/freelance";
 import { PROFILE } from "@/data/profile";
 import { CASE_STUDIES } from "@/data/work";
 import { profilePageJsonLd } from "@/lib/structured-data";
@@ -49,8 +50,6 @@ export default function CvPage() {
             </dd>
             <dt>Location</dt>
             <dd>{PROFILE.location.label}</dd>
-            <dt>Open to</dt>
-            <dd>{PROFILE.openTo}</dd>
             <dt>Email</dt>
             <dd>
               <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
@@ -98,6 +97,19 @@ export default function CvPage() {
               ))
             )}
           </ol>
+        </section>
+
+        <section aria-labelledby="cv-freelance">
+          <h2 id="cv-freelance">Freelance</h2>
+          <dl className={styles.facts}>
+            <dt>Since</dt>
+            <dd>{FREELANCE.since}</dd>
+            <dt>Services</dt>
+            <dd>{FREELANCE.services.map((s) => s.name).join(", ")}</dd>
+            <dt>Clients</dt>
+            <dd>{FREELANCE.clients.join(", ")}</dd>
+          </dl>
+          <p>{FREELANCE.lead}</p>
         </section>
 
         <section aria-labelledby="cv-work">

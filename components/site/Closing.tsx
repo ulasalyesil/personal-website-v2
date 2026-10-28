@@ -19,7 +19,7 @@ export default function Closing() {
       <div className="content-container">
         <BlockLabel className={styles.label}>Contact</BlockLabel>
         <p className={styles.lede}>
-          <span aria-hidden>{"// "}</span>Open to remote work and relocation
+          <span aria-hidden>{"// "}</span>Say hello
           <Cursor />
         </p>
         <div className={styles.address}>

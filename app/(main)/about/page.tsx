@@ -3,6 +3,7 @@ import Image from "next/image";
 import PageIntro from "@/components/site/PageIntro";
 import AboutText from "@/components/about/AboutText";
 import WorkExperience from "@/components/WorkExperience";
+import FreelanceCard from "@/components/site/FreelanceCard";
 import { experience } from "@/data/experience";
 import { EMAIL } from "@/lib/constants";
 import picture from "@/public/images/picture.jpeg";
@@ -40,11 +41,7 @@ export default function About() {
             </div>
             <div>
               <dt>Currently</dt>
-              <dd>UI Designer, Design Systems at getirfinans</dd>
-            </div>
-            <div>
-              <dt>Open to</dt>
-              <dd>Remote work and relocation</dd>
+              <dd>Product Designer at Codeway</dd>
             </div>
             <div>
               <dt>Contact</dt>
@@ -66,6 +63,7 @@ export default function About() {
         </div>
       </section>
 
+      <FreelanceCard />
       <WorkExperience items={experience} />
     </>
   );

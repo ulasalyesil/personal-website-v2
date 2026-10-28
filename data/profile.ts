@@ -15,7 +15,6 @@ export const PROFILE = {
   jobTitle: current?.positions[0].title ?? "Product Designer",
   employer: current?.companyName,
   location: { city: "Istanbul", country: "TR", label: "Istanbul, Türkiye" },
-  openTo: "Remote work and relocation",
   /** The downloadable CV. Replace the file in public/ to update it; the name stays. */
   cvPdf: "/ulas-alyesil-cv.pdf",
   email: EMAIL,

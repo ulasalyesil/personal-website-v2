@@ -20,8 +20,8 @@ export default function Hero() {
       <div className={styles.body}>
         <p className={`reveal ${styles.statement}`}>I design products and prototype how they behave.</p>
         <p className={`reveal ${styles.now}`}>
-          At GetirFinans, I work across fintech and AI, from product decisions
-          to SwiftUI builds.
+          Now at Codeway. Before that, fintech and AI at GetirFinans, from
+          product decisions to SwiftUI builds.
         </p>
         {/* The link keeps its own press transition, so the reveal rides a
             wrapper: a transition's delay outlives the entrance, and the
@@ -36,7 +36,7 @@ export default function Hero() {
       <div className={styles.foot}>
         <p className={`reveal ${styles.comment}`}>
           <span aria-hidden>{"// "}</span>
-          Open to remote work and relocation
+          Based in Istanbul
         </p>
       </div>
     </section>

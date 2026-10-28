@@ -2,14 +2,29 @@ import type { ExperienceItem } from "@/types";
 
 export const experience: ExperienceItem[] = [
   {
+    id: "codeway",
+    companyName: "Codeway",
+    isCurrentEmployer: true,
+    positions: [
+      {
+        id: "codeway-product-designer",
+        title: "Product Designer",
+        employmentPeriod: "December 2026 — Present",
+        employmentType: "Full-time",
+        description:
+          "Product design for Retake, the AI photo app in Wishlabs, Codeway's AI creativity company. Retake runs on in-house models that improve a photo while keeping the face the user's own.",
+      },
+    ],
+  },
+  {
     id: "getirfinans",
     companyName: "getirfinans",
-    isCurrentEmployer: true,
+    isCurrentEmployer: false,
     positions: [
       {
         id: "getir-product-designer",
         title: "UI Designer, Design Systems",
-        employmentPeriod: "November 2025 — Present",
+        employmentPeriod: "November 2025 — December 2026",
         employmentType: "Full-time",
         description:
           "Lead the design system for a BaaS fintech: two-tier tokens for color, spacing, radius and size, app-wide dark mode, published components with property contracts, and audits that keep Figma and production code in step. Designed the AI assistant end to end, conversation UI, thinking states, and motion.",
@@ -30,21 +45,6 @@ export const experience: ExperienceItem[] = [
         description:
           "End-to-end product design for a U.S. health-insurance platform: brand identity, visual language, marketing site, onboarding, and core flows, taken from zero to a market-ready product. Integrated generative AI to support adaptable forms and recommendations.",
         skills: ["Product Design", "Design Systems", "Figma", "AI/UX", "User Research"],
-      },
-    ],
-  },
-  {
-    id: "freelance",
-    companyName: "Freelance",
-    positions: [
-      {
-        id: "freelance-designer",
-        title: "Product Designer & Developer",
-        employmentPeriod: "2023 — Present",
-        employmentType: "Freelance",
-        description:
-          "Working with early-stage startups and creative agencies on product design, web development, and brand identity. Clients include Good Afternoon Creative and Full Spectrum Insights.",
-        skills: ["Product Design", "Web Development", "Next.js", "Brand Identity"],
       },
     ],
   },
