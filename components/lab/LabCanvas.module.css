@@ -1,0 +1,152 @@
+/* What is left of the first screen under the header and the intro. The
+   board fills it edge to edge, so it lines up with the intro and the page
+   column; the 16 × 9 cells flex a little off square to do that, which the
+   tiles absorb (covers crop, phones letterbox). */
+.viewport {
+  height: calc(100svh - var(--site-header-height) - var(--lab-intro-height));
+  min-height: 420px;
+  padding-block: var(--space-24);
+}
+
+.artboard {
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+/* Graph paper: one hairline per cell, the coordinate system made visible. */
+.artboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--color-border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border-subtle) 1px, transparent 1px);
+  background-size: calc(100% / 16) calc(100% / 9);
+  opacity: 0.6;
+}
+
+.artboard[data-grid]::before {
+  background-image:
+    linear-gradient(to right, var(--color-border-default) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border-default) 1px, transparent 1px);
+  opacity: 1;
+}
+
+.tiles {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  grid-template-rows: repeat(9, minmax(0, 1fr));
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  min-width: 0;
+  min-height: 0;
+  padding: 6px;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+/* Cells drift off square with the viewport, so the phone fits whichever of
+   its tile's width or height runs out first, instead of taking its width from
+   the height alone and spilling into the neighbours on tall screens. It sits
+   on its label, left edges aligned. */
+.tile[data-size="phone"] .media {
+  container-type: size;
+  justify-content: flex-start;
+  align-items: flex-end;
+  overflow: visible;
+  border-radius: 0;
+  filter: drop-shadow(0 10px 12px rgb(0 0 0 / 0.2));
+}
+
+.phone {
+  display: block;
+  height: min(100cqh, 100cqw * 2760 / 1350);
+  aspect-ratio: 1350 / 2760;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date {
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.tile[data-size="phone"] .label {
+  flex-direction: column;
+  gap: 4px;
+}
+
+.coord {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 2;
+  padding: 0.125rem 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-primary);
+  background: var(--color-surface-0);
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
