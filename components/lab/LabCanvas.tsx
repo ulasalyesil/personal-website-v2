@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import StageField from "@/components/stage/StageField";
+import { Caption, Marks } from "@/components/hud";
 import DeviceFrame from "./DeviceFrame";
 import { rememberGallery } from "./LabNavigation";
 import { PLACEMENT, TILE, type Placement } from "./placement";
@@ -46,6 +47,20 @@ function Tile({ item, place, grid }: { item: LabItem; place: Placement; grid: bo
   const { w, h } = TILE[place.size];
   const still = item.media.poster ?? item.media.src;
   const loop = item.media.video && !failed ? item.media.video : undefined;
+
+  // Hover and keyboard focus select the tile, the way a canvas tool would:
+  // corners around the thing, and a caption stating what kind of thing it
+  // is. Status joins it only where Ulaş has set one.
+  const selection = (
+    <>
+      <Marks kind="select" className={styles.select} />
+      <Caption className={styles.caption}>
+        {item.status !== item.tag && item.tag}
+        {item.status && item.status !== item.tag && " · "}
+        {item.status && <>Status [{item.status}]</>}
+      </Caption>
+    </>
+  );
 
   // Loops play on their own while the tile is on screen and the tab is
   // visible. Under reduced motion they rest on the poster and play on hover.
@@ -92,6 +107,7 @@ function Tile({ item, place, grid }: { item: LabItem; place: Placement; grid: bo
       }}
     >
       <Link
+        id={`lab-canvas-${item.slug}`}
         href={`/lab/${item.slug}`}
         className={styles.tile}
         data-size={place.size}
@@ -113,6 +129,7 @@ function Tile({ item, place, grid }: { item: LabItem; place: Placement; grid: bo
                 label={item.media.alt}
                 onError={() => setFailed(true)}
               />
+              {selection}
             </span>
           ) : loop ? (
             <video
@@ -136,10 +153,12 @@ function Tile({ item, place, grid }: { item: LabItem; place: Placement; grid: bo
               className={styles.image}
             />
           )}
+          {place.size !== "phone" && selection}
         </span>
         <span className={styles.label}>
           <span className={styles.title}>{item.title}</span>
           <span className={styles.date}>{item.date}</span>
+          {item.status && <span className={styles.hidden}>, {item.status}</span>}
         </span>
         {grid && (
           <span className={styles.coord} aria-hidden>
