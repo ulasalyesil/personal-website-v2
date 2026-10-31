@@ -1,5 +1,7 @@
 import LabGrid from "@/components/lab/LabGrid";
 import LabCanvas from "@/components/lab/LabCanvas";
+import LabIndex from "@/components/lab/LabIndex";
+import LabViewToggle, { LAB_VIEW_SCRIPT } from "@/components/lab/LabViewToggle";
 import { LAB_ITEMS } from "@/components/lab/data";
 import { GalleryRestore } from "@/components/lab/LabNavigation";
 import styles from "@/components/lab/Lab.module.css";
@@ -13,6 +15,7 @@ export const metadata = {
 export default function LabPage() {
   return (
     <div className={styles.labBody}>
+      <script dangerouslySetInnerHTML={{ __html: LAB_VIEW_SCRIPT }} />
       <header className={styles.intro}>
         <div className={`content-container ${styles.introRow}`}>
           <h1 className={`reveal ${styles.introTitle}`}>
@@ -23,11 +26,16 @@ export default function LabPage() {
           </h1>
           <p className={styles.introLede}>Interaction studies, prototypes, and visual experiments.</p>
           <p className={styles.introCount}>{LAB_ITEMS.length} entries</p>
+          <LabViewToggle />
         </div>
       </header>
 
       <div className={`content-container ${styles.canvasOnly}`}>
         <LabCanvas items={LAB_ITEMS} />
+      </div>
+
+      <div className={`content-container ${styles.indexOnly}`}>
+        <LabIndex items={LAB_ITEMS} />
       </div>
 
       <div className={`content-container ${styles.page} ${styles.feedOnly}`}>

@@ -6,7 +6,7 @@ import { isPlainClick } from "@/lib/useRouteTransition";
 
 // Only a gallery visit in this page session owns a return position. A direct
 // load or new tab starts fresh instead of inheriting an old sessionStorage key.
-let position: { slug: string; y: number } | undefined;
+let position: { slug: string; y: number; search: string } | undefined;
 let returning = false;
 
 // Browser Back returns to the gallery too, so it restores focus the same way.
@@ -17,13 +17,13 @@ if (typeof window !== "undefined") {
 }
 
 export function rememberGallery(slug: string) {
-  position = { slug, y: window.scrollY };
+  position = { slug, y: window.scrollY, search: window.location.search };
 }
 
 export function BackToLab() {
   return (
     <Link
-      href="/lab"
+      href={`/lab${position?.search ?? ""}`}
       onClick={(event) => {
         if (isPlainClick(event)) returning = true;
       }}
@@ -34,8 +34,8 @@ export function BackToLab() {
 }
 
 /**
- * Focus goes back to the tile that was opened: on the canvas on desktop, in
- * the feed on phones, whichever is rendered.
+ * Focus goes back to the item that was opened: on the canvas or the index on
+ * desktop, in the feed on phones, whichever is rendered.
  */
 export function GalleryRestore() {
   useEffect(() => {
@@ -44,7 +44,7 @@ export function GalleryRestore() {
     const frame = requestAnimationFrame(() => {
       returning = false;
       position = undefined;
-      [`lab-canvas-${saved.slug}`, `lab-${saved.slug}`]
+      [`lab-canvas-${saved.slug}`, `lab-index-${saved.slug}`, `lab-${saved.slug}`]
         .map((id) => document.getElementById(id))
         .find((el) => el && el.getClientRects().length > 0)
         ?.focus({ preventScroll: true });

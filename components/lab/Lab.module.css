@@ -51,6 +51,9 @@
 .canvasOnly {
   display: none;
 }
+.indexOnly {
+  display: none;
+}
 @media (min-width: 900px) {
   .canvasOnly {
     display: block;
@@ -58,6 +61,53 @@
   .feedOnly {
     display: none;
   }
+  :global(html[data-lab-view="index"]) .canvasOnly {
+    display: none;
+  }
+  :global(html[data-lab-view="index"]) .indexOnly {
+    display: block;
+  }
+}
+
+/* Canvas / Index, in the nav's bracket grammar: the current one keeps its
+   brackets. Desktop only; phones get the feed. */
+.toggle {
+  display: none;
+}
+@media (min-width: 900px) {
+  .toggle {
+    display: flex;
+    gap: 0.25rem;
+  }
+}
+.toggleOption {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 32px;
+  padding: 0 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+.toggleOption:hover,
+.toggleOption[aria-pressed="true"] {
+  color: var(--color-text-primary);
+}
+.toggleBracket {
+  opacity: 0;
+}
+.toggleOption[aria-pressed="true"] .toggleBracket {
+  opacity: 1;
+}
+.toggleOption:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 @media (max-width: 899px) {
   .introRow {

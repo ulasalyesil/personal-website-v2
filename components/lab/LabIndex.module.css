@@ -1,0 +1,73 @@
+/* Rows on the experience list's terms: hairline rules, mono metadata, the
+   title in the display face. The intro's rule is the list's top edge. */
+.list {
+  margin: 0 0 clamp(56px, 8vw, 112px);
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) 9rem 8rem 1.5rem;
+  gap: 1rem;
+  align-items: baseline;
+  min-height: 64px;
+  padding: 1.25rem 0;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.date,
+.tag,
+.status,
+.arrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  color: var(--color-text-tertiary);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: color 150ms ease;
+}
+
+.tag,
+.status {
+  color: var(--color-text-secondary);
+}
+
+.arrow {
+  justify-self: end;
+  color: var(--color-text-tertiary);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.row:hover .title,
+.row:focus-visible .title {
+  color: var(--color-brand);
+}
+
+.row:hover .arrow,
+.row:focus-visible .arrow {
+  opacity: 1;
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
