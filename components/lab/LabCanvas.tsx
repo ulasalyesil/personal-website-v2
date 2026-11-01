@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import StageField from "@/components/stage/StageField";
 import { Caption, Marks } from "@/components/hud";
 import DeviceFrame from "./DeviceFrame";
 import { rememberGallery } from "./LabNavigation";
@@ -14,9 +13,8 @@ import styles from "./LabCanvas.module.css";
 
 /**
  * Every lab item on one screen: a board of 16 × 9 cells filling what is left
- * under the intro. One shared field sits behind the whole board instead of
- * one per tile. `?grid` draws the cells and each tile's coordinates, for
- * tuning placements.
+ * under the intro, on graph paper and nothing else. `?grid` draws the cells
+ * and each tile's coordinates, for tuning placements.
  */
 export default function LabCanvas({ items }: { items: LabItem[] }) {
   const [grid, setGrid] = useState(false);
@@ -28,7 +26,6 @@ export default function LabCanvas({ items }: { items: LabItem[] }) {
   return (
     <div className={styles.viewport}>
       <div className={styles.artboard} data-grid={grid || undefined}>
-        <StageField seed="lab-canvas" tint="#4a4a7d" />
         <ul className={styles.tiles}>
           {readingOrder(items).map((item) => (
             <Tile key={item.slug} item={item} place={PLACEMENT[item.slug]} grid={grid} />
