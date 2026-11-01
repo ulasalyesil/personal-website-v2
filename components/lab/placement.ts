@@ -5,6 +5,8 @@
  * intro, so a placement means the same thing at every desktop size.
  * Plan: vault `03-projects/personal-website/lab/2026-10-29-lab-one-screen-plan.md`.
  */
+import type { LabItem } from "./data";
+
 export const ARTBOARD = { cols: 16, rows: 9 } as const;
 
 export type TileSize = "lg" | "md" | "phone";
@@ -34,3 +36,16 @@ export const PLACEMENT: Composition = {
   "pre-approval-concept": { size: "md", col: 5, row: 8 },
   "dark-mode": { size: "md", col: 9, row: 8 },
 };
+
+/**
+ * Items in the order the board is read, top to bottom, then left to right,
+ * so Tab walks the composition instead of the data. Grid lines place each
+ * tile, so the DOM order changes nothing visually.
+ */
+export function readingOrder(items: LabItem[], composition: Composition = PLACEMENT) {
+  return [...items].sort((a, b) => {
+    const pa = composition[a.slug];
+    const pb = composition[b.slug];
+    return pa.row - pb.row || pa.col - pb.col;
+  });
+}

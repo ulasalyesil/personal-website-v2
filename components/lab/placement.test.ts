@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { LAB_ITEMS } from "./data";
-import { ARTBOARD, PLACEMENT as composition, TILE } from "./placement";
+import { ARTBOARD, PLACEMENT as composition, TILE, readingOrder } from "./placement";
 
 describe("lab placement", () => {
   it("places every lab item, and nothing else", () => {
@@ -44,6 +44,14 @@ describe("lab placement", () => {
   it("gives phone recordings, and only them, a phone tile", () => {
     for (const item of LAB_ITEMS) {
       expect(composition[item.slug].size === "phone", item.slug).toBe(item.media.device === "iphone");
+    }
+  });
+
+  it("orders tiles for Tab top to bottom, then left to right", () => {
+    const order = readingOrder(LAB_ITEMS).map((i) => composition[i.slug]);
+    for (let i = 1; i < order.length; i++) {
+      const [a, b] = [order[i - 1], order[i]];
+      expect(a.row < b.row || (a.row === b.row && a.col < b.col)).toBe(true);
     }
   });
 });

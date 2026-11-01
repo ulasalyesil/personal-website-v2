@@ -7,7 +7,7 @@ import StageField from "@/components/stage/StageField";
 import { Caption, Marks } from "@/components/hud";
 import DeviceFrame from "./DeviceFrame";
 import { rememberGallery } from "./LabNavigation";
-import { PLACEMENT, TILE, type Placement } from "./placement";
+import { PLACEMENT, TILE, readingOrder, type Placement } from "./placement";
 import { isPlainClick } from "@/lib/useRouteTransition";
 import type { LabItem } from "./data";
 import styles from "./LabCanvas.module.css";
@@ -30,7 +30,7 @@ export default function LabCanvas({ items }: { items: LabItem[] }) {
       <div className={styles.artboard} data-grid={grid || undefined}>
         <StageField seed="lab-canvas" tint="#4a4a7d" />
         <ul className={styles.tiles}>
-          {items.map((item) => (
+          {readingOrder(items).map((item) => (
             <Tile key={item.slug} item={item} place={PLACEMENT[item.slug]} grid={grid} />
           ))}
         </ul>
