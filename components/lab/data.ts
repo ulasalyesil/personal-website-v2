@@ -32,6 +32,9 @@ export type LabItem = {
   /** "content": the embed grows to its own height instead of the fixed frame. */
   embedFit?: "content";
   wip?: boolean;
+  /** Shipped in a product, a working prototype, or a concept. Set per item
+   *  by Ulaş; the canvas shows it once every item has one. */
+  status?: "shipped" | "prototype" | "concept";
 };
 
 export const LAB_ITEMS: LabItem[] = [
@@ -131,6 +134,7 @@ export const LAB_ITEMS: LabItem[] = [
   },
   {
     slug: "pre-approval-concept",
+    status: "concept",
     title: "Pre-approval concept",
     tag: "concept",
     date: "sep 2026",
@@ -208,6 +212,7 @@ export const LAB_ITEMS: LabItem[] = [
   },
   {
     slug: "dark-mode",
+    status: "shipped",
     title: "Dark mode",
     tag: "system",
     date: "feb 2026",

@@ -28,7 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    // The lab sets data-lab-view on <html> before hydration, so a linked
+    // index view does not flash the canvas; see LabViewToggle.
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-surface-0 text-text-primary antialiased">
         <a
           href="#main-content"
