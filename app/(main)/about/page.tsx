@@ -29,7 +29,7 @@ export default function About() {
               src={picture}
               alt="Ulaş Alyeşil"
               fill
-              sizes="(max-width: 900px) 60vw, 25vw"
+              sizes="(max-width: 899px) 9rem, 25vw"
               priority
               className={styles.photo}
             />

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { LabItem } from "./data";
+import { posterSrc } from "@/lib/poster";
 import LabStage from "./LabStage";
 import styles from "./Lab.module.css";
 
@@ -14,7 +15,7 @@ export default function LabMedia({ item }: { item: LabItem }) {
         <video
           key={item.slug}
           src={item.media.video}
-          poster={item.media.poster ?? item.media.src}
+          poster={posterSrc(item.media.poster ?? item.media.src)}
           controls
           muted
           playsInline

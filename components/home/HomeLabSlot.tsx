@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import DeviceFrame from "@/components/lab/DeviceFrame";
 import { LAB_ITEMS, type LabItem } from "@/components/lab/data";
+import { posterSrc } from "@/lib/poster";
+import { useNearViewport } from "@/lib/useNearViewport";
 import styles from "./HomeLabSlot.module.css";
 
 const TILE_SLUGS = ["flow", "brand-layers", "campaigns"];
@@ -11,9 +13,12 @@ const TILE_SLUGS = ["flow", "brand-layers", "campaigns"];
 function Recording({
   item,
   automatic = false,
+  eager = false,
 }: {
   item: LabItem;
   automatic?: boolean;
+  /** Ship the poster in the HTML; the rest load as they near the screen. */
+  eager?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -22,6 +27,8 @@ function Recording({
   const [reduced, setReduced] = useState(true);
   const [paused, setPaused] = useState(false);
   const [error, setError] = useState("");
+  const near = useNearViewport(frameRef, eager);
+  const poster = near && item.media.poster ? posterSrc(item.media.poster) : undefined;
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -105,7 +112,7 @@ function Recording({
             <DeviceFrame
               ref={videoRef}
               src={posterOnly ? undefined : item.media.video}
-              poster={item.media.poster}
+              poster={poster}
               label={item.media.alt}
               onError={() =>
                 setError(
@@ -119,7 +126,7 @@ function Recording({
             ref={videoRef}
             className={styles.video}
             src={posterOnly ? undefined : item.media.video}
-            poster={item.media.poster}
+            poster={poster}
             aria-label={item.media.alt}
             muted
             playsInline
@@ -179,7 +186,7 @@ export default function HomeLabSlot() {
               <h3 className={styles.label}>
                 LAB-0{index + 1} / {item.slug === "flow" ? "Flow" : item.title}
               </h3>
-              <Recording item={item} automatic />
+              <Recording item={item} automatic eager={index === 0} />
             </article>
           );
         })}

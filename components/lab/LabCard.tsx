@@ -7,6 +7,8 @@ import LabStage from "./LabStage";
 import DeviceFrame from "./DeviceFrame";
 import { rememberGallery } from "./LabNavigation";
 import { isPlainClick } from "@/lib/useRouteTransition";
+import { posterSrc } from "@/lib/poster";
+import { useNearViewport } from "@/lib/useNearViewport";
 import type { LabItem } from "./data";
 import styles from "./LabCard.module.css";
 
@@ -20,6 +22,9 @@ export default function LabCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
   const inDevice = item.media.device === "iphone";
+  // The first row matches the `priority` images: its posters ship in the HTML.
+  const near = useNearViewport(videoRef, index < 2);
+  const poster = near ? posterSrc(item.media.poster ?? item.media.src) : undefined;
   const stop = () => {
     const video = videoRef.current;
     if (video) {
@@ -77,7 +82,7 @@ export default function LabCard({
               <DeviceFrame
                 ref={videoRef}
                 src={item.media.video}
-                poster={item.media.poster ?? item.media.src}
+                poster={poster}
                 label={item.media.alt}
                 onError={() => setFailed(true)}
               />
@@ -86,7 +91,7 @@ export default function LabCard({
             <video
               ref={videoRef}
               src={item.media.video}
-              poster={item.media.poster ?? item.media.src}
+              poster={poster}
               muted
               loop
               playsInline
