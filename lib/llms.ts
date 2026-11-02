@@ -1,5 +1,6 @@
 import { LAB_ITEMS } from "@/components/lab/data";
 import { experience } from "@/data/experience";
+import { FREELANCE } from "@/data/freelance";
 import { PROFILE, SITE_URL } from "@/data/profile";
 import { CASE_STUDIES } from "@/data/work";
 
@@ -12,7 +13,7 @@ export function buildLlmsTxt(): string {
   const lines = [
     `# ${PROFILE.name}`,
     "",
-    `> ${PROFILE.jobTitle}${PROFILE.employer ? ` at ${PROFILE.employer}` : ""}. ${PROFILE.location.label}. Open to: ${PROFILE.openTo.toLowerCase()}.`,
+    `> ${PROFILE.jobTitle}${PROFILE.employer ? ` at ${PROFILE.employer}` : ""}. ${PROFILE.location.label}.`,
     "",
     `- Email: ${PROFILE.email}`,
     `- Languages: ${PROFILE.languages.map((l) => `${l.name} (${l.level})`).join(", ")}`,
@@ -28,6 +29,12 @@ export function buildLlmsTxt(): string {
           `- ${p.title}, ${company.companyName} (${p.employmentPeriod}${p.employmentType ? `, ${p.employmentType.toLowerCase()}` : ""})${p.description ? `: ${p.description}` : ""}`
       )
     ),
+    "",
+    "## Freelance",
+    "",
+    `${FREELANCE.lead} ${FREELANCE.status}, since ${FREELANCE.since}. Clients: ${FREELANCE.clients.join(", ")}.`,
+    "",
+    ...FREELANCE.services.map((s) => `- ${s.name}: ${s.line}`),
     "",
     "## Case studies",
     "",

@@ -1,0 +1,323 @@
+.section {
+  padding-top: clamp(4rem, 10vw, 8rem);
+}
+
+/* No box of its own: a padded box shifts every column inside it. The
+   corner marks sit on the content edges, as on the page intro, so the card
+   is set on the page grid itself. */
+.card {
+  position: relative;
+  --hud-inset: 0px;
+  --mark-size: 12px;
+  --hud-line: var(--color-text-tertiary);
+  display: grid;
+  gap: var(--space-32);
+  padding-block: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.heading {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.375rem;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  background: color-mix(in srgb, var(--color-brand) 12%, transparent);
+  color: var(--color-text-primary);
+}
+
+/* Still on purpose: the caret is the only thing on the site that moves on
+   its own. */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-brand);
+}
+
+.since {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-32);
+}
+
+.lead {
+  max-width: 34ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+.services {
+  display: grid;
+  gap: var(--space-24) var(--space-32);
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-24);
+}
+
+/* A service with a project behind it is a link: on hover it takes a
+   selection, the name goes to brand, and the project peeks in. */
+.service {
+  position: relative;
+  display: block;
+  padding: 0.75rem;
+  margin: -0.75rem;
+  border-radius: 2px;
+}
+
+.itemMarks {
+  --hud-inset: 0px;
+  --mark-size: 8px;
+  --hud-line: var(--color-text-tertiary);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 150ms ease;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-primary);
+}
+
+.line {
+  margin-top: 0.375rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+  transition: color 150ms ease;
+}
+
+.arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 150ms ease,
+    transform 200ms var(--ease-out-strong);
+}
+
+.soon {
+  padding: 0 0.375rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 2px;
+  font-size: 0.6875rem;
+  line-height: 1.125rem;
+  color: var(--color-text-tertiary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.service:hover .itemMarks {
+    opacity: 1;
+  }
+  a.service:hover .name {
+    color: var(--color-brand);
+  }
+  a.service:hover .line {
+    color: var(--color-text-primary);
+  }
+  a.service:hover .arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+a.service:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+a.service:focus-visible .arrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── Peek ───
+   Pinned bottom right, like the about statement's previews. */
+
+.peek {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  width: 320px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: 12px;
+  background: var(--color-surface-1);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.25);
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 220ms var(--ease-out-strong);
+}
+
+@starting-style {
+  .peek {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.peekMedia {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--color-surface-2);
+}
+
+.peekImage {
+  object-fit: cover;
+}
+
+.peekText {
+  padding: 0.875rem 1rem 1rem;
+}
+
+.peekTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.peekNote {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.peekHost {
+  margin-top: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+@media (hover: none) {
+  .peek {
+    display: none;
+  }
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-16);
+}
+
+.clients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+}
+
+.clientsLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  color: var(--color-text-tertiary);
+  line-height: 1.6rem;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 44px;
+  margin-right: -0.25rem;
+  padding: 0 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-brand);
+  transition: opacity 150ms ease;
+}
+
+.cta:active {
+  opacity: 0.7;
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* The about page's two lines: labels under the portrait rail (1 to 3),
+   reading text from column 5, the same column as the bio and the roles. */
+@media (min-width: 900px) {
+  .card {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 2rem);
+  }
+  .head {
+    grid-column: 1 / span 3;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .body {
+    grid-column: 5 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .itemMarks,
+  .name,
+  .line,
+  .arrow,
+  .peek {
+    transition: none;
+  }
+}
