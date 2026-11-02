@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { getImageProps } from "next/image";
 
 /**
@@ -9,4 +10,16 @@ import { getImageProps } from "next/image";
  */
 export function posterSrc(src: string): string {
   return getImageProps({ src, alt: "", fill: true }).props.src;
+}
+
+/**
+ * The same frame as a CSS background, for a video its box sizes with
+ * `object-fit: cover`. A background is fetched only for an element that
+ * renders, so a video inside a view hidden with `display: none` (the Lab
+ * canvas on a phone) costs nothing, where a `poster` attribute downloads
+ * regardless. Center and cover are what `object-fit: cover` does to a
+ * poster, so the frame lands where it did.
+ */
+export function posterBackground(url?: string): CSSProperties | undefined {
+  return url ? { background: `center / cover no-repeat url("${url}")` } : undefined;
 }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Peek from "@/components/site/Peek";
 import { rememberGallery } from "./LabNavigation";
 import { isPlainClick } from "@/lib/useRouteTransition";
+import { posterSrc } from "@/lib/poster";
 import type { LabItem } from "./data";
 import styles from "./LabIndex.module.css";
 
@@ -85,7 +86,7 @@ function PeekMedia({ item, motion }: { item: LabItem; motion: boolean }) {
   const still = media.poster ?? media.src;
 
   return media.video && motion ? (
-    <video src={media.video} poster={still} autoPlay muted loop playsInline style={fit} />
+    <video src={media.video} poster={posterSrc(still)} autoPlay muted loop playsInline style={fit} />
   ) : (
     <Image src={still} alt="" fill sizes="320px" style={fit} />
   );

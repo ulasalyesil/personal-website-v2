@@ -8,6 +8,7 @@ import DeviceFrame from "./DeviceFrame";
 import { rememberGallery } from "./LabNavigation";
 import { PLACEMENT, TILE, readingOrder, type Placement } from "./placement";
 import { isPlainClick } from "@/lib/useRouteTransition";
+import { posterBackground, posterSrc } from "@/lib/poster";
 import type { LabItem } from "./data";
 import styles from "./LabCanvas.module.css";
 
@@ -122,7 +123,7 @@ function Tile({ item, place, grid }: { item: LabItem; place: Placement; grid: bo
               <DeviceFrame
                 ref={videoRef}
                 src={loop}
-                poster={still}
+                poster={posterSrc(still)}
                 label={item.media.alt}
                 onError={() => setFailed(true)}
               />
@@ -132,7 +133,7 @@ function Tile({ item, place, grid }: { item: LabItem; place: Placement; grid: bo
             <video
               ref={videoRef}
               src={loop}
-              poster={still}
+              style={posterBackground(posterSrc(still))}
               muted
               loop
               playsInline

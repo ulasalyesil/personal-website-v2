@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import { posterBackground } from "@/lib/poster";
 
 /**
  * A raw screen recording sitting inside the real device bezel.
@@ -42,7 +43,6 @@ const DeviceFrame = forwardRef<HTMLVideoElement, Props>(function DeviceFrame(
       <video
         ref={ref}
         src={src}
-        poster={poster}
         muted
         loop
         playsInline
@@ -50,7 +50,7 @@ const DeviceFrame = forwardRef<HTMLVideoElement, Props>(function DeviceFrame(
         onError={onError}
         aria-label={label}
         className="absolute object-cover"
-        style={{ ...SCREEN, borderRadius: "6%/2.8%" }}
+        style={{ ...SCREEN, borderRadius: "6%/2.8%", ...posterBackground(poster) }}
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
