@@ -71,6 +71,17 @@
   grid-column: 1 / -1;
 }
 
+/* The statement is the largest paint on the page. It rises with the
+   sequence but never fades, like the case-study visual: an element at
+   opacity 0 is not "painted" to the browser, so the fade pushed LCP to the
+   end of the reveal (450ms locally, and every prefetch that landed by then
+   counted against it). */
+@starting-style {
+  .body .text {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 359px) {
   .rail {
     grid-template-columns: 1fr;
